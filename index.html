@@ -13,6 +13,11 @@
             font-weight: bold;
         }
 
+        @font-face {
+            font-family: 'Foundry';
+            src: url(assets/fonts/Foundry_Gridnik_W03_ExtraBold.ttf);
+        }
+
         #page-container {
             display: grid;
             grid-template: 1080px 1080px/1920px 1920px;
@@ -21,9 +26,17 @@
 
 
         /* Main Game Overlay */
+        .grid-1-1 {
+            grid-area: 1/1;
+        }        
 
-        .vct2024-igo {
-            background-image: url("assets/VCT_IGO.png");
+        #in-game-overlay {
+            display: grid;
+            grid-template: 80px/80px 47px 247px 1fr 247px 47px 80px;
+        }
+        
+        .vcl2024-igo {
+            background-image: url("assets/VCL_IGO.png");
             background-position: center center;
             background-repeat: no-repeat;
             background-size: cover;
@@ -82,13 +95,8 @@
             text-align: center;
         }
 
-        #map-score {
-            grid-column: 1;
-            grid-row: 1;
-        }
 
         /* Console */
-
         #overlays-console {
             display: flex;
             margin: 10px;
@@ -96,6 +104,7 @@
             border-style: solid;
             padding: 10px;
             flex-direction: column;
+            background-color: white;
         }
     
         #overlay-selection {
@@ -139,6 +148,100 @@
             justify-content: space-evenly;
             height: 100%;
         }
+
+        
+        /* Map Veto Overlay */
+        #map-veto-overlay {
+            display: grid;
+            grid-template: 1080px/1920px;
+        }
+        
+        #map-veto-bo3 {
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+            padding-bottom: 150px;
+        }
+
+        #map-veto-title {
+            display: flex;
+            font-family: 'Foundry';
+            font-size: 64px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        #map-veto-bo3-img-grid {
+            display: grid;
+            grid-template: 320px 320px/repeat(5, 320px);
+            margin-left: 60px;
+            box-shadow: -60px 125px rgb(26 26 26 / 80%);
+        }
+
+        #bo3-1st-ban-overlay {
+            background-image: url(assets/BO3_Ban_Map_Overlay.png);
+            display: flex;
+            align-items: end;
+            grid-area: 1/1;
+            font-family: Arial;
+            font-size: 16.7pt;
+            color: white;
+            padding: 0px 0px 10px 10px;
+        }
+
+        #bo3-2nd-ban-overlay {
+            background-image: url(assets/BO3_Ban_Map_Overlay.png);
+            display: flex;
+            align-items: end;
+            grid-area: 1/2;
+            font-family: Arial;
+            font-size: 16.7pt;
+            color: white;
+            padding: 0px 0px 10px 10px;
+        }
+
+        #bo3-3rd-ban-overlay {
+            background-image: url(assets/BO3_Ban_Map_Overlay.png);
+            display: flex;
+            align-items: end;
+            grid-area: 2/1;
+            font-family: Arial;
+            font-size: 16.7pt;
+            color: white;
+            padding: 0px 0px 10px 10px;
+        }
+
+        #bo3-4th-ban-overlay {
+            background-image: url(assets/BO3_Ban_Map_Overlay.png);
+            display: flex;
+            align-items: end;
+            grid-area: 2/2;
+            font-family: Arial;
+            font-size: 16.7pt;
+            color: white;
+            padding: 0px 0px 10px 10px;
+        }
+
+        #bo3-1st-pick-overlay {
+            display: flex;
+            flex-direction: column;
+            padding: 296px 0px 0px 12px;
+            grid-area: 2/3;
+        }
+
+        #bo3-2nd-pick-overlay {
+            display: flex;
+            flex-direction: column;
+            padding: 296px 0px 0px 12px;
+            grid-area: 2/4;
+        }
+
+        #bo3-3rd-pick-overlay {
+            display: flex;
+            flex-direction: column;
+            padding: 296px 0px 0px 12px;
+            grid-area: 2/5;
+        }
     </style>
 
 </head>
@@ -148,21 +251,23 @@
     <div id="page-container">
         
         <!-- Main Game Overlay -->
-        <div id="in-game-overlay" class="vct2024-igo">
+        <div id="in-game-overlay">
+            <img src="assets/VCL_IGO.png" class="overlay-element grid-1-1">
             <img src="assets/200x200 PNG Logo.png" id="team-a-logo-igo" class="team-logo-left-igo">
-            <span id="team-a-name-igo" class="team-name-left-igo"></span>
-            <img src="assets/map_scores/BO3_0-0.png" id="map-score">
-            <span id="team-b-name-igo" class="team-name-right-igo"></span>
+            <span id="team-a-name-igo" class="team-name-left-igo apply-team-a-name"></span>
+            <img src="assets/map_scores/BO3_0-0.png" id="map-score" class="grid-1-1">
+            <span id="team-b-name-igo" class="team-name-right-igo apply-team-b-name"></span>
             <img src="assets/200x200 SL9 Logo.png" id="team-b-logo-igo" class="team-logo-right-igo">
         </div>
+
 
         <!-- Console -->
         <div id="overlays-console">
             <label for="overlay-selection">Overlay Template: </label>
             <select id="overlay-selection">
-                <option value="VCT2024">VCT OCE 2024 Overlay</option>
-                <option value="GC2024">GC OCE 2024 Overlay</option>
-                <option value="LPL">Pathfinder LPL Overlay</option>
+                <option value="vcl">Valorant Challengers Overlay</option>
+                <option value="gc">Game Changers Overlay</option>
+                <option value="lpl">Pathfinder/LPL Overlay</option>
             </select>
             
             <!-- Team Config -->
@@ -214,7 +319,7 @@
                             </div>
                             <div>
                                 <label for="bo3-1st-ban-map">Map Ban: </label>
-                                <select id="bo3-1st-ban-map" class="map-selection-maps bo3"></select>
+                                <select id="bo3-1st-ban-map" class="map-ban-selection bo3"></select>
                             </div>
                         </div>
                     </div>
@@ -231,7 +336,7 @@
                             </div>
                             <div>
                                 <label for="bo3-2nd-ban-map">Map Ban: </label>
-                                <select id="bo3-2nd-ban-map" class="map-selection-maps bo3"></select>
+                                <select id="bo3-2nd-ban-map" class="map-ban-selection bo3"></select>
                             </div>
                         </div>
                     </div>
@@ -248,7 +353,7 @@
                             </div>
                             <div>
                                 <label for="bo3-1st-pick-map">Map Pick: </label>
-                                <select id="bo3-1st-pick-map" class="map-selection-maps bo3"></select>
+                                <select id="bo3-1st-pick-map" class="map-pick-selection bo3"></select>
                             </div>
                         </div>
                         <div class="map-pickban-content">
@@ -282,7 +387,7 @@
                             </div>
                             <div>
                                 <label for="bo3-2nd-pick-map">Map Pick: </label>
-                                <select id="bo3-2nd-pick-map" class="map-selection-maps bo3"></select>
+                                <select id="bo3-2nd-pick-map" class="map-pick-selection bo3"></select>
                             </div>
                         </div>
                         <div class="map-pickban-content">
@@ -316,7 +421,7 @@
                             </div>
                             <div>
                                 <label for="bo3-3rd-ban-map">Map Ban: </label>
-                                <select id="bo3-3rd-ban-map" class="map-selection-maps bo3"></select>
+                                <select id="bo3-3rd-ban-map" class="map-ban-selection bo3"></select>
                             </div>
                         </div>
                     </div>
@@ -333,7 +438,7 @@
                             </div>
                             <div>
                                 <label for="bo3-4th-ban-map">Map Ban: </label>
-                                <select id="bo3-4th-ban-map" class="map-selection-maps bo3"></select>
+                                <select id="bo3-4th-ban-map" class="map-ban-selection bo3"></select>
                             </div>
                         </div>
                     </div>
@@ -343,7 +448,7 @@
                         <div class="map-pickban-content">
                             <div>
                                 <label for="bo3-3rd-pick-map">Map Pick: </label>
-                                <select id="bo3-3rd-pick-map" class="map-selection-maps bo3"></select>
+                                <select id="bo3-3rd-pick-map" class="map-pick-selection bo3"></select>
                             </div>
                         </div>
                         <div class="map-pickban-content">
@@ -368,13 +473,84 @@
                 <!-- BO5 -->
                 <div id="bo5-console" class="inactive-series-console">
                     <label for="map-selection-bo5">B05 1st Ban: </label>
-                    <select id="map-selection-bo5" class="map-selection-maps"></select>
+                    <select id="map-selection-bo5" class="map-ban-selection"></select>
                     </div>
                 <!-- BO1 -->
                 <div id="bo1-console" class="inactive-series-console">
                     <label for="map-selection-bo1">B01 Map Select: </label>
-                    <select id="map-selection-bo1" class="map-selection-maps"></select>
+                    <select id="map-selection-bo1" class="map-pick-selection"></select>
                     </div>
+            </div>
+        </div>
+
+
+        <!-- Map Veto Overlay -->
+        <div id="map-veto-overlay">
+            <video controls autoplay loop src="assets/VCL_Animated_Background.mp4" class="overlay-element grid-1-1"></video>
+            <div id="map-veto-bo3" class="grid-1-1">
+                <div id="map-veto-title">
+                    <span style="color: white; text-transform: uppercase;" class="apply-team-a-name"></span>
+                    <span style="color: red; margin: 0px 20px 0px 20px;"> VS </span>
+                    <span style="color: white; text-transform: uppercase;" class="apply-team-b-name"></span>
+                </div>
+                <div id="map-veto-bo3-img-grid">
+                    <img id="bo3-1st-ban-img" class="bo3-ban-img" src="assets/Maps/Haven_320x320.png" style="grid-area: 1/1;">
+                    <img id="bo3-2nd-ban-img" class="bo3-ban-img" src="assets/Maps/Ascent_320x320.png" style="grid-area: 1/2;">
+                    <img id="bo3-1st-pick-img" class="bo3-pick-img" src="assets/Maps/Lotus_320x640.png">
+                    <img id="bo3-2nd-pick-img" class="bo3-pick-img" src="assets/Maps/Bind_320x640.png">
+                    <img id="bo3-3rd-pick-img" class="bo3-pick-img" src="assets/Maps/Abyss_320x640.png">
+                    <img id="bo3-3rd-ban-img" class="bo3-ban-img" src="assets/Maps/Icebox_320x320.png" style="grid-area: 2/1;">
+                    <img id="bo3-4th-ban-img" class="bo3-ban-img" src="assets/Maps/Sunset_320x320.png" style="grid-area: 2/2;">
+
+                    <div id="bo3-1st-ban-overlay">
+                        <div>
+                            <span>TEAM BAN HAVEN</span>
+                        </div>
+                    </div>
+                    <div id="bo3-2nd-ban-overlay">
+                        <div>
+                            <span>TEAM BAN ASCENT</span>
+                        </div>
+                    </div>
+                    <div id="bo3-3rd-ban-overlay">
+                        <div>
+                            <span>TEAM BAN ICEBOX</span>
+                        </div>
+                    </div>
+                    <div id="bo3-4th-ban-overlay">
+                        <div>
+                            <span>TEAM BAN SUNSET</span>
+                        </div>
+                    </div>
+
+                    <div id="bo3-1st-pick-overlay">
+                        <span style="color: white; font-family: 'Foundry'; font-size: 30pt; margin-bottom: 10px;">LOTUS</span>
+                        <div style="display: grid; grid-template: 40px 40px/160px 160px; font-size: 16.7pt;">
+                            <span style="color: rgb(242, 246, 178);">DEF</span>
+                            <span style="color: rgb(242, 246, 178);">TEAM</span>
+                            <span style="color: white;">PICK</span>
+                            <span style="color: white;">TEAM</span>
+                        </div>
+                    </div>
+                    <div id="bo3-2nd-pick-overlay">
+                        <span style="color: white; font-family: 'Foundry'; font-size: 30pt; margin-bottom: 10px;">BIND</span>
+                        <div style="display: grid; grid-template: 40px 40px/160px 160px; font-size: 16.7pt;">
+                            <span style="color: rgb(242, 246, 178);">DEF</span>
+                            <span style="color: rgb(242, 246, 178);">TEAM</span>
+                            <span style="color: white;">PICK</span>
+                            <span style="color: white;">TEAM</span>
+                        </div>
+                    </div>
+                    <div id="bo3-3rd-pick-overlay">
+                        <span style="color: white; font-family: 'Foundry'; font-size: 30pt; margin-bottom: 10px;">ABYSS</span>
+                        <div style="display: grid; grid-template: 40px 40px/160px 160px; font-size: 16.7pt;">
+                            <span style="color: rgb(242, 246, 178);">DEF</span>
+                            <span style="color: rgb(242, 246, 178);">TEAM</span>
+                            <span style="color: white;">PICK</span>
+                            <span style="color: white;">TEAM</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
