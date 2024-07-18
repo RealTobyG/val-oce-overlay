@@ -187,6 +187,7 @@
             font-size: 16.7pt;
             color: white;
             padding: 0px 0px 10px 10px;
+            text-transform: uppercase;
         }
 
         #bo3-2nd-ban-overlay {
@@ -198,6 +199,7 @@
             font-size: 16.7pt;
             color: white;
             padding: 0px 0px 10px 10px;
+            text-transform: uppercase;
         }
 
         #bo3-3rd-ban-overlay {
@@ -209,6 +211,7 @@
             font-size: 16.7pt;
             color: white;
             padding: 0px 0px 10px 10px;
+            text-transform: uppercase;
         }
 
         #bo3-4th-ban-overlay {
@@ -220,6 +223,7 @@
             font-size: 16.7pt;
             color: white;
             padding: 0px 0px 10px 10px;
+            text-transform: uppercase;
         }
 
         #bo3-1st-pick-overlay {
@@ -242,6 +246,21 @@
             padding: 296px 0px 0px 12px;
             grid-area: 2/5;
         }
+
+        .bo3-pick-mapname {
+            color: white; 
+            font-family: 'Foundry'; 
+            font-size: 30pt;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .bo3-map-pick-details {
+            display: grid;
+            grid-template: 40px 40px/160px 160px;
+            font-size: 16.7pt;
+            text-transform: uppercase;
+        }
     </style>
 
 </head>
@@ -250,18 +269,24 @@
 <body style="margin: 0;" onload="pageLoad()">
     <div id="page-container">
         
-        <!-- Main Game Overlay -->
+<!--###########################################################
+    #################### Main Game Overlay ####################
+    ###########################################################-->
+
         <div id="in-game-overlay">
             <img src="assets/VCL_IGO.png" class="overlay-element grid-1-1">
             <img src="assets/200x200 PNG Logo.png" id="team-a-logo-igo" class="team-logo-left-igo">
             <span id="team-a-name-igo" class="team-name-left-igo apply-team-a-name"></span>
-            <img src="assets/map_scores/BO3_0-0.png" id="map-score" class="grid-1-1">
+            <img src="assets/map_scores/GEN_BO3_0-0.png" id="map-score" class="grid-1-1">
             <span id="team-b-name-igo" class="team-name-right-igo apply-team-b-name"></span>
             <img src="assets/200x200 SL9 Logo.png" id="team-b-logo-igo" class="team-logo-right-igo">
         </div>
 
 
-        <!-- Console -->
+<!--#################################################
+    #################### Console #################### 
+    #################################################-->
+
         <div id="overlays-console">
             <label for="overlay-selection">Overlay Template: </label>
             <select id="overlay-selection">
@@ -270,24 +295,23 @@
                 <option value="lpl">Pathfinder/LPL Overlay</option>
             </select>
             
-            <!-- Team Config -->
+            <!--#################### Team Config ####################-->
             <div id="team-config">
                 <label for="team-a-name">Team A Name: </label>
-                <input type="text" id="team-a-name" style="width: 280px;">
+                <input type="text" id="team-a-name" style="width: 280px;" value="Team A">
                 <label for="team-b-name">Team B Name: </label>
-                <input type="text" id="team-b-name" style="width: 280px;">
+                <input type="text" id="team-b-name" style="width: 280px;" value="Team B">
                 <label for="team-a-tri">Team A Tricode: </label>
-                <input type="text" id="team-a-tri" maxlength="4" style="width: 50px;">
+                <input type="text" id="team-a-tri" maxlength="4" style="width: 50px;" value="TMA">
                 <label for="team-b-tri">Team B Tricode: </label>
-                <input type="text" id="team-b-tri" maxlength="4" style="width: 50px;">
+                <input type="text" id="team-b-tri" maxlength="4" style="width: 50px;" value="TMB">
                 <label for="team-a-logo">Team A Logo: </label>
                 <input type="file" id="team-a-logo" value="Upload Logo" accept="image/*">
                 <label for="team-b-logo">Team B Logo: </label>
                 <input type="file" id="team-b-logo" value="Upload Logo" accept="image/*">
             </div>
-            <input type="button" id="swap-teams" value="Swap Teams" style="width: 100px; margin-bottom: 50px;">
             
-            <!-- Map Config -->
+            <!--#################### Map Config ####################-->
             <div>
                 <label for="series-length-selection">Series Length: </label>
                 <select id="series-length-selection" style="margin-right: 20px;">
@@ -304,7 +328,7 @@
                 <input id="map-score-toggle" type="checkbox">
             </div>
             <div id="map-config">
-                <!-- BO3 -->
+                <!--#################### BO3 ####################-->
                 <div id="bo3-console" class="active-series-console">
                     <!-- 1st Ban -->
                     <div class="map-pickban-grid">
@@ -312,9 +336,9 @@
                         <div class="map-pickban-content">
                             <div>
                                 <label for="bo3-1st-ban-team">Team Banning: </label>
-                                <select id="bo3-1st-ban-team" class="map-selection-teams bo3">
-                                    <option id="bo3-1st-ban-team-a-option" class="apply-team-a-full">Team A</option>
-                                    <option id="bo3-1st-ban-team-b-option" class="apply-team-b-full">Team B</option>
+                                <select id="bo3-1st-ban-team" class="map-ban-team bo3">
+                                    <option id="bo3-1st-ban-team-a-option" value="team-a" class="apply-team-a-full">Team A</option>
+                                    <option id="bo3-1st-ban-team-b-option" value="team-b" class="apply-team-b-full">Team B</option>
                                 </select>
                             </div>
                             <div>
@@ -329,9 +353,9 @@
                         <div class="map-pickban-content">
                             <div>
                                 <label for="bo3-2nd-ban-team">Team Banning: </label>
-                                <select id="bo3-2nd-ban-team" class="map-selection-teams bo3">
-                                    <option id="bo3-2nd-ban-team-a-option" class="apply-team-a-full">Team A</option>
-                                    <option id="bo3-2nd-ban-team-b-option" class="apply-team-b-full">Team B</option>
+                                <select id="bo3-2nd-ban-team" class="map-ban-team bo3">
+                                    <option id="bo3-2nd-ban-team-a-option" value="team-a" class="apply-team-a-full">Team A</option>
+                                    <option id="bo3-2nd-ban-team-b-option" value="team-b" class="apply-team-b-full">Team B</option>
                                 </select>
                             </div>
                             <div>
@@ -346,9 +370,9 @@
                         <div class="map-pickban-content">
                             <div>
                                 <label for="bo3-1st-pick-team">Team Picking: </label>
-                                <select id="bo3-1st-pick-team" class="map-selection-teams bo3">
-                                    <option id="bo3-1st-pick-team-a-option" class="apply-team-a-full">Team A</option>
-                                    <option id="bo3-1st-pick-team-b-option" class="apply-team-b-full">Team B</option>
+                                <select id="bo3-1st-pick-team" class="map-pick-team bo3">
+                                    <option id="bo3-1st-pick-team-a-option" value="team-a" class="apply-team-a-full">Team A</option>
+                                    <option id="bo3-1st-pick-team-b-option" value="team-b" class="apply-team-b-full">Team B</option>
                                 </select>
                             </div>
                             <div>
@@ -360,17 +384,17 @@
                             <div>
                                 <label for="bo3-1st-pick-side">Team Starting Defense: </label>
                                 <select id="bo3-1st-pick-side" class="side-selection-teams bo3">
-                                    <option id="bo3-map1-def-a-option" class="apply-team-a-full">Team A</option>
-                                    <option id="bo3-map1-def-b-option" class="apply-team-b-full">Team B</option>
+                                    <option id="bo3-map1-def-a-option" value="team-a" class="apply-team-a-full">Team A</option>
+                                    <option id="bo3-map1-def-b-option" value="team-b" class="apply-team-b-full">Team B</option>
                                 </select>
                             </div>
                             <div>
                                 <span id="bo3-map1-team-a-tri" class="apply-team-a-tri">Team A</span>
                                 <label for="bo3-score-map1-team-a"> Score: </label>
-                                <input id="bo3-score-map1-team-a" type="number" style="width: 30px; margin-right: 20px;">
+                                <input id="bo3-score-map1-team-a" class="team-a-score" type="number" min="0" style="width: 30px; margin-right: 20px;">
                                 <span id="bo3-map1-team-b-tri" class="apply-team-b-tri">Team B</span>
                                 <label for="bo3-score-map1-team-b"> Score: </label>
-                                <input id="bo3-score-map1-team-b" type="number" style="width: 30px;">
+                                <input id="bo3-score-map1-team-b" class="team-b-score" type="number" min="0" style="width: 30px;">
                             </div>
                         </div>
                     </div>
@@ -380,9 +404,9 @@
                         <div class="map-pickban-content">
                             <div>
                                 <label for="bo3-2nd-pick-team">Team Picking: </label>
-                                <select id="bo3-2nd-pick-team" class="map-selection-teams bo3">
-                                    <option id="bo3-2nd-pick-team-a-option" class="apply-team-a-full">Team A</option>
-                                    <option id="bo3-2nd-pick-team-b-option" class="apply-team-b-full">Team B</option>
+                                <select id="bo3-2nd-pick-team" class="map-pick-team bo3">
+                                    <option id="bo3-2nd-pick-team-a-option" value="team-a" class="apply-team-a-full">Team A</option>
+                                    <option id="bo3-2nd-pick-team-b-option" value="team-b" class="apply-team-b-full">Team B</option>
                                 </select>
                             </div>
                             <div>
@@ -394,17 +418,17 @@
                             <div>
                                 <label for="bo3-2nd-pick-side">Team Starting Defense: </label>
                                 <select id="bo3-2nd-pick-side" class="side-selection-teams bo3">
-                                    <option id="bo3-map2-def-a-option" class="apply-team-a-full">Team A</option>
-                                    <option id="bo3-map2-def-b-option" class="apply-team-b-full">Team B</option>
+                                    <option id="bo3-map2-def-a-option" value="team-a" class="apply-team-a-full">Team A</option>
+                                    <option id="bo3-map2-def-b-option" value="team-b" class="apply-team-b-full">Team B</option>
                                 </select>
                             </div>
                             <div>
                                 <span id="bo3-map2-team-a-tri" class="apply-team-a-tri">Team A</span>
                                 <label for="bo3-score-map2-team-a"> Score: </label>
-                                <input id="bo3-score-map2-team-a" type="number" style="width: 30px; margin-right: 20px;">
+                                <input id="bo3-score-map2-team-a" class="team-a-score" type="number" style="width: 30px; margin-right: 20px;">
                                 <span id="bo3-map2-team-b-tri" class="apply-team-b-tri">Team B</span>
                                 <label for="bo3-score-map2-team-b"> Score: </label>
-                                <input id="bo3-score-map2-team-b" type="number" style="width: 30px;">
+                                <input id="bo3-score-map2-team-b" class="team-b-score" type="number" style="width: 30px;">
                             </div>
                         </div>
                     </div>
@@ -414,9 +438,9 @@
                         <div class="map-pickban-content">
                             <div>
                                 <label for="bo3-3rd-ban-team">Team Banning: </label>
-                                <select id="bo3-3rd-ban-team" class="map-selection-teams bo3">
-                                    <option id="bo3-3rd-ban-team-a-option" class="apply-team-a-full">Team A</option>
-                                    <option id="bo3-3rd-ban-team-b-option" class="apply-team-b-full">Team B</option>
+                                <select id="bo3-3rd-ban-team" class="map-ban-team bo3">
+                                    <option id="bo3-3rd-ban-team-a-option" value="team-a" class="apply-team-a-full">Team A</option>
+                                    <option id="bo3-3rd-ban-team-b-option" value="team-b" class="apply-team-b-full">Team B</option>
                                 </select>
                             </div>
                             <div>
@@ -431,9 +455,9 @@
                         <div class="map-pickban-content">
                             <div>
                                 <label for="bo3-4th-ban-team">Team Banning: </label>
-                                <select id="bo3-4th-ban-team" class="map-selection-teams bo3">
-                                    <option id="bo3-4th-ban-team-a-option" class="apply-team-a-full">Team A</option>
-                                    <option id="bo3-4th-ban-team-b-option" class="apply-team-b-full">Team B</option>
+                                <select id="bo3-4th-ban-team" class="map-ban-team bo3">
+                                    <option id="bo3-4th-ban-team-a-option" value="team-a" class="apply-team-a-full">Team A</option>
+                                    <option id="bo3-4th-ban-team-b-option" value="team-b" class="apply-team-b-full">Team B</option>
                                 </select>
                             </div>
                             <div>
@@ -455,27 +479,27 @@
                             <div>
                                 <label for="bo3-3rd-pick-side">Team Starting Defense: </label>
                                 <select id="bo3-3rd-pick-side" class="side-selection-teams bo3">
-                                    <option id="bo3-map3-def-a-option" class="apply-team-a-full">Team A</option>
-                                    <option id="bo3-map3-def-b-option" class="apply-team-b-full">Team B</option>
+                                    <option id="bo3-map3-def-a-option" value="team-a" class="apply-team-a-full">Team A</option>
+                                    <option id="bo3-map3-def-b-option" value="team-b" class="apply-team-b-full">Team B</option>
                                 </select>
                             </div>
                             <div>
                                 <span id="bo3-map3-team-a-tri" class="apply-team-a-tri">Team A</span>
                                 <label for="bo3-score-map3-team-a"> Score: </label>
-                                <input id="bo3-score-map3-team-a" type="number" style="width: 30px; margin-right: 20px;">
+                                <input id="bo3-score-map3-team-a" class="team-a-score" type="number" style="width: 30px; margin-right: 20px;">
                                 <span id="bo3-map3-team-b-tri" class="apply-team-b-tri">Team B</span>
                                 <label for="bo3-score-map3-team-b"> Score: </label>
-                                <input id="bo3-score-map3-team-b" type="number" style="width: 30px;">
+                                <input id="bo3-score-map3-team-b" class="team-b-score" type="number" style="width: 30px;">
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- BO5 -->
+                <!--#################### BO5 ####################-->
                 <div id="bo5-console" class="inactive-series-console">
                     <label for="map-selection-bo5">B05 1st Ban: </label>
                     <select id="map-selection-bo5" class="map-ban-selection"></select>
                     </div>
-                <!-- BO1 -->
+                <!--#################### BO1 ####################-->
                 <div id="bo1-console" class="inactive-series-console">
                     <label for="map-selection-bo1">B01 Map Select: </label>
                     <select id="map-selection-bo1" class="map-pick-selection"></select>
@@ -484,7 +508,9 @@
         </div>
 
 
-        <!-- Map Veto Overlay -->
+<!--##########################################################
+    #################### Map Veto Overlay ####################
+    ##########################################################-->
         <div id="map-veto-overlay">
             <video controls autoplay loop src="assets/VCL_Animated_Background.mp4" class="overlay-element grid-1-1"></video>
             <div id="map-veto-bo3" class="grid-1-1">
@@ -504,50 +530,57 @@
 
                     <div id="bo3-1st-ban-overlay">
                         <div>
-                            <span>TEAM BAN HAVEN</span>
+                            <span class="bo3-ban-team apply-team-a-tri"></span>
+                            <span> BAN </span>
+                            <span class="bo3-ban-mapname">MAP</span>
                         </div>
                     </div>
                     <div id="bo3-2nd-ban-overlay">
                         <div>
-                            <span>TEAM BAN ASCENT</span>
+                            <span class="bo3-ban-team apply-team-a-tri"></span>
+                            <span> BAN </span>
+                            <span class="bo3-ban-mapname">MAP</span>
                         </div>
                     </div>
                     <div id="bo3-3rd-ban-overlay">
                         <div>
-                            <span>TEAM BAN ICEBOX</span>
+                            <span class="bo3-ban-team apply-team-a-tri"></span>
+                            <span> BAN </span>
+                            <span class="bo3-ban-mapname">MAP</span>
                         </div>
                     </div>
                     <div id="bo3-4th-ban-overlay">
                         <div>
-                            <span>TEAM BAN SUNSET</span>
+                            <span class="bo3-ban-team apply-team-a-tri"></span>
+                            <span> BAN </span>
+                            <span class="bo3-ban-mapname">MAP</span>
                         </div>
                     </div>
 
                     <div id="bo3-1st-pick-overlay">
-                        <span style="color: white; font-family: 'Foundry'; font-size: 30pt; margin-bottom: 10px;">LOTUS</span>
-                        <div style="display: grid; grid-template: 40px 40px/160px 160px; font-size: 16.7pt;">
+                        <span class="bo3-pick-mapname"></span>
+                        <div class="bo3-map-pick-details">
                             <span style="color: rgb(242, 246, 178);">DEF</span>
-                            <span style="color: rgb(242, 246, 178);">TEAM</span>
+                            <span style="color: rgb(242, 246, 178);" class="bo3-side-team apply-team-a-tri">TEAM</span>
                             <span style="color: white;">PICK</span>
-                            <span style="color: white;">TEAM</span>
+                            <span style="color: white;" class="bo3-pick-team apply-team-a-tri"></span>
                         </div>
                     </div>
                     <div id="bo3-2nd-pick-overlay">
-                        <span style="color: white; font-family: 'Foundry'; font-size: 30pt; margin-bottom: 10px;">BIND</span>
-                        <div style="display: grid; grid-template: 40px 40px/160px 160px; font-size: 16.7pt;">
+                        <span class="bo3-pick-mapname"></span>
+                        <div class="bo3-map-pick-details">
                             <span style="color: rgb(242, 246, 178);">DEF</span>
-                            <span style="color: rgb(242, 246, 178);">TEAM</span>
+                            <span style="color: rgb(242, 246, 178);" class="bo3-side-team apply-team-a-tri">TEAM</span>
                             <span style="color: white;">PICK</span>
-                            <span style="color: white;">TEAM</span>
+                            <span style="color: white;" class="bo3-pick-team apply-team-a-tri"></span>
                         </div>
                     </div>
                     <div id="bo3-3rd-pick-overlay">
-                        <span style="color: white; font-family: 'Foundry'; font-size: 30pt; margin-bottom: 10px;">ABYSS</span>
-                        <div style="display: grid; grid-template: 40px 40px/160px 160px; font-size: 16.7pt;">
+                        <span class="bo3-pick-mapname"></span>
+                        <div class="bo3-map-pick-details">
                             <span style="color: rgb(242, 246, 178);">DEF</span>
-                            <span style="color: rgb(242, 246, 178);">TEAM</span>
-                            <span style="color: white;">PICK</span>
-                            <span style="color: white;">TEAM</span>
+                            <span style="color: rgb(242, 246, 178);" class="bo3-side-team apply-team-a-tri">TEAM</span>
+                            <span style="color: white;">DECIDER</span>
                         </div>
                     </div>
                 </div>
