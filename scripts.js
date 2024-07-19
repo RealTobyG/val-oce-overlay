@@ -2,7 +2,8 @@ const TeamAName = document.querySelector("#team-a-name")
 const TeamBName = document.querySelector("#team-b-name")
 const TeamATri = document.querySelector("#team-a-tri")
 const TeamBTri = document.querySelector("#team-b-tri")
-
+let TeamALogo = 'n/a'
+let TeamBLogo = 'n/a'
 
 const OverlaySelection = document.querySelector("#overlay-selection")
 
@@ -29,16 +30,17 @@ let mapBans = []
 let mapPicksTeams = []
 let mapBansTeams = []
 let mapPicksSides = []
+let mapWinners = []
 
 // Overlay Template Selection
 function setOverlay() {
     const SelectedOption = document.getElementById('overlay-selection').value
     const overlayElements = document.getElementsByClassName('overlay-element')
-    if (SelectedOption === "gc") {
+    if (SelectedOption === "GC") {
         for (const element of overlayElements) {
             element.src = element.src.replace(/(VCL|LPL)/g, "GC")
         }
-    } else if (SelectedOption === "vcl") {
+    } else if (SelectedOption === "VCL") {
         for (const element of overlayElements) {
             element.src = element.src.replace(/(GC|LPL)/g, "VCL")
         }
@@ -86,6 +88,61 @@ TeamATri.addEventListener("keyup", setTeamNames);
 TeamBTri.addEventListener("keyup", setTeamNames);
 
 
+// Team A/B Logo Changing
+function setTeamLogos() {
+    const TeamALogoAll = document.getElementsByClassName('apply-team-a-logo')
+    const TeamBLogoAll = document.getElementsByClassName('apply-team-b-logo')
+    const TeamALogoUpload = document.getElementById('team-a-logo-upload')
+    const TeamBLogoUpload = document.getElementById('team-b-logo-upload')
+    const TeamANoLogo = document.getElementById('team-a-no-logo')
+    const TeamBNoLogo = document.getElementById('team-b-no-logo')
+    if (TeamANoLogo.checked) {
+        TeamALogoUpload.value = ''
+        for (const element of TeamALogoAll) {
+            element.src = "assets/200x200_No_Logo.png"
+        }
+    }
+    if (TeamBNoLogo.checked) {
+        TeamBLogoUpload.value = ''
+        for (const element of TeamBLogoAll) {
+            element.src = "assets/200x200_No_Logo.png"
+        }
+    }
+    if (TeamALogoUpload.value !== '') {
+        for (const element of TeamALogoAll) {
+            element.src = TeamALogo
+        }
+    }
+    if (TeamBLogoUpload.value !== '') {
+        for (const element of TeamBLogoAll) {
+            element.src = TeamBLogo
+        }
+    }
+}
+
+function uploadTeamALogo() {
+    document.getElementById('team-a-no-logo').checked = false
+    const TeamALogoUpload = document.getElementById('team-a-logo-upload')
+    URL.revokeObjectURL(TeamALogo)
+    TeamALogo = URL.createObjectURL(TeamALogoUpload.files[0])
+    setTeamLogos()
+}
+
+function uploadTeamBLogo() {
+    document.getElementById('team-b-no-logo').checked = false
+    const TeamBLogoUpload = document.getElementById('team-b-logo-upload')
+    URL.revokeObjectURL(TeamBLogo)
+    TeamBLogo = URL.createObjectURL(TeamBLogoUpload.files[0])
+    setTeamLogos()
+}
+
+function teamLogoActivate() {
+    document.getElementById('team-a-no-logo').addEventListener('change', setTeamLogos)
+    document.getElementById('team-b-no-logo').addEventListener('change', setTeamLogos)
+    document.getElementById('team-a-logo-upload').addEventListener('change', uploadTeamALogo)
+    document.getElementById('team-b-logo-upload').addEventListener('change', uploadTeamBLogo)
+}
+
 // Map Series Length Selection
 function setSeriesLength() {
     const bo3Console = document.querySelector("#bo3-console")
@@ -93,16 +150,16 @@ function setSeriesLength() {
     const bo1Console = document.querySelector("#bo1-console")
     if (SeriesLengthSelection.value === "BO3") {
         bo3Console.setAttribute("class", "active-series-console")
-        bo5Console.setAttribute("class", "inactive-series-console")
-        bo1Console.setAttribute("class", "inactive-series-console")
+        bo5Console.setAttribute("class", "display-none")
+        bo1Console.setAttribute("class", "display-none")
     } else if (SeriesLengthSelection.value === "BO5") {
         bo5Console.setAttribute("class", "active-series-console")
-        bo3Console.setAttribute("class", "inactive-series-console")
-        bo1Console.setAttribute("class", "inactive-series-console")
+        bo3Console.setAttribute("class", "display-none")
+        bo1Console.setAttribute("class", "display-none")
     } else {
         bo1Console.setAttribute("class", "active-series-console")
-        bo3Console.setAttribute("class", "inactive-series-console")
-        bo5Console.setAttribute("class", "inactive-series-console")
+        bo3Console.setAttribute("class", "display-none")
+        bo5Console.setAttribute("class", "display-none")
     }
     setMapPool()
     resetScores()
@@ -238,38 +295,74 @@ function scoreUpdate() {
     let teamBSeriesScore = 0
     let seriesScore = `${teamASeriesScore}-${teamBSeriesScore}`
     let mapNumber = teamASeriesScore+teamBSeriesScore
+    let mapWinners = []
     const TeamAScores = document.getElementsByClassName('team-a-score')
     const TeamBScores = document.getElementsByClassName('team-b-score')
-    const MapScoreIGO = document.getElementById('map-score')
     Array.from(TeamAScores).forEach((map, i) => {
         if (map.value>=13 && map.value>=Number(TeamBScores[i].value)+2) {
             teamASeriesScore++
+            mapWinners.push('team-a')
         }
         if (TeamBScores[i].value>=13 && TeamBScores[i].value>=Number(map.value)+2) {
             teamBSeriesScore++
+            mapWinners.push('team-b')
         }
     })
     mapNumber = teamASeriesScore+teamBSeriesScore
-
+    // Updates winning team details for every complete map
+    mapWinners.forEach((mapWinner, i) => {
+        const applyWinnerName = document.getElementsByClassName(`apply-map-${Number(i)+1}-winner`)
+        for (const element of applyWinnerName) {
+            element.className = element.className.replace(/(team-a|team-b)/g, `${mapWinner}`)
+            setTeamNames()
+        }
+        const applyWinnerLogo = document.getElementsByClassName(`apply-map-${Number(i)+1}-logo`)
+        for (const element of applyWinnerLogo) {
+            element.className = element.className.replace(/(team-a|team-b)/g, `${mapWinner}`)
+            setTeamLogos()
+        }
+        const applyWinnerScore = document.getElementsByClassName(`apply-map-${Number(i)+1}-score`)
+        for (const element of applyWinnerScore) {
+            if (Number(TeamAScores[i].value)>Number(TeamBScores[i].value)) {
+                element.textContent = `${TeamAScores[i].value} - ${TeamBScores[i].value}`
+            } else {
+                element.textContent = `${TeamBScores[i].value} - ${TeamAScores[i].value}`
+            }
+        }
+    })
+    // Shows/Hides map results on map veto overlay
+    const mapResultOverlays = document.getElementsByClassName('map-result-overlay')
+    Array.from(mapResultOverlays).forEach((element, i) => {
+        if (Number(i)+1<=mapNumber) {
+            element.style.display = "flex"
+        }
+        else {
+            element.style.display = 'none'
+        }
+    })
+    // Swapping sides on IGO according to map and which team starts def
     const sideSelections = document.getElementsByClassName("side-selection-teams")
     const TeamANameIGO = document.querySelector("#team-a-name-igo")
     const TeamBNameIGO = document.querySelector("#team-b-name-igo")
     const TeamALogoIGO = document.querySelector("#team-a-logo-igo")
     const TeamBLogoIGO = document.querySelector("#team-b-logo-igo")
-    if (sideSelections[mapNumber].value === 'team-a') {
-        seriesScore = `${teamASeriesScore}-${teamBSeriesScore}`
-        TeamBNameIGO.setAttribute("class", "team-name-right-igo apply-team-b-name")
-        TeamANameIGO.setAttribute("class", "team-name-left-igo apply-team-a-name")
-        TeamBLogoIGO.setAttribute("class", "team-logo-right-igo")
-        TeamALogoIGO.setAttribute("class", "team-logo-left-igo")
-    } else if (sideSelections[mapNumber].value === 'team-b') {
-        seriesScore = `${teamBSeriesScore}-${teamASeriesScore}`
-        TeamANameIGO.setAttribute("class", "team-name-right-igo apply-team-a-name")
-        TeamBNameIGO.setAttribute("class", "team-name-left-igo apply-team-b-name")
-        TeamALogoIGO.setAttribute("class", "team-logo-right-igo")
-        TeamBLogoIGO.setAttribute("class", "team-logo-left-igo")
+    if (teamASeriesScore<2 && teamBSeriesScore<2) {
+        if (sideSelections[mapNumber].value === 'team-a') {
+            seriesScore = `${teamASeriesScore}-${teamBSeriesScore}`
+            TeamBNameIGO.setAttribute("class", "team-name-right-igo apply-team-b-name")
+            TeamANameIGO.setAttribute("class", "team-name-left-igo apply-team-a-name")
+            TeamBLogoIGO.setAttribute("class", "team-logo-right-igo apply-team-b-logo")
+            TeamALogoIGO.setAttribute("class", "team-logo-left-igo apply-team-a-logo")
+        } else if (sideSelections[mapNumber].value === 'team-b') {
+            seriesScore = `${teamBSeriesScore}-${teamASeriesScore}`
+            TeamANameIGO.setAttribute("class", "team-name-right-igo apply-team-a-name")
+            TeamBNameIGO.setAttribute("class", "team-name-left-igo apply-team-b-name")
+            TeamALogoIGO.setAttribute("class", "team-logo-right-igo apply-team-a-logo")
+            TeamBLogoIGO.setAttribute("class", "team-logo-left-igo apply-team-b-logo")
+        }
     }
-
+    // Setting score dots on IGO
+    const MapScoreIGO = document.getElementById('map-score')
     if (teamASeriesScore<2 && teamBSeriesScore<2 && document.getElementById('map-score-toggle').checked) {
         MapScoreIGO.src = `assets/map_scores/GEN_${SeriesLengthSelection.value}_${seriesScore}.png`
     } else if (teamASeriesScore<2 && teamBSeriesScore<2) {
@@ -285,8 +378,8 @@ function resetScores() {
 }
 
 function scoreUpdateActivate() {
-    const activateScoreUpdate = document.querySelectorAll(".team-a-score, .team-b-score, #map-score-toggle, .side-selection-teams")
-    for (const element of activateScoreUpdate) {
+    const scoreUpdateTriggers = document.querySelectorAll(".team-a-score, .team-b-score, #map-score-toggle, .side-selection-teams")
+    for (const element of scoreUpdateTriggers) {
         element.addEventListener("change", scoreUpdate)
     }
 }
@@ -299,4 +392,5 @@ function pageLoad() {
     setMapVeto()
     resetScores()
     scoreUpdateActivate()
+    teamLogoActivate()
 }
