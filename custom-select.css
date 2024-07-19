@@ -38,6 +38,9 @@
   max-height: 10.7em;
   overflow-y: auto
 }
+.custom-select-container.is-open .custom-select-opener:after {
+  content: "▲";
+}
 .custom-select-option {
   padding: 0.5em;
 }
