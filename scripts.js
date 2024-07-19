@@ -80,6 +80,8 @@ function setTeamNames() {
     for (const instance of TeamBFullAll) {
         instance.textContent = `(${TeamBTri.value}) ${TeamBName.value}`
     }
+
+    remakeAllSelects()
 }
 
 TeamAName.addEventListener("keyup", setTeamNames);
@@ -393,4 +395,5 @@ function pageLoad() {
     resetScores()
     scoreUpdateActivate()
     teamLogoActivate()
+    remakeAllSelects()
 }
