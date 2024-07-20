@@ -247,37 +247,51 @@ function setMapVeto() {
                 mapPicksSides.push(SelectedTeam)
             }
         }
-
+        // Sets defense teams for map veto overlay and sets logos on intermission screen 
         const pickSides = document.getElementsByClassName('bo3-side-team')
-        Array.from(pickSides).forEach((element, i) => {
-            element.className = element.className.replace(/(team-a|team-b)/g, `${mapPicksSides[i]}`)
+        const intermissionDefTeams = document.getElementsByClassName('bo3-def-logo')
+        const intermissionAttackTeams = document.getElementsByClassName('bo3-attack-logo')
+        mapPicksSides.forEach((team, i) => {
+            pickSides[i].className = pickSides[i].className.replace(/(team-a|team-b)/g, `${team}`)
+            if (team === 'team-a') {
+                intermissionDefTeams[i].className = intermissionDefTeams[i].className.replace(/(team-a|team-b)/g, `team-a`)
+                intermissionAttackTeams[i].className = intermissionAttackTeams[i].className.replace(/(team-a|team-b)/g, `team-b`)
+            } else {
+                intermissionDefTeams[i].className = intermissionDefTeams[i].className.replace(/(team-a|team-b)/g, `team-b`)
+                intermissionAttackTeams[i].className = intermissionAttackTeams[i].className.replace(/(team-a|team-b)/g, `team-a`)
+            }
         })
-
+        // Sets map ban team names on map veto overlay
         const banNames = document.getElementsByClassName('bo3-ban-team')
         Array.from(banNames).forEach((element, i) => {
             element.className = element.className.replace(/(team-a|team-b)/g, `${mapBansTeams[i]}`)
         })
-
+        // Sets map pick team names on map veto overlay and intermission overlay
         const pickNames = document.getElementsByClassName('bo3-pick-team')
-        Array.from(pickNames).forEach((element, i) => {
-            element.className = element.className.replace(/(team-a|team-b)/g, `${mapPicksTeams[i]}`)
+        const pickNamesIntermission = document.getElementsByClassName('bo3-pick-team-intermission')
+        mapPicksTeams.forEach((pick, i) => {
+            pickNames[i].className = pickNames[i].className.replace(/(team-a|team-b)/g, `${pick}`)
+            pickNamesIntermission[i].className = pickNamesIntermission[i].className.replace(/(team-a|team-b)/g, `${pick}`)
         })
-
+        // Sets map names and images for each map ban on map veto overlay
         const banImgs = document.getElementsByClassName('bo3-ban-img')
         const banMapNames = document.getElementsByClassName('bo3-ban-mapname')
         mapBans.forEach((ban, i) => {
             banImgs[i].src = `assets/Maps/${ban.mapname}_320x320.png`
             banMapNames[i].textContent = `${ban.mapname}`
         })
-
+        // Sets map names and images for each map pick on map veto overlay and intermission overlay
+        const pickImgsIntermission = document.getElementsByClassName('bo3-pick-img-intermission')
         const pickImgs = document.getElementsByClassName('bo3-pick-img')
         const pickMapNames = document.getElementsByClassName('bo3-pick-mapname')
         mapPicks.forEach((pick, i) => {
             pickImgs[i].src = `assets/Maps/${pick.mapname}_320x640.png`
+            pickImgsIntermission[i].src = `assets/Maps/${pick.mapname}_524x214.png`
             pickMapNames[i].textContent = `${pick.mapname}`
         })
-
         setTeamNames()
+        setTeamLogos()
+        scoreUpdate()
     }
 }
 
@@ -312,6 +326,7 @@ function scoreUpdate() {
     })
     mapNumber = teamASeriesScore+teamBSeriesScore
     // Updates winning team details for every complete map
+    const scheduleResultOverlays = document.getElementsByClassName('schedule-result-overlay')
     mapWinners.forEach((mapWinner, i) => {
         const applyWinnerName = document.getElementsByClassName(`apply-map-${Number(i)+1}-winner`)
         for (const element of applyWinnerName) {
@@ -331,15 +346,44 @@ function scoreUpdate() {
                 element.textContent = `${TeamBScores[i].value} - ${TeamAScores[i].value}`
             }
         }
+        const applyWinnerScoreIntermission = document.getElementsByClassName(`apply-map-${Number(i)+1}-score-intermission`)
+        if (SeriesLengthSelection.value === 'BO3') {
+            const defTeamIntermission = document.getElementsByClassName('bo3-def-logo')
+            if (defTeamIntermission[i].classList.contains('apply-team-a-logo')) {
+                applyWinnerScoreIntermission[0].textContent = `${TeamBScores[i].value} - ${TeamAScores[i].value}`
+            } else {
+                applyWinnerScoreIntermission[0].textContent = `${TeamAScores[i].value} - ${TeamBScores[i].value}`
+            }
+        }
+        
     })
-    // Shows/Hides map results on map veto overlay
+    // Updates current map on intermission overlay
+    const currentMap = document.getElementsByClassName('current-map')
+    if (SeriesLengthSelection.value === 'BO3') {        
+        if (teamASeriesScore !== 2 && teamBSeriesScore !== 2) {
+            for (const element of currentMap) {
+                element.textContent = `Map ${mapNumber+1} - ${mapPicks[mapNumber].mapname}`
+            }
+        } else if (teamASeriesScore>teamBSeriesScore) {
+            for (const element of currentMap) {
+                element.textContent = `${TeamATri.value} ${teamASeriesScore} - ${teamBSeriesScore} ${TeamBTri.value}`
+            }
+        } else {
+            for (const element of currentMap) {
+                element.textContent = `${TeamBTri.value} ${teamBSeriesScore} - ${teamASeriesScore} ${TeamATri.value}`
+            }
+        }
+    }
+    // Shows/Hides map results for finished maps
     const mapResultOverlays = document.getElementsByClassName('map-result-overlay')
     Array.from(mapResultOverlays).forEach((element, i) => {
         if (Number(i)+1<=mapNumber) {
-            element.style.display = "flex"
+            element.style.display = 'flex'
+            scheduleResultOverlays[i].style.display = 'flex'
         }
         else {
             element.style.display = 'none'
+            scheduleResultOverlays[i].style.display = 'none'
         }
     })
     // Swapping sides on IGO according to map and which team starts def
@@ -396,4 +440,5 @@ function pageLoad() {
     scoreUpdateActivate()
     teamLogoActivate()
     remakeAllSelects()
+    scoreUpdate()
 }
