@@ -5,11 +5,19 @@ const TeamBTri = document.querySelector("#team-b-tri")
 let TeamALogo = 'n/a'
 let TeamBLogo = 'n/a'
 
+const EventName = document.querySelector('#event-name')
+const Caster1Name = document.querySelector('#caster-1-name')
+const Caster2Name = document.querySelector('#caster-1-name')
+let EventLogo = 'n/a'
+
 const OverlaySelection = document.querySelector("#overlay-selection")
-
 const SeriesLengthSelection = document.querySelector("#series-length-selection")
-
 const MapPoolSelection = document.querySelector("#map-pool-selection")
+const CastersSelection = document.querySelector("#casters-selection")
+const InterviewSelection = document.querySelector("#interview-selection")
+const BottomBarSelection = document.querySelector("#bottom-bar-selection")
+const ChatCommandsSelection = document.querySelector("#chat-commands-selection")
+const BottomBarTextSizeSelection = document.querySelector("#bottom-bar-text-size-selection")
 
 const mapData = [
     {mapname: "Abyss", mappool: true},
@@ -54,14 +62,14 @@ function setOverlay() {
 OverlaySelection.addEventListener("change", setOverlay)
 
 
-// Team A/B Name Changing
+// Team/Event/Casters Name Changing
 function setTeamNames() {
-    const TeamANameAll = document.getElementsByClassName('apply-team-a-name');
-    const TeamBNameAll = document.getElementsByClassName('apply-team-b-name');
-    const TeamATriAll = document.getElementsByClassName('apply-team-a-tri');
-    const TeamBTriAll = document.getElementsByClassName('apply-team-b-tri');
-    const TeamAFullAll = document.getElementsByClassName('apply-team-a-full');
-    const TeamBFullAll = document.getElementsByClassName('apply-team-b-full');
+    const TeamANameAll = document.getElementsByClassName('apply-team-a-name')
+    const TeamBNameAll = document.getElementsByClassName('apply-team-b-name')
+    const TeamATriAll = document.getElementsByClassName('apply-team-a-tri')
+    const TeamBTriAll = document.getElementsByClassName('apply-team-b-tri')
+    const TeamAFullAll = document.getElementsByClassName('apply-team-a-full')
+    const TeamBFullAll = document.getElementsByClassName('apply-team-b-full')
     for (const instance of TeamANameAll) {
         instance.textContent = `${TeamAName.value}`
     }
@@ -84,10 +92,29 @@ function setTeamNames() {
     remakeAllSelects()
 }
 
-TeamAName.addEventListener("keyup", setTeamNames);
-TeamBName.addEventListener("keyup", setTeamNames);
-TeamATri.addEventListener("keyup", setTeamNames);
-TeamBTri.addEventListener("keyup", setTeamNames);
+function setEventNames() {
+    const EventNameAll = document.getElementsByClassName('apply-event-name')
+    const Caster1NameAll = document.getElementsByClassName('apply-caster-1-name')
+    const Caster2NameAll = document.getElementsByClassName('apply-caster-2-name')
+    for (const instance of EventNameAll) {
+        instance.textContent = `${EventName.value}`
+    }
+    for (const instance of Caster1NameAll) {
+        instance.textContent = `@${Caster1Name.value}`
+    }
+    for (const instance of Caster2NameAll) {
+        instance.textContent = `@${Caster2Name}`
+    }
+}
+
+TeamAName.addEventListener("keyup", setTeamNames)
+TeamBName.addEventListener("keyup", setTeamNames)
+TeamATri.addEventListener("keyup", setTeamNames)
+TeamBTri.addEventListener("keyup", setTeamNames)
+
+EventName.addEventListener("keyup", setEventNames)
+Caster1Name.addEventListener("keyup", setEventNames)
+Caster2Name.addEventListener("keyup", setEventNames)
 
 
 // Team A/B Logo Changing
@@ -144,6 +171,44 @@ function teamLogoActivate() {
     document.getElementById('team-a-logo-upload').addEventListener('change', uploadTeamALogo)
     document.getElementById('team-b-logo-upload').addEventListener('change', uploadTeamBLogo)
 }
+
+
+// Bottom Bar
+function bottomBarUpdate() {
+    const BottomBarAll = document.getElementsByClassName('bottom-bar')
+    const ChatCommandsAll = document.getElementsByClassName('chat-commands')
+    if (BottomBarSelection.checked === false) {
+        for (const instance of BottomBarAll) {
+            instance.style.display = 'none'
+        }
+    } else {
+        for (const instance of BottomBarAll) {
+            instance.style.display = 'grid'
+        }
+    }
+    if (ChatCommandsSelection.checked === false) {
+        for (const instance of ChatCommandsAll) {
+            instance.style.display = 'none'
+        }
+    } else {
+        for (const instance of ChatCommandsAll) {
+            instance.style.display = 'flex'
+        }
+    }
+    if (BottomBarTextSizeSelection.checked) {
+        for (const instance of BottomBarAll) {
+            instance.style.fontSize = '20pt'
+        }
+    } else {
+        for (const instance of BottomBarAll) {
+            instance.style.fontSize = '25pt'
+        }
+    }
+}
+
+BottomBarSelection.addEventListener("change", bottomBarUpdate)
+ChatCommandsSelection.addEventListener("change", bottomBarUpdate)
+BottomBarTextSizeSelection.addEventListener("change", bottomBarUpdate)
 
 // Map Series Length Selection
 function setSeriesLength() {
