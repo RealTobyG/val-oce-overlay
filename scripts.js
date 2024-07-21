@@ -7,13 +7,13 @@ let TeamBLogo = 'n/a'
 
 const EventName = document.querySelector('#event-name')
 const Caster1Name = document.querySelector('#caster-1-name')
-const Caster2Name = document.querySelector('#caster-1-name')
+const Caster2Name = document.querySelector('#caster-2-name')
 let EventLogo = 'n/a'
 
 const OverlaySelection = document.querySelector("#overlay-selection")
 const SeriesLengthSelection = document.querySelector("#series-length-selection")
 const MapPoolSelection = document.querySelector("#map-pool-selection")
-const CastersSelection = document.querySelector("#casters-selection")
+const CastersSelection = document.getElementsByName("casters-selection")
 const InterviewSelection = document.querySelector("#interview-selection")
 const BottomBarSelection = document.querySelector("#bottom-bar-selection")
 const ChatCommandsSelection = document.querySelector("#chat-commands-selection")
@@ -103,7 +103,7 @@ function setEventNames() {
         instance.textContent = `@${Caster1Name.value}`
     }
     for (const instance of Caster2NameAll) {
-        instance.textContent = `@${Caster2Name}`
+        instance.textContent = `@${Caster2Name.value}`
     }
 }
 
@@ -209,6 +209,41 @@ function bottomBarUpdate() {
 BottomBarSelection.addEventListener("change", bottomBarUpdate)
 ChatCommandsSelection.addEventListener("change", bottomBarUpdate)
 BottomBarTextSizeSelection.addEventListener("change", bottomBarUpdate)
+
+
+// Casters
+function castersUpdate() {
+    const casterHandles1 = document.getElementsByClassName('caster-handle-1')
+    const casterHandles2 = document.getElementsByClassName('caster-handle-2')
+    for (const element of CastersSelection) {
+        if (element.checked) {
+            let NumberOfCasters = element.value
+            if (Number(NumberOfCasters) === 1) {
+                document.getElementById('cams-overlay-video').src = `assets/${OverlaySelection.value}_Cam_Background.webm`
+                document.getElementById('cams-screen-overlay-video').src = `assets/${OverlaySelection.value}_Cam_Screen_Background.webm`
+                for (const element of casterHandles1) {
+                    element.style.display = 'grid'
+                }
+                for (const element of casterHandles2) {
+                    element.style.display = 'none'
+                }
+            } else {
+                document.getElementById('cams-overlay-video').src = `assets/${OverlaySelection.value}_Dual_Cam_Background.webm`
+                document.getElementById('cams-screen-overlay-video').src = `assets/${OverlaySelection.value}_Dual_Cam_Screen_Background.webm`
+                for (const element of casterHandles2) {
+                    element.style.display = 'grid'
+                }
+                for (const element of casterHandles1) {
+                    element.style.display = 'none'
+                }
+            }
+        }
+    }
+}
+
+for (const element of CastersSelection) {
+    element.addEventListener("change", castersUpdate)
+}
 
 // Map Series Length Selection
 function setSeriesLength() {

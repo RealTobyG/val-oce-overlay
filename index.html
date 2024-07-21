@@ -11,9 +11,8 @@
 
     <style>
         @font-face {
-            font-family: Arial;
+            font-family: 'Arial';
             src: url(assets/fonts/ARIALBD.TTF);
-            font-weight: bold;
         }
 
         @font-face {
@@ -24,7 +23,7 @@
         #page-container {
             display: grid;
             grid-template: 1080px 1080px/1920px 1920px 1920px;
-            font-family: Arial;
+            font-family: 'Arial';
         }
 
         select {
@@ -205,7 +204,7 @@
             display: flex;
             align-items: end;
             grid-area: 1/1;
-            font-family: Arial;
+            font-family: 'Arial';
             font-size: 16.7pt;
             color: white;
             padding: 0px 0px 10px 10px;
@@ -217,7 +216,7 @@
             display: flex;
             align-items: end;
             grid-area: 1/2;
-            font-family: Arial;
+            font-family: 'Arial';
             font-size: 16.7pt;
             color: white;
             padding: 0px 0px 10px 10px;
@@ -229,7 +228,7 @@
             display: flex;
             align-items: end;
             grid-area: 2/1;
-            font-family: Arial;
+            font-family: 'Arial';
             font-size: 16.7pt;
             color: white;
             padding: 0px 0px 10px 10px;
@@ -241,7 +240,7 @@
             display: flex;
             align-items: end;
             grid-area: 2/2;
-            font-family: Arial;
+            font-family: 'Arial';
             font-size: 16.7pt;
             color: white;
             padding: 0px 0px 10px 10px;
@@ -359,7 +358,7 @@
             margin: 85px 0px 0px 1292px;
             display: grid;
             grid-template: 55px 30px 194px 30px 194px 30px 194px/162px 200px 162px;
-            font-family: Arial;
+            font-family: 'Arial';
             text-transform: uppercase;
             color: white;
             font-size: 12pt;
@@ -406,13 +405,88 @@
             grid-template: 1080px/1920px;
             grid-area: 2/3;
         }
-                
+        
+        .caster-handle-1 {
+            display: grid;
+            grid-template: 1080px/1920px;;
+            grid-area: 1/1;
+        }
+        
+        .caster-handle-2 {
+            display: grid;
+            grid-template: 1080px/1920px;;
+            grid-area: 1/1;
+        }
 
+        #cam-screen-1 {
+            margin: 634px 0px 0px 1308px;
+            display: flex;
+            align-items: center;
+            height: 48px;
+            font-family: 'Arial';
+            color: white;
+            font-size: 20pt;
+        }
+
+        #cam-screen-2-1 {
+            grid-area: 1/1;
+            margin: 422px 0px 0px 1308px;
+            display: flex;
+            align-items: center;
+            height: 48px;
+            font-family: 'Arial';
+            color: white;
+            font-size: 20pt;
+        }
+
+        #cam-screen-2-2 {
+            grid-area: 1/1;
+            margin: 848px 0px 0px 1308px;
+            display: flex;
+            align-items: center;
+            height: 48px;
+            font-family: 'Arial';
+            color: white;
+            font-size: 20pt;
+        }
+        
         /* Caster Cams Overlay */
         #cams-overlay {
             display: grid;
             grid-template: 1080px/1920px;
             grid-area: 1/3;
+        }
+
+        #cam-1 {
+            margin: 771px 0px 0px 479px;
+            display: flex;
+            align-items: center;
+            height: 85px;
+            font-family: 'Arial';
+            color: white;
+            font-size: 40pt;
+        }
+
+        #cam-2-1 {
+            grid-area: 1/1;
+            margin: 735px 0px 0px 145px;
+            display: flex;
+            align-items: center;
+            height: 66px;
+            font-family: 'Arial';
+            color: white;
+            font-size: 25pt;
+        }
+
+        #cam-2-2 {
+            grid-area: 1/1;
+            margin: 735px 0px 0px 1046px;
+            display: flex;
+            align-items: center;
+            height: 66px;
+            font-family: 'Arial';
+            color: white;
+            font-size: 25pt;
         }
     </style>
 
@@ -476,7 +550,7 @@
             </div>
             
             <!--#################### Map Veto Config ####################-->
-            <div class="flex-row">
+            <div class="flex-row" style="gap: 20px;">
                 <div class="flex-row">
                     <label for="series-length-selection">Series Length: </label>
                     <select id="series-length-selection">
@@ -685,7 +759,7 @@
                     </div>
                     <div class="flex-row">
                         <span style="margin-right: 20px;">Number of Casters: </span>
-                        <input type="radio" id="1-caster" value="1" name="casters-selection" style="margin-right: 10px;">
+                        <input type="radio" id="1-caster" value="1" name="casters-selection" checked style="margin-right: 10px;">
                         <label for="1-caster" style="margin-right: 40px;">1</label>
                         <input type="radio" id="2-casters" value="2" name="casters-selection" style="margin-right: 10px;">
                         <label for="2-casters" style="margin-right: 20px;">2</label>
@@ -695,12 +769,12 @@
                         <input id="caster-1-name" type="text" style="width: 400px;">
                     </div>
                     <div class="flex-row">
-                        <label for="caster-1-name" style="margin-right: 20px;">Caster 2 @</label>
-                        <input id="caster-1-name" type="text" style="width: 400px;">
+                        <label for="caster-2-name" style="margin-right: 20px;">Caster 2 @</label>
+                        <input id="caster-2-name" type="text" style="width: 400px;">
                     </div>
                     <div class="flex-row">
                         <label for="interview-selection" style="margin-right: 20px;">Post match interview? </label>
-                        <input id="interview-selection" type="checkbox">
+                        <input id="interview-selection" type="checkbox" disabled>
                     </div>
                     <div class="flex-row">
                         <label for="bottom-bar-selection" style="margin-right: 20px;">Show bottom bar: </label>
@@ -920,7 +994,7 @@
     #################### Caster Cams + Screen Overlay ####################
     ##############################################################-->
         <div id="cams-screen-overlay">
-            <video controls autoplay loop src="assets/VCL_Cam_Screen_Background.webm" class="overlay-element grid-1-1"></video>
+            <video controls autoplay loop src="assets/VCL_Cam_Screen_Background.webm" id="cams-screen-overlay-video" class="overlay-element grid-1-1"></video>
             <div class="bottom-bar" style="display: grid; font-size: 25pt;"> 
                 <img src="assets/VCL_Bottom_Bar.png" class="overlay-element grid-1-1">
                 <div class="bottom-bar-content">
@@ -934,6 +1008,19 @@
                     <span class="chat-commands" style="display: flex;">!maps</span>
                 </div>
             </div>
+            <div class="caster-handle-1" style="display: grid;">
+                <div id="cam-screen-1">
+                    <span class="apply-caster-1-name">@</span>
+                </div>
+            </div>
+            <div class="caster-handle-2" style="display: none;">
+                <div id="cam-screen-2-1">
+                    <span class="apply-caster-1-name">@</span>
+                </div>
+                <div id="cam-screen-2-2">
+                    <span class="apply-caster-2-name">@</span>
+                </div>
+            </div>
         </div>
 
 
@@ -941,7 +1028,7 @@
     #################### Caster Cams Overlay ####################
     ##############################################################-->
         <div id="cams-overlay">
-            <video controls autoplay loop src="assets/VCL_Cam_Background.webm" class="overlay-element grid-1-1"></video>
+            <video controls autoplay loop src="assets/VCL_Cam_Background.webm" id="cams-overlay-video" class="overlay-element grid-1-1"></video>
             <div class="bottom-bar" style="display: grid; font-size: 25pt;"> 
                 <img src="assets/VCL_Bottom_Bar.png" class="overlay-element grid-1-1">
                 <div class="bottom-bar-content">
@@ -953,6 +1040,19 @@
                     <span class="chat-commands" style="display: flex;">|</span>
                     <span class="chat-commands" style="display: flex;">!score</span>
                     <span class="chat-commands" style="display: flex;">!maps</span>
+                </div>
+            </div>
+            <div class="caster-handle-1" style="display: grid;">
+                <div id="cam-1">
+                    <span class="apply-caster-1-name">@</span>
+                </div>
+            </div>
+            <div class="caster-handle-2" style="display: none;">
+                <div id="cam-2-1">
+                    <span class="apply-caster-1-name">@</span>
+                </div>
+                <div id="cam-2-2">
+                    <span class="apply-caster-2-name">@</span>
                 </div>
             </div>
         </div>
