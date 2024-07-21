@@ -159,6 +159,7 @@
             height: 700px;
             justify-content: start;
             align-items: end;
+            padding-right: 10px;
         }
 
         .active-series-console {
@@ -810,6 +811,15 @@
                         <label for="bottom-bar-text-size-selection" style="margin-right: 20px;">Reduce bottom bar text size: </label>
                         <input id="bottom-bar-text-size-selection" type="checkbox">
                     </div>
+                    <!-- TEMPORARY -->
+                    <div class="flex-row">
+                        <span style="color: white;">filler</span>
+                    </div>
+                    <div class="flex-row">
+                        <button id="pause-all-video" style="font-size: xx-large; margin: 50px;">Pause All Video</button>
+                        <button id="play-all-video" style="font-size: xx-large;">Play All Video</button>
+                    </div>
+                    <!-- TEMPORARY -->
                 </div>
             </div>
         </div>
@@ -819,7 +829,7 @@
     #################### Map Veto Overlay ####################
     ##########################################################-->
         <div id="map-veto-overlay">
-            <video controls autoplay loop src="assets/VCL_Animated_Background.webm" class="overlay-element grid-1-1"></video>
+            <video controls autoplay loop src="assets/VCL_Animated_Background.webm" class="overlay-element grid-1-1 video"></video>
             <div id="map-veto-bo3" class="grid-1-1">
                 <div id="map-veto-title">
                     <span style="color: white; text-transform: uppercase;" class="apply-team-a-name"></span>
@@ -916,10 +926,10 @@
     ##############################################################-->
         <div id="intermission-overlay">
             <div id="bo3-intermission" class="grid-1-1">
-                <video controls autoplay loop src="https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/Abyss_Cinematic.webm?raw=true" class="bo3-intermission-background-video grid-1-1" style="opacity: 0;"></video>
-                <video controls autoplay loop src="https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/Abyss_Cinematic.webm?raw=true" class="bo3-intermission-background-video grid-1-1" style="opacity: 0;"></video>
-                <video controls autoplay loop src="https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/Abyss_Cinematic.webm?raw=true" class="bo3-intermission-background-video grid-1-1" style="opacity: 0;"></video>
-                <video controls autoplay loop src="assets/VCL_BO3_Schedule_Background.webm" class="overlay-element grid-1-1"></video>
+                <video controls autoplay loop src="https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/Abyss_Cinematic.webm?raw=true" class="bo3-intermission-background-video grid-1-1 video" style="opacity: 0;"></video>
+                <video controls autoplay loop src="https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/Abyss_Cinematic.webm?raw=true" class="bo3-intermission-background-video grid-1-1 video" style="opacity: 0;"></video>
+                <video controls autoplay loop src="https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/Abyss_Cinematic.webm?raw=true" class="bo3-intermission-background-video grid-1-1 video" style="opacity: 0;"></video>
+                <video controls autoplay loop src="assets/VCL_BO3_Schedule_Background.webm" class="overlay-element grid-1-1 video"></video>
                 <div id="bo3-intermission-pick-imgs" class="grid-1-1">
                     <img id="bo3-1st-pick-img-intermission" class="bo3-pick-img-intermission" src="assets/Maps/Abyss_524x214.png">
                     <img id="bo3-2nd-pick-img-intermission" class="bo3-pick-img-intermission" src="assets/Maps/Abyss_524x214.png">
@@ -1020,7 +1030,7 @@
     #################### Caster Cams + Screen Overlay ####################
     ##############################################################-->
         <div id="cams-screen-overlay">
-            <video controls autoplay loop src="assets/VCL_Cam_Screen_Background.webm" id="cams-screen-overlay-video" class="overlay-element grid-1-1"></video>
+            <video controls autoplay loop src="assets/VCL_Cam_Screen_Background.webm" id="cams-screen-overlay-video" class="overlay-element grid-1-1 video"></video>
             <div class="bottom-bar" style="display: grid; font-size: 25pt;"> 
                 <img src="assets/VCL_Bottom_Bar.png" class="overlay-element grid-1-1">
                 <div class="bottom-bar-content">
@@ -1054,7 +1064,7 @@
     #################### Caster Cams Overlay ####################
     ##############################################################-->
         <div id="cams-overlay">
-            <video controls autoplay loop src="assets/VCL_Cam_Background.webm" id="cams-overlay-video" class="overlay-element grid-1-1"></video>
+            <video controls autoplay loop src="assets/VCL_Cam_Background.webm" id="cams-overlay-video" class="overlay-element grid-1-1 video"></video>
             <div class="bottom-bar" style="display: grid; font-size: 25pt;"> 
                 <img src="assets/VCL_Bottom_Bar.png" class="overlay-element grid-1-1">
                 <div class="bottom-bar-content">

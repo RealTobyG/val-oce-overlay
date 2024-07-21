@@ -561,6 +561,24 @@ function scoreUpdateActivate() {
 }
 
 
+//Performance optimizing
+function playAllVideo() {
+    const AllVideos = document.getElementsByClassName('video')
+    for (const element of AllVideos) {
+        element.play()
+    }
+}
+function pauseAllVideo() {
+    const AllVideos = document.getElementsByClassName('video')
+    for (const element of AllVideos) {
+        element.pause()
+    }
+}
+
+document.getElementById('pause-all-video').addEventListener("click", pauseAllVideo)
+document.getElementById('play-all-video').addEventListener("click", playAllVideo)
+
+
 //Run On Page Load
 function pageLoad() {
     setMapPool()
