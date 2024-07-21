@@ -165,11 +165,29 @@ function uploadTeamBLogo() {
     setTeamLogos()
 }
 
+function setEventLogos() {
+    const EventLogoAll = document.getElementsByClassName('apply-event-logo')
+    const EventLogoUpload = document.getElementById('event-logo-upload')
+    if (EventLogoUpload.value !== '') {
+        for (const element of EventLogoAll) {
+            element.src = EventLogo
+        }
+    }
+}
+
+function uploadEventLogo() {
+    const EventLogoUpload = document.getElementById('event-logo-upload')
+    URL.revokeObjectURL(EventLogo)
+    EventLogo = URL.createObjectURL(EventLogoUpload.files[0])
+    setEventLogos()
+}
+
 function teamLogoActivate() {
     document.getElementById('team-a-no-logo').addEventListener('change', setTeamLogos)
     document.getElementById('team-b-no-logo').addEventListener('change', setTeamLogos)
     document.getElementById('team-a-logo-upload').addEventListener('change', uploadTeamALogo)
     document.getElementById('team-b-logo-upload').addEventListener('change', uploadTeamBLogo)
+    document.getElementById('event-logo-upload').addEventListener('change', uploadEventLogo)
 }
 
 

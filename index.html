@@ -117,6 +117,16 @@
             text-align: center;
         }
 
+        .chat-cover-igo {
+            grid-area: 1/1;
+            margin: 947px 0px 0px 32px;
+            width: 463px;
+            height: 133px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
 
         /* Console */
         #overlays-console {
@@ -397,7 +407,16 @@
             color: white;
             text-transform: uppercase;
         }
-        
+
+        #event-logo-area {
+            grid-area: 1/1;
+            margin: 824px 0px 0px 1540px;
+            width: 380px;
+            height: 206px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
         /* Caster Cams + Screen Overlay */
         #cams-screen-overlay {
@@ -507,6 +526,9 @@
             <img src="assets/map_scores/GEN_BO3_0-0.png" id="map-score" class="grid-1-1 overlay-element">
             <span id="team-b-name-igo" class="team-name-right-igo apply-team-b-name"></span>
             <img src="assets/200x200_No_Logo.png" id="team-b-logo-igo" class="team-logo-right-igo apply-team-b-logo">
+            <div class="chat-cover-igo">
+                <img src="" id="event-logo-igo" class="apply-event-logo" style="height: 110px;">
+            </div>
         </div>
 
 
@@ -754,8 +776,8 @@
                         <input id="event-name" type="text" value="Event Name" style="width: 450px;">
                     </div>
                     <div class="flex-row">
-                        <label for="event-logo" style="margin-right: 20px;">Event Logo: </label>
-                        <input id="event-logo" type="file" accept="image/*" style="font-size: large; width: 265px;">
+                        <label for="event-logo-upload" style="margin-right: 20px;">Event Logo: </label>
+                        <input id="event-logo-upload" type="file" accept="image/*" style="font-size: large; width: 265px;">
                     </div>
                     <div class="flex-row">
                         <span style="margin-right: 20px;">Number of Casters: </span>
@@ -985,6 +1007,10 @@
 
                 <div id="bo3-intermission-bottom-left" class="grid-1-1">
                     <span class="current-map"></span>
+                </div>
+
+                <div id="event-logo-area">
+                    <img src="" id="event-logo-intermission" class="apply-event-logo" style="width: 300px;">
                 </div>
             </div>
         </div>  
