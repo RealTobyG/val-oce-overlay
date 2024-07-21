@@ -284,10 +284,12 @@ function setMapVeto() {
         const pickImgsIntermission = document.getElementsByClassName('bo3-pick-img-intermission')
         const pickImgs = document.getElementsByClassName('bo3-pick-img')
         const pickMapNames = document.getElementsByClassName('bo3-pick-mapname')
+        const bo3IntermissionBackgroundMap = document.getElementsByClassName('bo3-intermission-background-video')
         mapPicks.forEach((pick, i) => {
             pickImgs[i].src = `assets/Maps/${pick.mapname}_320x640.png`
             pickImgsIntermission[i].src = `assets/Maps/${pick.mapname}_524x214.png`
             pickMapNames[i].textContent = `${pick.mapname}`
+            bo3IntermissionBackgroundMap[i].src = `https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/${pick.mapname}_Cinematic.webm?raw=true`
         })
         setTeamNames()
         setTeamLogos()
@@ -359,6 +361,7 @@ function scoreUpdate() {
     })
     // Updates current map on intermission overlay
     const currentMap = document.getElementsByClassName('current-map')
+    const bo3IntermissionBackgroundMap = document.getElementsByClassName('bo3-intermission-background-video')
     if (SeriesLengthSelection.value === 'BO3') {        
         if (teamASeriesScore !== 2 && teamBSeriesScore !== 2) {
             for (const element of currentMap) {
@@ -372,6 +375,15 @@ function scoreUpdate() {
             for (const element of currentMap) {
                 element.textContent = `${TeamBTri.value} ${teamBSeriesScore} - ${teamASeriesScore} ${TeamATri.value}`
             }
+        }
+        if (mapNumber<3) {
+            Array.from(bo3IntermissionBackgroundMap).forEach((element, i) => {
+                if (i === mapNumber) {
+                    element.style.opacity = 100
+                } else {
+                    element.style.opacity = 0
+                }
+            })
         }
     }
     // Shows/Hides map results for finished maps
