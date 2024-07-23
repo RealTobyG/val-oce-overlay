@@ -90,13 +90,13 @@
             align-items: center;
         }
 
-        #menu-select [type=radio]:hover + div {
-            background-color: rgb(35, 35, 35);
+        #menu-select [type=radio]:hover + div[class=menu-tab] {
+            background-color: rgb(78, 75, 68);
             color: white;
             cursor: pointer;
         }
 
-        #menu-select [type=radio]:checked + div {
+        #menu-select [type=radio]:checked + div[class=menu-tab] {
             background-color: rgb(26 26 26);
             color: white;
             cursor: default;
@@ -135,7 +135,7 @@
         #team-config {
             display: grid;
             grid-template: repeat(7, 100px)/100px 100px 50px 500px;
-            padding: 50px;
+            padding: 30px 0px 0px 40px;
         }
 
         #team-config [type=file] + div {
@@ -150,7 +150,7 @@
 
         #team-config [type=file]:hover + div[class=input-contents] {
             cursor: pointer;
-            background-color: rgb(35, 35, 35);
+            background-color: rgb(78, 75, 68);
         }
 
         #team-config [type=file] + div[class=input-contents] img {
@@ -184,6 +184,7 @@
         #team-config [type=checkbox]:hover + div[class=input-contents] {
             cursor: pointer;
             color: white;
+            background-color: rgb(78, 75, 68);
         }
 
         #team-config [type=checkbox]:checked + div[class=input-contents] {
@@ -209,7 +210,11 @@
         }
 
         #team-config [type=text]:hover {
-            background-color: rgb(35, 35, 35);
+            background-color: rgb(78, 75, 68);
+        }
+
+        #team-config [type=text]:focus {
+            background-color: rgb(78, 75, 68);
         }
 
         #team-config [type=text]:hover + div[class=help] {
@@ -221,6 +226,211 @@
             left: 1430px;
         }
 
+        /* ########################### */
+        /* ##### Map Veto Config ##### */
+        /* ########################### */
+        #veto-config-header {
+            display: grid;
+            grid-template: 100px/100px 100px 100px 100px 300px 300px;
+            margin: 30px 0px 20px 30px; 
+        }
+        
+        #veto-config-header [type=radio] + div[class=input-contents] {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            background-color: rgb(52, 52, 52);
+            color: rgb(149, 149, 149);
+            font-size: 15pt;
+            border-color: rgb(78, 75, 68);
+        }
+
+        #veto-config-header [type=radio]:hover + div[class=input-contents] {
+            cursor: pointer;
+            background-color: rgb(78, 75, 68);
+            color: white;
+        }
+
+        #veto-config-header [type=radio]:checked + div[class=input-contents] {
+            cursor: default;
+            background-color: rgb(35, 35, 35);
+            color: white;
+        }
+
+        #veto-config-header [type=radio]:hover + div[class=input-contents] div[class=help] {
+            display: flex;
+            background-color: rgb(52, 52, 52);
+            color: white;
+            position: absolute;
+            top: 30px;
+            left: 1430px;
+        }
+
+        .map-veto-background {
+            background-color: rgb(78, 75, 68);
+            border-radius: 10px;
+            border: 10px solid rgb(78, 75, 68);
+            transform: scale(1.1, 1.03);
+        }
+
+        #veto-config-body {
+            display: grid;
+            grid-template: 40px repeat(6, 70px)/repeat(6, 100px 100px 70px) 100px 100px;
+            margin: 30px 0px 0px 30px; 
+        }
+
+        .map-veto-heading {
+            z-index: 1;
+            width: 200px;
+            text-align: center;
+            font-size: 20pt;
+            text-transform: capitalize;
+        }
+        
+        #veto-config-body [type=radio] + div[class=input-contents] {
+            height: 100px;
+            background-color: rgb(149, 149, 149);
+            border-radius: 10px;
+        }
+
+        #veto-config-body [type=radio] + div[class=input-contents] img {
+            margin: 10px 0px 0px 10px;
+            width: 80px;
+        }
+
+        #veto-config-body [type=radio]:hover + div[class=input-contents] {
+            cursor: pointer;
+            background-color: rgb(78, 75, 68);
+        }
+
+        #veto-config-body [type=radio]:hover + div[class=input-contents] img {
+            margin: 5px 0px 0px 5px;
+            width: 90px;
+        }
+
+        #veto-config-body [type=radio]:checked + div[class=input-contents] {
+            background-color: rgb(35, 35, 35);
+        }
+
+        #veto-config-body [type=radio]:hover + div[class=input-contents] div[class=help] {
+            display: flex;
+            background-color: rgb(52, 52, 52);
+            color: white;
+            position: absolute;
+            top: 30px;
+            left: 1430px;
+        }
+
+        .map-option-600x210 {
+            display: grid;
+            grid-template: 70px / 200px;
+        }
+
+        #veto-config-body [type=radio] + div[class=map-option-600x210] img{
+            width: 200px;
+            grid-area: 1/1;
+        }
+
+        #veto-config-body [type=radio] + div[class=map-option-600x210] div[class=map-option-overlay] {
+            grid-area: 1/1;
+            width: 200px;
+            height: 70px;
+            background-color: rgb(26 26 26);
+            opacity: 80%;
+        }
+
+        #veto-config-body [type=radio]:hover + div[class=map-option-600x210] div[class=map-option-overlay] {
+            cursor: pointer;
+            opacity: 40%;
+        }
+
+        #veto-config-body [type=radio]:checked + div[class=map-option-600x210] div[class=map-option-overlay] {
+            cursor: default;
+            opacity: 0;
+        }
+
+        #veto-config-body [type=radio] + div[class=map-option-600x210] span[class=map-option-text] {
+            grid-area: 1/1;
+            color: rgb(149, 149, 149);
+            place-self: center;
+            z-index: 2;
+            text-shadow: 0px 0px 5px black;
+        }
+
+        #veto-config-body [type=radio]:hover + div[class=map-option-600x210] span[class=map-option-text] {
+            cursor: pointer;
+            color: white;
+        }
+
+        #veto-config-body [type=radio]:checked + div[class=map-option-600x210] span[class=map-option-text] {
+            cursor: default;
+            color: white;
+        }
+
+        #veto-config-body [type=radio]:hover + div[class=map-option-600x210] div[class=help] {
+            display: flex;
+            background-color: rgb(52, 52, 52);
+            color: white;
+            position: absolute;
+            top: 30px;
+            left: 1430px;
+        }
+
+        .map-option-300x210 {
+            display: grid;
+            grid-template: 70px / 100px;
+        }
+
+        #veto-config-body [type=radio] + div[class=map-option-300x210] img{
+            width: 100px;
+            grid-area: 1/1;
+        }
+
+        #veto-config-body [type=radio] + div[class=map-option-300x210] div[class=map-option-overlay] {
+            grid-area: 1/1;
+            width: 100px;
+            height: 70px;
+            background-color: rgb(26 26 26);
+            opacity: 70%;
+        }
+
+        #veto-config-body [type=radio]:hover + div[class=map-option-300x210] div[class=map-option-overlay] {
+            cursor: pointer;
+            opacity: 30%;
+        }
+
+        #veto-config-body [type=radio]:checked + div[class=map-option-300x210] div[class=map-option-overlay] {
+            cursor: default;
+            opacity: 0;
+        }
+
+        #veto-config-body [type=radio] + div[class=map-option-300x210] span[class=map-option-text] {
+            grid-area: 1/1;
+            color: rgb(149, 149, 149);
+            place-self: center;
+            z-index: 2;
+            text-shadow: 0px 0px 5px black;
+        }
+
+        #veto-config-body [type=radio]:hover + div[class=map-option-300x210] span[class=map-option-text] {
+            cursor: pointer;
+            color: white;
+        }
+
+        #veto-config-body [type=radio]:checked + div[class=map-option-300x210] span[class=map-option-text] {
+            cursor: default;
+            color: white;
+        }
+
+        #veto-config-body [type=radio]:hover + div[class=map-option-300x210] div[class=help] {
+            display: flex;
+            background-color: rgb(52, 52, 52);
+            color: white;
+            position: absolute;
+            top: 30px;
+            left: 1430px;
+        }
 
 
         /* to change */
@@ -256,6 +466,34 @@
             height: 100%;
         }
 
+        /* #sectionID {
+            display: grid;
+            grid-template: 100px/100px 100px 100px 100px 300px 300px;
+            margin: 30px 0px 20px 30px; 
+        }
+        
+        #sectionID [type=radio] + div[class=input-contents] {
+            display: flex;
+        }
+
+        #sectionID [type=radio]:hover + div[class=input-contents] {
+            display: flex;
+        }
+
+        #sectionID [type=radio]:checked + div[class=input-contents] {
+            display: flex;
+        }
+
+        #sectionID [type=radio]:hover + div[class=input-contents] div[class=help] {
+            display: flex;
+            background-color: rgb(52, 52, 52);
+            color: white;
+            position: absolute;
+            top: 30px;
+            left: 1430px;
+        } */
+
+
         /* display: flex;
         align-items: center;
         justify-content: center;
@@ -273,7 +511,7 @@
     </style>
 </head>
 
-<body style="background-color: rgb(78, 75, 68);">
+<body>
     <div id="page-container">
         <div id="overlays-console">
 
@@ -379,25 +617,8 @@
                                     <span>Tricodes are a 2-4 character representation of a <br> team's name such as PRX or SEN </span>
                                 </div>
 
-
-                                <!-- 
-                                <label for="team-b-name">Team B Name: </label>
-                                <input type="text" id="team-b-name" style="width: 280px;" value="Team B" class="menu">
-                                
-                                <label for="team-b-tri">Team B Tricode: </label>
-                                <input type="text" id="team-b-tri" maxlength="4" style="width: 100px;" value="TMB" class="menu">
-                                
-                                <label for="team-b-logo-upload">Team B Logo: </label>
-                                <input type="file" id="team-b-logo-upload" accept="image/*" style="font-size: large;" class="menu">
-                                <div></div>
-                                
-                                <div></div>
-                                <div>
-                                    <label for="team-b-no-logo">No Logo: </label>
-                                    <input type="checkbox" id="team-b-no-logo" class="menu">
-                                </div> -->
-                            </div>
-                        </div>
+                            </div> <!-- Team Config -->
+                        </div> <!-- Menu Config -->
                     </div>
                 </label>
 
@@ -410,8 +631,145 @@
                     <div class="menu-tab">
                         <span class="menu-name">Map Veto</span>
                         <div class="menu-contents">
-                            
-                            <div class="flex-row" style="gap: 20px;">
+                            <div id="veto-config-header">
+
+                                <label for="series-length-bo1">
+                                    <input type="radio" id="series-length-bo1" value="0" name="series-length-selection" class="menu">
+                                    <div class="input-contents" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-width: 5px 0px 5px 5px; border-style: solid;">
+                                        <span>BO1</span>
+                                        <div class="help">
+                                            <span>Sets the series length to a Best Of 1</span>
+                                            <span style="color: red;">WARNING: <br> Changing the series length resets the map veto</span>
+                                       <!-- <span>How long can I type 1 2 3 4 5 6 7 8 9 10 11 12 13</span> -->
+                                        </div>
+                                    </div>
+                                </label>
+
+                                <label for="series-length-bo3">
+                                    <input type="radio" id="series-length-bo3" value="1" name="series-length-selection" checked class="menu">
+                                    <div class="input-contents" style="border-width: 5px 0px 5px 0px; border-style: solid;">
+                                        <span>BO3</span>
+                                        <div class="help">
+                                            <span>Sets the series length to a Best Of 3</span>
+                                            <span style="color: red;">WARNING: <br> Changing the series length resets the map veto</span>
+                                       <!-- <span>How long can I type 1 2 3 4 5 6 7 8 9 10 11 12 13</span> -->
+                                        </div>
+                                    </div>
+                                </label>
+
+                                <label for="series-length-bo5">
+                                    <input type="radio" id="series-length-bo5" value="2" name="series-length-selection" class="menu">
+                                    <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid;">
+                                        <span>BO5</span>
+                                        <div class="help">
+                                            <span>Sets the series length to a Best Of 5</span>
+                                            <span style="color: red;">WARNING: <br> Changing the series length resets the map veto</span>
+                                       <!-- <span>How long can I type 1 2 3 4 5 6 7 8 9 10 11 12 13</span> -->
+                                        </div>
+                                    </div>
+                                </label>
+
+                                <div></div>
+
+                                <label for="map-pool-official">
+                                    <input type="radio" id="map-pool-official" value="0" name="map-pool-selection" checked class="menu">
+                                    <div class="input-contents" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-width: 5px 0px 5px 5px; border-style: solid;">
+                                        <span>Official Map Pool</span>
+                                        <div class="help">
+                                            <span>Sets the map pool to the <br> official competitive map rotation</span>
+                                            <span style="color: red;">WARNING: <br> Changing the map pool resets the map veto</span>
+                                       <!-- <span>How long can I type 1 2 3 4 5 6 7 8 9 10 11 12 13</span> -->
+                                        </div>
+                                    </div>
+                                </label>
+
+                                <label for="map-pool-all">
+                                    <input type="radio" id="map-pool-all" value="1" name="map-pool-selection" class="menu">
+                                    <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid;">
+                                        <span>All Maps</span>
+                                        <div class="help">
+                                            <span>Sets the map pool to use all Valorant maps</span>
+                                            <span style="color: red;">WARNING: <br> Changing the map pool resets the map veto</span>
+                                       <!-- <span>How long can I type 1 2 3 4 5 6 7 8 9 10 11 12 13</span> -->
+                                        </div>
+                                    </div>
+                                </label>
+
+                            </div> <!-- Veto Config Header -->
+
+                            <div id="veto-config-body">
+
+                                <!-- <div class="map-veto-background" style="grid-area: 1/1/12/3;"></div>
+                                <div class="map-veto-background" style="grid-area: 1/4/12/6;"></div>
+                                <div class="map-veto-background" style="grid-area: 1/7/12/9;"></div>
+                                <div class="map-veto-background" style="grid-area: 1/10/12/12;"></div>
+                                <div class="map-veto-background" style="grid-area: 1/13/12/15;"></div>
+                                <div class="map-veto-background" style="grid-area: 1/16/12/18;"></div> -->
+                                
+                                
+                                <!-- <div class="map-veto-background" style="grid-area: 1/19/12/21;"></div>
+                                
+                                <span class="map-veto-heading" style="grid-area: 1/19/1/21;">1st Ban</span>
+                                
+                                <label for="1st-ban-team-a-test" style="grid-area: 2/19; z-index: 1;">
+                                    <input type="radio" id="1st-ban-team-a-test" value="0" name="1st-ban-team-test" checked class="map-ban-team menu">
+                                    <div class="input-contents">
+                                        <img src="assets/200x200_No_Logo.png" class="apply-team-a-logo">
+                                        <div class="help">
+                                            <div class="flex-row">
+                                                <span style="margin-right: 5px;">Sets 1st to</span>
+                                                <span class="apply-team-a-tri"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </label>
+
+                                <label for="1st-ban-team-b-test" style="grid-area: 2/20; z-index: 1;">
+                                    <input type="radio" id="1st-ban-team-b-test" value="1" name="1st-ban-team-test" class="map-ban-team menu">
+                                    <div class="input-contents">
+                                        <img src="assets/200x200_No_Logo.png" class="apply-team-b-logo">
+                                        <div class="help">
+                                            <div class="flex-row">
+                                                <span style="margin-right: 5px;">Sets 1st to</span>
+                                                <span class="apply-team-b-tri"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </label>
+                                
+                                <label for="1st-ban-abyss-test" style="grid-area: 3/19/4/21; z-index: 1;">
+                                    <input type="radio" id="1st-ban-abyss-test" value="Abyss" name="1st-ban-map-test" checked class="map-ban-selection menu">
+                                    <div class="map-option">
+                                        <img src="assets/Maps/Abyss_600x210.png">
+                                        <div class="map-option-overlay"></div>
+                                        <span class="map-option-text">Abyss</span>
+                                        <div class="help">
+                                            <div class="flex-row">
+                                                <span>Sets 1st ban to Abyss</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </label>
+
+                                <label for="1st-ban-ascent-test" style="grid-area: 4/19/5/21; z-index: 1;">
+                                    <input type="radio" id="1st-ban-ascent-test" value="Ascent" name="1st-ban-map-test" class="map-ban-selection menu">
+                                    <div class="map-option">
+                                        <img src="assets/Maps/Ascent_600x210.png">
+                                        <div class="map-option-overlay"></div>
+                                        <span class="map-option-text">Ascent</span>
+                                        <div class="help">
+                                            <div class="flex-row">
+                                                <span>Sets 1st ban to Ascent</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </label> -->
+                                
+
+                            </div>
+
+
+                            <!-- <div class="flex-row" style="gap: 20px; display: none;">
                                 <div class="flex-row">
                                     <label for="series-length-selection">Series Length: </label>
                                     <select id="series-length-selection" class="menu">
@@ -427,9 +785,9 @@
                                         <option>All Maps</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div> -->
 
-                            <div class="flex-row">
+                            <div class="flex-row" style="display: none;">
                                 <div id="map-config">
                                     <!--#################### BO3 ####################-->
                                     <div id="bo3-console" class="active-series-console">
@@ -607,9 +965,10 @@
                                         <label for="map-selection-bo1">B01 Map Select: </label>
                                         <select id="map-selection-bo1" class="map-pick-selection"></select>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
+
+                                </div> <!-- Map Config -->
+                            </div> <!-- Flex Row -->
+                        </div> <!-- Menu Content -->
                     </div>
                 </label>
 
