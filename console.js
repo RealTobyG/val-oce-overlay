@@ -230,25 +230,25 @@ function setMapPool() {
         console.log('veto config element removed')
     }
     if (Number(seriesLengthSelection) === 1) {
-        createMapPickBan('1st', 1, 'ban', false)
-        createMapPickBan('2nd', 4, 'ban', false)
-        createMapPickBan('1st', 7, 'pick', false)
-        createMapPickBan('2nd', 10, 'pick', false)
-        createMapPickBan('3rd', 13, 'ban', false)
-        createMapPickBan('4th', 16, 'ban', false)
-        createMapPickBan('3rd', 19, 'pick', true)
+        createMapPickBan('1st', 1, 'ban', false, 0)
+        createMapPickBan('2nd', 4, 'ban', false, 1)
+        createMapPickBan('1st', 7, 'pick', false, 0)
+        createMapPickBan('2nd', 10, 'pick', false, 1)
+        createMapPickBan('3rd', 13, 'ban', false, 0)
+        createMapPickBan('4th', 16, 'ban', false, 1)
+        createMapPickBan('3rd', 19, 'pick', true, 0)
     } else if (Number(seriesLengthSelection) === 2) {
-        createMapPickBan('1st', 1, 'ban', false)
-        createMapPickBan('2nd', 4, 'ban', false)
-        createMapPickBan('1st', 7, 'pick', false)
-        createMapPickBan('2nd', 10, 'pick', false)
-        createMapPickBan('3rd', 13, 'pick', false)
-        createMapPickBan('4th', 16, 'pick', false)
-        createMapPickBan('5th', 19, 'pick', true)
+        createMapPickBan('1st', 1, 'ban', false, 0)
+        createMapPickBan('2nd', 4, 'ban', false, 1)
+        createMapPickBan('1st', 7, 'pick', false, 0)
+        createMapPickBan('2nd', 10, 'pick', false, 1)
+        createMapPickBan('3rd', 13, 'pick', false, 0)
+        createMapPickBan('4th', 16, 'pick', false, 1)
+        createMapPickBan('5th', 19, 'pick', true, 0)
     }
 }
 
-function createMapPickBan(nth, clmn, pickBan, decider) {
+function createMapPickBan(nth, clmn, pickBan, decider, teamAB) {
     const mapVeto = document.getElementById('veto-config-body')
     const background = document.createElement('div')
         background.className = "map-veto-background"
@@ -278,7 +278,7 @@ function createMapPickBan(nth, clmn, pickBan, decider) {
             }
             mapSelect.style.zIndex = "1"
             if (imgDimension === '300x210' && mapNum === 10) {
-                mapSelect.style.transform = "translate(50px)"
+                mapSelect.style.marginLeft = "50px"
             }
                 const mapSelectInput = document.createElement('input')
                     mapSelectInput.type = "radio"
@@ -325,10 +325,8 @@ function createMapPickBan(nth, clmn, pickBan, decider) {
             } else if (i % 2 !==0) {
                 createMapSelect(map.mapName, mapSelectsCreated+2, false, '300x210', i)
                 mapSelectsCreated++
-                console.log(i, mapSelectsCreated)
             } else {
                 createMapSelect(map.mapName, mapSelectsCreated+2, false, '300x210', i)
-                console.log(i, mapSelectsCreated)
             }
         })
     } else {
@@ -345,54 +343,110 @@ function createMapPickBan(nth, clmn, pickBan, decider) {
             }
         })
     }
-    if (decider) {
 
+    function createTeamSelect(team, row, trueFalse, teamDef) {
+        const teamSelect = document.createElement('label')
+            teamSelect.for = `${nth}-${pickBan}-${teamDef}`
+            if (Number(mapPoolSelection) === 0) {
+                teamSelect.style.gridArea = `${row}/${clmn}/${row+1}/${clmn+2}`
+            } else {
+                teamSelect.style.gridArea = `${row-1}/${clmn}/${row}/${clmn+2}`
+            }
+            teamSelect.style.zIndex = "1"
+                const teamSelectInput = document.createElement('input')
+                    teamSelectInput.type = "checkbox"
+                    teamSelectInput.id = `${nth}-${pickBan}-${teamDef}`
+                    teamSelectInput.name = `${nth}-${pickBan}-${teamDef}`
+                    teamSelectInput.checked = trueFalse
+                    teamSelectInput.className = `map-${pickBan}-${teamDef} menu`
+                const teamSelectInputContents = document.createElement('div')
+                    teamSelectInputContents.className = "input-contents"
+                        const teamSelectDescription = document.createElement('span')
+                            if (teamDef === 'team' && pickBan === 'pick') {
+                                teamSelectDescription.textContent = "Toggle Team Picking"
+                            } else if (teamDef === 'team' && pickBan === 'ban') {
+                                teamSelectDescription.textContent = "Toggle Team Banning"
+                            } else {
+                                teamSelectDescription.textContent = "Toggle Team Starting Def"
+                            }
+                        const teamSelectLogo = document.createElement('img')
+                            teamSelectLogo.src = "assets/200x200_No_Logo.png"
+                            teamSelectLogo.className = `apply-${team}-logo`
+                        const teamSelectHelp = document.createElement('div')
+                            teamSelectHelp.className = "help"
+                                const teamSelectHelpDiv1 = document.createElement('div')
+                                    teamSelectHelpDiv1.style.display = "flex"
+                                    teamSelectHelpDiv1.style.flexDirection = "column"
+                                    teamSelectHelpDiv1.style.alignItems = "center"
+                                        const teamSelectHelpLine1 = document.createElement('span')
+                                            if (teamDef === 'team' && pickBan === 'pick') {
+                                                teamSelectHelpLine1.textContent = `Toggle the team banning between`
+                                            } else if (teamDef === 'team' && pickBan === 'ban') {
+                                                teamSelectHelpLine1.textContent = `Toggle the team picking between`
+                                            } else {
+                                                teamSelectHelpLine1.textContent = `Toggle the team starting defense between`
+                                            }  
+                                        const teamSelectHelpDiv2 = document.createElement('div')
+                                            teamSelectHelpDiv2.className = "flex-row"  
+                                                const teamSelectHelpLine2 = document.createElement('span')
+                                                    teamSelectHelpLine2.style.marginRight = "5px"
+                                                    teamSelectHelpLine2.className = `apply-team-a-tri`
+                                                const teamSelectHelpLine3 = document.createElement('span')
+                                                    teamSelectHelpLine3.style.marginRight = "5px"
+                                                    teamSelectHelpLine3.textContent = `and`
+                                                const teamSelectHelpLine4 = document.createElement('span')
+                                                    teamSelectHelpLine4.className = `apply-team-b-tri`
+                                        teamSelectHelpDiv2.appendChild(teamSelectHelpLine2)
+                                        teamSelectHelpDiv2.appendChild(teamSelectHelpLine3)
+                                        teamSelectHelpDiv2.appendChild(teamSelectHelpLine4)
+                                teamSelectHelpDiv1.appendChild(teamSelectHelpLine1)
+                                teamSelectHelpDiv1.appendChild(teamSelectHelpDiv2)
+                        teamSelectHelp.appendChild(teamSelectHelpDiv1)
+                teamSelectInputContents.appendChild(teamSelectDescription)
+                teamSelectInputContents.appendChild(teamSelectLogo)
+                teamSelectInputContents.appendChild(teamSelectHelp)
+        teamSelect.appendChild(teamSelectInput)
+        teamSelect.appendChild(teamSelectInputContents)
+        mapVeto.appendChild(teamSelect)
+    }
+
+    if (decider) {
+        const deciderFiller = document.createElement('div')
+            deciderFiller.className = "decider-filler"
+            if (Number(mapPoolSelection) === 0) {
+                deciderFiller.style.gridArea = `9/${clmn}/10/${clmn+2}`
+            } else {
+                deciderFiller.style.gridArea = `8/${clmn}/11/${clmn+2}`
+            }
+            deciderFiller.style.zIndex = "1"
+                const deciderFillerText = document.createElement('span')
+                    deciderFillerText.textContent = "Team select is disabled for decider"
+                const deciderFillerHelp = document.createElement('div')
+                    deciderFillerHelp.className = "help"
+                    deciderFillerHelp.style.fontSize = "10pt"
+                        const deciderFillerHelpText1 = document.createElement('span')
+                            deciderFillerHelpText1.textContent = "Decider map is based on the remaining map after picks and bans. If you are using an alternate map pool with more than 7 maps teams must agree on a decider map. This will have no effect on overlay displays."
+                        const deciderFillerHelpText2 = document.createElement('span')
+                            deciderFillerHelpText2.textContent = "If you are using an alternate map pool with more than 7 maps, teams must agree on a decider map. This will have no effect on overlay displays."
+                deciderFillerHelp.appendChild(deciderFillerHelpText1)
+                // deciderFillerHelp.appendChild(deciderFillerHelpText2)
+        deciderFiller.appendChild(deciderFillerText)
+        deciderFiller.appendChild(deciderFillerHelp)
+        mapVeto.appendChild(deciderFiller)
+
+        createTeamSelect('team-b', 10, false, 'def')
     } else {
-        function createTeamSelect(team, clmnCTS, trueFalse) {
-            const teamSelect = document.createElement('label')
-                teamSelect.for = `${nth}-${pickBan}-${team}`
-                if (Number(mapPoolSelection) === 0) {
-                    teamSelect.style.gridArea = `9/${clmnCTS}`
-                } else {
-                    teamSelect.style.gridArea = `8/${clmnCTS}`
-                }
-                teamSelect.style.zIndex = "1"
-                    const teamSelectInput = document.createElement('input')
-                        teamSelectInput.type = "radio"
-                        teamSelectInput.id = `${nth}-${pickBan}-${team}`
-                        teamSelectInput.value = "0"
-                        teamSelectInput.name = `${nth}-${pickBan}-team`
-                        teamSelectInput.checked = trueFalse
-                        teamSelectInput.className = `map-${pickBan}-team menu`
-                    const teamSelectInputContents = document.createElement('div')
-                        teamSelectInputContents.className = "input-contents"
-                            const teamSelectLogo = document.createElement('img')
-                                teamSelectLogo.src = "assets/200x200_No_Logo.png"
-                                teamSelectLogo.className = `apply-${team}-logo`
-                            const teamSelectHelp = document.createElement('div')
-                                teamSelectHelp.className = "help"
-                                    const teamSelectHelpDiv = document.createElement('div')
-                                        teamSelectHelpDiv.className = "flex-row"
-                                            const teamSelectHelpLine1 = document.createElement('span')
-                                                teamSelectHelpLine1.style.marginRight = "5px"
-                                                teamSelectHelpLine1.textContent = `Sets ${nth} ${pickBan} team to`
-                                            const teamSelectHelpLine2 = document.createElement('span')
-                                                teamSelectHelpLine2.className = `apply-${team}-tri`
-                                    teamSelectHelpDiv.appendChild(teamSelectHelpLine1)
-                                    teamSelectHelpDiv.appendChild(teamSelectHelpLine2)
-                            teamSelectHelp.appendChild(teamSelectHelpDiv)
-                    teamSelectInputContents.appendChild(teamSelectLogo)
-                    teamSelectInputContents.appendChild(teamSelectHelp)
-            teamSelect.appendChild(teamSelectInput)
-            teamSelect.appendChild(teamSelectInputContents)
-            mapVeto.appendChild(teamSelect)
+        if (teamAB === 0) {
+            createTeamSelect('team-a', 9, false, 'team')
+        } else {
+            createTeamSelect('team-b', 9, true, 'team')
         }
-        createTeamSelect('team-a', clmn, true)
-        createTeamSelect('team-b', clmn+1, false)
+        if (pickBan === 'pick') {
+            createTeamSelect('team-b', 10, false, 'def')
+        }
     }
     setAllNames()
     setAllLogos()
-    console.log(`Pick/Ban created`)
 }
 
 

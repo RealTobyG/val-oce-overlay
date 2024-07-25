@@ -287,40 +287,6 @@
             font-size: 20pt;
             text-transform: capitalize;
         }
-        
-        #veto-config-body [type=radio] + div[class=input-contents] {
-            height: 100px;
-            background-color: rgb(149, 149, 149);
-            border-radius: 10px;
-        }
-
-        #veto-config-body [type=radio] + div[class=input-contents] img {
-            margin: 10px 0px 0px 10px;
-            width: 80px;
-        }
-
-        #veto-config-body [type=radio]:hover + div[class=input-contents] {
-            cursor: pointer;
-            background-color: rgb(78, 75, 68);
-        }
-
-        #veto-config-body [type=radio]:hover + div[class=input-contents] img {
-            margin: 5px 0px 0px 5px;
-            width: 90px;
-        }
-
-        #veto-config-body [type=radio]:checked + div[class=input-contents] {
-            background-color: rgb(35, 35, 35);
-        }
-
-        #veto-config-body [type=radio]:hover + div[class=input-contents] div[class=help] {
-            display: flex;
-            background-color: rgb(52, 52, 52);
-            color: white;
-            position: absolute;
-            top: 30px;
-            left: 1430px;
-        }
 
         .map-option-600x210 {
             display: grid;
@@ -432,6 +398,62 @@
             left: 1430px;
         }
 
+        #veto-config-body [type=checkbox] + div[class=input-contents] {
+            display: grid;
+            grid-template: 70px / 130px 70px;
+            background-color: rgb(149, 149, 149);
+            border-radius: 10px;
+            text-align: center;
+            place-items: center;
+        }
+
+        #veto-config-body [type=checkbox]:checked + div[class=input-contents] {
+            background-color: rgb(35, 35, 35);
+        }
+
+        #veto-config-body [type=checkbox]:hover + div[class=input-contents] {
+            cursor: pointer;
+            background-color: rgb(78, 75, 68);
+        }
+
+        #veto-config-body [type=checkbox] + div[class=input-contents] img {
+            width: 45px;
+        }
+
+        #veto-config-body [type=checkbox]:hover + div[class=input-contents] img {
+            width: 55px;
+        }
+
+        #veto-config-body [type=checkbox]:hover + div[class=input-contents] div[class=help] {
+            display: flex;
+            background-color: rgb(52, 52, 52);
+            color: white;
+            position: absolute;
+            top: 30px;
+            left: 1430px;
+        }
+
+        #veto-config-body div[class=decider-filler] {
+            display: flex;
+            width: 200px;
+            height: 70px;
+            border-radius: 10px;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(52, 52, 52);
+            color: rgb(149, 149, 149);
+            text-align: center;
+            font-size: 12pt;
+        }
+
+        #veto-config-body div[class=decider-filler]:hover div[class=help] {
+            display: flex;
+            background-color: rgb(52, 52, 52);
+            color: white;
+            position: absolute;
+            top: 30px;
+            left: 1430px;
+        }
 
         /* to change */
         #map-config {

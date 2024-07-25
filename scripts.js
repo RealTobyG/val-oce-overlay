@@ -412,6 +412,7 @@ function setMapVeto() {
         setTeamNames()
         setTeamLogos()
         scoreUpdate()
+        copyMaps()
     }
 }
 
@@ -475,7 +476,6 @@ function scoreUpdate() {
                 applyWinnerScoreIntermission[0].textContent = `${TeamAScores[i].value} - ${TeamBScores[i].value}`
             }
         }
-        
     })
     // Updates current map on intermission overlay
     const currentMap = document.getElementsByClassName('current-map')
@@ -502,7 +502,7 @@ function scoreUpdate() {
                     element.style.opacity = 0
                 }
             })
-        }
+        }    
     }
     // Shows/Hides map results for finished maps
     const mapResultOverlays = document.getElementsByClassName('map-result-overlay')
@@ -544,6 +544,21 @@ function scoreUpdate() {
     } else if (teamASeriesScore<2 && teamBSeriesScore<2) {
         MapScoreIGO.src = `assets/map_scores/${OverlaySelection.value}_${SeriesLengthSelection.value}_${seriesScore}.png`
     }
+    // !Scores command update
+    if (mapNumber === 0) {
+        scoreCommand = `!editcom !score ${TeamATri.value} ${teamASeriesScore}-${teamBSeriesScore} ${TeamBTri.value} | ${mapPicks[0].mapname} - Current | ${mapPicks[1].mapname} - TBD | ${mapPicks[2].mapname} - TBD`
+    } else if (mapNumber === 1) {
+        scoreCommand = `!editcom !score ${TeamATri.value} ${teamASeriesScore}-${teamBSeriesScore} ${TeamBTri.value} | ${mapPicks[0].mapname} - ${TeamATri.value} ${TeamAScores[0].value}-${TeamBScores[0].value} ${TeamBTri.value} | ${mapPicks[1].mapname} - Current | ${mapPicks[2].mapname} - TBD`
+    } else if (mapNumber === 2) {
+        if (teamASeriesScore !== 2 && teamBSeriesScore !== 2) {
+            scoreCommand = `!editcom !score ${TeamATri.value} ${teamASeriesScore}-${teamBSeriesScore} ${TeamBTri.value} | ${mapPicks[0].mapname} - ${TeamATri.value} ${TeamAScores[0].value}-${TeamBScores[0].value} ${TeamBTri.value} | ${mapPicks[1].mapname} - ${TeamATri.value} ${TeamAScores[1].value}-${TeamBScores[1].value} ${TeamBTri.value} | ${mapPicks[2].mapname} - Current`
+        } else {
+            scoreCommand = `!editcom !score ${TeamATri.value} ${teamASeriesScore}-${teamBSeriesScore} ${TeamBTri.value} | ${mapPicks[0].mapname} - ${TeamATri.value} ${TeamAScores[0].value}-${TeamBScores[0].value} ${TeamBTri.value} | ${mapPicks[1].mapname} - ${TeamATri.value} ${TeamAScores[1].value}-${TeamBScores[1].value} ${TeamBTri.value} | ${mapPicks[2].mapname} - N/A`
+        }
+    } else {
+        scoreCommand = `!editcom !score ${TeamATri.value} ${teamASeriesScore}-${teamBSeriesScore} ${TeamBTri.value} | ${mapPicks[0].mapname} - ${TeamATri.value} ${TeamAScores[0].value}-${TeamBScores[0].value} ${TeamBTri.value} | ${mapPicks[1].mapname} - ${TeamATri.value} ${TeamAScores[1].value}-${TeamBScores[1].value} ${TeamBTri.value} | ${mapPicks[2].mapname} - ${TeamATri.value} ${TeamAScores[2].value}-${TeamBScores[2].value} ${TeamBTri.value}`
+    }
+    document.getElementById('score-copy').textContent = scoreCommand
 }
 
 function resetScores() {
@@ -577,6 +592,43 @@ function pauseAllVideo() {
 
 document.getElementById('pause-all-video').addEventListener("click", pauseAllVideo)
 document.getElementById('play-all-video').addEventListener("click", playAllVideo)
+
+
+function copyMaps() {
+    let map1 = 0
+    let map2 = 0
+    let map3 = 0
+    let map4 = 0
+    let map5 = 0
+    
+    if (mapPicks.length >= 3) {
+        map3 = `${mapPicks[0].mapname}`;
+        map4 = `${mapPicks[1].mapname}`;
+        map5 = `${mapPicks[2].mapname}`;
+    }
+    if (mapPicksTeams[0] === 'team-a') {
+        map1 = TeamATri.value
+    } else {
+        map1 = TeamBTri.value
+    }
+    if (mapPicksTeams[1] === 'team-a') {
+        map2 = TeamATri.value
+    } else {
+        map2 = TeamBTri.value
+    }
+    var mapsCommand = `!editcom !maps Map 1 (${map1}) - ${map3} | Map 2 (${map2}) - ${map4} | Map 3 (Decider) - ${map5}`
+    navigator.clipboard.writeText(mapsCommand)
+    document.getElementById('maps-copy').textContent = mapsCommand
+}
+
+let scoreCommand = '!editcom !score'
+
+function copyScore() {
+    navigator.clipboard.writeText(scoreCommand)
+}
+
+document.getElementById('maps-copy').addEventListener("click", copyMaps)
+document.getElementById('score-copy').addEventListener("click", copyScore)
 
 
 //Run On Page Load
