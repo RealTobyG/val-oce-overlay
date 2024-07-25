@@ -223,13 +223,54 @@ document.getElementsByName('map-pool-selection').forEach((option) => {
     option.addEventListener('change', mapPoolUpdate)
 })
 
+let teamIdentifierSelection = 0
+
+function teamIdentifierUpdate() {
+    document.getElementsByName('team-identifier-selection').forEach((option) => {
+        if (option.checked) {
+            teamIdentifierSelection = `${option.value}`
+            const teamIdentifierMenus = document.getElementsByClassName('team-input-contents')
+            Array.from(teamIdentifierMenus).forEach((menu) => {
+                if (Number(teamIdentifierSelection) === 0) {
+                    const teamLogo = document.createElement('img')
+                        teamLogo.src = "assets/200x200_No_Logo.png"
+                        if(menu.parentElement.children[0].checked) {
+                            teamLogo.className = "apply-team-b-logo"
+                        } else {
+                            teamLogo.className = "apply-team-a-logo"
+                        }
+                    menu.children[1].replaceWith(teamLogo)
+                    setAllLogos()
+                } else {
+                    const teamTri = document.createElement('span')
+                        teamTri.style.fontSize = "10pt"
+                        if(menu.parentElement.children[0].checked) {
+                            teamTri.className = "apply-team-b-tri"
+                        } else {
+                            teamTri.className = "apply-team-a-tri"
+                        }
+                    menu.children[1].replaceWith(teamTri)
+                    setAllNames()
+                }
+            })
+
+        }
+    })
+}
+
+document.getElementsByName('team-identifier-selection').forEach((option) => {
+    option.addEventListener('change', teamIdentifierUpdate)
+})
+
 function setMapPool() {
     const mapVeto = document.getElementById('veto-config-body')
     while (mapVeto.firstChild) {
         mapVeto.removeChild(mapVeto.firstChild)
-        console.log('veto config element removed')
     }
-    if (Number(seriesLengthSelection) === 1) {
+    if (Number(seriesLengthSelection) === 0) {
+        createMapPickBan('map', 1, 'pick', false, 0)
+        mapTeamDefActivate()
+    } else if (Number(seriesLengthSelection) === 1) {
         createMapPickBan('1st', 1, 'ban', false, 0)
         createMapPickBan('2nd', 4, 'ban', false, 1)
         createMapPickBan('1st', 7, 'pick', false, 0)
@@ -237,6 +278,8 @@ function setMapPool() {
         createMapPickBan('3rd', 13, 'ban', false, 0)
         createMapPickBan('4th', 16, 'ban', false, 1)
         createMapPickBan('3rd', 19, 'pick', true, 0)
+        mapTeamDefActivate()
+        teamIdentifierToggle()
     } else if (Number(seriesLengthSelection) === 2) {
         createMapPickBan('1st', 1, 'ban', false, 0)
         createMapPickBan('2nd', 4, 'ban', false, 1)
@@ -245,6 +288,8 @@ function setMapPool() {
         createMapPickBan('3rd', 13, 'pick', false, 0)
         createMapPickBan('4th', 16, 'pick', false, 1)
         createMapPickBan('5th', 19, 'pick', true, 0)
+        mapTeamDefActivate()
+        teamIdentifierToggle()
     }
 }
 
@@ -353,6 +398,7 @@ function createMapPickBan(nth, clmn, pickBan, decider, teamAB) {
                 teamSelect.style.gridArea = `${row-1}/${clmn}/${row}/${clmn+2}`
             }
             teamSelect.style.zIndex = "1"
+            teamSelect.style.marginTop = "10px"
                 const teamSelectInput = document.createElement('input')
                     teamSelectInput.type = "checkbox"
                     teamSelectInput.id = `${nth}-${pickBan}-${teamDef}`
@@ -360,7 +406,7 @@ function createMapPickBan(nth, clmn, pickBan, decider, teamAB) {
                     teamSelectInput.checked = trueFalse
                     teamSelectInput.className = `map-${pickBan}-${teamDef} menu`
                 const teamSelectInputContents = document.createElement('div')
-                    teamSelectInputContents.className = "input-contents"
+                    teamSelectInputContents.className = "team-input-contents"
                         const teamSelectDescription = document.createElement('span')
                             if (teamDef === 'team' && pickBan === 'pick') {
                                 teamSelectDescription.textContent = "Toggle Team Picking"
@@ -372,6 +418,9 @@ function createMapPickBan(nth, clmn, pickBan, decider, teamAB) {
                         const teamSelectLogo = document.createElement('img')
                             teamSelectLogo.src = "assets/200x200_No_Logo.png"
                             teamSelectLogo.className = `apply-${team}-logo`
+                        const teamSelectTri = document.createElement('span')
+                            teamSelectTri.className = `apply-${team}-tri`
+                            teamSelectTri.style.fontSize = "10pt"
                         const teamSelectHelp = document.createElement('div')
                             teamSelectHelp.className = "help"
                                 const teamSelectHelpDiv1 = document.createElement('div')
@@ -403,7 +452,11 @@ function createMapPickBan(nth, clmn, pickBan, decider, teamAB) {
                                 teamSelectHelpDiv1.appendChild(teamSelectHelpDiv2)
                         teamSelectHelp.appendChild(teamSelectHelpDiv1)
                 teamSelectInputContents.appendChild(teamSelectDescription)
-                teamSelectInputContents.appendChild(teamSelectLogo)
+                if (Number(teamIdentifierSelection) === 0) {
+                    teamSelectInputContents.appendChild(teamSelectLogo)
+                } else {
+                    teamSelectInputContents.appendChild(teamSelectTri)
+                }
                 teamSelectInputContents.appendChild(teamSelectHelp)
         teamSelect.appendChild(teamSelectInput)
         teamSelect.appendChild(teamSelectInputContents)
@@ -419,6 +472,7 @@ function createMapPickBan(nth, clmn, pickBan, decider, teamAB) {
                 deciderFiller.style.gridArea = `8/${clmn}/11/${clmn+2}`
             }
             deciderFiller.style.zIndex = "1"
+            deciderFiller.style.marginTop = "10px"
                 const deciderFillerText = document.createElement('span')
                     deciderFillerText.textContent = "Team select is disabled for decider"
                 const deciderFillerHelp = document.createElement('div')
@@ -434,7 +488,7 @@ function createMapPickBan(nth, clmn, pickBan, decider, teamAB) {
         deciderFiller.appendChild(deciderFillerHelp)
         mapVeto.appendChild(deciderFiller)
 
-        createTeamSelect('team-b', 10, false, 'def')
+        createTeamSelect('team-a', 10, false, 'def')
     } else {
         if (teamAB === 0) {
             createTeamSelect('team-a', 9, false, 'team')
@@ -449,39 +503,6 @@ function createMapPickBan(nth, clmn, pickBan, decider, teamAB) {
     setAllLogos()
 }
 
-
-// const mapPoolSelection = document.getElementById('map-pool-selection')
-
-// function setMapSelection(selectElement) {
-//     while (selectElement.firstChild) {
-//         selectElement.removeChild(selectElement.firstChild)
-//     }
-//     for (const map of mapData) {
-//         if (map.mapPool || mapPoolSelection.selectedIndex !== 0) {
-//             const newOption = document.createElement('option')
-//             newOption.value = map.mapName
-//             newOption.textContent = map.mapName
-//             selectElement.appendChild(newOption)
-//         }
-//     }
-//     // setMapVeto() - does not exist currently
-// }
-
-// function setMapPool() {
-//     const mapBansAll = document.getElementsByClassName('map-ban-selection')
-//     const mapPicksAll = document.getElementsByClassName('map-pick-selection')
-//     for (const menu of mapBansAll) {
-//         setMapSelection(menu)
-//     }
-//     for (const menu of mapPicksAll) {
-//         setMapSelection(menu)
-//     }
-// }
-
-// document.getElementById('map-pool-selection').addEventListener('change', setMapPool)
-
-
-
 // ########################################################
 // #################### Map Veto Logic ####################
 // ########################################################
@@ -491,6 +512,25 @@ let mapPicksTeams = []
 let mapBansTeams = []
 let mapPicksSides = []
 
+function teamIdentifierToggle() {
+    Array.from(document.getElementsByClassName('team-input-contents')).forEach((menu) => {
+        if(menu.parentElement.children[0].checked) {
+            menu.children[1].className = menu.children[1].className.replace(/(team-a|team-b)/g, "team-b")
+            setAllNames()
+            setAllLogos()
+        } else {
+            menu.children[1].className = menu.children[1].className.replace(/(team-a|team-b)/g, "team-a")
+            setAllNames()
+            setAllLogos()
+        }
+    })
+}
+
+function mapTeamDefActivate() {
+    Array.from(document.getElementsByClassName('team-input-contents')).forEach((menu) => {
+        menu.parentElement.children[0].addEventListener('change', teamIdentifierToggle);
+    })
+}
 
 
 // #############################################################

@@ -231,14 +231,15 @@
         /* ########################### */
         #veto-config-header {
             display: grid;
-            grid-template: 100px/100px 100px 100px 100px 300px 300px;
+            grid-template: 100px/100px 100px 100px 50px 200px 200px 50px 200px 200px;
             margin: 30px 0px 20px 30px; 
         }
         
         #veto-config-header [type=radio] + div[class=input-contents] {
             display: flex;
-            justify-content: center;
+            justify-content: space-evenly;
             align-items: center;
+            flex-direction: column;
             height: 100px;
             background-color: rgb(52, 52, 52);
             color: rgb(149, 149, 149);
@@ -398,7 +399,7 @@
             left: 1430px;
         }
 
-        #veto-config-body [type=checkbox] + div[class=input-contents] {
+        #veto-config-body [type=checkbox] + div[class=team-input-contents] {
             display: grid;
             grid-template: 70px / 130px 70px;
             background-color: rgb(149, 149, 149);
@@ -407,24 +408,24 @@
             place-items: center;
         }
 
-        #veto-config-body [type=checkbox]:checked + div[class=input-contents] {
+        #veto-config-body [type=checkbox]:checked + div[class=team-input-contents] {
             background-color: rgb(35, 35, 35);
         }
 
-        #veto-config-body [type=checkbox]:hover + div[class=input-contents] {
+        #veto-config-body [type=checkbox]:hover + div[class=team-input-contents] {
             cursor: pointer;
             background-color: rgb(78, 75, 68);
         }
 
-        #veto-config-body [type=checkbox] + div[class=input-contents] img {
+        #veto-config-body [type=checkbox] + div[class=team-input-contents] img {
             width: 45px;
         }
 
-        #veto-config-body [type=checkbox]:hover + div[class=input-contents] img {
+        #veto-config-body [type=checkbox]:hover + div[class=team-input-contents] img {
             width: 55px;
         }
 
-        #veto-config-body [type=checkbox]:hover + div[class=input-contents] div[class=help] {
+        #veto-config-body [type=checkbox]:hover + div[class=team-input-contents] div[class=help] {
             display: flex;
             background-color: rgb(52, 52, 52);
             color: white;
@@ -717,279 +718,43 @@
                                     </div>
                                 </label>
 
+                                <div></div>
+
+                                <label for="use-team-logos">
+                                    <input type="radio" id="use-team-logos" value="0" name="team-identifier-selection" checked class="menu">
+                                    <div class="input-contents" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-width: 5px 0px 5px 5px; border-style: solid;">
+                                        <span>Use Team Logos</span>
+                                        <div class="flex-row">
+                                            <img class="apply-team-a-logo" src="assets/200x200_No_Logo.png" style="width: 40px; margin-right: 30px;">
+                                            <img class="apply-team-b-logo" src="assets/200x200_No_Logo.png" style="width: 40px;">
+                                        </div>
+                                        <div class="help">
+                                            <span>Use team logos to represent what team is <br> picking/banning or starting on defense</span>
+                                       <!-- <span>How long can I type 1 2 3 4 5 6 7 8 9 10 11 12 13</span> -->
+                                        </div>
+                                    </div>
+                                </label>
+
+                                <label for="use-team-tricodes">
+                                    <input type="radio" id="use-team-tricodes" value="1" name="team-identifier-selection" class="menu">
+                                    <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid;">
+                                        <span>Use Team Tricodes</span>
+                                        <div class="flex-row" style="height: 40px; align-items: center;">
+                                            <span class="apply-team-a-tri" style="margin-right: 30px;"></span>
+                                            <span class="apply-team-b-tri"></span>
+                                        </div>
+                                        <div class="help">
+                                            <span>Use team logos to represent what team is <br> picking/banning or starting on defense</span>
+                                            <span style="color: yellow;">Recommended if neither team has a logo</span>
+                                       <!-- <span>How long can I type 1 2 3 4 5 6 7 8 9 10 11 12 13</span> -->
+                                        </div>
+                                    </div>
+                                </label>
+
                             </div> <!-- Veto Config Header -->
 
-                            <div id="veto-config-body">
+                            <div id="veto-config-body"></div>
 
-                                <!-- <div class="map-veto-background" style="grid-area: 1/1/12/3;"></div>
-                                <div class="map-veto-background" style="grid-area: 1/4/12/6;"></div>
-                                <div class="map-veto-background" style="grid-area: 1/7/12/9;"></div>
-                                <div class="map-veto-background" style="grid-area: 1/10/12/12;"></div>
-                                <div class="map-veto-background" style="grid-area: 1/13/12/15;"></div>
-                                <div class="map-veto-background" style="grid-area: 1/16/12/18;"></div> -->
-                                
-                                
-                                <!-- <div class="map-veto-background" style="grid-area: 1/19/12/21;"></div>
-                                
-                                <span class="map-veto-heading" style="grid-area: 1/19/1/21;">1st Ban</span>
-                                
-                                <label for="1st-ban-team-a-test" style="grid-area: 2/19; z-index: 1;">
-                                    <input type="radio" id="1st-ban-team-a-test" value="0" name="1st-ban-team-test" checked class="map-ban-team menu">
-                                    <div class="input-contents">
-                                        <img src="assets/200x200_No_Logo.png" class="apply-team-a-logo">
-                                        <div class="help">
-                                            <div class="flex-row">
-                                                <span style="margin-right: 5px;">Sets 1st to</span>
-                                                <span class="apply-team-a-tri"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </label>
-
-                                <label for="1st-ban-team-b-test" style="grid-area: 2/20; z-index: 1;">
-                                    <input type="radio" id="1st-ban-team-b-test" value="1" name="1st-ban-team-test" class="map-ban-team menu">
-                                    <div class="input-contents">
-                                        <img src="assets/200x200_No_Logo.png" class="apply-team-b-logo">
-                                        <div class="help">
-                                            <div class="flex-row">
-                                                <span style="margin-right: 5px;">Sets 1st to</span>
-                                                <span class="apply-team-b-tri"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </label>
-                                
-                                <label for="1st-ban-abyss-test" style="grid-area: 3/19/4/21; z-index: 1;">
-                                    <input type="radio" id="1st-ban-abyss-test" value="Abyss" name="1st-ban-map-test" checked class="map-ban-selection menu">
-                                    <div class="map-option">
-                                        <img src="assets/Maps/Abyss_600x210.png">
-                                        <div class="map-option-overlay"></div>
-                                        <span class="map-option-text">Abyss</span>
-                                        <div class="help">
-                                            <div class="flex-row">
-                                                <span>Sets 1st ban to Abyss</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </label>
-
-                                <label for="1st-ban-ascent-test" style="grid-area: 4/19/5/21; z-index: 1;">
-                                    <input type="radio" id="1st-ban-ascent-test" value="Ascent" name="1st-ban-map-test" class="map-ban-selection menu">
-                                    <div class="map-option">
-                                        <img src="assets/Maps/Ascent_600x210.png">
-                                        <div class="map-option-overlay"></div>
-                                        <span class="map-option-text">Ascent</span>
-                                        <div class="help">
-                                            <div class="flex-row">
-                                                <span>Sets 1st ban to Ascent</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </label> -->
-                                
-
-                            </div>
-
-
-                            <!-- <div class="flex-row" style="gap: 20px; display: none;">
-                                <div class="flex-row">
-                                    <label for="series-length-selection">Series Length: </label>
-                                    <select id="series-length-selection" class="menu">
-                                        <option value="BO3">BO3</option>
-                                        <option value="BO5" disabled>BO5</option>
-                                        <option value="BO1" disabled>BO1</option>
-                                    </select>
-                                </div>
-                                <div class="flex-row">
-                                <label for="map-pool-selection">Map Pool: </label>
-                                    <select id="map-pool-selection" class="menu">
-                                        <option>Official Map Pool</option>
-                                        <option>All Maps</option>
-                                    </select>
-                                </div>
-                            </div> -->
-
-                            <div class="flex-row" style="display: none;">
-                                <div id="map-config">
-                                    <!--#################### BO3 ####################-->
-                                    <div id="bo3-console" class="active-series-console">
-                                        <!-- 1st Ban -->
-                                        <div class="map-pickban-grid">
-                                            <span>1st Ban</span>
-                                            <div class="map-pickban-content">
-                                                <div class="flex-row">
-                                                    <label for="bo3-1st-ban-team">Team Banning: </label>
-                                                    <select id="bo3-1st-ban-team" class="map-ban-team bo3 menu">
-                                                        <option id="bo3-1st-ban-team-a-option" value="team-a" class="apply-team-a-tri">Team A</option>
-                                                        <option id="bo3-1st-ban-team-b-option" value="team-b" class="apply-team-b-tri">Team B</option>
-                                                    </select>
-                                                </div>
-                                                <div class="flex-row">
-                                                    <label for="bo3-1st-ban-map">Map Ban: </label>
-                                                    <select id="bo3-1st-ban-map" class="map-ban-selection bo3 menu"></select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- 2nd Ban -->
-                                        <div class="map-pickban-grid">
-                                            <span>2nd Ban</span>
-                                            <div class="map-pickban-content">
-                                                <div class="flex-row">
-                                                    <label for="bo3-2nd-ban-team">Team Banning: </label>
-                                                    <select id="bo3-2nd-ban-team" class="map-ban-team bo3 menu">
-                                                        <option id="bo3-2nd-ban-team-a-option" value="team-a" class="apply-team-a-tri">Team A</option>
-                                                        <option id="bo3-2nd-ban-team-b-option" value="team-b" class="apply-team-b-tri">Team B</option>
-                                                    </select>
-                                                </div>
-                                                <div class="flex-row">
-                                                    <label for="bo3-2nd-ban-map">Map Ban: </label>
-                                                    <select id="bo3-2nd-ban-map" class="map-ban-selection bo3 menu"></select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- 1st Pick -->
-                                        <div class="map-pickban-grid">
-                                            <span>1st Pick</span>
-                                            <div class="map-pickban-content">
-                                                <div class="flex-row">
-                                                    <label for="bo3-1st-pick-team">Team Picking: </label>
-                                                    <select id="bo3-1st-pick-team" class="map-pick-team bo3 menu">
-                                                        <option id="bo3-1st-pick-team-a-option" value="team-a" class="apply-team-a-tri">Team A</option>
-                                                        <option id="bo3-1st-pick-team-b-option" value="team-b" class="apply-team-b-tri">Team B</option>
-                                                    </select>
-                                                </div>
-                                                <div class="flex-row">
-                                                    <label for="bo3-1st-pick-map">Map Pick: </label>
-                                                    <select id="bo3-1st-pick-map" class="map-pick-selection bo3 menu"></select>
-                                                </div>
-                                            </div>
-                                            <div class="map-pickban-content">
-                                                <div class="flex-row">
-                                                    <label for="bo3-1st-pick-side">Team Starting Defense: </label>
-                                                    <select id="bo3-1st-pick-side" class="side-selection-teams bo3 menu">
-                                                        <option id="bo3-map1-def-a-option" value="team-a" class="apply-team-a-tri">Team A</option>
-                                                        <option id="bo3-map1-def-b-option" value="team-b" class="apply-team-b-tri">Team B</option>
-                                                    </select>
-                                                </div>
-                                                <div>
-                                                    <span id="bo3-map1-team-a-tri" class="apply-team-a-tri">Team A</span>
-                                                    <label for="bo3-score-map1-team-a"> Score: </label>
-                                                    <input id="bo3-score-map1-team-a" class="team-a-score menu" type="number" min="0" style="width: 60px; margin-right: 20px;">
-                                                    <span id="bo3-map1-team-b-tri" class="apply-team-b-tri">Team B</span>
-                                                    <label for="bo3-score-map1-team-b"> Score: </label>
-                                                    <input id="bo3-score-map1-team-b" class="team-b-score menu" type="number" min="0" style="width: 60px;">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- 2nd Pick -->
-                                        <div class="map-pickban-grid">
-                                            <span>2nd Pick</span>
-                                            <div class="map-pickban-content">
-                                                <div class="flex-row">
-                                                    <label for="bo3-2nd-pick-team">Team Picking: </label>
-                                                    <select id="bo3-2nd-pick-team" class="map-pick-team bo3 menu">
-                                                        <option id="bo3-2nd-pick-team-a-option" value="team-a" class="apply-team-a-tri">Team A</option>
-                                                        <option id="bo3-2nd-pick-team-b-option" value="team-b" class="apply-team-b-tri">Team B</option>
-                                                    </select>
-                                                </div>
-                                                <div class="flex-row">
-                                                    <label for="bo3-2nd-pick-map">Map Pick: </label>
-                                                    <select id="bo3-2nd-pick-map" class="map-pick-selection bo3 menu"></select>
-                                                </div>
-                                            </div>
-                                            <div class="map-pickban-content">
-                                                <div class="flex-row">
-                                                    <label for="bo3-2nd-pick-side">Team Starting Defense: </label>
-                                                    <select id="bo3-2nd-pick-side" class="side-selection-teams bo3 menu">
-                                                        <option id="bo3-map2-def-a-option" value="team-a" class="apply-team-a-tri">Team A</option>
-                                                        <option id="bo3-map2-def-b-option" value="team-b" class="apply-team-b-tri">Team B</option>
-                                                    </select>
-                                                </div>
-                                                <div>
-                                                    <span id="bo3-map2-team-a-tri" class="apply-team-a-tri">Team A</span>
-                                                    <label for="bo3-score-map2-team-a"> Score: </label>
-                                                    <input id="bo3-score-map2-team-a" class="team-a-score menu" type="number" style="width: 60px; margin-right: 20px;">
-                                                    <span id="bo3-map2-team-b-tri" class="apply-team-b-tri">Team B</span>
-                                                    <label for="bo3-score-map2-team-b"> Score: </label>
-                                                    <input id="bo3-score-map2-team-b" class="team-b-score menu" type="number" style="width: 60px;">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- 3rd Ban -->
-                                        <div class="map-pickban-grid">
-                                            <span>3rd Ban</span>
-                                            <div class="map-pickban-content">
-                                                <div class="flex-row">
-                                                    <label for="bo3-3rd-ban-team">Team Banning: </label>
-                                                    <select id="bo3-3rd-ban-team" class="map-ban-team bo3 menu">
-                                                        <option id="bo3-3rd-ban-team-a-option" value="team-a" class="apply-team-a-tri">Team A</option>
-                                                        <option id="bo3-3rd-ban-team-b-option" value="team-b" class="apply-team-b-tri">Team B</option>
-                                                    </select>
-                                                </div>
-                                                <div class="flex-row">
-                                                    <label for="bo3-3rd-ban-map">Map Ban: </label>
-                                                    <select id="bo3-3rd-ban-map" class="map-ban-selection bo3 menu"></select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- 4th Ban -->
-                                        <div class="map-pickban-grid">
-                                            <span>4th Ban</span>
-                                            <div class="map-pickban-content">
-                                                <div class="flex-row">
-                                                    <label for="bo3-4th-ban-team">Team Banning: </label>
-                                                    <select id="bo3-4th-ban-team" class="map-ban-team bo3 menu">
-                                                        <option id="bo3-4th-ban-team-a-option" value="team-a" class="apply-team-a-tri">Team A</option>
-                                                        <option id="bo3-4th-ban-team-b-option" value="team-b" class="apply-team-b-tri">Team B</option>
-                                                    </select>
-                                                </div>
-                                                <div class="flex-row">
-                                                    <label for="bo3-4th-ban-map">Map Ban: </label>
-                                                    <select id="bo3-4th-ban-map" class="map-ban-selection bo3 menu"></select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Decider -->
-                                        <div class="map-pickban-grid">
-                                            <span>Decider</span>
-                                            <div class="map-pickban-content">
-                                                <div class="flex-row">
-                                                    <label for="bo3-3rd-pick-map">Map Pick: </label>
-                                                    <select id="bo3-3rd-pick-map" class="map-pick-selection bo3 menu"></select>
-                                                </div>
-                                            </div>
-                                            <div class="map-pickban-content">
-                                                <div class="flex-row">
-                                                    <label for="bo3-3rd-pick-side">Team Starting Defense: </label>
-                                                    <select id="bo3-3rd-pick-side" class="side-selection-teams bo3 menu">
-                                                        <option id="bo3-map3-def-a-option" value="team-a" class="apply-team-a-tri">Team A</option>
-                                                        <option id="bo3-map3-def-b-option" value="team-b" class="apply-team-b-tri">Team B</option>
-                                                    </select>
-                                                </div>
-                                                <div>
-                                                    <span id="bo3-map3-team-a-tri" class="apply-team-a-tri">Team A</span>
-                                                    <label for="bo3-score-map3-team-a"> Score: </label>
-                                                    <input id="bo3-score-map3-team-a" class="team-a-score menu" type="number" style="width: 60px; margin-right: 20px;">
-                                                    <span id="bo3-map3-team-b-tri" class="apply-team-b-tri">Team B</span>
-                                                    <label for="bo3-score-map3-team-b"> Score: </label>
-                                                    <input id="bo3-score-map3-team-b" class="team-b-score menu" type="number" style="width: 60px;">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--#################### BO5 ####################-->
-                                    <div id="bo5-console" class="display-none">
-                                        <label for="map-selection-bo5">B05 1st Ban: </label>
-                                        <select id="map-selection-bo5" class="map-ban-selection"></select>
-                                    </div>
-                                    <!--#################### BO1 ####################-->
-                                    <div id="bo1-console" class="display-none">
-                                        <label for="map-selection-bo1">B01 Map Select: </label>
-                                        <select id="map-selection-bo1" class="map-pick-selection"></select>
-                                    </div>
-
-                                </div> <!-- Map Config -->
-                            </div> <!-- Flex Row -->
                         </div> <!-- Menu Content -->
                     </div>
                 </label>
