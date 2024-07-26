@@ -29,6 +29,11 @@
             align-items: center;
         }
 
+        .flex-column {
+            display: flex;
+            flex-direction: column;
+        }
+
         [type=radio] {
             display: none;
         }
@@ -39,6 +44,23 @@
 
         [type=checkbox] {
             display: none;
+        }
+
+        .help {
+            display: none;
+            align-items: center;
+            justify-content: space-evenly;
+            flex-direction: column;
+            width: 400px;
+            height: 100px;
+            background-color: rgb(35, 35, 35);
+            color: rgb(149, 149, 149);
+            font-size: 12pt;
+            text-align: center;
+            border-radius: 10px;
+            position: absolute;
+            top: 30px;
+            left: 1450px; 
         }
 
         #page-container {
@@ -56,9 +78,12 @@
             position: relative;
         }
 
+        /* ####################### */
+        /* ##### Menu Select ##### */
+        /* ####################### */
         #menu-select {
             display: grid;
-            grid-template: 50px/repeat(3, 1fr);
+            grid-template: 50px/repeat(7, 1fr);
         }
 
         #menu-body {
@@ -72,7 +97,7 @@
 
         #menu-select div[class=menu-tab] {
             display: grid;
-            grid-template: 50px/633.33px;
+            grid-template: 50px/auto;
             background-color: rgb(52, 52, 52);
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
@@ -103,39 +128,40 @@
         }
 
         #menu-select [type=radio]:checked + div[class=menu-tab] div[class=menu-contents] {
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template: 990px/1880px;
+            /* flex-direction: column;
             height: 990px;
-            width: 1880px;
+            width: 1880px; */
             position: absolute;
             top: 70px;
             left: 20px;
         }
 
-        .help {
-            display: none;
-            align-items: center;
-            justify-content: space-evenly;
-            flex-direction: column;
-            width: 400px;
-            height: 100px;
-            background-color: rgb(35, 35, 35);
-            color: rgb(149, 149, 149);
-            font-size: 12pt;
-            text-align: center;
-            border-radius: 10px;
+        #menu-select div[class=menu-tab] span[class=menu-name]:hover div[class=help] {
+            display: flex;
+            background-color: rgb(52, 52, 52);
+            color: white;
             position: absolute;
-            top: 30px;
-            left: 1450px; 
+            top: 100px;
+            left: 1450px;
         }
+
 
         /* ####################### */
         /* ##### Team Config ##### */
         /* ####################### */
         #team-config {
+            grid-area: 1/1;
             display: grid;
             grid-template: repeat(7, 100px)/100px 100px 50px 500px;
             padding: 30px 0px 0px 40px;
+        }
+
+        .team-config-background {
+            background-color: rgb(78, 75, 68);
+            transform: scale(1.03, 1.05) translate(0px, 7px);
+            border-radius: 10px;
         }
 
         #team-config [type=file] + div {
@@ -226,13 +252,75 @@
             left: 1430px;
         }
 
+        #igo-preview {
+            grid-area: 1/1;
+            display: flex;
+            width: 1920px;
+            height: 1080px;
+            margin: 170px 0px 0px 850px;
+            border: 30px solid rgb(78, 75, 68);
+            border-radius: 20px;
+            transform: scale(0.5) translate(-960px, -560px);
+        }
+
+        #in-game-overlay {
+            display: grid;
+            grid-template: 80px/80px 47px 247px 1172px 247px 47px 80px;
+            grid-area: 1/1;
+        }
+
+        .team-logo-left-igo {
+            width: 70px;
+            grid-column: 1;
+            grid-row: 1;
+            margin: 8px 0px 0px 15px;
+            
+        }
+        
+        .team-logo-right-igo {
+            width: 70px;
+            grid-column: 7;
+            grid-row: 1;
+            margin: 8px 15px 0px 0px;
+            justify-self: end;
+        }
+
+        .team-name-left-igo {
+            font-size: 15pt;
+            color: white;
+            grid-column: 3;
+            grid-row: 1;
+            margin-top: 8px;
+            text-align: center;
+        }
+
+        .team-name-right-igo {
+            font-size: 15pt;
+            color: white;
+            grid-column: 5;
+            grid-row: 1;
+            margin-top: 8px;
+            text-align: center;
+        }
+
+        .chat-cover-igo {
+            grid-area: 1/1;
+            margin: 947px 0px 0px 32px;
+            width: 463px;
+            height: 133px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         /* ########################### */
         /* ##### Map Veto Config ##### */
         /* ########################### */
         #veto-config-header {
+            grid-area: 1/1;
             display: grid;
-            grid-template: 100px/100px 100px 100px 50px 200px 200px 50px 200px 200px;
-            margin: 30px 0px 20px 30px; 
+            grid-template: 91px/100px 100px 100px 50px 200px 200px 50px 200px 200px;
+            margin: 30px 0px 30px 30px; 
         }
         
         #veto-config-header [type=radio] + div[class=input-contents] {
@@ -240,7 +328,7 @@
             justify-content: space-evenly;
             align-items: center;
             flex-direction: column;
-            height: 100px;
+            height: 91px;
             background-color: rgb(52, 52, 52);
             color: rgb(149, 149, 149);
             font-size: 15pt;
@@ -457,11 +545,6 @@
         }
 
         /* to change */
-        #map-config {
-            display: flex;
-            width: 1200px
-        }
-
         #misc-config {
             display: flex;
             flex-direction: column;
@@ -469,24 +552,6 @@
             width: 900px;
             height: 700px;
             justify-content: start;
-        }
-
-        .active-series-console {
-            width: 400px;
-            order: 0;
-        }
-
-        .map-pickban-grid {
-            display: grid;
-            grid-template: 100px/150px 400px 650px;
-            align-items: center;
-        }
-
-        .map-pickban-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-evenly;
-            height: 100%;
         }
 
         /* #sectionID {
@@ -545,19 +610,46 @@
             </div>
             
             <div id="menu-select" style="grid-area: 1/1;">
+                
+                <!-- ################################################### -->
+                <!-- #################### Live Game #################### -->
+                <!-- ################################################### -->
+                <label for="live-game-menu">
+                    <input type="radio" id="live-game-menu" value="0" name="menu-selection">
+                    <div class="menu-tab">
+                        <span class="menu-name">Live Game
+                            <div class="help">
+                                <span>Set map scores and see all the <br> relevant info for your series</span>
+                                <span>Setting map scores will update <br> overlay modules in real time</span>                                      
+                            </div>
+                        </span>
+                        <div class="menu-contents">
+                            <span>Live Game</span>                            
+                            
+                        </div>
+                    </div>
+                </label>
+
+
                 <!-- ##################################################### -->
                 <!-- #################### Team Config #################### -->
                 <!-- ##################################################### -->
                 <label for="teams-menu">
                     <input type="radio" id="teams-menu" value="1" name="menu-selection" checked>
                     <div class="menu-tab">
-                        <span class="menu-name">Teams Config</span>
+                        <span class="menu-name">Teams Config
+                            <div class="help">
+                                <span>Configure and preview team names and logos</span>                                      
+                            </div>
+                        </span>
                         <div class="menu-contents">
                             <div id="team-config">
                                 <!-- #################### Team A #################### -->
-                                <img src="assets/200x200_No_Logo.png" class="apply-team-a-logo" style="width: 180px; grid-area: 1/1; margin: 10px 0px 0px 10px;">
+                                <div class="team-config-background" style="grid-area: 1/1/4/5;"></div>
                                 
-                                <label for="team-a-logo-upload" style="grid-area: 3/1;">
+                                <img src="assets/200x200_No_Logo.png" class="apply-team-a-logo" style="width: 180px; grid-area: 1/1; margin: 10px 0px 0px 10px; z-index: 1;">
+                                
+                                <label for="team-a-logo-upload" style="grid-area: 3/1; z-index: 1;">
                                     <input type="file" id="team-a-logo-upload" accept="image/*" class="menu">
                                     <div class="input-contents">
                                         <img src="assets/Upload_Icon.png">
@@ -571,7 +663,7 @@
                                     </div>
                                 </label>
                                 
-                                <label for="team-a-no-logo" style="grid-area: 3/2;">
+                                <label for="team-a-no-logo" style="grid-area: 3/2; z-index: 1;">
                                     <input type="checkbox" id="team-a-no-logo" class="menu">
                                     <div class="input-contents">
                                         <span>No Logo</span>
@@ -585,22 +677,24 @@
                                     </div>
                                 </label>
 
-                                <input type="text" id="team-a-name" value="Team A" class="menu" style="grid-area: 1/4;">
+                                <input type="text" id="team-a-name" value="Team A" class="menu" style="grid-area: 1/4; z-index: 1;">
                                 <div class="help">
                                     <span>Set the name for team A </span>                                      
                                     <span>Note that 'team A' does not have any <br> effect on seeding, it is just a placeholder</span>
                                 </div>
 
-                                <input type="text" id="team-a-tri" maxlength="4" value="TMA" class="menu" style="grid-area: 2/4; width: 150px;">
+                                <input type="text" id="team-a-tri" maxlength="4" value="TMA" class="menu" style="grid-area: 2/4; width: 150px; z-index: 1;">
                                 <div class="help">
                                     <span>Set the tricode for team A </span>                                      
                                     <span>Tricodes are a 2-4 character representation of a <br> team's name such as PRX or SEN </span>
                                 </div>
 
                                 <!-- #################### Team B #################### -->
-                                <img src="assets/200x200_No_Logo.png" class="apply-team-b-logo" style="width: 180px; grid-area: 5/1; margin: 10px 0px 0px 10px;">
+                                <div class="team-config-background" style="grid-area: 5/1/8/5;"></div>
                                 
-                                <label for="team-b-logo-upload" style="grid-area: 7/1;">
+                                <img src="assets/200x200_No_Logo.png" class="apply-team-b-logo" style="width: 180px; grid-area: 5/1; margin: 10px 0px 0px 10px; z-index: 1;">
+                                
+                                <label for="team-b-logo-upload" style="grid-area: 7/1; z-index: 1;">
                                     <input type="file" id="team-b-logo-upload" accept="image/*" class="menu">
                                     <div class="input-contents">
                                         <img src="assets/Upload_Icon.png">
@@ -614,7 +708,7 @@
                                     </div>
                                 </label>
                                 
-                                <label for="team-b-no-logo" style="grid-area: 7/2;">
+                                <label for="team-b-no-logo" style="grid-area: 7/2; z-index: 1;">
                                     <input type="checkbox" id="team-b-no-logo" class="menu">
                                     <div class="input-contents">
                                         <span>No Logo</span>
@@ -628,19 +722,37 @@
                                     </div>
                                 </label>
 
-                                <input type="text" id="team-b-name" value="Team B" class="menu" style="grid-area: 5/4;">
+                                <input type="text" id="team-b-name" value="Team B" class="menu" style="grid-area: 5/4; z-index: 1;">
                                 <div class="help">
                                     <span>Set the name for team B </span>                                      
                                     <span>Note that 'team B' does not have any <br> effect on seeding, it is just a placeholder</span>
                                 </div>
 
-                                <input type="text" id="team-b-tri" maxlength="4" value="TMB" class="menu" style="grid-area: 6/4; width: 150px;">
+                                <input type="text" id="team-b-tri" maxlength="4" value="TMB" class="menu" style="grid-area: 6/4; width: 150px; z-index: 1;">
                                 <div class="help">
                                     <span>Set the tricode for team A </span>                                      
                                     <span>Tricodes are a 2-4 character representation of a <br> team's name such as PRX or SEN </span>
                                 </div>
 
                             </div> <!-- Team Config -->
+
+                            <div id="igo-preview" class="grid-1-1">
+                                <div id="in-game-overlay">
+                                    <img src="assets/Valorant_Preview.png" class="grid-1-1">
+                                    <img src="assets/VCL_IGO.png" class="overlay-element grid-1-1">
+                                    <img src="assets/200x200_No_Logo.png" id="team-a-logo-igo" class="team-logo-left-igo apply-team-a-logo">
+                                    <span id="team-a-name-igo" class="team-name-left-igo apply-team-a-name"></span>
+                                    <img src="assets/map_scores/GEN_BO3_0-0.png" id="map-score" class="grid-1-1 overlay-element">
+                                    <span id="team-b-name-igo" class="team-name-right-igo apply-team-b-name"></span>
+                                    <img src="assets/200x200_No_Logo.png" id="team-b-logo-igo" class="team-logo-right-igo apply-team-b-logo">
+                                    <div class="chat-cover-igo">
+                                        <img src="" id="event-logo-igo" class="apply-event-logo" style="height: 110px;">
+                                    </div>
+                                </div>
+                            </div> <!-- IGO Preview -->
+
+
+
                         </div> <!-- Menu Config -->
                     </div>
                 </label>
@@ -652,121 +764,151 @@
                 <label for="map-veto-menu">
                     <input type="radio" id="map-veto-menu" value="2" name="menu-selection">
                     <div class="menu-tab">
-                        <span class="menu-name">Map Veto</span>
+                        <span class="menu-name">Map Veto Config
+                            <div class="help">
+                                <span>Configure series length and map veto</span>                                      
+                            </div>
+                        </span>
                         <div class="menu-contents">
-                            <div id="veto-config-header">
+                            <div class="flex-column">
+                                <div id="veto-config-header">
 
-                                <label for="series-length-bo1">
-                                    <input type="radio" id="series-length-bo1" value="0" name="series-length-selection" class="menu">
-                                    <div class="input-contents" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-width: 5px 0px 5px 5px; border-style: solid;">
-                                        <span>BO1</span>
-                                        <div class="help">
-                                            <span>Sets the series length to a Best Of 1</span>
-                                            <span style="color: red;">WARNING: <br> Changing the series length resets the map veto</span>
-                                       <!-- <span>How long can I type 1 2 3 4 5 6 7 8 9 10 11 12 13</span> -->
+                                    <label for="series-length-bo1">
+                                        <input type="radio" id="series-length-bo1" value="0" name="series-length-selection" class="menu">
+                                        <div class="input-contents" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-width: 5px 0px 5px 5px; border-style: solid;">
+                                            <span>BO1</span>
+                                            <div class="help">
+                                                <span>Sets the series length to a Best Of 1</span>
+                                                <span style="color: red;">WARNING: <br> Changing the series length resets the map veto</span>
+                                        <!-- <span>How long can I type 1 2 3 4 5 6 7 8 9 10 11 12 13</span> -->
+                                            </div>
                                         </div>
-                                    </div>
-                                </label>
+                                    </label>
 
-                                <label for="series-length-bo3">
-                                    <input type="radio" id="series-length-bo3" value="1" name="series-length-selection" checked class="menu">
-                                    <div class="input-contents" style="border-width: 5px 0px 5px 0px; border-style: solid;">
-                                        <span>BO3</span>
-                                        <div class="help">
-                                            <span>Sets the series length to a Best Of 3</span>
-                                            <span style="color: red;">WARNING: <br> Changing the series length resets the map veto</span>
-                                       <!-- <span>How long can I type 1 2 3 4 5 6 7 8 9 10 11 12 13</span> -->
+                                    <label for="series-length-bo3">
+                                        <input type="radio" id="series-length-bo3" value="1" name="series-length-selection" checked class="menu">
+                                        <div class="input-contents" style="border-width: 5px 0px 5px 0px; border-style: solid;">
+                                            <span>BO3</span>
+                                            <div class="help">
+                                                <span>Sets the series length to a Best Of 3</span>
+                                                <span style="color: red;">WARNING: <br> Changing the series length resets the map veto</span>
+                                        <!-- <span>How long can I type 1 2 3 4 5 6 7 8 9 10 11 12 13</span> -->
+                                            </div>
                                         </div>
-                                    </div>
-                                </label>
+                                    </label>
 
-                                <label for="series-length-bo5">
-                                    <input type="radio" id="series-length-bo5" value="2" name="series-length-selection" class="menu">
-                                    <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid;">
-                                        <span>BO5</span>
-                                        <div class="help">
-                                            <span>Sets the series length to a Best Of 5</span>
-                                            <span style="color: red;">WARNING: <br> Changing the series length resets the map veto</span>
-                                       <!-- <span>How long can I type 1 2 3 4 5 6 7 8 9 10 11 12 13</span> -->
+                                    <label for="series-length-bo5">
+                                        <input type="radio" id="series-length-bo5" value="2" name="series-length-selection" class="menu">
+                                        <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid;">
+                                            <span>BO5</span>
+                                            <div class="help">
+                                                <span>Sets the series length to a Best Of 5</span>
+                                                <span style="color: red;">WARNING: <br> Changing the series length resets the map veto</span>
+                                        <!-- <span>How long can I type 1 2 3 4 5 6 7 8 9 10 11 12 13</span> -->
+                                            </div>
                                         </div>
-                                    </div>
-                                </label>
+                                    </label>
 
-                                <div></div>
+                                    <div></div>
 
-                                <label for="map-pool-official">
-                                    <input type="radio" id="map-pool-official" value="0" name="map-pool-selection" checked class="menu">
-                                    <div class="input-contents" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-width: 5px 0px 5px 5px; border-style: solid;">
-                                        <span>Official Map Pool</span>
-                                        <div class="help">
-                                            <span>Sets the map pool to the <br> official competitive map rotation</span>
-                                            <span style="color: red;">WARNING: <br> Changing the map pool resets the map veto</span>
-                                       <!-- <span>How long can I type 1 2 3 4 5 6 7 8 9 10 11 12 13</span> -->
+                                    <label for="map-pool-official">
+                                        <input type="radio" id="map-pool-official" value="0" name="map-pool-selection" checked class="menu">
+                                        <div class="input-contents" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-width: 5px 0px 5px 5px; border-style: solid;">
+                                            <span>Official Map Pool</span>
+                                            <div class="help">
+                                                <span>Sets the map pool to the <br> official competitive map rotation</span>
+                                                <span style="color: red;">WARNING: <br> Changing the map pool resets the map veto</span>
+                                        <!-- <span>How long can I type 1 2 3 4 5 6 7 8 9 10 11 12 13</span> -->
+                                            </div>
                                         </div>
-                                    </div>
-                                </label>
+                                    </label>
 
-                                <label for="map-pool-all">
-                                    <input type="radio" id="map-pool-all" value="1" name="map-pool-selection" class="menu">
-                                    <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid;">
-                                        <span>All Maps</span>
-                                        <div class="help">
-                                            <span>Sets the map pool to use all Valorant maps</span>
-                                            <span style="color: red;">WARNING: <br> Changing the map pool resets the map veto</span>
-                                       <!-- <span>How long can I type 1 2 3 4 5 6 7 8 9 10 11 12 13</span> -->
+                                    <label for="map-pool-all">
+                                        <input type="radio" id="map-pool-all" value="1" name="map-pool-selection" class="menu">
+                                        <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid;">
+                                            <span>All Maps</span>
+                                            <div class="help">
+                                                <span>Sets the map pool to use all Valorant maps</span>
+                                                <span style="color: red;">WARNING: <br> Changing the map pool resets the map veto</span>
+                                        <!-- <span>How long can I type 1 2 3 4 5 6 7 8 9 10 11 12 13</span> -->
+                                            </div>
                                         </div>
-                                    </div>
-                                </label>
+                                    </label>
 
-                                <div></div>
+                                    <div></div>
 
-                                <label for="use-team-logos">
-                                    <input type="radio" id="use-team-logos" value="0" name="team-identifier-selection" checked class="menu">
-                                    <div class="input-contents" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-width: 5px 0px 5px 5px; border-style: solid;">
-                                        <span>Use Team Logos</span>
-                                        <div class="flex-row">
-                                            <img class="apply-team-a-logo" src="assets/200x200_No_Logo.png" style="width: 40px; margin-right: 30px;">
-                                            <img class="apply-team-b-logo" src="assets/200x200_No_Logo.png" style="width: 40px;">
+                                    <label for="use-team-logos">
+                                        <input type="radio" id="use-team-logos" value="0" name="team-identifier-selection" checked class="menu">
+                                        <div class="input-contents" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-width: 5px 0px 5px 5px; border-style: solid;">
+                                            <span>Use Team Logos</span>
+                                            <div class="flex-row">
+                                                <img class="apply-team-a-logo" src="assets/200x200_No_Logo.png" style="width: 40px; margin-right: 30px;">
+                                                <img class="apply-team-b-logo" src="assets/200x200_No_Logo.png" style="width: 40px;">
+                                            </div>
+                                            <div class="help">
+                                                <span>Use team logos to represent what team is <br> picking/banning or starting on defense</span>
+                                        <!-- <span>How long can I type 1 2 3 4 5 6 7 8 9 10 11 12 13</span> -->
+                                            </div>
                                         </div>
-                                        <div class="help">
-                                            <span>Use team logos to represent what team is <br> picking/banning or starting on defense</span>
-                                       <!-- <span>How long can I type 1 2 3 4 5 6 7 8 9 10 11 12 13</span> -->
+                                    </label>
+
+                                    <label for="use-team-tricodes">
+                                        <input type="radio" id="use-team-tricodes" value="1" name="team-identifier-selection" class="menu">
+                                        <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid;">
+                                            <span>Use Team Tricodes</span>
+                                            <div class="flex-row" style="height: 40px; align-items: center;">
+                                                <span class="apply-team-a-tri" style="margin-right: 30px;"></span>
+                                                <span class="apply-team-b-tri"></span>
+                                            </div>
+                                            <div class="help">
+                                                <span>Use team logos to represent what team is <br> picking/banning or starting on defense</span>
+                                                <span style="color: yellow;">Recommended if neither team has a logo</span>
+                                        <!-- <span>How long can I type 1 2 3 4 5 6 7 8 9 10 11 12 13</span> -->
+                                            </div>
                                         </div>
-                                    </div>
-                                </label>
+                                    </label>
 
-                                <label for="use-team-tricodes">
-                                    <input type="radio" id="use-team-tricodes" value="1" name="team-identifier-selection" class="menu">
-                                    <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid;">
-                                        <span>Use Team Tricodes</span>
-                                        <div class="flex-row" style="height: 40px; align-items: center;">
-                                            <span class="apply-team-a-tri" style="margin-right: 30px;"></span>
-                                            <span class="apply-team-b-tri"></span>
-                                        </div>
-                                        <div class="help">
-                                            <span>Use team logos to represent what team is <br> picking/banning or starting on defense</span>
-                                            <span style="color: yellow;">Recommended if neither team has a logo</span>
-                                       <!-- <span>How long can I type 1 2 3 4 5 6 7 8 9 10 11 12 13</span> -->
-                                        </div>
-                                    </div>
-                                </label>
+                                </div> <!-- Veto Config Header -->
 
-                            </div> <!-- Veto Config Header -->
+                                <div id="veto-config-body"></div>
 
-                            <div id="veto-config-body"></div>
-
+                            </div> <!-- Flex Column -->
                         </div> <!-- Menu Content -->
                     </div>
                 </label>
+
+
+                <!-- ############################################################## -->
+                <!-- #################### Event/Casters Config #################### -->
+                <!-- ############################################################## -->
+                <label for="event-casters-menu">
+                    <input type="radio" id="event-casters-menu" value="3" name="menu-selection">
+                    <div class="menu-tab">
+                        <span class="menu-name">Event/Casters Config
+                            <div class="help">
+                                <span>Configure the name/logo for your event and set caster names</span>                                      
+                            </div>
+                        </span>
+                        <div class="menu-contents">
+                            <span>Event/Casters</span>                            
+                            
+                        </div>
+                    </div>
+                </label>
+
 
 
                 <!-- ######################################################## -->
                 <!-- #################### OVERLAY CONFIG #################### -->
                 <!-- ########################################################  -->
                 <label for="overlay-menu">
-                    <input type="radio" id="overlay-menu" value="3" name="menu-selection">
+                    <input type="radio" id="overlay-menu" value="4" name="menu-selection">
                     <div class="menu-tab">
-                        <span class="menu-name">Overlay Config</span>
+                        <span class="menu-name">Overlay Config
+                            <div class="help">
+                                <span>Configure overlay themes features</span>                                      
+                            </div>
+                        </span>
                         <div class="menu-contents">
                             <div class="flex-row">
                                 <label for="overlay-selection">Overlay Color Theme: </label>
@@ -821,6 +963,46 @@
                                     <input id="map-score-toggle" type="checkbox" class="menu">
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </label>
+
+
+                <!-- ################################################# -->
+                <!-- #################### Modules #################### -->
+                <!-- ################################################# -->
+                <label for="modules-menu">
+                    <input type="radio" id="modules-menu" value="5" name="menu-selection">
+                    <div class="menu-tab">
+                        <span class="menu-name">Modules
+                            <div class="help">
+                                <span>Links to all modules to add as web <br> sources in your chosen software.</span>
+                                <span style="color: yellow;">Create/sign in to an account before configuring <br> web sources or they won't link to the console</span>                                      
+                            </div>
+                        </span>
+                        <div class="menu-contents">
+                            <span>Modules</span>                            
+                            
+                        </div>
+                    </div>
+                </label>
+
+
+                <!-- ########################################################## -->
+                <!-- #################### Account Settings #################### -->
+                <!-- ########################################################## -->
+                <label for="account-menu">
+                    <input type="radio" id="account-menu" value="6" name="menu-selection">
+                    <div class="menu-tab">
+                        <span class="menu-name">Account Settings
+                            <div class="help">
+                                <span>Manage your account and relevant settings</span>
+                                <span style="color: yellow;">Create/sign in to an account before configuring <br> web sources or they won't link to the console</span>                                      
+                            </div>
+                        </span>
+                        <div class="menu-contents">
+                            <span>Account Settings</span>                            
+                            
                         </div>
                     </div>
                 </label>

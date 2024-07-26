@@ -160,35 +160,6 @@ document.getElementsByName('series-length-selection').forEach((option) => {
     option.addEventListener('change', seriesLengthUpdate)
 })
 
-// THIS SECTION MIGHT NOT BE NEEDED
-// const seriesLengthSelection = document.getElementById('series-length-selection')
-
-// function setSeriesLength() {
-//     const bo3Console = document.getElementById('bo3-console')
-//     const bo5Console = document.getElementById('bo5-console')
-//     const bo1Console = document.getElementById('bo1-console')
-//     if (seriesLengthSelection.value === "BO3") {
-//         bo3Console.setAttribute("class", "active-series-console")
-//         bo5Console.setAttribute("class", "display-none")
-//         bo1Console.setAttribute("class", "display-none")
-//     } else if (seriesLengthSelection.value === "BO5") {
-//         bo5Console.setAttribute("class", "active-series-console")
-//         bo3Console.setAttribute("class", "display-none")
-//         bo1Console.setAttribute("class", "display-none")
-//     } else {
-//         bo1Console.setAttribute("class", "active-series-console")
-//         bo3Console.setAttribute("class", "display-none")
-//         bo5Console.setAttribute("class", "display-none")
-//     }
-//     // CONSOLE WARNING - CHANGING SERIES LENGTH RESETS VETO/SCORES
-//     // setMapPool()
-//     // resetScores()
-//     // CONSOLE WARNING - CHANGING SERIES LENGTH RESETS VETO/SCORES
-// }
-
-// document.getElementById('series-length-selection').addEventListener('change', setSeriesLength)
-//THIS SECTION MIGHT NOT BE NEEDED
-
 
 
 
@@ -270,6 +241,9 @@ function setMapPool() {
     if (Number(seriesLengthSelection) === 0) {
         createMapPickBan('map', 1, 'pick', false, 0)
         mapTeamDefActivate()
+        teamIdentifierToggle()
+        mapVetoActivate()
+        mapVetoUpdate()
     } else if (Number(seriesLengthSelection) === 1) {
         createMapPickBan('1st', 1, 'ban', false, 0)
         createMapPickBan('2nd', 4, 'ban', false, 1)
@@ -280,6 +254,8 @@ function setMapPool() {
         createMapPickBan('3rd', 19, 'pick', true, 0)
         mapTeamDefActivate()
         teamIdentifierToggle()
+        mapVetoActivate()
+        mapVetoUpdate()
     } else if (Number(seriesLengthSelection) === 2) {
         createMapPickBan('1st', 1, 'ban', false, 0)
         createMapPickBan('2nd', 4, 'ban', false, 1)
@@ -290,6 +266,8 @@ function setMapPool() {
         createMapPickBan('5th', 19, 'pick', true, 0)
         mapTeamDefActivate()
         teamIdentifierToggle()
+        mapVetoActivate()
+        mapVetoUpdate()
     }
 }
 
@@ -429,9 +407,9 @@ function createMapPickBan(nth, clmn, pickBan, decider, teamAB) {
                                     teamSelectHelpDiv1.style.alignItems = "center"
                                         const teamSelectHelpLine1 = document.createElement('span')
                                             if (teamDef === 'team' && pickBan === 'pick') {
-                                                teamSelectHelpLine1.textContent = `Toggle the team banning between`
-                                            } else if (teamDef === 'team' && pickBan === 'ban') {
                                                 teamSelectHelpLine1.textContent = `Toggle the team picking between`
+                                            } else if (teamDef === 'team' && pickBan === 'ban') {
+                                                teamSelectHelpLine1.textContent = `Toggle the team banning between`
                                             } else {
                                                 teamSelectHelpLine1.textContent = `Toggle the team starting defense between`
                                             }  
@@ -532,12 +510,188 @@ function mapTeamDefActivate() {
     })
 }
 
+function mapVetoUpdate() {
+    mapPicks = []
+    mapBans = []
+    mapPicksTeams = []
+    mapBansTeams = []
+    mapPicksSides = []
+    for (const map of document.getElementsByClassName('map-pick-selection')) {
+        if (map.checked) {
+            mapPicks.push(map.value)
+        }
+    }
+    for (const map of document.getElementsByClassName('map-ban-selection')) {
+        if (map.checked) {
+            mapBans.push(map.value)
+        }
+    }
+    for (const team of document.getElementsByClassName('map-pick-team')) {
+        if (team.checked) {
+            mapPicksTeams.push('team-b')
+        } else {
+            mapPicksTeams.push('team-a')
+        }
+    }
+    for (const team of document.getElementsByClassName('map-ban-team')) {
+        if (team.checked) {
+            mapBansTeams.push('team-b')
+        } else {
+            mapBansTeams.push('team-a')
+        }
+    }
+    for (const team of document.getElementsByClassName('map-pick-def')) {
+        if (team.checked) {
+            mapPicksSides.push('team-b')
+        } else {
+            mapPicksSides.push('team-a')
+        }
+    }
+}
 
+
+function mapVetoActivate() {
+    for (const option of document.querySelectorAll('.map-pick-selection, .map-ban-selection, .map-pick-team, .map-ban-team, .map-pick-def')) {
+        option.addEventListener('change', mapVetoUpdate)
+    }
+}
 // #############################################################
 // #################### Score Keeping Logic ####################
 // #############################################################
 let mapWinners = []
+let teamASeriesScore = 0
+let teamBSeriesScore = 0
+let mapNumber = teamASeriesScore+teamBSeriesScore
 
+function scoreUpdate() {
+    
+    const TeamAScores = document.getElementsByClassName('team-a-score')
+    const TeamBScores = document.getElementsByClassName('team-b-score')
+    Array.from(TeamAScores).forEach((map, i) => {
+        if (map.value>=13 && map.value>=Number(TeamBScores[i].value)+2) {
+            teamASeriesScore++
+            mapWinners.push('team-a')
+        }
+        if (TeamBScores[i].value>=13 && TeamBScores[i].value>=Number(map.value)+2) {
+            teamBSeriesScore++
+            mapWinners.push('team-b')
+        }
+    })
+    mapNumber = teamASeriesScore+teamBSeriesScore
+    // Updates winning team details for every complete map
+    const scheduleResultOverlays = document.getElementsByClassName('schedule-result-overlay')
+    mapWinners.forEach((mapWinner, i) => {
+        const applyWinnerName = document.getElementsByClassName(`apply-map-${Number(i)+1}-winner`)
+        for (const element of applyWinnerName) {
+            element.className = element.className.replace(/(team-a|team-b)/g, `${mapWinner}`)
+            setTeamNames()
+        }
+        const applyWinnerLogo = document.getElementsByClassName(`apply-map-${Number(i)+1}-logo`)
+        for (const element of applyWinnerLogo) {
+            element.className = element.className.replace(/(team-a|team-b)/g, `${mapWinner}`)
+            setTeamLogos()
+        }
+        const applyWinnerScore = document.getElementsByClassName(`apply-map-${Number(i)+1}-score`)
+        for (const element of applyWinnerScore) {
+            if (Number(TeamAScores[i].value)>Number(TeamBScores[i].value)) {
+                element.textContent = `${TeamAScores[i].value} - ${TeamBScores[i].value}`
+            } else {
+                element.textContent = `${TeamBScores[i].value} - ${TeamAScores[i].value}`
+            }
+        }
+        const applyWinnerScoreIntermission = document.getElementsByClassName(`apply-map-${Number(i)+1}-score-intermission`)
+        if (SeriesLengthSelection.value === 'BO3') {
+            const defTeamIntermission = document.getElementsByClassName('bo3-def-logo')
+            if (defTeamIntermission[i].classList.contains('apply-team-a-logo')) {
+                applyWinnerScoreIntermission[0].textContent = `${TeamBScores[i].value} - ${TeamAScores[i].value}`
+            } else {
+                applyWinnerScoreIntermission[0].textContent = `${TeamAScores[i].value} - ${TeamBScores[i].value}`
+            }
+        }
+    })
+    // Updates current map on intermission overlay
+    const currentMap = document.getElementsByClassName('current-map')
+    const bo3IntermissionBackgroundMap = document.getElementsByClassName('bo3-intermission-background-video')
+    if (SeriesLengthSelection.value === 'BO3') {        
+        if (teamASeriesScore !== 2 && teamBSeriesScore !== 2) {
+            for (const element of currentMap) {
+                element.textContent = `Map ${mapNumber+1} - ${mapPicks[mapNumber].mapname}`
+            }
+        } else if (teamASeriesScore>teamBSeriesScore) {
+            for (const element of currentMap) {
+                element.textContent = `${TeamATri.value} ${teamASeriesScore} - ${teamBSeriesScore} ${TeamBTri.value}`
+            }
+        } else {
+            for (const element of currentMap) {
+                element.textContent = `${TeamBTri.value} ${teamBSeriesScore} - ${teamASeriesScore} ${TeamATri.value}`
+            }
+        }
+        if (mapNumber<3) {
+            Array.from(bo3IntermissionBackgroundMap).forEach((element, i) => {
+                if (i === mapNumber) {
+                    element.style.opacity = 100
+                } else {
+                    element.style.opacity = 0
+                }
+            })
+        }    
+    }
+    // Shows/Hides map results for finished maps
+    const mapResultOverlays = document.getElementsByClassName('map-result-overlay')
+    Array.from(mapResultOverlays).forEach((element, i) => {
+        if (Number(i)+1<=mapNumber) {
+            element.style.display = 'flex'
+            scheduleResultOverlays[i].style.display = 'flex'
+        }
+        else {
+            element.style.display = 'none'
+            scheduleResultOverlays[i].style.display = 'none'
+        }
+    })
+    // Swapping sides on IGO according to map and which team starts def
+    const sideSelections = document.getElementsByClassName("side-selection-teams")
+    const TeamANameIGO = document.querySelector("#team-a-name-igo")
+    const TeamBNameIGO = document.querySelector("#team-b-name-igo")
+    const TeamALogoIGO = document.querySelector("#team-a-logo-igo")
+    const TeamBLogoIGO = document.querySelector("#team-b-logo-igo")
+    if (teamASeriesScore<2 && teamBSeriesScore<2) {
+        if (sideSelections[mapNumber].value === 'team-a') {
+            seriesScore = `${teamASeriesScore}-${teamBSeriesScore}`
+            TeamBNameIGO.setAttribute("class", "team-name-right-igo apply-team-b-name")
+            TeamANameIGO.setAttribute("class", "team-name-left-igo apply-team-a-name")
+            TeamBLogoIGO.setAttribute("class", "team-logo-right-igo apply-team-b-logo")
+            TeamALogoIGO.setAttribute("class", "team-logo-left-igo apply-team-a-logo")
+        } else if (sideSelections[mapNumber].value === 'team-b') {
+            seriesScore = `${teamBSeriesScore}-${teamASeriesScore}`
+            TeamANameIGO.setAttribute("class", "team-name-right-igo apply-team-a-name")
+            TeamBNameIGO.setAttribute("class", "team-name-left-igo apply-team-b-name")
+            TeamALogoIGO.setAttribute("class", "team-logo-right-igo apply-team-a-logo")
+            TeamBLogoIGO.setAttribute("class", "team-logo-left-igo apply-team-b-logo")
+        }
+    }
+    // Setting score dots on IGO
+    const MapScoreIGO = document.getElementById('map-score')
+    if (teamASeriesScore<2 && teamBSeriesScore<2 && document.getElementById('map-score-toggle').checked) {
+        MapScoreIGO.src = `assets/map_scores/GEN_${SeriesLengthSelection.value}_${seriesScore}.png`
+    } else if (teamASeriesScore<2 && teamBSeriesScore<2) {
+        MapScoreIGO.src = `assets/map_scores/${OverlaySelection.value}_${SeriesLengthSelection.value}_${seriesScore}.png`
+    }
+    // !Scores command update
+    if (mapNumber === 0) {
+        scoreCommand = `!editcom !score ${TeamATri.value} ${teamASeriesScore}-${teamBSeriesScore} ${TeamBTri.value} | ${mapPicks[0].mapname} - Current | ${mapPicks[1].mapname} - TBD | ${mapPicks[2].mapname} - TBD`
+    } else if (mapNumber === 1) {
+        scoreCommand = `!editcom !score ${TeamATri.value} ${teamASeriesScore}-${teamBSeriesScore} ${TeamBTri.value} | ${mapPicks[0].mapname} - ${TeamATri.value} ${TeamAScores[0].value}-${TeamBScores[0].value} ${TeamBTri.value} | ${mapPicks[1].mapname} - Current | ${mapPicks[2].mapname} - TBD`
+    } else if (mapNumber === 2) {
+        if (teamASeriesScore !== 2 && teamBSeriesScore !== 2) {
+            scoreCommand = `!editcom !score ${TeamATri.value} ${teamASeriesScore}-${teamBSeriesScore} ${TeamBTri.value} | ${mapPicks[0].mapname} - ${TeamATri.value} ${TeamAScores[0].value}-${TeamBScores[0].value} ${TeamBTri.value} | ${mapPicks[1].mapname} - ${TeamATri.value} ${TeamAScores[1].value}-${TeamBScores[1].value} ${TeamBTri.value} | ${mapPicks[2].mapname} - Current`
+        } else {
+            scoreCommand = `!editcom !score ${TeamATri.value} ${teamASeriesScore}-${teamBSeriesScore} ${TeamBTri.value} | ${mapPicks[0].mapname} - ${TeamATri.value} ${TeamAScores[0].value}-${TeamBScores[0].value} ${TeamBTri.value} | ${mapPicks[1].mapname} - ${TeamATri.value} ${TeamAScores[1].value}-${TeamBScores[1].value} ${TeamBTri.value} | ${mapPicks[2].mapname} - N/A`
+        }
+    } else {
+        scoreCommand = `!editcom !score ${TeamATri.value} ${teamASeriesScore}-${teamBSeriesScore} ${TeamBTri.value} | ${mapPicks[0].mapname} - ${TeamATri.value} ${TeamAScores[0].value}-${TeamBScores[0].value} ${TeamBTri.value} | ${mapPicks[1].mapname} - ${TeamATri.value} ${TeamAScores[1].value}-${TeamBScores[1].value} ${TeamBTri.value} | ${mapPicks[2].mapname} - ${TeamATri.value} ${TeamAScores[2].value}-${TeamBScores[2].value} ${TeamBTri.value}`
+    }
+    document.getElementById('score-copy').textContent = scoreCommand
+}
 
 
 // ####################################################################
