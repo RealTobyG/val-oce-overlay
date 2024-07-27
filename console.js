@@ -563,6 +563,8 @@ let teamASeriesScore = 0
 let teamBSeriesScore = 0
 let mapNumber = teamASeriesScore+teamBSeriesScore
 
+
+
 function scoreUpdate() {
     
     const TeamAScores = document.getElementsByClassName('team-a-score')
