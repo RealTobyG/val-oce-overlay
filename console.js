@@ -69,8 +69,8 @@ document.getElementById('caster-2-name').addEventListener('keyup', setAllNames)
 // ##################################################################
 // #################### Team/Event Logo Changing ####################
 // ##################################################################
-let teamALogo = 'n/a'
-let teamBLogo = 'n/a'
+let teamALogo = 'assets/200x200_No_Logo.png'
+let teamBLogo = 'assets/200x200_No_Logo.png'
 let eventLogo = 'n/a'
 
 function setAllLogos() {
@@ -85,21 +85,25 @@ function setAllLogos() {
     if (teamANoLogo.checked) {
         teamALogoUpload.value = ''
         for (const element of teamALogoAll) {
-            element.src = 'assets/200x200_No_Logo.png'
+            URL.revokeObjectURL(teamALogo)
+            teamALogo = 'assets/200x200_No_Logo.png'
+            element.src = teamALogo
         }
     }
     if (teamBNoLogo.checked) {
         teamBLogoUpload.value = ''
         for (const element of teamBLogoAll) {
-            element.src = 'assets/200x200_No_Logo.png'
+            URL.revokeObjectURL(teamBLogo)
+            teamBLogo = 'assets/200x200_No_Logo.png'
+            element.src = teamBLogo
         }
     }
-    if (teamALogoUpload.value !== '') {
+    if (teamANoLogo.checked === false) {
         for (const element of teamALogoAll) {
             element.src = teamALogo
         }
     }
-    if (teamBLogoUpload.value !== '') {
+    if (teamBNoLogo.checked === false) {
         for (const element of teamBLogoAll) {
             element.src = teamBLogo
         }
@@ -547,6 +551,9 @@ function mapVetoUpdate() {
             mapPicksSides.push('team-a')
         }
     }
+    createLiveScores()
+    scoreUpdate()
+    setLiveGameSideBar()
 }
 
 
@@ -562,11 +569,116 @@ let mapWinners = []
 let teamASeriesScore = 0
 let teamBSeriesScore = 0
 let mapNumber = teamASeriesScore+teamBSeriesScore
+let currentMap = "abyss"
 
-
+function createLiveScores() {
+    const livePicks = document.getElementById('live-game-picks')
+    while (livePicks.firstChild) {
+        livePicks.removeChild(livePicks.firstChild)
+    }
+    mapPicks.forEach((map, i) => {
+        const liveGamePick = document.createElement('div')
+            liveGamePick.className = "live-game-pick"
+                const mapPickImg = document.createElement('div')
+                    mapPickImg.className = "live-game-pick-img"
+                    mapPickImg.style.background = `linear-gradient(-90deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("assets/Maps/${map}_524x214.png") center center / cover`
+                        const mapPickImgName = document.createElement('span')
+                        if ((Number(seriesLengthSelection) === 0)) {
+                            mapPickImgName.textContent = `${map}`
+                            mapPickImg.appendChild(mapPickImgName)
+                        } else if ((Number(seriesLengthSelection) === 1 && i === 2) || (Number(seriesLengthSelection) === 2 && i === 4)) {
+                            mapPickImgName.textContent = `Decider - ${map}`
+                            mapPickImg.appendChild(mapPickImgName)
+                        } else {
+                            const mapPickImgTeamLogo = document.createElement('img')
+                                mapPickImgTeamLogo.src = "assets/200x200_No_Logo.png"
+                                mapPickImgTeamLogo.className = `apply-${mapPicksTeams[i]}-logo`
+                                mapPickImgTeamLogo.style.width = "100px"
+                                mapPickImg.appendChild(mapPickImgTeamLogo)
+                            const mapPickImgDiv = document.createElement('div')
+                                mapPickImgDiv.className = "flex-column"
+                                    mapPickImgName.textContent = `Map ${i+1} - ${map}`    
+                                    const mapPickImgTeamName = document.createElement('span')
+                                        mapPickImgTeamName.className = `apply-${mapPicksTeams[i]}-tri`
+                            mapPickImgDiv.appendChild(mapPickImgName)
+                            mapPickImgDiv.appendChild(mapPickImgTeamName)
+                            mapPickImg.appendChild(mapPickImgDiv)
+                        }
+                const liveGameTeamALogo = document.createElement('img')
+                    liveGameTeamALogo.src = "assets/200x200_No_Logo.png"
+                    liveGameTeamALogo.className = "apply-team-a-logo"
+                    liveGameTeamALogo.style.width = "100px"
+                const liveGameTeamAName = document.createElement('span')
+                    liveGameTeamAName.className = "apply-team-a-tri"
+                    liveGameTeamAName.style.fontSize = "30pt"
+                const liveGameTeamAScore = document.createElement('input')
+                    liveGameTeamAScore.id = `map-${i}-team-a-score}`
+                    liveGameTeamAScore.type = "number"
+                    liveGameTeamAScore.min = "0"
+                    liveGameTeamAScore.value = "0"
+                    liveGameTeamAScore.className = "team-a-score menu"
+                const liveGameTeamAScoreHelp = document.createElement('div')
+                    liveGameTeamAScoreHelp.className = "help"
+                        const liveGameTeamAScoreHelpDiv = document.createElement('div')
+                            liveGameTeamAScoreHelpDiv.className = "flex-row"
+                                const liveGameTeamAScoreHelp1 = document.createElement('span')
+                                    liveGameTeamAScoreHelp1.textContent = `Set the score on ${map} for`
+                                    liveGameTeamAScoreHelp1.style.marginRight = "5px"
+                                const liveGameTeamAScoreHelp2 = document.createElement('span')
+                                    liveGameTeamAScoreHelp2.className = `apply-team-a-tri`
+                        liveGameTeamAScoreHelpDiv.appendChild(liveGameTeamAScoreHelp1)
+                        liveGameTeamAScoreHelpDiv.appendChild(liveGameTeamAScoreHelp2)
+                liveGameTeamAScoreHelp.appendChild(liveGameTeamAScoreHelpDiv)
+                const liveGameScoreHyphen = document.createElement('span')
+                    liveGameScoreHyphen.textContent = "-"
+                    liveGameScoreHyphen.style.fontSize = "40pt"
+                const liveGameTeamBScore = document.createElement('input')
+                    liveGameTeamBScore.id = `map-${i}-team-b-score}`
+                    liveGameTeamBScore.type = "number"
+                    liveGameTeamBScore.min = "0"
+                    liveGameTeamBScore.value = "0"
+                    liveGameTeamBScore.className = "team-b-score menu"
+                const liveGameTeamBScoreHelp = document.createElement('div')
+                    liveGameTeamBScoreHelp.className = "help"
+                        const liveGameTeamBScoreHelpDiv = document.createElement('div')
+                            liveGameTeamBScoreHelpDiv.className = "flex-row"
+                                const liveGameTeamBScoreHelp1 = document.createElement('span')
+                                    liveGameTeamBScoreHelp1.textContent = `Set the score on ${map} for`
+                                    liveGameTeamBScoreHelp1.style.marginRight = "5px"
+                                const liveGameTeamBScoreHelp2 = document.createElement('span')
+                                    liveGameTeamBScoreHelp2.className = `apply-team-b-tri`
+                        liveGameTeamBScoreHelpDiv.appendChild(liveGameTeamBScoreHelp1)
+                        liveGameTeamBScoreHelpDiv.appendChild(liveGameTeamBScoreHelp2)
+                liveGameTeamBScoreHelp.appendChild(liveGameTeamBScoreHelpDiv)
+                const liveGameTeamBName = document.createElement('span')
+                    liveGameTeamBName.className = "apply-team-b-tri"
+                    liveGameTeamBName.style.fontSize = "30pt"
+                const liveGameTeamBLogo = document.createElement('img')
+                    liveGameTeamBLogo.src = "assets/200x200_No_Logo.png"
+                    liveGameTeamBLogo.className = "apply-team-b-logo"
+                    liveGameTeamBLogo.style.width = "100px"
+        liveGamePick.appendChild(mapPickImg)
+        liveGamePick.appendChild(liveGameTeamALogo)
+        liveGamePick.appendChild(liveGameTeamAName)
+        liveGamePick.appendChild(liveGameTeamAScore)
+        liveGamePick.appendChild(liveGameTeamAScoreHelp)
+        liveGamePick.appendChild(liveGameScoreHyphen)
+        liveGamePick.appendChild(liveGameTeamBScore)
+        liveGamePick.appendChild(liveGameTeamBScoreHelp)
+        liveGamePick.appendChild(liveGameTeamBName)
+        liveGamePick.appendChild(liveGameTeamBLogo)
+        livePicks.appendChild(liveGamePick)
+    })
+    setAllNames()
+    setAllLogos()
+    scoreUpdateActivate()
+}
 
 function scoreUpdate() {
-    
+    mapWinners = []
+    teamASeriesScore = 0
+    teamBSeriesScore = 0
+    mapNumber = teamASeriesScore+teamBSeriesScore
     const TeamAScores = document.getElementsByClassName('team-a-score')
     const TeamBScores = document.getElementsByClassName('team-b-score')
     Array.from(TeamAScores).forEach((map, i) => {
@@ -580,121 +692,63 @@ function scoreUpdate() {
         }
     })
     mapNumber = teamASeriesScore+teamBSeriesScore
-    // Updates winning team details for every complete map
-    const scheduleResultOverlays = document.getElementsByClassName('schedule-result-overlay')
-    mapWinners.forEach((mapWinner, i) => {
-        const applyWinnerName = document.getElementsByClassName(`apply-map-${Number(i)+1}-winner`)
-        for (const element of applyWinnerName) {
-            element.className = element.className.replace(/(team-a|team-b)/g, `${mapWinner}`)
-            setTeamNames()
-        }
-        const applyWinnerLogo = document.getElementsByClassName(`apply-map-${Number(i)+1}-logo`)
-        for (const element of applyWinnerLogo) {
-            element.className = element.className.replace(/(team-a|team-b)/g, `${mapWinner}`)
-            setTeamLogos()
-        }
-        const applyWinnerScore = document.getElementsByClassName(`apply-map-${Number(i)+1}-score`)
-        for (const element of applyWinnerScore) {
-            if (Number(TeamAScores[i].value)>Number(TeamBScores[i].value)) {
-                element.textContent = `${TeamAScores[i].value} - ${TeamBScores[i].value}`
-            } else {
-                element.textContent = `${TeamBScores[i].value} - ${TeamAScores[i].value}`
-            }
-        }
-        const applyWinnerScoreIntermission = document.getElementsByClassName(`apply-map-${Number(i)+1}-score-intermission`)
-        if (SeriesLengthSelection.value === 'BO3') {
-            const defTeamIntermission = document.getElementsByClassName('bo3-def-logo')
-            if (defTeamIntermission[i].classList.contains('apply-team-a-logo')) {
-                applyWinnerScoreIntermission[0].textContent = `${TeamBScores[i].value} - ${TeamAScores[i].value}`
-            } else {
-                applyWinnerScoreIntermission[0].textContent = `${TeamAScores[i].value} - ${TeamBScores[i].value}`
-            }
-        }
-    })
-    // Updates current map on intermission overlay
-    const currentMap = document.getElementsByClassName('current-map')
-    const bo3IntermissionBackgroundMap = document.getElementsByClassName('bo3-intermission-background-video')
-    if (SeriesLengthSelection.value === 'BO3') {        
-        if (teamASeriesScore !== 2 && teamBSeriesScore !== 2) {
-            for (const element of currentMap) {
-                element.textContent = `Map ${mapNumber+1} - ${mapPicks[mapNumber].mapname}`
-            }
-        } else if (teamASeriesScore>teamBSeriesScore) {
-            for (const element of currentMap) {
-                element.textContent = `${TeamATri.value} ${teamASeriesScore} - ${teamBSeriesScore} ${TeamBTri.value}`
-            }
-        } else {
-            for (const element of currentMap) {
-                element.textContent = `${TeamBTri.value} ${teamBSeriesScore} - ${teamASeriesScore} ${TeamATri.value}`
-            }
-        }
-        if (mapNumber<3) {
-            Array.from(bo3IntermissionBackgroundMap).forEach((element, i) => {
-                if (i === mapNumber) {
-                    element.style.opacity = 100
-                } else {
-                    element.style.opacity = 0
-                }
-            })
-        }    
-    }
-    // Shows/Hides map results for finished maps
-    const mapResultOverlays = document.getElementsByClassName('map-result-overlay')
-    Array.from(mapResultOverlays).forEach((element, i) => {
-        if (Number(i)+1<=mapNumber) {
-            element.style.display = 'flex'
-            scheduleResultOverlays[i].style.display = 'flex'
-        }
-        else {
-            element.style.display = 'none'
-            scheduleResultOverlays[i].style.display = 'none'
-        }
-    })
-    // Swapping sides on IGO according to map and which team starts def
-    const sideSelections = document.getElementsByClassName("side-selection-teams")
-    const TeamANameIGO = document.querySelector("#team-a-name-igo")
-    const TeamBNameIGO = document.querySelector("#team-b-name-igo")
-    const TeamALogoIGO = document.querySelector("#team-a-logo-igo")
-    const TeamBLogoIGO = document.querySelector("#team-b-logo-igo")
-    if (teamASeriesScore<2 && teamBSeriesScore<2) {
-        if (sideSelections[mapNumber].value === 'team-a') {
-            seriesScore = `${teamASeriesScore}-${teamBSeriesScore}`
-            TeamBNameIGO.setAttribute("class", "team-name-right-igo apply-team-b-name")
-            TeamANameIGO.setAttribute("class", "team-name-left-igo apply-team-a-name")
-            TeamBLogoIGO.setAttribute("class", "team-logo-right-igo apply-team-b-logo")
-            TeamALogoIGO.setAttribute("class", "team-logo-left-igo apply-team-a-logo")
-        } else if (sideSelections[mapNumber].value === 'team-b') {
-            seriesScore = `${teamBSeriesScore}-${teamASeriesScore}`
-            TeamANameIGO.setAttribute("class", "team-name-right-igo apply-team-a-name")
-            TeamBNameIGO.setAttribute("class", "team-name-left-igo apply-team-b-name")
-            TeamALogoIGO.setAttribute("class", "team-logo-right-igo apply-team-a-logo")
-            TeamBLogoIGO.setAttribute("class", "team-logo-left-igo apply-team-b-logo")
-        }
-    }
-    // Setting score dots on IGO
-    const MapScoreIGO = document.getElementById('map-score')
-    if (teamASeriesScore<2 && teamBSeriesScore<2 && document.getElementById('map-score-toggle').checked) {
-        MapScoreIGO.src = `assets/map_scores/GEN_${SeriesLengthSelection.value}_${seriesScore}.png`
-    } else if (teamASeriesScore<2 && teamBSeriesScore<2) {
-        MapScoreIGO.src = `assets/map_scores/${OverlaySelection.value}_${SeriesLengthSelection.value}_${seriesScore}.png`
-    }
-    // !Scores command update
-    if (mapNumber === 0) {
-        scoreCommand = `!editcom !score ${TeamATri.value} ${teamASeriesScore}-${teamBSeriesScore} ${TeamBTri.value} | ${mapPicks[0].mapname} - Current | ${mapPicks[1].mapname} - TBD | ${mapPicks[2].mapname} - TBD`
-    } else if (mapNumber === 1) {
-        scoreCommand = `!editcom !score ${TeamATri.value} ${teamASeriesScore}-${teamBSeriesScore} ${TeamBTri.value} | ${mapPicks[0].mapname} - ${TeamATri.value} ${TeamAScores[0].value}-${TeamBScores[0].value} ${TeamBTri.value} | ${mapPicks[1].mapname} - Current | ${mapPicks[2].mapname} - TBD`
-    } else if (mapNumber === 2) {
-        if (teamASeriesScore !== 2 && teamBSeriesScore !== 2) {
-            scoreCommand = `!editcom !score ${TeamATri.value} ${teamASeriesScore}-${teamBSeriesScore} ${TeamBTri.value} | ${mapPicks[0].mapname} - ${TeamATri.value} ${TeamAScores[0].value}-${TeamBScores[0].value} ${TeamBTri.value} | ${mapPicks[1].mapname} - ${TeamATri.value} ${TeamAScores[1].value}-${TeamBScores[1].value} ${TeamBTri.value} | ${mapPicks[2].mapname} - Current`
-        } else {
-            scoreCommand = `!editcom !score ${TeamATri.value} ${teamASeriesScore}-${teamBSeriesScore} ${TeamBTri.value} | ${mapPicks[0].mapname} - ${TeamATri.value} ${TeamAScores[0].value}-${TeamBScores[0].value} ${TeamBTri.value} | ${mapPicks[1].mapname} - ${TeamATri.value} ${TeamAScores[1].value}-${TeamBScores[1].value} ${TeamBTri.value} | ${mapPicks[2].mapname} - N/A`
-        }
-    } else {
-        scoreCommand = `!editcom !score ${TeamATri.value} ${teamASeriesScore}-${teamBSeriesScore} ${TeamBTri.value} | ${mapPicks[0].mapname} - ${TeamATri.value} ${TeamAScores[0].value}-${TeamBScores[0].value} ${TeamBTri.value} | ${mapPicks[1].mapname} - ${TeamATri.value} ${TeamAScores[1].value}-${TeamBScores[1].value} ${TeamBTri.value} | ${mapPicks[2].mapname} - ${TeamATri.value} ${TeamAScores[2].value}-${TeamBScores[2].value} ${TeamBTri.value}`
-    }
-    document.getElementById('score-copy').textContent = scoreCommand
+    currentMap = mapPicks[mapNumber]
+    setLiveGameSideBar()
 }
 
+function scoreUpdateActivate() {
+    const scoreUpdateTriggers = document.querySelectorAll(".team-a-score, .team-b-score")
+    for (const element of scoreUpdateTriggers) {
+        element.addEventListener("change", scoreUpdate)
+    }
+}
+
+function setLiveGameSideBar() {
+    const sideBarMapImg = document.getElementById('side-bar-map-img')
+    const sideBarMapName = document.getElementById('side-bar-map-name')
+    const sideBarDefLogo = document.getElementById('side-bar-def-logo')
+    const sideBarAtkLogo = document.getElementById('side-bar-atk-logo')
+    const sideBarDefTeam = document.getElementById('side-bar-def-team')
+    const sideBarAtkTeam = document.getElementById('side-bar-atk-logo')
+    
+    function sideBarTeamsDefAtk() {
+        if (mapPicksSides[mapNumber] === 'team-a') {
+            sideBarDefTeam.className = "apply-team-a-tri"
+            sideBarDefLogo.className = "apply-team-a-logo"
+            sideBarAtkTeam.className = "apply-team-b-tri"
+            sideBarAtkLogo.className = "apply-team-b-logo"
+        } else {
+            sideBarDefTeam.className = "apply-team-b-tri"
+            sideBarDefLogo.className = "apply-team-b-logo"
+            sideBarAtkTeam.className = "apply-team-a-tri"
+            sideBarAtkLogo.className = "apply-team-a-logo"
+        }
+    }
+    
+    function sideBarValues(deciderNum, scoreWin) {
+        if (mapNumber<deciderNum) {
+            sideBarMapImg.src = `assets/Maps/${mapPicks[mapNumber]}_320x640.png`
+            sideBarMapName.textContent = `Map ${mapNumber+1} - ${mapPicks[mapNumber]}`
+            sideBarTeamsDefAtk()
+        } else if ((teamASeriesScore !== scoreWin && teamBSeriesScore !== scoreWin) && (mapNumber === deciderNum)) {
+            sideBarMapImg.src = `assets/Maps/${mapPicks[mapNumber]}_320x640.png`
+            sideBarMapName.textContent = `Decider - ${mapPicks[mapNumber]}`
+            sideBarTeamsDefAtk()
+        }
+    }
+    
+    if (seriesLengthSelection === 1) {
+        sideBarValues(2, 2)
+    } else if (seriesLengthSelection === 2) {
+        sideBarValues(4, 3)
+    } else if (seriesLengthSelection === 0 && mapNumber === 0) {
+        sideBarMapImg.src = `assets/Maps/${mapPicks[mapNumber]}_320x640.png`
+        sideBarMapName.textContent = `BO1 Map - ${mapPicks[mapNumber]}`
+        sideBarTeamsDefAtk()
+    }
+    setAllLogos()
+    setAllNames()
+}
 
 // ####################################################################
 // #################### Overlay Template Selection ####################
