@@ -82,6 +82,77 @@
             position: relative;
         }
 
+        [type=button] + div[class=save-button] {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            height: 91px;
+            background-color: rgb(52, 52, 52);
+            font-size: 15pt;
+            border: 5px solid green;
+            border-radius: 10px;
+            transition: 0.2s;
+            color: white;
+        }
+
+        [type=button]:hover + div[class=save-button] {
+            cursor: pointer;
+            background-color: rgb(78, 75, 68);
+        }
+
+        [type=button]:active + div[class=save-button] {
+            cursor: default;
+            background-color: rgb(35, 35, 35);
+            border-color: greenyellow;
+        }
+
+        [type=button]:hover + div[class=save-button] div[class=help] {
+            display: flex;
+            background-color: rgb(52, 52, 52);
+            color: white;
+            position: absolute;
+            top: 30px;
+            left: 1430px;
+        }
+
+        [type=button] + div[class=reset-button] {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            height: 91px;
+            background-color: darkred;
+            font-size: 15pt;
+            border: 5px solid red;
+            border-radius: 10px;
+            transition: 0.2s;
+            color: white;
+        }
+
+        [type=button]:hover + div[class=reset-button] {
+            cursor: pointer;
+            background-color: red;
+        }
+
+        [type=button]:active + div[class=reset-button] {
+            cursor: default;
+            background-color: rgb(35, 35, 35);
+            border-color: white;
+        }
+
+        [type=button]:hover + div[class=reset-button] div[class=help] {
+            display: flex;
+            background-color: rgb(52, 52, 52);
+            color: white;
+            position: absolute;
+            top: 30px;
+            left: 1430px;
+        }
+
+
         /* ####################### */
         /* ##### Menu Select ##### */
         /* ####################### */
@@ -294,13 +365,68 @@
             font-size: 20pt;
         }
 
+        #live-game-side-bar [type=button] + div[class=button-contents] {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            flex-direction: column;
+            height: 40px;
+            background-color: rgb(52, 52, 52);
+            font-size: 15pt;
+            border: 5px solid rgb(78, 75, 68);
+            border-radius: 10px;
+            transition: 0.2s;
+        }
+
+        #live-game-side-bar [type=button]:hover + div[class=button-contents] {
+            cursor: pointer;
+            background-color: rgb(78, 75, 68);
+            color: white;
+        }
+
+        #live-game-side-bar [type=button]:active + div[class=button-contents] {
+            cursor: default;
+            background-color: rgb(35, 35, 35);
+            border-color: white;
+        }
+
+        #live-game-side-bar [type=button]:hover + div[class=button-contents] div[class=help] {
+            display: flex;
+            background-color: rgb(52, 52, 52);
+            color: white;
+            position: absolute;
+            top: 30px;
+            left: 1430px;
+        }
+
+        label [for=maps-command-copy] {
+            grid-area: 1/1;
+            width: 165px;
+            height: 40px;
+            margin: 670px 0px 0px 0px;
+            
+        }
+
+        label [for=score-command-copy] {
+            grid-area: 1/1;
+            width: 165px;
+            height: 40px;
+            margin: 670px 0px 0px 175px;
+        }
+
+        label [for=reset-scores] {
+            grid-area: 1/1;
+            margin-top: 729px;
+        }
+
+
         /* ####################### */
         /* ##### Team Config ##### */
         /* ####################### */
         #team-config {
             grid-area: 1/1;
             display: grid;
-            grid-template: repeat(7, 100px)/100px 100px 50px 500px;
+            grid-template: repeat(7, 100px)/100px 100px 50px 500px 75px 230px 50px 230px;
             padding: 30px 0px 0px 40px;
         }
 
@@ -469,7 +595,7 @@
         #veto-config-header {
             grid-area: 1/1;
             display: grid;
-            grid-template: 91px/100px 100px 100px 50px 200px 200px 50px 200px 200px;
+            grid-template: 91px/100px 100px 100px 20px 150px 150px 20px 200px 200px 20px 150px 20px 150px;
             margin: 30px 0px 30px 30px; 
         }
         
@@ -478,6 +604,7 @@
             justify-content: space-evenly;
             align-items: center;
             flex-direction: column;
+            text-align: center;
             height: 91px;
             background-color: rgb(52, 52, 52);
             color: rgb(149, 149, 149);
@@ -783,14 +910,14 @@
                             <div class="flex-column">
                                 <div id="live-game-header">
 
-                                    <label for="intermission-players">
-                                        <input type="button" id="intermission-players" class="menu">
+                                    <label for="intermission-default">
+                                        <input type="button" id="intermission-default" class="menu">
                                         <div class="button-contents">
                                             <span>Intermission:</span>
-                                            <span>Waiting For Players</span>
+                                            <span>Default Behavior</span>
                                             <div class="help">
-                                                <span>Sets the intermission overlay heading to <br> 'Waiting For Players'</span>
-                                                <Span style="color: yellow">Default intermission overlay heading <br> if not set to a tech pause or during a timer</Span>
+                                                <span>Sets the intermission overlay heading to <br> its default behavior</span>
+                                                <Span style="color: yellow">The intermission heading default behavior automatically changes depending on the state <br> of the series</Span>
                                             </div>
                                         </div>
                                     </label>
@@ -868,6 +995,40 @@
                                                 <span style="width: 50%;" id="side-bar-def-team" class="apply-team-a-tri"></span>
                                                 <span style="width: 50%;" id="side-bar-atk-team" class="apply-team-b-tri"></span>
                                             </div>
+
+                                            <label for="maps-command-copy">
+                                                <input type="button" id="maps-command-copy" class="menu">
+                                                <div class="button-contents">
+                                                    <span>Copy !maps</span>
+                                                    <div class="help">
+                                                        <span>Copies a command to update the !maps chat command with current map veto</span>
+                                                        <span>Intended for use with Nightbot, must already have !maps command</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+
+                                            <label for="score-command-copy">
+                                                <input type="button" id="score-command-copy" class="menu">
+                                                <div class="button-contents">
+                                                    <span>Copy !scores</span>
+                                                    <div class="help">
+                                                        <span>Copies a command to update the !score chat command with current map veto</span>
+                                                        <span>Intended for use with Nightbot, must already have !maps command</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+
+                                            <label for="reset-scores">
+                                                <input type="button" id="reset-scores" class="menu">
+                                                <div class="reset-button">
+                                                    <span>Reset Map Scores</span>
+                                                    <div class="help">
+                                                        <span>Resets all current map scores to 0</span>
+                                                        <span style="color: red;">WARNING: There is no undo for this action</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+
                                         </div> <!-- Live Game Side Bar -->
                                 </div> <!-- Live Game Body -->
 
@@ -980,6 +1141,29 @@
                                     <span>Tricodes are a 2-4 character representation of a <br> team's name such as PRX or SEN </span>
                                 </div>
 
+                                <!-- #################### Save/Reset Buttons #################### -->
+                                <label for="save-team-config" style="grid-area: 1/6;">
+                                    <input type="button" id="save-team-config" class="menu">
+                                    <div class="save-button">
+                                        <span>Save Team Config</span>
+                                        <div class="help">
+                                            <span>Updates team config fields on overlays</span>
+                                            <span style="color: yellow;">It is highly recommended that the team config <br> is finalized before a broadcast to minimize <br> confusion and sudden changes on the overlay</span>
+                                        </div>
+                                    </div>
+                                </label>
+
+                                <label for="reset-team-config" style="grid-area: 1/8;">
+                                    <input type="button" id="reset-team-config" class="menu">
+                                    <div class="reset-button">
+                                        <span>Reset Team Config</span>
+                                        <div class="help">
+                                            <span>Resets team config settings to default</span>
+                                            <span style="color: red;">WARNING: There is no undo for this action</span>
+                                        </div>
+                                    </div>
+                                </label>
+
                             </div> <!-- Team Config -->
 
                             <div id="igo-preview" class="grid-1-1">
@@ -1026,7 +1210,6 @@
                                             <div class="help">
                                                 <span>Sets the series length to a Best Of 1</span>
                                                 <span style="color: red;">WARNING: <br> Changing the series length resets the map veto</span>
-                                        <!-- <span>How long can I type 1 2 3 4 5 6 7 8 9 10 11 12 13</span> -->
                                             </div>
                                         </div>
                                     </label>
@@ -1038,7 +1221,6 @@
                                             <div class="help">
                                                 <span>Sets the series length to a Best Of 3</span>
                                                 <span style="color: red;">WARNING: <br> Changing the series length resets the map veto</span>
-                                        <!-- <span>How long can I type 1 2 3 4 5 6 7 8 9 10 11 12 13</span> -->
                                             </div>
                                         </div>
                                     </label>
@@ -1050,7 +1232,6 @@
                                             <div class="help">
                                                 <span>Sets the series length to a Best Of 5</span>
                                                 <span style="color: red;">WARNING: <br> Changing the series length resets the map veto</span>
-                                        <!-- <span>How long can I type 1 2 3 4 5 6 7 8 9 10 11 12 13</span> -->
                                             </div>
                                         </div>
                                     </label>
@@ -1064,7 +1245,6 @@
                                             <div class="help">
                                                 <span>Sets the map pool to the <br> official competitive map rotation</span>
                                                 <span style="color: red;">WARNING: <br> Changing the map pool resets the map veto</span>
-                                        <!-- <span>How long can I type 1 2 3 4 5 6 7 8 9 10 11 12 13</span> -->
                                             </div>
                                         </div>
                                     </label>
@@ -1076,7 +1256,6 @@
                                             <div class="help">
                                                 <span>Sets the map pool to use all Valorant maps</span>
                                                 <span style="color: red;">WARNING: <br> Changing the map pool resets the map veto</span>
-                                        <!-- <span>How long can I type 1 2 3 4 5 6 7 8 9 10 11 12 13</span> -->
                                             </div>
                                         </div>
                                     </label>
@@ -1093,7 +1272,6 @@
                                             </div>
                                             <div class="help">
                                                 <span>Use team logos to represent what team is <br> picking/banning or starting on defense</span>
-                                        <!-- <span>How long can I type 1 2 3 4 5 6 7 8 9 10 11 12 13</span> -->
                                             </div>
                                         </div>
                                     </label>
@@ -1109,7 +1287,32 @@
                                             <div class="help">
                                                 <span>Use team tricodes to represent what team is <br> picking/banning or starting on defense</span>
                                                 <span style="color: yellow;">Recommended if neither team has a logo</span>
-                                        <!-- <span>How long can I type 1 2 3 4 5 6 7 8 9 10 11 12 13</span> -->
+                                            </div>
+                                        </div>
+                                    </label>
+
+                                    <div></div>
+
+                                    <label for="save-map-veto">
+                                        <input type="button" id="save-map-veto" class="menu">
+                                        <div class="save-button">
+                                            <span>Save Map <br> Veto</span>
+                                            <div class="help">
+                                                <span>Updates map veto on overlay and Live Game tab</span>
+                                                <span style="color: yellow;">It is highly recommended that the map veto is <br> finalized before a broadcast to minimize <br> confusion and sudden changes on the overlay</span>
+                                            </div>
+                                        </div>
+                                    </label>
+
+                                    <div></div>
+
+                                    <label for="reset-map-veto">
+                                        <input type="button" id="reset-map-veto" class="menu">
+                                        <div class="reset-button">
+                                            <span>Reset Map Veto</span>
+                                            <div class="help">
+                                                <span>Resets map veto settings to default</span>
+                                                <span style="color: red;">WARNING: There is no undo for this action</span>
                                             </div>
                                         </div>
                                     </label>

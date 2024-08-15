@@ -154,7 +154,7 @@ let seriesLengthSelection = 1
 function seriesLengthUpdate() {
     document.getElementsByName('series-length-selection').forEach((option) => {
         if (option.checked) {
-            seriesLengthSelection = `${option.value}`
+            seriesLengthSelection = Number(option.value)
             mapPoolUpdate()
         }
     })
@@ -167,37 +167,9 @@ document.getElementsByName('series-length-selection').forEach((option) => {
 
 
 
-// ############################################################
-// #################### Map Pool Selection ####################
-// ############################################################
-const mapData = [
-    {mapName: "Abyss", mapPool: true},
-    {mapName: "Ascent", mapPool: true},
-    {mapName: "Bind", mapPool: true},
-    {mapName: "Breeze", mapPool: false},
-    {mapName: "Fracture", mapPool: false},
-    {mapName: "Haven", mapPool: true},
-    {mapName: "Icebox", mapPool: true},
-    {mapName: "Lotus", mapPool: true},
-    {mapName: "Pearl", mapPool: false},
-    {mapName: "Split", mapPool: false},
-    {mapName: "Sunset", mapPool: true},
-]
-let mapPoolSelection = 0
-
-function mapPoolUpdate() {
-    document.getElementsByName('map-pool-selection').forEach((option) => {
-        if (option.checked) {
-            mapPoolSelection = `${option.value}`
-            setMapPool()
-        }
-    })
-}
-
-document.getElementsByName('map-pool-selection').forEach((option) => {
-    option.addEventListener('change', mapPoolUpdate)
-})
-
+// ###################################################################
+// #################### Team Identifier Selection ####################
+// ###################################################################
 let teamIdentifierSelection = 0
 
 function teamIdentifierUpdate() {
@@ -237,18 +209,52 @@ document.getElementsByName('team-identifier-selection').forEach((option) => {
     option.addEventListener('change', teamIdentifierUpdate)
 })
 
+
+
+// ############################################################
+// #################### Map Pool Selection ####################
+// ############################################################
+const mapData = [
+    {mapName: "Abyss", mapPool: true},
+    {mapName: "Ascent", mapPool: true},
+    {mapName: "Bind", mapPool: true},
+    {mapName: "Breeze", mapPool: false},
+    {mapName: "Fracture", mapPool: false},
+    {mapName: "Haven", mapPool: true},
+    {mapName: "Icebox", mapPool: true},
+    {mapName: "Lotus", mapPool: true},
+    {mapName: "Pearl", mapPool: false},
+    {mapName: "Split", mapPool: false},
+    {mapName: "Sunset", mapPool: true},
+]
+let mapPoolSelection = 0
+
+function mapPoolUpdate() {
+    document.getElementsByName('map-pool-selection').forEach((option) => {
+        if (option.checked) {
+            mapPoolSelection = `${option.value}`
+            setMapPool()
+        }
+    })
+}
+
+document.getElementsByName('map-pool-selection').forEach((option) => {
+    option.addEventListener('change', mapPoolUpdate)
+})
+
 function setMapPool() {
     const mapVeto = document.getElementById('veto-config-body')
     while (mapVeto.firstChild) {
         mapVeto.removeChild(mapVeto.firstChild)
     }
-    if (Number(seriesLengthSelection) === 0) {
+    if (seriesLengthSelection === 0) {
         createMapPickBan('map', 1, 'pick', false, 0)
         mapTeamDefActivate()
         teamIdentifierToggle()
         mapVetoActivate()
         mapVetoUpdate()
-    } else if (Number(seriesLengthSelection) === 1) {
+        resetScores()
+    } else if (seriesLengthSelection === 1) {
         createMapPickBan('1st', 1, 'ban', false, 0)
         createMapPickBan('2nd', 4, 'ban', false, 1)
         createMapPickBan('1st', 7, 'pick', false, 0)
@@ -260,7 +266,8 @@ function setMapPool() {
         teamIdentifierToggle()
         mapVetoActivate()
         mapVetoUpdate()
-    } else if (Number(seriesLengthSelection) === 2) {
+        resetScores()
+    } else if (seriesLengthSelection === 2) {
         createMapPickBan('1st', 1, 'ban', false, 0)
         createMapPickBan('2nd', 4, 'ban', false, 1)
         createMapPickBan('1st', 7, 'pick', false, 0)
@@ -272,6 +279,7 @@ function setMapPool() {
         teamIdentifierToggle()
         mapVetoActivate()
         mapVetoUpdate()
+        resetScores()
     }
 }
 
@@ -552,8 +560,8 @@ function mapVetoUpdate() {
         }
     }
     createLiveScores()
+    setScores()
     scoreUpdate()
-    setLiveGameSideBar()
 }
 
 
@@ -566,6 +574,7 @@ function mapVetoActivate() {
 // #################### Score Keeping Logic ####################
 // #############################################################
 let mapWinners = []
+let mapScores = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 let teamASeriesScore = 0
 let teamBSeriesScore = 0
 let mapNumber = teamASeriesScore+teamBSeriesScore
@@ -583,10 +592,10 @@ function createLiveScores() {
                     mapPickImg.className = "live-game-pick-img"
                     mapPickImg.style.background = `linear-gradient(-90deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("assets/Maps/${map}_524x214.png") center center / cover`
                         const mapPickImgName = document.createElement('span')
-                        if ((Number(seriesLengthSelection) === 0)) {
+                        if ((seriesLengthSelection === 0)) {
                             mapPickImgName.textContent = `${map}`
                             mapPickImg.appendChild(mapPickImgName)
-                        } else if ((Number(seriesLengthSelection) === 1 && i === 2) || (Number(seriesLengthSelection) === 2 && i === 4)) {
+                        } else if ((seriesLengthSelection === 1 && i === 2) || (seriesLengthSelection === 2 && i === 4)) {
                             mapPickImgName.textContent = `Decider - ${map}`
                             mapPickImg.appendChild(mapPickImgName)
                         } else {
@@ -676,6 +685,7 @@ function createLiveScores() {
 
 function scoreUpdate() {
     mapWinners = []
+    mapScores = []
     teamASeriesScore = 0
     teamBSeriesScore = 0
     mapNumber = teamASeriesScore+teamBSeriesScore
@@ -693,6 +703,9 @@ function scoreUpdate() {
     })
     mapNumber = teamASeriesScore+teamBSeriesScore
     currentMap = mapPicks[mapNumber]
+    Array.from(document.querySelectorAll('.team-a-score, .team-b-score')).forEach((score) => {
+        mapScores.push(score.value)
+    })
     setLiveGameSideBar()
 }
 
@@ -702,6 +715,22 @@ function scoreUpdateActivate() {
         element.addEventListener("change", scoreUpdate)
     }
 }
+
+function setScores() {
+    Array.from(document.querySelectorAll('.team-a-score, .team-b-score')).forEach((score, i) => {
+        score.value = mapScores[i]
+    })
+}
+
+function resetScores() {
+    mapScores = []
+    Array.from(document.querySelectorAll('.team-a-score, .team-b-score')).forEach((score) => {
+        mapScores.push(0)
+    })
+    setScores()
+}
+
+document.getElementById('reset-scores').addEventListener("click", resetScores)
 
 function setLiveGameSideBar() {
     const sideBarMapImg = document.getElementById('side-bar-map-img')
