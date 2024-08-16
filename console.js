@@ -33,6 +33,8 @@ function setAllNames() {
     const eventNameAll = document.getElementsByClassName('apply-event-name')
     const caster1NameAll = document.getElementsByClassName('apply-caster-1-name')
     const caster2NameAll = document.getElementsByClassName('apply-caster-2-name')
+    teamATri.value = teamATri.value.toUpperCase()
+    teamBTri.value = teamBTri.value.toUpperCase()
     for (const instance of teamANameAll) {
         instance.textContent = `${teamAName.value}`
     }
@@ -689,23 +691,25 @@ function scoreUpdate() {
     teamASeriesScore = 0
     teamBSeriesScore = 0
     mapNumber = teamASeriesScore+teamBSeriesScore
-    const TeamAScores = document.getElementsByClassName('team-a-score')
-    const TeamBScores = document.getElementsByClassName('team-b-score')
-    Array.from(TeamAScores).forEach((map, i) => {
-        if (map.value>=13 && map.value>=Number(TeamBScores[i].value)+2) {
+    const teamAScores = document.getElementsByClassName('team-a-score')
+    const teamBScores = document.getElementsByClassName('team-b-score')
+    Array.from(teamAScores).forEach((map, i) => {
+        if (map.value>=13 && map.value>=Number(teamBScores[i].value)+2) {
             teamASeriesScore++
             mapWinners.push('team-a')
         }
-        if (TeamBScores[i].value>=13 && TeamBScores[i].value>=Number(map.value)+2) {
+        if (teamBScores[i].value>=13 && teamBScores[i].value>=Number(map.value)+2) {
             teamBSeriesScore++
             mapWinners.push('team-b')
         }
     })
     mapNumber = teamASeriesScore+teamBSeriesScore
     currentMap = mapPicks[mapNumber]
+    // mapScores update
     Array.from(document.querySelectorAll('.team-a-score, .team-b-score')).forEach((score) => {
         mapScores.push(score.value)
     })
+    // Updates Side Bar
     setLiveGameSideBar()
 }
 
@@ -731,6 +735,134 @@ function resetScores() {
 }
 
 document.getElementById('reset-scores').addEventListener("click", resetScores)
+
+
+
+// ########################################################################
+// #################### Intermission/Live Game Sidebar ####################
+// ##########################################################$#############
+let mapsCommand = '!editcom !maps'
+let scoreCommand = '!editcom !score'
+let intermissionState = 0
+
+function copyMaps() {
+    function teamTriMap(num) {
+        if (mapPicksTeams[num] === 'team-a') {
+            return(teamATri.value)
+        } else {
+            return(teamBTri.value)
+        }
+    }
+
+    if (seriesLengthSelection === 0) {
+        mapsCommand = `!editcom !maps BO1 Map - ${mapPicks[0]}`
+        navigator.clipboard.writeText(mapsCommand)
+    } else if (seriesLengthSelection === 1) {
+        mapsCommand = `!editcom !maps Map 1 (${teamTriMap(0)}) - ${mapPicks[0]}`
+        mapPicks.forEach((map, i) => {
+            if (i === 2) {
+                mapsCommand = mapsCommand + ` | Map 3 (Decider) - ${map}`
+            } else if (i !== 0) {
+                mapsCommand = mapsCommand + ` | Map ${i+1} (${teamTriMap(i)}) - ${map}`
+            }
+        })
+        navigator.clipboard.writeText(mapsCommand)
+    } else if (seriesLengthSelection === 2) {
+        mapsCommand = `!editcom !maps Map 1 (${teamTriMap(0)}) - ${mapPicks[0]}`
+        mapPicks.forEach((map, i) => {
+            if (i === 4) {
+                mapsCommand = mapsCommand + ` | Map 3 (Decider) - ${map}`
+            } else if (i !== 0) {
+                mapsCommand = mapsCommand + ` | Map ${i+1} (${teamTriMap(i)}) - ${map}`
+            }
+        })
+        navigator.clipboard.writeText(mapsCommand)
+    }    
+}
+
+function copyScore() {
+    function scoreAddCurrentMap(num) {
+        scoreCommand = scoreCommand + ` | Map ${num+1}, ${mapPicks[num]} - Current` 
+    }
+    function scoreAddFinishedMap(num, score) {
+        scoreCommand = scoreCommand + ` | Map ${num+1}, ${mapPicks[num]} - ${teamATri.value} ${mapScores[score]}-${mapScores[score+1]} ${teamBTri.value}`
+    }
+    function scoreAddTBDMap(num) {
+        scoreCommand = scoreCommand + ` | Map ${num+1}, ${mapPicks[num]} - TBD`
+    }
+    function scoreAddNAMap(num) {
+        scoreCommand = scoreCommand + ` | Map ${num+1}, ${mapPicks[num]} - N/A`
+    }
+
+    if (seriesLengthSelection === 0) {
+        if (mapNumber === 0) {
+            scoreCommand = `!editcom !score BO1 Map ${mapPicks[0]} - Current`
+        } else {
+            scoreCommand = `!editcom !score BO1 Map ${mapPicks[0]} - ${teamATri.value} ${mapScores[0]}-${mapScores[1]} ${teamBTri.value}`
+        }
+        navigator.clipboard.writeText(scoreCommand)
+    } else if (seriesLengthSelection === 1) {
+        scoreCommand = `!editcom !score Series Score - ${teamATri.value} ${teamASeriesScore}-${teamBSeriesScore} ${teamBTri.value}`
+        mapPicks.forEach((map, i) => {
+            if ((i === mapNumber) && (teamASeriesScore < 2 && teamBSeriesScore < 2)) {
+                scoreAddCurrentMap(i)
+            } else if (i < mapNumber) {
+                scoreAddFinishedMap(i, (i*2))
+            } else if (teamASeriesScore > 1 || teamBSeriesScore > 1) {
+                scoreAddNAMap(i)
+            } else {
+                scoreAddTBDMap(i)
+            }
+        })
+        navigator.clipboard.writeText(scoreCommand)
+    } else if (seriesLengthSelection === 2) {
+        scoreCommand = `!editcom !score Series Score - ${teamATri.value} ${teamASeriesScore}-${teamBSeriesScore} ${teamBTri.value}`
+        mapPicks.forEach((map, i) => {
+            if ((i === mapNumber) && (teamASeriesScore < 3 && teamBSeriesScore < 3)) {
+                scoreAddCurrentMap(i)
+            } else if (i < mapNumber) {
+                scoreAddFinishedMap(i, (i*2))
+            } else if (teamASeriesScore > 2 || teamBSeriesScore > 2) {
+                scoreAddNAMap(i)
+            } else {
+                scoreAddTBDMap(i)
+            }
+        })
+        navigator.clipboard.writeText(scoreCommand)
+    }
+}
+
+document.getElementById('maps-command-copy').addEventListener("click", copyMaps)
+document.getElementById('score-command-copy').addEventListener("click", copyScore)
+
+document.getElementById('intermission-default').addEventListener("click", () => {intermissionState = 0})
+document.getElementById('intermission-tech').addEventListener("click", () => {intermissionState = 1})
+document.getElementById('intermission-3').addEventListener("click", () => {intermissionState = 2})
+document.getElementById('intermission-5').addEventListener("click", () => {intermissionState = 3})
+document.getElementById('intermission-10').addEventListener("click", () => {intermissionState = 4})
+
+function intermissionUpdate() {
+    let loadingDots
+    const intermissionHeading = document.getElementById('side-bar-intermission')
+    clearInterval(loadingDots)
+    if (intermissionState === 0) {
+        if (mapNumber === 0) {
+            loadingDots = setInterval(() => {
+                if ( intermissionHeading.innerHTML.length > 15 ) 
+                    intermissionHeading.innerHTML = "Starting Soon";
+                else 
+                    intermissionHeading.innerHTML += ".";
+            }, 500);
+        }
+    } else if (intermissionState === 1) {
+        loadingDots = setInterval(() => {
+            if ( intermissionHeading.innerHTML.length > 12 ) 
+                intermissionHeading.innerHTML = "Tech Pause";
+            else 
+                intermissionHeading.innerHTML += ".";
+        }, 500);
+    }
+}
 
 function setLiveGameSideBar() {
     const sideBarMapImg = document.getElementById('side-bar-map-img')
@@ -778,6 +910,8 @@ function setLiveGameSideBar() {
     setAllLogos()
     setAllNames()
 }
+
+
 
 // ####################################################################
 // #################### Overlay Template Selection ####################
