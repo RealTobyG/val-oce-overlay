@@ -744,6 +744,7 @@ document.getElementById('reset-scores').addEventListener("click", resetScores)
 let mapsCommand = '!editcom !maps'
 let scoreCommand = '!editcom !score'
 let intermissionState = 0
+let timer = null
 
 function copyMaps() {
     function teamTriMap(num) {
@@ -835,34 +836,140 @@ function copyScore() {
 document.getElementById('maps-command-copy').addEventListener("click", copyMaps)
 document.getElementById('score-command-copy').addEventListener("click", copyScore)
 
-document.getElementById('intermission-default').addEventListener("click", () => {intermissionState = 0})
-document.getElementById('intermission-tech').addEventListener("click", () => {intermissionState = 1})
-document.getElementById('intermission-3').addEventListener("click", () => {intermissionState = 2})
-document.getElementById('intermission-5').addEventListener("click", () => {intermissionState = 3})
-document.getElementById('intermission-10').addEventListener("click", () => {intermissionState = 4})
 
-function intermissionUpdate() {
-    let loadingDots
+document.getElementById('intermission-default').addEventListener("click", () => {intermissionState = 0; intermissionDefault()})
+document.getElementById('intermission-tech').addEventListener("click", () => {intermissionState = 1; intermissionTech()})
+document.getElementById('intermission-3').addEventListener("click", () => {intermissionState = 2; intermission3()})
+document.getElementById('intermission-5').addEventListener("click", () => {intermissionState = 3; intermission5()})
+document.getElementById('intermission-10').addEventListener("click", () => {intermissionState = 4; intermission10()})
+
+function intermissionDefault() {
     const intermissionHeading = document.getElementById('side-bar-intermission')
-    clearInterval(loadingDots)
-    if (intermissionState === 0) {
-        if (mapNumber === 0) {
-            loadingDots = setInterval(() => {
-                if ( intermissionHeading.innerHTML.length > 15 ) 
-                    intermissionHeading.innerHTML = "Starting Soon";
-                else 
-                    intermissionHeading.innerHTML += ".";
-            }, 500);
+    if (timer !=null) {
+        clearTimeout(timer)
+        timer = null
+    }
+    if (countdown !=null) {
+        clearInterval(countdown)
+        countdown = null
+    }
+    if (mapNumber === 0) {
+        if (intermissionHeading.innerHTML.includes('Starting Soon') === false) {
+            intermissionHeading.innerHTML = 'Starting Soon'
+        } else if (intermissionHeading.innerHTML.length > 15) {
+            intermissionHeading.innerHTML = 'Starting Soon'
+        } else {
+            intermissionHeading.innerHTML += '.'
         }
-    } else if (intermissionState === 1) {
-        loadingDots = setInterval(() => {
-            if ( intermissionHeading.innerHTML.length > 12 ) 
-                intermissionHeading.innerHTML = "Tech Pause";
-            else 
-                intermissionHeading.innerHTML += ".";
-        }, 500);
+        timer = setTimeout(intermissionDefault, 500)
+    } else if (((seriesLengthSelection === 0) && (teamASeriesScore === 1 || teamBSeriesScore === 1)) || ((seriesLengthSelection === 1) && (teamASeriesScore === 2 || teamBSeriesScore === 2)) || ((seriesLengthSelection === 2) && (teamASeriesScore === 3 || teamBSeriesScore === 3))) {
+        if (intermissionHeading.innerHTML.includes('Ending Soon') === false) {
+            intermissionHeading.innerHTML = 'Ending Soon'
+        } else if (intermissionHeading.innerHTML.length > 14) {
+            intermissionHeading.innerHTML = 'Ending Soon'
+        } else {
+            intermissionHeading.innerHTML += '.'
+        }
+        timer = setTimeout(intermissionDefault, 500)
+    } else {
+        if (intermissionHeading.innerHTML.includes('Waiting For Players') === false) {
+            intermissionHeading.innerHTML = 'Waiting For Players'
+        } else if (intermissionHeading.innerHTML.length > 21) {
+            intermissionHeading.innerHTML = 'Waiting For Players'
+        } else {
+            intermissionHeading.innerHTML += '.'
+        }
+        timer = setTimeout(intermissionDefault, 500)
     }
 }
+
+function intermissionTech() {
+    const intermissionHeading = document.getElementById('side-bar-intermission')
+    if (timer !=null) {
+        clearTimeout(timer)
+        timer = null
+    }
+    if (countdown !=null) {
+        clearInterval(countdown)
+        countdown = null
+    }
+    if (intermissionHeading.innerHTML.includes('Tech Pause') === false) {
+        intermissionHeading.innerHTML = 'Tech Pause'
+    } else if (intermissionHeading.innerHTML.length > 12) {
+        intermissionHeading.innerHTML = 'Tech Pause'
+    } else {
+        intermissionHeading.innerHTML += '.'
+    }
+    timer = setTimeout(intermissionTech, 500)
+}
+
+let deadline = null
+let countdown = null
+
+function countdownTimer() {
+    const intermissionHeading = document.getElementById('side-bar-intermission')
+    let t = deadline - Date.now() + 500
+    console.log(t)
+    let minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0')
+    let seconds = Math.floor((t % (1000 * 60)) / 1000).toString().padStart(2, '0')
+
+    // minutes = `${minutes}`
+    // seconds = `${seconds}`
+    // minutes = minutes.padStart(2, '0')
+    // seconds = seconds.padStart(2, '0')
+
+    intermissionHeading.innerHTML = "Intermission - " + minutes + ":" + seconds
+
+    if (minutes === '-1' && seconds === '-1') {
+        clearInterval(countdown)
+        countdown = null
+        intermissionState = 0
+        intermissionDefault()
+    }
+}
+
+function intermission3() {
+    if (timer !=null) {
+        clearTimeout(timer)
+        timer = null
+    }
+    if (countdown !=null) {
+        clearInterval(countdown)
+        countdown = null
+    }
+    deadline = Date.now() + 3*60000
+    countdownTimer()
+    countdown = setInterval(countdownTimer, 1000)
+}
+
+function intermission5() {
+    if (timer !=null) {
+        clearTimeout(timer)
+        timer = null
+    }
+    if (countdown !=null) {
+        clearInterval(countdown)
+        countdown = null
+    }
+    deadline = Date.now() + 5*60000
+    countdownTimer()
+    countdown = setInterval(countdownTimer, 1000)
+}
+
+function intermission10() {
+    if (timer !=null) {
+        clearTimeout(timer)
+        timer = null
+    }
+    if (countdown !=null) {
+        clearInterval(countdown)
+        countdown = null
+    }
+    deadline = Date.now() + 10*60000
+    countdownTimer()
+    countdown = setInterval(countdownTimer, 1000)
+}
+
 
 function setLiveGameSideBar() {
     const sideBarMapImg = document.getElementById('side-bar-map-img')
