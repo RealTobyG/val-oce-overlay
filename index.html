@@ -767,10 +767,43 @@
                     </div>
                     <!--#################### BO1 ####################-->
                     <div id="bo1-console" class="display-none">
-                        <label for="map-selection-bo1">B01 Map Select: </label>
-                        <select id="map-selection-bo1" class="map-pick-selection"></select>
+                        <!-- 1st Pick -->
+                        <div class="map-pickban-grid">
+                            <span>1st Pick</span>
+                            <div class="map-pickban-content">
+                                <div class="flex-row">
+                                    <label for="bo1-1st-pick-team">Team Picking: </label>
+                                    <select id="bo1-1st-pick-team" class="map-pick-team bo1 menu">
+                                        <option id="bo1-1st-pick-team-a-option" value="team-a" class="apply-team-a-tri">Team A</option>
+                                        <option id="bo1-1st-pick-team-b-option" value="team-b" class="apply-team-b-tri">Team B</option>
+                                    </select>
+                                </div>
+                                <div class="flex-row">
+                                    <label for="bo1-1st-pick-map">Map Pick: </label>
+                                    <select id="bo1-1st-pick-map" class="map-pick-selection bo1 menu"></select>
+                                </div>
+                            </div>
+                            <div class="map-pickban-content">
+                                <div class="flex-row">
+                                    <label for="bo1-1st-pick-side">Team Starting Defense: </label>
+                                    <select id="bo1-1st-pick-side" class="side-selection-teams bo1 menu">
+                                        <option id="bo1-map1-def-a-option" value="team-a" class="apply-team-a-tri">Team A</option>
+                                        <option id="bo1-map1-def-b-option" value="team-b" class="apply-team-b-tri">Team B</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <span id="bo1-map1-team-a-tri" class="apply-team-a-tri">Team A</span>
+                                    <label for="bo1-score-map1-team-a"> Score: </label>
+                                    <input id="bo1-score-map1-team-a" class="team-a-score menu" type="number" min="0" style="width: 60px; margin-right: 20px;">
+                                    <span id="bo1-map1-team-b-tri" class="apply-team-b-tri">Team B</span>
+                                    <label for="bo1-score-map1-team-b"> Score: </label>
+                                    <input id="bo1-score-map1-team-b" class="team-b-score menu" type="number" min="0" style="width: 60px;">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
                 <div id="misc-config">
                     <div class="flex-row">
                         <label for="event-name" style="margin-right: 20px;">Event Name: </label>

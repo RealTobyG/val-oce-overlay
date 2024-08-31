@@ -73,7 +73,7 @@ document.getElementById('caster-2-name').addEventListener('keyup', setAllNames)
 // ##################################################################
 let teamALogo = 'assets/200x200_No_Logo.png'
 let teamBLogo = 'assets/200x200_No_Logo.png'
-let eventLogo = 'n/a'
+let eventLogo = 'assets/Event_Logo_Preview.png'
 
 function setAllLogos() {
     const teamALogoAll = document.getElementsByClassName('apply-team-a-logo')
@@ -84,6 +84,7 @@ function setAllLogos() {
     const teamBNoLogo = document.getElementById('team-b-no-logo')
     const eventLogoAll = document.getElementsByClassName('apply-event-logo')
     const eventLogoUpload = document.getElementById('event-logo-upload')
+    const eventNoLogo = document.getElementById('event-no-logo')
     if (teamANoLogo.checked) {
         teamALogoUpload.value = ''
         for (const element of teamALogoAll) {
@@ -100,6 +101,10 @@ function setAllLogos() {
             element.src = teamBLogo
         }
     }
+    if (eventNoLogo.checked) {
+        eventLogoUpload.value = ''
+        document.getElementById('event-logo-preview').src = 'assets/Event_Logo_Preview.png'
+    }
     if (teamANoLogo.checked === false) {
         for (const element of teamALogoAll) {
             element.src = teamALogo
@@ -110,7 +115,7 @@ function setAllLogos() {
             element.src = teamBLogo
         }
     }
-    if (eventLogoUpload.value !== '') {
+    if (eventNoLogo.checked === false) {
         for (const element of eventLogoAll) {
             element.src = eventLogo
         }
@@ -134,6 +139,7 @@ function uploadTeamBLogo() {
 }
 
 function uploadEventLogo() {
+    document.getElementById('event-no-logo').checked = false
     const eventLogoUpload = document.getElementById('event-logo-upload')
     URL.revokeObjectURL(eventLogo)
     eventLogo = URL.createObjectURL(eventLogoUpload.files[0])
@@ -142,6 +148,7 @@ function uploadEventLogo() {
 
 document.getElementById('team-a-no-logo').addEventListener('change', setAllLogos)
 document.getElementById('team-b-no-logo').addEventListener('change', setAllLogos)
+document.getElementById('event-no-logo').addEventListener('change', setAllLogos)
 document.getElementById('team-a-logo-upload').addEventListener('change', uploadTeamALogo)
 document.getElementById('team-b-logo-upload').addEventListener('change', uploadTeamBLogo)
 document.getElementById('event-logo-upload').addEventListener('change', uploadEventLogo)
@@ -732,6 +739,7 @@ function resetScores() {
         mapScores.push(0)
     })
     setScores()
+    scoreUpdate()
 }
 
 document.getElementById('reset-scores').addEventListener("click", resetScores)
@@ -909,7 +917,7 @@ let countdown = null
 function countdownTimer() {
     const intermissionHeading = document.getElementById('side-bar-intermission')
     let t = deadline - Date.now() + 500
-    console.log(t)
+    // console.log(t)
     let minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0')
     let seconds = Math.floor((t % (1000 * 60)) / 1000).toString().padStart(2, '0')
 
@@ -1046,6 +1054,44 @@ document.getElementById('overlay-selection').addEventListener('change', setOverl
 
 
 
+// #################################################
+// #################### Casters ####################
+// #################################################
+function castersUpdate() {
+    const casterHandles1 = document.getElementsByClassName('caster-handle-1')
+    const casterHandles2 = document.getElementsByClassName('caster-handle-2')
+    const castersSelection = document.getElementsByName('casters-selection')
+    for (const element of castersSelection) {
+        if (element.checked) {
+            if (Number(element.value) === 0) {
+                document.getElementById('cams-overlay-video').src = 'assets/Single_Cam_Preview.png'
+                document.getElementById('cams-screen-overlay-video').src = 'assets/Single_Cam_Screen_Preview.png'
+                for (const element of casterHandles1) {
+                    element.style.display = 'grid'
+                }
+                for (const element of casterHandles2) {
+                    element.style.display = 'none'
+                }
+            } else {
+                document.getElementById('cams-overlay-video').src = 'assets/Dual_Cam_Preview.png'
+                document.getElementById('cams-screen-overlay-video').src = 'assets/Dual_Cam_Screen_Preview.png'
+                for (const element of casterHandles2) {
+                    element.style.display = 'grid'
+                }
+                for (const element of casterHandles1) {
+                    element.style.display = 'none'
+                }
+            }
+        }
+    }
+}
+
+for (const element of document.getElementsByName('casters-selection')) {
+    element.addEventListener("change", castersUpdate)
+}
+
+
+
 // ####################################################
 // #################### Bottom Bar ####################
 // ####################################################
@@ -1092,3 +1138,4 @@ document.getElementById('bottom-bar-text-size-selection').addEventListener('chan
 setAllNames()
 setAllLogos()
 setMapPool()
+intermissionDefault()
