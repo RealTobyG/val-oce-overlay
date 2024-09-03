@@ -1028,31 +1028,6 @@ function setLiveGameSideBar() {
 
 
 
-// ####################################################################
-// #################### Overlay Template Selection ####################
-// ####################################################################
-const overlaySelection = document.getElementById('overlay-selection')
-
-function setOverlay() {
-    const overlayElements = document.getElementsByClassName('overlay-element')
-    if (overlaySelection.value === "GC") {
-        for (const element of overlayElements) {
-            element.src = element.src.replace(/(VCL|LPL)/g, "GC")
-        }
-    } else if (overlaySelection.value === "VCL") {
-        for (const element of overlayElements) {
-            element.src = element.src.replace(/(GC|LPL)/g, "VCL")
-        }
-    } else {
-        for (const element of overlayElements) {
-            element.src = element.src.replace(/(VCL|GC)/g, "LPL")
-        }
-    }
-}
-
-document.getElementById('overlay-selection').addEventListener('change', setOverlay)
-
-
 
 // #################################################
 // #################### Casters ####################
@@ -1092,24 +1067,45 @@ for (const element of document.getElementsByName('casters-selection')) {
 
 
 
-// ####################################################
-// #################### Bottom Bar ####################
-// ####################################################
-const bottomBarSelection = document.getElementById('bottom-bar-selection')
-const chatCommandsSelection = document.getElementById('chat-commands-selection')
-const bottomBarTextSizeSelection = document.getElementById('bottom-bar-text-size-selection')
+// #################################################################
+// #################### Overlay Display Options ####################
+// #################################################################
+
+function setOverlay() {
+    const overlayElements = document.getElementsByClassName('overlay-element')
+    for (option of document.getElementsByName('overlay-selection')) {
+        if (Number(option.value) === 0 && option.checked) {
+            for (const element of overlayElements) {
+                element.src = element.src.replace(/(GC|LPL)/g, "VCL")
+            }
+        }
+        
+        if (Number(option.value) === 1 && option.checked) {
+            for (const element of overlayElements) {
+                element.src = element.src.replace(/(VCL|LPL)/g, "GC")
+            }
+        }
+    }
+    
+}
+
+document.getElementsByName('overlay-selection').forEach((menu) => {
+    menu.addEventListener('change', setOverlay)
+})
+
 
 function bottomBarUpdate() {
-    const bottomBarAll = document.getElementsByClassName('bottom-bar')
+    const bottomBarSelection = document.getElementById('bottom-bar-selection')
+    const chatCommandsSelection = document.getElementById('chat-commands-selection')
+    const bottomBarTextSizeSelection = document.getElementById('bottom-bar-text-size-selection')
+    const bottomBarPreview = document.getElementById('bottom-bar-preview')
     const chatCommandsAll = document.getElementsByClassName('chat-commands')
     if (bottomBarSelection.checked === false) {
-        for (const instance of bottomBarAll) {
-            instance.style.display = 'none'
-        }
+        bottomBarPreview.style.display = 'none'
+        document.getElementById('bottom-bar-preview-heading').textContent = 'Bottom Bar is currently hidden'
     } else {
-        for (const instance of bottomBarAll) {
-            instance.style.display = 'grid'
-        }
+        bottomBarPreview.style.display = 'grid'
+        document.getElementById('bottom-bar-preview-heading').textContent = '▼ Bottom Bar Preview ▼'
     }
     if (chatCommandsSelection.checked === false) {
         for (const instance of chatCommandsAll) {
@@ -1121,19 +1117,17 @@ function bottomBarUpdate() {
         }
     }
     if (bottomBarTextSizeSelection.checked) {
-        for (const instance of bottomBarAll) {
-            instance.style.fontSize = '20pt'
-        }
+        bottomBarPreview.style.fontSize = '25pt'
     } else {
-        for (const instance of bottomBarAll) {
-            instance.style.fontSize = '25pt'
-        }
+        bottomBarPreview.style.fontSize = '20pt'
     }
 }
 
 document.getElementById('bottom-bar-selection').addEventListener('change', bottomBarUpdate)
 document.getElementById('chat-commands-selection').addEventListener('change', bottomBarUpdate)
 document.getElementById('bottom-bar-text-size-selection').addEventListener('change', bottomBarUpdate)
+
+
 
 setAllNames()
 setAllLogos()
