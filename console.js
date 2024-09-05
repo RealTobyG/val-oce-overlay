@@ -1,3 +1,73 @@
+const defaultSettings = {
+    menuSelection: 1,
+    // Teams Config
+    teamAName: "Team A",
+    teamATri: "TMA",
+    teamALogo: "assets/200x200_No_Logo.png",
+    teamANoLogo: 0,
+    teamBName: "Team B",
+    teamBTri:  "TMB",
+    teamBLogo: "assets/200x200_No_Logo.png",
+    teamBNoLogo: 0, 
+    // Map Veto Config
+    seriesLengthSelection: 1,
+    mapPoolSelection: 0,
+    teamIdentifierSelection: 0,
+    mapBans: ['Abyss', 'Ascent', 'Icebox', 'Lotus'],
+    mapPicks: ['Bind', 'Haven', 'Sunset'],
+    mapBansTeams: ['team-a', 'team-b', 'team-a', 'team-b'],
+    mapPicksTeams: ['team-a', 'team-b'],
+    mapPicksSides: ['team-a', 'team-a', 'team-a'],
+    // Live Game
+    mapScores: [0, 0, 0, 0, 0, 0],
+    mapWinners: [],
+    teamASeriesScore: 0,
+    teamBSeriesScore: 0,
+    mapNumber: 0,
+    currentMap: "Bind",
+    intermissionState: 0,
+    deadline: null,
+    // Event/Casters Config
+    eventName: "Event Name",
+    eventLogo: "assets/Event_Logo_Preview.png",
+    eventNoLogo: 0,
+    castersSelection: 0,
+    caster1Name: "",
+    caster2Name: "",
+    // Overlay Config
+    overlaySelection: 0,
+    scoreIconSelection: 0,
+    bottomBarSelection: 1,
+    chatCommandsSelection: 1,
+    bottomBarTextSizeSelection: 1,
+}
+
+function restoreFromSettings(settings) {
+
+}
+
+function restoreTeams(settings) {
+    document.getElementById('team-a-name').value = settings.teamAName
+    document.getElementById('team-a-tri').value = settings.teamATri
+    teamALogo = settings.teamALogo
+    if (settings.teamANoLogo === 0) {
+        document.getElementById('team-a-no-logo').checked = false
+    } else {
+        document.getElementById('team-a-no-logo').checked = true
+    }
+    document.getElementById('team-b-name').value = settings.teamBName
+    document.getElementById('team-b-tri').value = settings.teamBTri
+    teamBLogo = settings.teamBLogo
+    if (settings.teamBNoLogo === 0) {
+        document.getElementById('team-b-no-logo').checked = false
+    } else {
+        document.getElementById('team-b-no-logo').checked = true
+    }
+    setAllLogos()
+    setAllNames()
+}
+
+
 let menuSelection = 1
 
 function menuSelectionUpdate() {
@@ -124,34 +194,40 @@ function setAllLogos() {
 
 function uploadTeamALogo() {
     document.getElementById('team-a-no-logo').checked = false
-    const teamALogoUpload = document.getElementById('team-a-logo-upload')
-    URL.revokeObjectURL(teamALogo)
-    teamALogo = URL.createObjectURL(teamALogoUpload.files[0])
-    setAllLogos()
+    teamALogo = prompt(`Please provide an img link for ${teamATri.value}'s logo. We recommend uploading the logo to Discord and copying the image link`)
+    if (teamALogo !== '' && teamALogo !== null) {
+        setAllLogos()
+    } else {
+        teamALogo = 'assets/200x200_No_Logo.png'
+    }
 }
 
 function uploadTeamBLogo() {
     document.getElementById('team-b-no-logo').checked = false
-    const teamBLogoUpload = document.getElementById('team-b-logo-upload')
-    URL.revokeObjectURL(teamBLogo)
-    teamBLogo = URL.createObjectURL(teamBLogoUpload.files[0])
-    setAllLogos()
+    teamBLogo = prompt(`Please provide an img link for ${teamBTri.value}'s logo. We recommend uploading the logo to Discord and copying the image link`)
+    if (teamBLogo !== '' && teamBLogo !== null) {
+        setAllLogos()
+    } else {
+        teamBLogo = 'assets/200x200_No_Logo.png'
+    }
 }
 
 function uploadEventLogo() {
     document.getElementById('event-no-logo').checked = false
-    const eventLogoUpload = document.getElementById('event-logo-upload')
-    URL.revokeObjectURL(eventLogo)
-    eventLogo = URL.createObjectURL(eventLogoUpload.files[0])
-    setAllLogos()
+    eventLogo = prompt(`Please provide an img link for your event's logo. We recommend uploading the logo to Discord and copying the image link`)
+    if (eventLogo !== '' && eventLogo !== null) {
+        setAllLogos()
+    } else {
+        eventLogo = 'assets/Event_Logo_Preview.png'
+    }
 }
 
 document.getElementById('team-a-no-logo').addEventListener('change', setAllLogos)
 document.getElementById('team-b-no-logo').addEventListener('change', setAllLogos)
 document.getElementById('event-no-logo').addEventListener('change', setAllLogos)
-document.getElementById('team-a-logo-upload').addEventListener('change', uploadTeamALogo)
-document.getElementById('team-b-logo-upload').addEventListener('change', uploadTeamBLogo)
-document.getElementById('event-logo-upload').addEventListener('change', uploadEventLogo)
+document.getElementById('team-a-logo-upload').addEventListener('click', uploadTeamALogo)
+document.getElementById('team-b-logo-upload').addEventListener('click', uploadTeamBLogo)
+document.getElementById('event-logo-upload').addEventListener('click', uploadEventLogo)
 
 
 
@@ -714,7 +790,7 @@ function scoreUpdate() {
     currentMap = mapPicks[mapNumber]
     // mapScores update
     Array.from(document.querySelectorAll('.team-a-score, .team-b-score')).forEach((score) => {
-        mapScores.push(score.value)
+        mapScores.push(Number(score.value))
     })
     // Updates Side Bar
     setLiveGameSideBar()
@@ -1032,12 +1108,14 @@ function setLiveGameSideBar() {
 // #################################################
 // #################### Casters ####################
 // #################################################
+let castersSelection = 0
 function castersUpdate() {
     const casterHandles1 = document.getElementsByClassName('caster-handle-1')
     const casterHandles2 = document.getElementsByClassName('caster-handle-2')
-    const castersSelection = document.getElementsByName('casters-selection')
-    for (const element of castersSelection) {
+    const castersSelectionMenu = document.getElementsByName('casters-selection')
+    for (const element of castersSelectionMenu) {
         if (element.checked) {
+            castersSelection = Number(element.value)
             if (Number(element.value) === 0) {
                 document.getElementById('cams-overlay-video').src = 'assets/Single_Cam_Preview.png'
                 document.getElementById('cams-screen-overlay-video').src = 'assets/Single_Cam_Screen_Preview.png'

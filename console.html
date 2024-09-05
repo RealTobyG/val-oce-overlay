@@ -436,7 +436,7 @@
             border-radius: 10px;
         }
 
-        #team-config [type=file] + div {
+        #team-config [type=button] + div[class=input-contents] {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -447,20 +447,25 @@
             transition: 0.2s;
         }
 
-        #team-config [type=file]:hover + div[class=input-contents] {
+        #team-config [type=button]:hover + div[class=input-contents] {
             cursor: pointer;
             background-color: rgb(78, 75, 68);
         }
 
-        #team-config [type=file] + div[class=input-contents] img {
+        #team-config [type=button] + div[class=input-contents] img {
             width: 50px;
         }
 
-        #team-config [type=file]:hover + div[class=input-contents] img {
+        #team-config [type=button]:hover + div[class=input-contents] img {
             width: 60px;
         }
 
-        #team-config [type=file]:hover + div[class=input-contents] div[class=help] {
+        #team-config [type=button]:active + div[class=input-contents] {
+            cursor: default;
+            background-color: rgb(35, 35, 35);
+        }
+
+        #team-config [type=button]:hover + div[class=input-contents] div[class=help] {
             display: flex;
             background-color: rgb(52, 52, 52);
             color: white;
@@ -852,7 +857,7 @@
             margin-right: 6px;
         }
 
-        #event-config [type=file] + div {
+        #event-config [type=button] + div[class=input-contents] {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -863,20 +868,25 @@
             transition: 0.2s;
         }
 
-        #event-config [type=file]:hover + div[class=input-contents] {
+        #event-config [type=button]:hover + div[class=input-contents] {
             cursor: pointer;
             background-color: rgb(78, 75, 68);
         }
 
-        #event-config [type=file] + div[class=input-contents] img {
+        #event-config [type=button] + div[class=input-contents] img {
             width: 50px;
         }
 
-        #event-config [type=file]:hover + div[class=input-contents] img {
+        #event-config [type=button]:hover + div[class=input-contents] img {
             width: 60px;
         }
 
-        #event-config [type=file]:hover + div[class=input-contents] div[class=help] {
+        #event-config [type=button]:active + div[class=input-contents] {
+            cursor: default;
+            background-color: rgb(35, 35, 35);
+        }
+
+        #event-config [type=button]:hover + div[class=input-contents] div[class=help] {
             display: flex;
             background-color: rgb(52, 52, 52);
             color: white;
@@ -1272,6 +1282,52 @@
             gap: 20px;
         }
 
+        
+
+        /* ############################ */
+        /* ##### Account/Settings ##### */
+        /* ############################ */
+        #settings-header {
+            grid-area: 1/1;
+            display: grid;
+            grid-template: 91px/500px 50px 500px;
+            margin: 30px 0px 30px 30px; 
+        }
+
+        [type=button] + div[id=sign-in-button-contents] {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            height: 91px;
+            background-color: rgb(52, 52, 52);
+            font-size: 15pt;
+            border: 5px solid rgb(78, 75, 68);
+            border-radius: 10px;
+            transition: 0.2s;
+            color: white;
+        }
+
+        [type=button]:hover + div[id=sign-in-button-contents] {
+            cursor: pointer;
+            background-color: rgb(78, 75, 68);
+        }
+
+        [type=button]:active + div[id=sign-in-button-contents] {
+            cursor: default;
+            background-color: rgb(35, 35, 35);
+            border-color: white;
+        }
+
+        [type=button]:hover + div[id=sign-in-button-contents] div[class=help] {
+            display: flex;
+            background-color: rgb(52, 52, 52);
+            color: white;
+            position: absolute;
+            top: 30px;
+            left: 1430px;
+        }
     </style>
 </head>
 
@@ -1450,7 +1506,7 @@
                                 <img src="assets/200x200_No_Logo.png" class="apply-team-a-logo" style="width: 180px; grid-area: 1/1; margin: 10px 0px 0px 10px; z-index: 1;">
                                 
                                 <label for="team-a-logo-upload" style="grid-area: 3/1; z-index: 1;">
-                                    <input type="file" id="team-a-logo-upload" accept="image/*" class="menu">
+                                    <input type="button" id="team-a-logo-upload" class="menu">
                                     <div class="input-contents">
                                         <img src="assets/Upload_Icon.png">
                                         <div class="help">
@@ -1458,7 +1514,7 @@
                                                 <span style="margin-right: 5px;">Upload logo for</span>
                                                 <span class="apply-team-a-name"></span>
                                             </div>
-                                            <span>Use square image files for logos for best results <br> We recommend logo dimensions of 200x200 px</span>
+                                            <span>Use square image files for logos for best results <br> We recommend logo dimensions of 500x500 px</span>
                                         </div>
                                     </div>
                                 </label>
@@ -1495,7 +1551,7 @@
                                 <img src="assets/200x200_No_Logo.png" class="apply-team-b-logo" style="width: 180px; grid-area: 5/1; margin: 10px 0px 0px 10px; z-index: 1;">
                                 
                                 <label for="team-b-logo-upload" style="grid-area: 7/1; z-index: 1;">
-                                    <input type="file" id="team-b-logo-upload" accept="image/*" class="menu">
+                                    <input type="button" id="team-b-logo-upload" class="menu">
                                     <div class="input-contents">
                                         <img src="assets/Upload_Icon.png">
                                         <div class="help">
@@ -1503,7 +1559,7 @@
                                                 <span style="margin-right: 5px;">Upload logo for </span>
                                                 <span class="apply-team-b-name"></span>
                                             </div>
-                                            <span>Use square image files for logos for best results <br> We recommend logo dimensions of 200x200 px</span>
+                                            <span>Use square image files for logos for best results <br> We recommend logo dimensions of 500x500 px</span>
                                         </div>
                                     </div>
                                 </label>
@@ -1746,7 +1802,7 @@
                                 <span class="event-casters-heading" style="grid-area: 2/1/4/4;">Event Logo:</span>
 
                                 <label for="event-logo-upload" style="grid-area: 2/4; z-index: 1; width: 100px;">
-                                    <input type="file" id="event-logo-upload" accept="image/*" class="menu">
+                                    <input type="button" id="event-logo-upload" class="menu">
                                     <div class="input-contents">
                                         <img src="assets/Upload_Icon.png">
                                         <div class="help">
@@ -1767,7 +1823,7 @@
                                 </label>
 
                                 <div style="grid-area: 2/4/4/5; width: 380px; height: 200px; margin-left: 120px; z-index: 1; display: flex; justify-content: center;">
-                                    <img src="assets/Event_Logo_Preview.png" id="event-logo-preview" class="apply-event-logo" style="max-width: 380px; max-height: 200px;">
+                                    <img src="assets/Event_Logo_Preview.png" id="event-logo-preview" class="apply-event-logo" style="max-width: 380px; max-height: 200px; object-fit: contain;">
                                 </div>
                 
 
@@ -2128,8 +2184,32 @@
                             </div>
                         </span>
                         <div class="menu-contents">
-                            <span>Account Settings</span>                            
-                            
+                            <div id="settings-header">
+                                <label for="sign-in-button">
+                                    <input type="button" id="sign-in-button" class="menu">
+                                    <div id="sign-in-button-contents">
+                                        <span>Sign In/Create Account</span>
+                                        <div class="help">
+                                            <span>Redirects to sign in portal where you can sign in or create a new account</span>
+                                            <span style="color: yellow;">You must have an account before the console links to the overlay modules</span>
+                                        </div>
+                                    </div>
+                                </label>
+                                
+                                <div></div>
+
+                                <label for="reset-console">
+                                    <input type="button" id="reset-console" class="menu">
+                                    <div class="reset-button">
+                                        <span>Reset All Console Tabs</span>
+                                        <div class="help">
+                                            <span>Resets all console settings to default</span>
+                                            <span style="color: red;">WARNING: There is no undo for this action</span>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div> <!-- Settings Header -->
+
                         </div>
                     </div>
                 </label>
