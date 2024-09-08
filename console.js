@@ -42,8 +42,61 @@ const defaultSettings = {
     bottomBarTextSizeSelection: 1,
 }
 
+const exampleSettings = {
+    menuSelection: 1,
+    // Teams Config
+    teamAName: "Team Heretics",
+    teamATri: "TH",
+    teamALogo: "https://media.discordapp.net/attachments/891904001120034866/1280823379640979487/Heretics_Logo.png?ex=66dec13a&is=66dd6fba&hm=9330b4c61e3ad211cfc46e341ad7f4ba3236fa99b7c893b6367eed40deb116eb&=&format=webp&quality=lossless&width=220&height=220",
+    teamANoLogo: 0,
+    teamBName: "Team Vitality",
+    teamBTri:  "VIT",
+    teamBLogo: "https://media.discordapp.net/attachments/891904001120034866/1280823381293400124/Vitality_Logo.png?ex=66dec13a&is=66dd6fba&hm=0c812e80b35faa2a749488c12a06b50a2d038efaaac4391530209a2015b93d56&=&format=webp&quality=lossless&width=220&height=220",
+    teamBNoLogo: 0, 
+    // Map Veto Config
+    seriesLengthSelection: 1,
+    mapPoolSelection: 1,
+    teamIdentifierSelection: 0,
+    mapBans: ['Abyss', 'Ascent', 'Haven', 'Lotus'],
+    mapPicks: ['Icebox', 'Sunset', 'Bind'],
+    mapBansTeams: ['team-b', 'team-a', 'team-b', 'team-a'],
+    mapPicksTeams: ['team-b', 'team-a'],
+    mapPicksSides: ['team-a', 'team-b', 'team-a'],
+    // Live Game
+    mapScores: [14, 12, 10, 13, 0, 0],
+    mapWinners: [],
+    teamASeriesScore: 0,
+    teamBSeriesScore: 0,
+    mapNumber: 0,
+    currentMap: "Bind",
+    intermissionState: 0,
+    deadline: null,
+    // Event/Casters Config
+    eventName: "VCT EMEA Stage 2 Playoffs",
+    eventLogo: "https://media.discordapp.net/attachments/891904001120034866/1280823380962054186/VCT_EMEA_Logo.png?ex=66dec13a&is=66dd6fba&hm=a67513c368975261b8222ec3d9115d937e88e169f17283a102b3f21dcdf6d23c&=&format=webp&quality=lossless&width=359&height=121",
+    eventNoLogo: 0,
+    castersSelection: 1,
+    caster1Name: "MitchMan",
+    caster2Name: "Tombizz",
+    // Overlay Config
+    overlaySelection: 0,
+    scoreIconSelection: 0,
+    bottomBarSelection: 1,
+    chatCommandsSelection: 1,
+    bottomBarTextSizeSelection: 1,
+}
+ 
 function restoreFromSettings(settings) {
-
+    for (menu of document.getElementsByName('menu-selection')) {
+        if (Number(menu.value) === settings.menuSelection) {
+            menu.checked = true
+        }
+    }
+    restoreTeams(settings)
+    restoreMapVeto(settings)
+    restoreLiveGame(settings)
+    restoreEventCasters(settings)
+    restoreOverlay(settings)
 }
 
 function restoreTeams(settings) {
@@ -65,6 +118,284 @@ function restoreTeams(settings) {
     }
     setAllLogos()
     setAllNames()
+}
+
+function restoreMapVeto(settings) {
+    for (option of document.getElementsByName('series-length-selection')) {
+        if (Number(option.value) === settings.seriesLengthSelection) {
+            option.checked = true
+        }
+    }
+    for (option of document.getElementsByName('map-pool-selection')) {
+        if (Number(option.value) === settings.mapPoolSelection) {
+            option.checked = true
+        }
+    }
+    for (option of document.getElementsByName('team-identifier-selection')) {
+        if (Number(option.value) === settings.teamIdentifierSelection) {
+            option.checked = true
+        }
+    }
+    seriesLengthUpdate()
+    teamIdentifierUpdate()
+    // BO1 Map Veto
+    if (settings.seriesLengthSelection === 0) {
+        for (map of document.getElementsByName('map-pick-map')) {
+            if (map.value === settings.mapPicks[0]) {
+                map.checked = true
+            }
+        }
+        if (settings.mapPicksTeams[0] === 'team-a') {
+            document.getElementById('map-pick-team').checked = false
+        } else {
+            document.getElementById('map-pick-team').checked = true
+        }
+        if (settings.mapPicksSides[0] === 'team-a') {
+            document.getElementById('map-pick-def').checked = false
+        } else {
+            document.getElementById('map-pick-def').checked = true
+        }
+    }
+    // BO3 Map Veto
+    if (settings.seriesLengthSelection === 1) {
+        // Bans
+        for (map of document.getElementsByName('1st-ban-map')) {
+            if (map.value === settings.mapBans[0]) {
+                map.checked = true
+            }
+        }
+        if (settings.mapBansTeams[0] === 'team-a') {
+            document.getElementById('1st-ban-team').checked = false
+        } else {
+            document.getElementById('1st-ban-team').checked = true
+        }
+        for (map of document.getElementsByName('2nd-ban-map')) {
+            if (map.value === settings.mapBans[1]) {
+                map.checked = true
+            }
+        }
+        if (settings.mapBansTeams[1] === 'team-a') {
+            document.getElementById('2nd-ban-team').checked = false
+        } else {
+            document.getElementById('2nd-ban-team').checked = true
+        }
+        for (map of document.getElementsByName('3rd-ban-map')) {
+            if (map.value === settings.mapBans[2]) {
+                map.checked = true
+            }
+        }
+        if (settings.mapBansTeams[2] === 'team-a') {
+            document.getElementById('3rd-ban-team').checked = false
+        } else {
+            document.getElementById('3rd-ban-team').checked = true
+        }
+        for (map of document.getElementsByName('4th-ban-map')) {
+            if (map.value === settings.mapBans[3]) {
+                map.checked = true
+            }
+        }
+        if (settings.mapBansTeams[3] === 'team-a') {
+            document.getElementById('4th-ban-team').checked = false
+        } else {
+            document.getElementById('4th-ban-team').checked = true
+        }
+        // Picks
+        for (map of document.getElementsByName('1st-pick-map')) {
+            if (map.value === settings.mapPicks[0]) {
+                map.checked = true
+            }
+        }
+        if (settings.mapPicksTeams[0] === 'team-a') {
+            document.getElementById('1st-pick-team').checked = false
+        } else {
+            document.getElementById('1st-pick-team').checked = true
+        }
+        if (settings.mapPicksSides[0] === 'team-a') {
+            document.getElementById('1st-pick-def').checked = false
+        } else {
+            document.getElementById('1st-pick-def').checked = true
+        }
+        for (map of document.getElementsByName('2nd-pick-map')) {
+            if (map.value === settings.mapPicks[1]) {
+                map.checked = true
+            }
+        }
+        if (settings.mapPicksTeams[1] === 'team-a') {
+            document.getElementById('2nd-pick-team').checked = false
+        } else {
+            document.getElementById('2nd-pick-team').checked = true
+        }
+        if (settings.mapPicksSides[1] === 'team-a') {
+            document.getElementById('2nd-pick-def').checked = false
+        } else {
+            document.getElementById('2nd-pick-def').checked = true
+        }
+        for (map of document.getElementsByName('3rd-pick-map')) {
+            if (map.value === settings.mapPicks[2]) {
+                map.checked = true
+            }
+        }
+        if (settings.mapPicksSides[2] === 'team-a') {
+            document.getElementById('3rd-pick-def').checked = false
+        } else {
+            document.getElementById('3rd-pick-def').checked = true
+        }
+    }
+    // BO5 Map Veto
+    if (settings.seriesLengthSelection === 2) {
+        // Bans
+        for (map of document.getElementsByName('1st-ban-map')) {
+            if (map.value === settings.mapBans[0]) {
+                map.checked = true
+            }
+        }
+        if (settings.mapBansTeams[0] === 'team-a') {
+            document.getElementById('1st-ban-team').checked = false
+        } else {
+            document.getElementById('1st-ban-team').checked = true
+        }
+        for (map of document.getElementsByName('2nd-ban-map')) {
+            if (map.value === settings.mapBans[1]) {
+                map.checked = true
+            }
+        }
+        if (settings.mapBansTeams[1] === 'team-a') {
+            document.getElementById('2nd-ban-team').checked = false
+        } else {
+            document.getElementById('2nd-ban-team').checked = true
+        }
+        // Picks
+        for (map of document.getElementsByName('1st-pick-map')) {
+            if (map.value === settings.mapPicks[0]) {
+                map.checked = true
+            }
+        }
+        if (settings.mapPicksTeams[0] === 'team-a') {
+            document.getElementById('1st-pick-team').checked = false
+        } else {
+            document.getElementById('1st-pick-team').checked = true
+        }
+        if (settings.mapPicksSides[0] === 'team-a') {
+            document.getElementById('1st-pick-def').checked = false
+        } else {
+            document.getElementById('1st-pick-def').checked = true
+        }
+        for (map of document.getElementsByName('2nd-pick-map')) {
+            if (map.value === settings.mapPicks[1]) {
+                map.checked = true
+            }
+        }
+        if (settings.mapPicksTeams[1] === 'team-a') {
+            document.getElementById('2nd-pick-team').checked = false
+        } else {
+            document.getElementById('2nd-pick-team').checked = true
+        }
+        if (settings.mapPicksSides[1] === 'team-a') {
+            document.getElementById('2nd-pick-def').checked = false
+        } else {
+            document.getElementById('2nd-pick-def').checked = true
+        }
+        for (map of document.getElementsByName('3rd-pick-map')) {
+            if (map.value === settings.mapPicks[2]) {
+                map.checked = true
+            }
+        }
+        if (settings.mapPicksTeams[2] === 'team-a') {
+            document.getElementById('3rd-pick-team').checked = false
+        } else {
+            document.getElementById('3rd-pick-team').checked = true
+        }
+        if (settings.mapPicksSides[2] === 'team-a') {
+            document.getElementById('3rd-pick-def').checked = false
+        } else {
+            document.getElementById('3rd-pick-def').checked = true
+        }
+        for (map of document.getElementsByName('4th-pick-map')) {
+            if (map.value === settings.mapPicks[3]) {
+                map.checked = true
+            }
+        }
+        if (settings.mapPicksTeams[3] === 'team-a') {
+            document.getElementById('4th-pick-team').checked = false
+        } else {
+            document.getElementById('4th-pick-team').checked = true
+        }
+        if (settings.mapPicksSides[3] === 'team-a') {
+            document.getElementById('4th-pick-def').checked = false
+        } else {
+            document.getElementById('4th-pick-def').checked = true
+        }
+        for (map of document.getElementsByName('5th-pick-map')) {
+            if (map.value === settings.mapPicks[4]) {
+                map.checked = true
+            }
+        }
+        if (settings.mapPicksSides[4] === 'team-a') {
+            document.getElementById('5th-pick-def').checked = false
+        } else {
+            document.getElementById('5th-pick-def').checked = true
+        }
+    }
+    teamIdentifierToggle()
+    mapVetoUpdate()
+}
+
+function restoreLiveGame(settings) {
+    mapScores = settings.mapScores
+    intermissionState = 0
+    setScores()
+    scoreUpdate()
+    intermissionDefault()
+}
+
+function restoreEventCasters(settings) {
+    document.getElementById('event-name').value = settings.eventName
+    eventLogo = settings.eventLogo
+    if (settings.eventNoLogo === 0) {
+        document.getElementById('event-no-logo').checked = false
+    } else {
+        document.getElementById('event-no-logo').checked = true
+    }
+    for (option of document.getElementsByName('casters-selection')) {
+        if (Number(option.value) === settings.castersSelection) {
+            option.checked = true
+        }
+    }
+    document.getElementById('caster-1-name').value = settings.caster1Name
+    document.getElementById('caster-2-name').value = settings.caster2Name
+    castersUpdate()
+    setAllLogos()
+    setAllNames()
+}
+
+function restoreOverlay(settings) {
+    for (option of document.getElementsByName('overlay-selection')) {
+        if (Number(option.value) === settings.overlaySelection) {
+            option.checked = true
+        }
+    }
+    for (option of document.getElementsByName('score-icon-selection')) {
+        if (Number(option.value) === settings.scoreIconSelection) {
+            option.checked = true
+        }
+    }
+    if (settings.bottomBarSelection === 0) {
+        document.getElementById('bottom-bar-selection').checked = false
+    } else {
+        document.getElementById('bottom-bar-selection').checked = true
+    }
+    if (settings.chatCommandsSelection === 0) {
+        document.getElementById('chat-commands-selection').checked = false
+    } else {
+        document.getElementById('chat-commands-selection').checked = true
+    }
+    if (settings.bottomBarTextSizeSelection === 0) {
+        document.getElementById('bottom-bar-text-size-selection').checked = false
+    } else {
+        document.getElementById('bottom-bar-text-size-selection').checked = true
+    }
+    setOverlay()
+    bottomBarUpdate()
 }
 
 
@@ -1207,7 +1538,58 @@ document.getElementById('bottom-bar-text-size-selection').addEventListener('chan
 
 
 
-setAllNames()
-setAllLogos()
-setMapPool()
-intermissionDefault()
+// #########################################################
+// #################### Saving Settings ####################
+// #########################################################
+const currentSettings = {
+    menuSelection: 1,
+    // Teams Config
+    teamAName: "Team A",
+    teamATri: "TMA",
+    teamALogo: "assets/200x200_No_Logo.png",
+    teamANoLogo: 0,
+    teamBName: "Team B",
+    teamBTri:  "TMB",
+    teamBLogo: "assets/200x200_No_Logo.png",
+    teamBNoLogo: 0, 
+    // Map Veto Config
+    seriesLengthSelection: 1,
+    mapPoolSelection: 0,
+    teamIdentifierSelection: 0,
+    mapBans: ['Abyss', 'Ascent', 'Icebox', 'Lotus'],
+    mapPicks: ['Bind', 'Haven', 'Sunset'],
+    mapBansTeams: ['team-a', 'team-b', 'team-a', 'team-b'],
+    mapPicksTeams: ['team-a', 'team-b'],
+    mapPicksSides: ['team-a', 'team-a', 'team-a'],
+    // Live Game
+    mapScores: [0, 0, 0, 0, 0, 0],
+    mapWinners: [],
+    teamASeriesScore: 0,
+    teamBSeriesScore: 0,
+    mapNumber: 0,
+    currentMap: "Bind",
+    intermissionState: 0,
+    deadline: null,
+    // Event/Casters Config
+    eventName: "Event Name",
+    eventLogo: "assets/Event_Logo_Preview.png",
+    eventNoLogo: 0,
+    castersSelection: 0,
+    caster1Name: "",
+    caster2Name: "",
+    // Overlay Config
+    overlaySelection: 0,
+    scoreIconSelection: 0,
+    bottomBarSelection: 1,
+    chatCommandsSelection: 1,
+    bottomBarTextSizeSelection: 1,
+}
+
+
+
+document.getElementById('reset-team-config').addEventListener('click', () => {restoreTeams(defaultSettings)})
+document.getElementById('reset-map-veto').addEventListener('click', () => {restoreMapVeto(defaultSettings)})
+document.getElementById('reset-event-casters-config').addEventListener('click', () => {restoreEventCasters(defaultSettings)})
+document.getElementById('reset-overlay-config').addEventListener('click', () => {restoreOverlay(defaultSettings)})
+document.getElementById('reset-console').addEventListener('click', () => {restoreFromSettings(defaultSettings)})
+restoreFromSettings(defaultSettings)
