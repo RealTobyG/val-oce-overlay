@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <script type="text/javascript" src="auth.js"></script>
+</head>
+
+<body>
+    <script type="text/javascript">
+        window.onload = (event) => {            
+            var tokens = auth.qmGetTokensFromUrl(window.location);
+            if (!tokens.access_token) {
+                // No token found - go back to login page
+                location.href = './console.html';
+            } else {
+                auth.qmWriteTokensToStorage(tokens);
+                location.href = './console.html';
+            }
+        }
+    </script>
+</body>
+
+</html>

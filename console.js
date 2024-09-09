@@ -1586,6 +1586,31 @@ const currentSettings = {
 }
 
 
+function onPageLoad() {
+    if (!auth.qmValidTokenInStorage()) {
+        // do something if not logged in
+    } else {
+        const tokens = auth.qmGetTokensFromStorage();
+        const access_token = tokens.access_token;
+        const accessTokenContent = auth.parseJWTPayload(access_token);
+        var userName = accessTokenContent.username;
+
+        api.setAccessToken(access_token);
+        getOverlaySetup()
+    }
+}
+
+async function getOverlaySetup() {
+    let setupData
+    setupData = await api.readOverlaySetup()
+    if (!setupData.overlaySetup) {
+        api.writeOverlaySetup(defaultSettings)
+        setupData = await api.readOverlaySetup()
+    }
+    restoreFromSettings(setupData.overlaySetup)
+}
+
+document.getElementById('sign-in-button').addEventListener('click', auth.login)
 
 document.getElementById('reset-team-config').addEventListener('click', () => {restoreTeams(defaultSettings)})
 document.getElementById('reset-map-veto').addEventListener('click', () => {restoreMapVeto(defaultSettings)})
