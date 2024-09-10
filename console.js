@@ -1586,16 +1586,29 @@ const currentSettings = {
 }
 
 
+
+
 function onPageLoad() {
     if (!auth.qmValidTokenInStorage()) {
-        // do something if not logged in
+        console.log('Not logged in')
+        document.getElementById('account-menu').checked = true
+        document.getElementById('live-game-menu').disabled = true
+        document.getElementById('teams-menu').disabled = true
+        document.getElementById('map-veto-menu').disabled = true
+        document.getElementById('event-casters-menu').disabled = true
+        document.getElementById('overlay-menu').disabled = true
+        document.getElementById('modules-menu').disabled = true
+        document.getElementById('sign-in-button-contents').children[0].innerHTML = 'Sign In/Create Account' + '<br>' + 'This is required for the console to link to the overlay modules'
+        document.getElementById('sign-in-button').addEventListener('click', auth.login)
     } else {
         const tokens = auth.qmGetTokensFromStorage();
         const access_token = tokens.access_token;
         const accessTokenContent = auth.parseJWTPayload(access_token);
         var userName = accessTokenContent.username;
-
         api.setAccessToken(access_token);
+
+        document.getElementById('sign-in-button-contents').children[0].innerHTML = `Log out` + '<br>' + `Currently signed in to ${userName}`
+        document.getElementById('sign-in-button').addEventListener('click', auth.logout)
         getOverlaySetup()
     }
 }
@@ -1609,8 +1622,6 @@ async function getOverlaySetup() {
     }
     restoreFromSettings(setupData.overlaySetup)
 }
-
-document.getElementById('sign-in-button').addEventListener('click', auth.login)
 
 document.getElementById('reset-team-config').addEventListener('click', () => {restoreTeams(defaultSettings)})
 document.getElementById('reset-map-veto').addEventListener('click', () => {restoreMapVeto(defaultSettings)})
