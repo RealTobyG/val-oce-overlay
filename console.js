@@ -1037,7 +1037,7 @@ function createLiveScores() {
                     liveGameTeamAName.className = "apply-team-a-tri"
                     liveGameTeamAName.style.fontSize = "30pt"
                 const liveGameTeamAScore = document.createElement('input')
-                    liveGameTeamAScore.id = `map-${i}-team-a-score}`
+                    liveGameTeamAScore.id = `map-${i}-team-a-score`
                     liveGameTeamAScore.type = "number"
                     liveGameTeamAScore.min = "0"
                     liveGameTeamAScore.value = "0"
@@ -1058,7 +1058,7 @@ function createLiveScores() {
                     liveGameScoreHyphen.textContent = "-"
                     liveGameScoreHyphen.style.fontSize = "40pt"
                 const liveGameTeamBScore = document.createElement('input')
-                    liveGameTeamBScore.id = `map-${i}-team-b-score}`
+                    liveGameTeamBScore.id = `map-${i}-team-b-score`
                     liveGameTeamBScore.type = "number"
                     liveGameTeamBScore.min = "0"
                     liveGameTeamBScore.value = "0"
@@ -1128,9 +1128,10 @@ function scoreUpdate() {
 }
 
 function scoreUpdateActivate() {
-    const scoreUpdateTriggers = document.querySelectorAll(".team-a-score, .team-b-score")
+    const scoreUpdateTriggers = document.querySelectorAll('.team-a-score, .team-b-score')
     for (const element of scoreUpdateTriggers) {
-        element.addEventListener("change", scoreUpdate)
+        element.addEventListener('change', scoreUpdate)
+        element.addEventListener('change', settingsSend)
     }
 }
 
@@ -1585,7 +1586,122 @@ const currentSettings = {
     bottomBarTextSizeSelection: 1,
 }
 
+function settingsSend() {
+    liveGameSend()
+    teamsConfigSend()
+    mapVetoSend()
+    eventCastersSend()
+    overlaySend()
+    api.writeOverlaySetup(currentSettings)
+}
 
+function liveGameSend() {
+    currentSettings.mapScores = mapScores
+    currentSettings.mapWinners = mapWinners
+    currentSettings.teamASeriesScore = teamASeriesScore
+    currentSettings.teamBSeriesScore = teamBSeriesScore
+    currentSettings.mapNumber = mapNumber
+    currentSettings.currentMap = currentMap
+    currentSettings.intermissionState = intermissionState
+    currentSettings.deadline = deadline
+    console.log(currentSettings)
+}
+
+for (element of document.querySelectorAll('#intermission-default, #intermission-tech, #intermission-3, #intermission-5, #intermission-10, #reset-scores')) {
+    element.addEventListener('click', settingsSend)
+}
+
+function teamsConfigSend() {
+    currentSettings.teamAName = teamAName.value
+    currentSettings.teamATri = teamATri.value
+    currentSettings.teamALogo = teamALogo
+    if (document.getElementById('team-a-no-logo').checked) {
+        currentSettings.teamANoLogo = 1
+    } else {
+        currentSettings.teamANoLogo = 0
+    }
+    currentSettings.teamBName = teamBTri.value
+    currentSettings.teamBTri = teamBTri.value
+    currentSettings.teamBLogo = teamBLogo
+    if (document.getElementById('team-b-no-logo').checked) {
+        currentSettings.teamBNoLogo = 1
+    } else {
+        currentSettings.teamBNoLogo = 0
+    }
+}
+
+function mapVetoSend() {
+    for (option of document.getElementsByName('series-length-selection')) {
+        if (option.checked) {
+            currentSettings.seriesLengthSelection = Number(option.value)
+        }
+    }
+    for (option of document.getElementsByName('map-pool-selection')) {
+        if (option.checked) {
+            currentSettings.mapPoolSelection = Number(option.value)
+        }
+    }
+    for (option of document.getElementsByName('map-pool-selection')) {
+        if (option.checked) {
+            currentSettings.teamIdentifierSelection = Number(option.value)
+        }
+    }
+    currentSettings.mapBans = mapBans
+    currentSettings.mapPicks = mapPicks
+    currentSettings.mapBansTeams = mapBansTeams
+    currentSettings.mapPicksTeams = mapPicksTeams
+    currentSettings.mapPicksSides = mapPicksSides
+
+}
+
+function eventCastersSend() {
+    currentSettings.eventName = eventName.value
+    currentSettings.eventLogo = eventLogo
+    if (document.getElementById('event-no-logo').checked) {
+        currentSettings.eventNoLogo = 1
+    } else {
+        currentSettings.eventNoLogo = 0
+    }
+    for (option of document.getElementsByName('casters-selection')) {
+        if (option.checked) {
+            currentSettings.castersSelection = Number(option.value)
+        }
+    }
+    currentSettings.caster1Name = caster1Name.value
+    currentSettings.caster2Name = caster2Name.value
+}
+
+function overlaySend() {
+    for (option of document.getElementsByName('overlay-selection')) {
+        if (option.checked) {
+            currentSettings.overlaySelection = Number(option.value)
+        }
+    }
+    for (option of document.getElementsByName('score-icon-selection')) {
+        if (option.checked) {
+            currentSettings.scoreIconSelection = Number(option.value)
+        }
+    }
+    if (document.getElementById('bottom-bar-selection').checked) {
+        currentSettings.bottomBarSelection = 1
+    } else {
+        currentSettings.bottomBarSelection = 0
+    }
+    if (document.getElementById('chat-commands-selection').checked) {
+        currentSettings.chatCommandsSelection = 1
+    } else {
+        currentSettings.chatCommandsSelection = 0
+    }
+    if (document.getElementById('bottom-bar-text-size-selection').checked) {
+        currentSettings.bottomBarTextSizeSelection = 1
+    } else {
+        currentSettings.bottomBarTextSizeSelection = 0
+    }
+}
+
+for (element of document.getElementsByClassName('save-button')) {
+    element.addEventListener('click', settingsSend)
+}
 
 
 function onPageLoad() {
