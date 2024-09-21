@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>map-veto</title>
+    <script src="auth.js" defer></script>
+    <script src="api.js" defer></script>
+    <script src="map-veto-test.js" defer></script>
+
+
+    <style>
+        @font-face {
+            font-family: 'Arial';
+            src: url(assets/fonts/ARIALBD.TTF);
+        }
+
+        @font-face {
+            font-family: 'Foundry';
+            src: url(assets/fonts/Foundry_Gridnik_W03_ExtraBold.ttf);
+        }
+
+        .grid-1-1 {
+            grid-area: 1/1;
+        }
+
+        .display-none {
+            display: none;
+        }
+
+        .flex-row {
+            display: flex;
+            align-items: center;
+        }
+
+        .flex-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #page-container {
+            display: grid;
+            grid-template-columns: 1080px, 1080px/1920px;
+        }
+
+        #map-veto-overlay {
+            display: grid;
+            grid-template: 1080px/1920px;
+            grid-area: 1/1
+        }
+
+        #flowy-background {
+            background: linear-gradient(to bottom, rgb(0, 240, 248), rgb(0, 116, 119));
+            width: 1920px;
+            height: 1080px;
+            -webkit-mask-image: url(assets/Mask_Test.png)
+        }
+
+        #flowy-background::after {
+            background: linear-gradient(to bottom, rgb(0, 38, 42), rgb(2, 151, 181));
+            content: "";
+            position: absolute;
+            width: inherit;
+            height: inherit;
+            -webkit-mask-image: linear-gradient(to left, white, transparent);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="page-container">
+        <div id="map-veto-overlay">
+            <div id="flowy-background" style="grid-area: 1/1;"></div>
+        </div>
+
+        <div class="flex-row">
+            <div class="flex-row">
+                <span>Color 1 Red</span>
+                <input type="range" id="r1" min="0" max="256" value="0">
+            </div>
+
+            <div class="flex-row">
+                <span>Color 1 Green</span>
+                <input type="range" id="g1" min="0" max="256" value="240">
+            </div>
+
+            <div class="flex-row">
+                <span>Color 1 Blue</span>
+                <input type="range" id="b1" min="0" max="256" value="248">
+            </div>
+        </div>
+
+        <div class="flex-row">
+            <div class="flex-row">
+                <span>Color 2 Red</span>
+                <input type="range" id="r2" min="0" max="256" value="0">
+            </div>
+
+            <div class="flex-row">
+                <span>Color 2 Green</span>
+                <input type="range" id="g2" min="0" max="256" value="116">
+            </div>
+
+            <div class="flex-row">
+                <span>Color 2 Blue</span>
+                <input type="range" id="b2" min="0" max="256" value="119">
+            </div>
+        </div>
+            
+        <div class="flex-row">
+            <div class="flex-row">
+                <span>Color 3 Red</span>
+                <input type="range" id="r3" min="0" max="256" value="0">
+            </div>
+
+            <div class="flex-row">
+                <span>Color 3 Green</span>
+                <input type="range" id="g3" min="0" max="256" value="38">
+            </div>
+
+            <div class="flex-row">
+                <span>Color 3 Blue</span>
+                <input type="range" id="b3" min="0" max="256" value="42">
+            </div>
+        </div>
+            
+        <div class="flex-row">
+            <div class="flex-row">
+                <span>Color 4 Red</span>
+                <input type="range" id="r4" min="0" max="256" value="2">
+            </div>
+
+            <div class="flex-row">
+                <span>Color 4 Green</span>
+                <input type="range" id="g4" min="0" max="256" value="151">
+            </div>
+
+            <div class="flex-row">
+                <span>Color 4 Blue</span>
+                <input type="range" id="b4" min="0" max="256" value="181">
+            </div>
+        </div>
+        
+    </div> <!-- page-container -->
+    
+</body>
+</html>
+
+
