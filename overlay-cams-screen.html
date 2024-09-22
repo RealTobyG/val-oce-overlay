@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cams Screen Overlay</title>
+    <script src="auth.js" defer></script>
+    <script src="api.js" defer></script>
+    <script src="overlay-cams-screen.js" defer></script>
+
+    <style>
+        @font-face {
+            font-family: 'Arial';
+            src: url(assets/fonts/ARIALBD.TTF);
+        }
+
+        @font-face {
+            font-family: 'Foundry';
+            src: url(assets/fonts/Foundry_Gridnik_W03_ExtraBold.ttf);
+        }
+
+        .grid-1-1 {
+            grid-area: 1/1;
+        }
+
+        .display-none {
+            display: none;
+        }
+
+        .flex-row {
+            display: flex;
+            align-items: center;
+        }
+
+        .flex-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #page-container {
+            display: grid;
+            grid-template: 1080px/1920px;
+            font-family: 'Arial';
+            color: white;
+        }
+
+        #cams-screen-overlay {
+            display: grid;
+            grid-template: 1080px/1920px;
+        }
+
+        .caster-handle-1 {
+            display: grid;
+            grid-template: 1080px/1920px;;
+            grid-area: 1/1;
+        }
+        
+        .caster-handle-2 {
+            display: grid;
+            grid-template: 1080px/1920px;;
+            grid-area: 1/1;
+        }
+
+        #cam-screen-1 {
+            margin: 634px 0px 0px 1308px;
+            display: flex;
+            align-items: center;
+            height: 48px;
+            font-family: 'Arial';
+            color: white;
+            font-size: 20pt;
+        }
+
+        #cam-screen-2-1 {
+            grid-area: 1/1;
+            margin: 422px 0px 0px 1308px;
+            display: flex;
+            align-items: center;
+            height: 48px;
+            font-family: 'Arial';
+            color: white;
+            font-size: 20pt;
+        }
+
+        #cam-screen-2-2 {
+            grid-area: 1/1;
+            margin: 848px 0px 0px 1308px;
+            display: flex;
+            align-items: center;
+            height: 48px;
+            font-family: 'Arial';
+            color: white;
+            font-size: 20pt;
+        }
+
+        .bottom-bar {
+            grid-area: 1/1;
+            display: grid;
+            grid-template: 1080px/1920px;
+        }
+
+        .bottom-bar-content {
+            grid-area: 1/1;
+            margin: 1030px 0px 0px 363px;
+            height: 50px;
+            width: 1195px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Foundry';
+            text-transform: uppercase;
+            color: white;
+            gap: 20px;
+        }
+    </style>
+</head>
+
+<body style="margin: 0;" onload="onPageLoad()">
+    <div id="page-container">
+        <div id="cams-screen-overlay">
+            <video controls autoplay loop src="assets/VCL_Cam_Screen_Background.webm" id="cams-screen-overlay-video" class="overlay-element grid-1-1 video"></video>
+            <div class="bottom-bar" style="display: grid; font-size: 25pt;"> 
+                <img src="assets/VCL_Bottom_Bar.png" class="overlay-element grid-1-1">
+                <div class="bottom-bar-content">
+                    <span class="apply-event-name">Event Name</span>
+                    <span>|</span>
+                    <span class="apply-team-a-tri"></span>
+                    <span>VS</span>
+                    <span class="apply-team-b-tri"></span>
+                    <span class="chat-commands" style="display: flex;">|</span>
+                    <span class="chat-commands" style="display: flex;">!score</span>
+                    <span class="chat-commands" style="display: flex;">!maps</span>
+                </div>
+            </div>
+            <div class="caster-handle-1" style="display: grid;">
+                <div id="cam-screen-1">
+                    <span class="apply-caster-1-name">@</span>
+                </div>
+            </div>
+            <div class="caster-handle-2" style="display: none;">
+                <div id="cam-screen-2-1">
+                    <span class="apply-caster-1-name">@</span>
+                </div>
+                <div id="cam-screen-2-2">
+                    <span class="apply-caster-2-name">@</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

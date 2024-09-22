@@ -1,1 +1,0 @@
-window.location.replace('https://val-community-caster-overlay.pages.dev/console')
