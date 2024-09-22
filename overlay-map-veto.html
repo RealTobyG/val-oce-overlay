@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Map Veto Overlay</title>
+    <script src="auth.js" defer></script>
+    <script src="api.js" defer></script>
+    <script src="overlay-map-veto.js" defer></script>
+
+    <style>
+        @font-face {
+            font-family: 'Arial';
+            src: url(assets/fonts/ARIALBD.TTF);
+        }
+
+        @font-face {
+            font-family: 'Foundry';
+            src: url(assets/fonts/Foundry_Gridnik_W03_ExtraBold.ttf);
+        }
+
+        .grid-1-1 {
+            grid-area: 1/1;
+        }
+
+        .display-none {
+            display: none;
+        }
+
+        .flex-row {
+            display: flex;
+            align-items: center;
+        }
+
+        .flex-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #page-container {
+            display: grid;
+            grid-template: 1080px/1920px;
+            font-family: 'Arial';
+            color: white;
+        }
+
+        .bottom-bar {
+            grid-area: 1/1;
+            display: grid;
+            grid-template: 1080px/1920px;
+        }
+
+        .bottom-bar-content {
+            grid-area: 1/1;
+            margin: 1030px 0px 0px 363px;
+            height: 50px;
+            width: 1195px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Foundry';
+            text-transform: uppercase;
+            color: white;
+            gap: 20px;
+        }
+
+        #map-veto-overlay {
+            display: grid;
+            grid-template: 1080px/1920px;
+        }
+        
+        #map-veto-bo3 {
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+            padding-bottom: 150px;
+        }
+
+        #map-veto-title {
+            display: flex;
+            font-family: 'Foundry';
+            font-size: 64px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        #map-veto-bo3-img-grid {
+            display: grid;
+            grid-template: 320px 320px/repeat(5, 320px);
+            margin-left: 60px;
+            box-shadow: -60px 125px rgb(26 26 26 / 80%);
+        }
+
+        #bo3-1st-ban-overlay {
+            background-image: url(assets/BO3_Ban_Map_Overlay.png);
+            display: flex;
+            align-items: end;
+            grid-area: 1/1;
+            font-family: 'Arial';
+            font-size: 16.7pt;
+            color: white;
+            padding: 0px 0px 10px 10px;
+            text-transform: uppercase;
+        }
+
+        #bo3-2nd-ban-overlay {
+            background-image: url(assets/BO3_Ban_Map_Overlay.png);
+            display: flex;
+            align-items: end;
+            grid-area: 1/2;
+            font-family: 'Arial';
+            font-size: 16.7pt;
+            color: white;
+            padding: 0px 0px 10px 10px;
+            text-transform: uppercase;
+        }
+
+        #bo3-3rd-ban-overlay {
+            background-image: url(assets/BO3_Ban_Map_Overlay.png);
+            display: flex;
+            align-items: end;
+            grid-area: 2/1;
+            font-family: 'Arial';
+            font-size: 16.7pt;
+            color: white;
+            padding: 0px 0px 10px 10px;
+            text-transform: uppercase;
+        }
+
+        #bo3-4th-ban-overlay {
+            background-image: url(assets/BO3_Ban_Map_Overlay.png);
+            display: flex;
+            align-items: end;
+            grid-area: 2/2;
+            font-family: 'Arial';
+            font-size: 16.7pt;
+            color: white;
+            padding: 0px 0px 10px 10px;
+            text-transform: uppercase;
+        }
+
+        #bo3-1st-pick-overlay {
+            display: flex;
+            flex-direction: column;
+            padding: 296px 0px 0px 12px;
+            grid-area: 2/3;
+        }
+
+        #bo3-2nd-pick-overlay {
+            display: flex;
+            flex-direction: column;
+            padding: 296px 0px 0px 12px;
+            grid-area: 2/4;
+        }
+
+        #bo3-3rd-pick-overlay {
+            display: flex;
+            flex-direction: column;
+            padding: 296px 0px 0px 12px;
+            grid-area: 2/5;
+        }
+
+        .bo3-pick-mapname {
+            color: white; 
+            font-family: 'Foundry'; 
+            font-size: 30pt;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .bo3-map-pick-details {
+            display: grid;
+            grid-template: 40px 40px/160px 160px;
+            font-size: 16.7pt;
+            text-transform: uppercase;
+        }
+
+        #bo3-map-1-result-overlay {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            grid-area: 1/3;
+            width: 320px;
+            height: 640px;
+            font-family: 'Foundry';
+            font-size: 60pt;
+            text-transform: uppercase;
+            color: white;
+            background-color: rgba(26, 26, 26, 0.5);
+        }
+
+        #bo3-map-2-result-overlay {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            grid-area: 1/4;
+            width: 320px;
+            height: 640px;
+            font-family: 'Foundry';
+            font-size: 60pt;
+            text-transform: uppercase;
+            color: white;
+            background-color: rgba(26, 26, 26, 0.5);
+        }
+
+        #bo3-map-3-result-overlay {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            grid-area: 1/5;
+            width: 320px;
+            height: 640px;
+            font-family: 'Foundry';
+            font-size: 60pt;
+            text-transform: uppercase;
+            color: white;
+            background-color: rgba(26, 26, 26, 0.5);
+        }
+    </style>
+</head>
+
+<body style="margin: 0;" onload="onPageLoad()">
+    <div id="page-container">
+        <div id="map-veto-overlay">
+            <video controls autoplay loop src="assets/VCL_Animated_Background.webm" class="overlay-element grid-1-1 video"></video>
+            <div id="map-veto-bo3" class="grid-1-1">
+                <div id="map-veto-title">
+                    <span style="color: white; text-transform: uppercase;" class="apply-team-a-name"></span>
+                    <span style="color: red; margin: 0px 20px 0px 20px;"> VS </span>
+                    <span style="color: white; text-transform: uppercase;" class="apply-team-b-name"></span>
+                </div>
+                <div id="map-veto-bo3-img-grid">
+                    <img id="bo3-1st-ban-img" class="bo3-ban-img" src="assets/Maps/Haven_320x320.png" style="grid-area: 1/1;">
+                    <img id="bo3-2nd-ban-img" class="bo3-ban-img" src="assets/Maps/Ascent_320x320.png" style="grid-area: 1/2;">
+                    <img id="bo3-1st-pick-img" class="bo3-pick-img" src="assets/Maps/Lotus_320x640.png" style="grid-area: 1/3;">
+                    <img id="bo3-2nd-pick-img" class="bo3-pick-img" src="assets/Maps/Bind_320x640.png" style="grid-area: 1/4;">
+                    <img id="bo3-3rd-pick-img" class="bo3-pick-img" src="assets/Maps/Abyss_320x640.png" style="grid-area: 1/5;">
+                    <img id="bo3-3rd-ban-img" class="bo3-ban-img" src="assets/Maps/Icebox_320x320.png" style="grid-area: 2/1;">
+                    <img id="bo3-4th-ban-img" class="bo3-ban-img" src="assets/Maps/Sunset_320x320.png" style="grid-area: 2/2;">
+
+                    <div id="bo3-1st-ban-overlay">
+                        <div>
+                            <span class="bo3-ban-team apply-team-a-tri"></span>
+                            <span> BAN </span>
+                            <span class="bo3-ban-mapname">MAP</span>
+                        </div>
+                    </div>
+                    <div id="bo3-2nd-ban-overlay">
+                        <div>
+                            <span class="bo3-ban-team apply-team-a-tri"></span>
+                            <span> BAN </span>
+                            <span class="bo3-ban-mapname">MAP</span>
+                        </div>
+                    </div>
+                    <div id="bo3-3rd-ban-overlay">
+                        <div>
+                            <span class="bo3-ban-team apply-team-a-tri"></span>
+                            <span> BAN </span>
+                            <span class="bo3-ban-mapname">MAP</span>
+                        </div>
+                    </div>
+                    <div id="bo3-4th-ban-overlay">
+                        <div>
+                            <span class="bo3-ban-team apply-team-a-tri"></span>
+                            <span> BAN </span>
+                            <span class="bo3-ban-mapname">MAP</span>
+                        </div>
+                    </div>
+
+                    <div id="bo3-map-1-result-overlay" class="map-result-overlay" style="display: none;">
+                        <img src="assets/200x200_No_Logo.png" class="apply-map-1-logo apply-team-a-logo" style="width: 200px; margin-bottom: 50px;">
+                        <span class="apply-map-1-winner apply-team-a-tri"></span>
+                        <span class="apply-map-1-score"></span>
+                    </div>
+                    <div id="bo3-map-2-result-overlay" class="map-result-overlay" style="display: none;">
+                        <img src="assets/200x200_No_Logo.png" class="apply-map-2-logo apply-team-a-logo" style="width: 200px; margin-bottom: 50px;">
+                        <span class="apply-map-2-winner apply-team-a-tri"></span>
+                        <span class="apply-map-2-score"></span>
+                    </div>
+                    <div id="bo3-map-3-result-overlay" class="map-result-overlay" style="display: none;">
+                        <img src="assets/200x200_No_Logo.png" class="apply-map-3-logo apply-team-a-logo" style="width: 200px; margin-bottom: 50px;">
+                        <span class="apply-map-3-winner apply-team-a-tri"></span>
+                        <span class="apply-map-3-score"></span>
+                    </div>
+
+                    <div id="bo3-1st-pick-overlay">
+                        <span class="bo3-pick-mapname"></span>
+                        <div class="bo3-map-pick-details">
+                            <span style="color: rgb(242, 246, 178);">DEF</span>
+                            <span style="color: rgb(242, 246, 178);" class="bo3-side-team apply-team-a-tri">TEAM</span>
+                            <span style="color: white;">PICK</span>
+                            <span style="color: white;" class="bo3-pick-team apply-team-a-tri"></span>
+                        </div>
+                    </div>
+                    <div id="bo3-2nd-pick-overlay">
+                        <span class="bo3-pick-mapname"></span>
+                        <div class="bo3-map-pick-details">
+                            <span style="color: rgb(242, 246, 178);">DEF</span>
+                            <span style="color: rgb(242, 246, 178);" class="bo3-side-team apply-team-a-tri">TEAM</span>
+                            <span style="color: white;">PICK</span>
+                            <span style="color: white;" class="bo3-pick-team apply-team-a-tri"></span>
+                        </div>
+                    </div>
+                    <div id="bo3-3rd-pick-overlay">
+                        <span class="bo3-pick-mapname"></span>
+                        <div class="bo3-map-pick-details">
+                            <span style="color: rgb(242, 246, 178);">DEF</span>
+                            <span style="color: rgb(242, 246, 178);" class="bo3-side-team apply-team-a-tri">TEAM</span>
+                            <span style="color: white;">DECIDER</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

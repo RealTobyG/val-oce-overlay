@@ -47,11 +47,11 @@ const exampleSettings = {
     // Teams Config
     teamAName: "Team Heretics",
     teamATri: "TH",
-    teamALogo: "https://media.discordapp.net/attachments/891904001120034866/1280823379640979487/Heretics_Logo.png?ex=66dec13a&is=66dd6fba&hm=9330b4c61e3ad211cfc46e341ad7f4ba3236fa99b7c893b6367eed40deb116eb&=&format=webp&quality=lossless&width=220&height=220",
+    teamALogo: "https://media.discordapp.net/attachments/891904001120034866/1280823379640979487/Heretics_Logo.png?ex=66f08d7a&is=66ef3bfa&hm=5ff00d07ffd8870b493f97e7d902fa4a81a6c898957ea9c1de345a2ba625822c&=&format=webp&quality=lossless&width=250&height=250",
     teamANoLogo: 0,
     teamBName: "Team Vitality",
     teamBTri:  "VIT",
-    teamBLogo: "https://media.discordapp.net/attachments/891904001120034866/1280823381293400124/Vitality_Logo.png?ex=66dec13a&is=66dd6fba&hm=0c812e80b35faa2a749488c12a06b50a2d038efaaac4391530209a2015b93d56&=&format=webp&quality=lossless&width=220&height=220",
+    teamBLogo: "https://media.discordapp.net/attachments/891904001120034866/1280823381293400124/Vitality_Logo.png?ex=66f08d7a&is=66ef3bfa&hm=a8d4d83c56cf781bdf82ff4485934710b8f43eb42f138b283c08c2afd8d94f52&=&format=webp&quality=lossless&width=250&height=250",
     teamBNoLogo: 0, 
     // Map Veto Config
     seriesLengthSelection: 1,
@@ -73,7 +73,7 @@ const exampleSettings = {
     deadline: null,
     // Event/Casters Config
     eventName: "VCT EMEA Stage 2 Playoffs",
-    eventLogo: "https://media.discordapp.net/attachments/891904001120034866/1280823380962054186/VCT_EMEA_Logo.png?ex=66dec13a&is=66dd6fba&hm=a67513c368975261b8222ec3d9115d937e88e169f17283a102b3f21dcdf6d23c&=&format=webp&quality=lossless&width=359&height=121",
+    eventLogo: "https://media.discordapp.net/attachments/891904001120034866/1280823380962054186/VCT_EMEA_Logo.png?ex=66f08d7a&is=66ef3bfa&hm=fe6922d28d86401e39068869b6b07968512c9cfe7c295ff7059a62fd67f318e0&=&format=webp&quality=lossless&width=408&height=137",
     eventNoLogo: 0,
     castersSelection: 1,
     caster1Name: "MitchMan",

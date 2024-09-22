@@ -446,7 +446,7 @@ function scoreUpdate() {
         }
     })
     mapNumber = teamASeriesScore+teamBSeriesScore
-    // Updates winning team details for every complete map
+    // Updates winning team details for every complete map on map veto and intermission overlay
     const scheduleResultOverlays = document.getElementsByClassName('schedule-result-overlay')
     mapWinners.forEach((mapWinner, i) => {
         const applyWinnerName = document.getElementsByClassName(`apply-map-${Number(i)+1}-winner`)
@@ -504,7 +504,7 @@ function scoreUpdate() {
             })
         }    
     }
-    // Shows/Hides map results for finished maps
+    // Shows/Hides map results for finished maps on map veto and intermission overlay
     const mapResultOverlays = document.getElementsByClassName('map-result-overlay')
     Array.from(mapResultOverlays).forEach((element, i) => {
         if (Number(i)+1<=mapNumber) {

@@ -115,7 +115,6 @@ function setOverlay() {
     }
 
     // Bottom Bar
-    
     const bottomBarAll = document.getElementsByClassName('bottom-bar')
     const chatCommandsAll = document.getElementsByClassName('chat-commands')
     if (overlaySetup.bottomBarSelection === 0) {
