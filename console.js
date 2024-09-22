@@ -1620,7 +1620,7 @@ function teamsConfigSend() {
     } else {
         currentSettings.teamANoLogo = 0
     }
-    currentSettings.teamBName = teamBTri.value
+    currentSettings.teamBName = teamBName.value
     currentSettings.teamBTri = teamBTri.value
     currentSettings.teamBLogo = teamBLogo
     if (document.getElementById('team-b-no-logo').checked) {
@@ -1729,6 +1729,8 @@ function onPageLoad() {
     }
 }
 
+let url = new URL(document.location.href)
+
 async function getOverlaySetup() {
     let setupData
     setupData = await api.readOverlaySetup()
@@ -1737,6 +1739,9 @@ async function getOverlaySetup() {
         setupData = await api.readOverlaySetup()
     }
     restoreFromSettings(setupData.overlaySetup)
+    url.searchParams.set('token', `${setupData.token}`)
+    // document.location.href = document.location.href + `?token=${setupData.token}`
+    console.log(setupData.token)
 }
 
 document.getElementById('reset-team-config').addEventListener('click', () => {restoreTeams(defaultSettings)})
