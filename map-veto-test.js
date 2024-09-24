@@ -1,50 +1,74 @@
-let r1 = document.getElementById('r1').value
-let g1 = document.getElementById('g1').value
-let b1 = document.getElementById('b1').value
-let r2 = document.getElementById('r2').value
-let g2 = document.getElementById('g2').value
-let b2 = document.getElementById('b2').value
-let r3 = document.getElementById('r3').value
-let g3 = document.getElementById('g3').value
-let b3 = document.getElementById('b3').value
-let r4 = document.getElementById('r4').value
-let g4 = document.getElementById('g4').value
-let b4 = document.getElementById('b4').value
-
-
+let c1 = document.getElementById('c1').value
+let c2 = document.getElementById('c2').value
+let c3 = document.getElementById('c3').value
+let c4 = document.getElementById('c4').value
+backgroundInterval = null
+backgroundState = 1
 
 function setGradient() {
-    let r1 = document.getElementById('r1').value
-    let g1 = document.getElementById('g1').value
-    let b1 = document.getElementById('b1').value
-    let r2 = document.getElementById('r2').value
-    let g2 = document.getElementById('g2').value
-    let b2 = document.getElementById('b2').value
-    let r3 = document.getElementById('r3').value
-    let g3 = document.getElementById('g3').value
-    let b3 = document.getElementById('b3').value
-    let r4 = document.getElementById('r4').value
-    let g4 = document.getElementById('g4').value
-    let b4 = document.getElementById('b4').value
-    document.styleSheets[0].deleteRule(8)
-    document.styleSheets[0].insertRule(`#flowy-background { background: linear-gradient(to bottom, rgb(${r1}, ${g1}, ${b1}), rgb(${r3}, ${g3}, ${b3})); width: 1920px; height: 1080px; mask-image: url("assets/Mask_Test.png"); }`, 8)
-    document.styleSheets[0].deleteRule(9)
-    document.styleSheets[0].insertRule(`#flowy-background::after {background: linear-gradient(to bottom, rgb(${r2}, ${g2}, ${b2}), rgb(${r4}, ${g4}, ${b4})); content: ""; position: absolute; width: inherit; height: inherit; mask-image: linear-gradient(to left, white, transparent); }`, 9)
-    // document.styleSheets[0].cssRules[8].cssText = `#flowy-background { background: linear-gradient(rgb(${r3}, ${g3}, ${b3}), rgb(${r1}, ${g1}, ${b1})); width: 1920px; height: 1080px; mask-image: url("assets/Mask_Test.png"); }`
-    // document.styleSheets[0].cssRules[9].cssText = `#flowy-background::after { background: linear-gradient(rgb(${r4}, ${g4}, ${b4}), rgb(${r2}, ${g2}, ${b2})); content: ""; position: absolute; width: inherit; height: inherit; mask-image: linear-gradient(to left, white, transparent); }`
+    if (backgroundInterval !=null) {
+        clearInterval(backgroundInterval)
+        backgroundInterval = null
+    }
+    let b1 = document.getElementById('flowy-background-1')
+    let b2 = document.getElementById('flowy-background-2')
+    c1 = document.getElementById('c1').value
+    c2 = document.getElementById('c2').value
+    c3 = document.getElementById('c3').value
+    c4 = document.getElementById('c4').value
+    
+    // document.styleSheets[0].deleteRule(8)
+    // document.styleSheets[0].insertRule(`#flowy-background-1 { background: linear-gradient(to bottom, ${c1}, ${c4}); width: 1920px; height: 1080px; mask-image: url("assets/Mask_Test.png"); transition: 5s;}`, 8)
+    // document.styleSheets[0].deleteRule(9)
+    // document.styleSheets[0].insertRule(`#flowy-background-1::after {background: linear-gradient(to bottom, ${c2}, ${c3}); content: ""; position: absolute; width: inherit; height: inherit; mask-image: linear-gradient(to left, white, transparent); transition: 5s;}`, 9)
+
+    
+    if (backgroundState === 1) {
+        document.styleSheets[0].deleteRule(10)
+        document.styleSheets[0].insertRule(`#flowy-background-2 { background: linear-gradient(to bottom, ${c4}, ${c3}); width: 1920px; height: 1080px; mask-image: url("assets/Mask_Test.png"); transition: 5s;}`, 10)
+        document.styleSheets[0].deleteRule(11)
+        document.styleSheets[0].insertRule(`#flowy-background-2::after {background: linear-gradient(to bottom, ${c1}, ${c2}); content: ""; position: absolute; width: inherit; height: inherit; mask-image: linear-gradient(to left, white, transparent); transition: 5s;}`, 11)
+        b2.style.opacity = 1
+        b1.style.opacity = 0
+        
+        backgroundState = 2
+        backgroundInterval = setInterval(setGradient, 5000)
+    } else if (backgroundState === 2) {
+        document.styleSheets[0].deleteRule(8)
+        document.styleSheets[0].insertRule(`#flowy-background-1 { background: linear-gradient(to bottom, ${c3}, ${c2}); width: 1920px; height: 1080px; mask-image: url("assets/Mask_Test.png"); transition: 5s;}`, 8)
+        document.styleSheets[0].deleteRule(9)
+        document.styleSheets[0].insertRule(`#flowy-background-1::after {background: linear-gradient(to bottom, ${c4}, ${c1}); content: ""; position: absolute; width: inherit; height: inherit; mask-image: linear-gradient(to left, white, transparent); transition: 5s;}`, 9)
+        b1.style.opacity = 1
+        b2.style.opacity = 0
+
+        backgroundState = 3
+        backgroundInterval = setInterval(setGradient, 5000)
+    } else if (backgroundState === 3) {
+        document.styleSheets[0].deleteRule(10)
+        document.styleSheets[0].insertRule(`#flowy-background-2 { background: linear-gradient(to bottom, ${c2}, ${c1}); width: 1920px; height: 1080px; mask-image: url("assets/Mask_Test.png"); transition: 5s;}`, 10)
+        document.styleSheets[0].deleteRule(11)
+        document.styleSheets[0].insertRule(`#flowy-background-2::after {background: linear-gradient(to bottom, ${c3}, ${c4}); content: ""; position: absolute; width: inherit; height: inherit; mask-image: linear-gradient(to left, white, transparent); transition: 5s;}`, 11)
+        b2.style.opacity = 1
+        b1.style.opacity = 0
+        
+        backgroundState = 4
+        backgroundInterval = setInterval(setGradient, 5000)
+    } else if (backgroundState === 4) {
+        document.styleSheets[0].deleteRule(8)
+        document.styleSheets[0].insertRule(`#flowy-background-1 { background: linear-gradient(to bottom, ${c1}, ${c4}); width: 1920px; height: 1080px; mask-image: url("assets/Mask_Test.png"); transition: 5s;}`, 8)
+        document.styleSheets[0].deleteRule(9)
+        document.styleSheets[0].insertRule(`#flowy-background-1::after {background: linear-gradient(to bottom, ${c2}, ${c3}); content: ""; position: absolute; width: inherit; height: inherit; mask-image: linear-gradient(to left, white, transparent); transition: 5s;}`, 9)
+        b1.style.opacity = 1
+        b2.style.opacity = 0
+        
+        backgroundState = 1
+        backgroundInterval = setInterval(setGradient, 5000)
+    }
 }
 
-document.getElementById('r1').addEventListener('change', setGradient)
-document.getElementById('g1').addEventListener('change', setGradient)
-document.getElementById('b1').addEventListener('change', setGradient)
-document.getElementById('r2').addEventListener('change', setGradient)
-document.getElementById('g2').addEventListener('change', setGradient)
-document.getElementById('b2').addEventListener('change', setGradient)
-document.getElementById('r3').addEventListener('change', setGradient)
-document.getElementById('g3').addEventListener('change', setGradient)
-document.getElementById('b3').addEventListener('change', setGradient)
-document.getElementById('r4').addEventListener('change', setGradient)
-document.getElementById('g4').addEventListener('change', setGradient)
-document.getElementById('b4').addEventListener('change', setGradient)
-// document.getElementById('flowy-background').style.background = `linear-gradient(to top left, rgb(${r3}, ${g3}, ${b3}), rgb(${r1}, ${g1}, ${b1})), linear-gradient(to top right, rgb(${r4}, ${g4}, ${b4}), rgb(${r2}, ${g2}, ${b2}))`
+document.getElementById('c1').addEventListener('change', setGradient)
+document.getElementById('c2').addEventListener('change', setGradient)
+document.getElementById('c3').addEventListener('change', setGradient)
+document.getElementById('c4').addEventListener('change', setGradient)
+
 

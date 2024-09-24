@@ -48,20 +48,42 @@
             grid-area: 1/1
         }
 
-        #flowy-background {
-            background: linear-gradient(to bottom, rgb(0, 240, 248), rgb(0, 116, 119));
+        #flowy-background-1 {
+            background: linear-gradient(to bottom, #007477, #0297b5);
             width: 1920px;
             height: 1080px;
-            -webkit-mask-image: url(assets/Mask_Test.png)
+            -webkit-mask-image: url(assets/Mask_Test.png);
+            opacity: 100;
+            transition: 5s;
         }
 
-        #flowy-background::after {
-            background: linear-gradient(to bottom, rgb(0, 38, 42), rgb(2, 151, 181));
+        #flowy-background-1::after {
+            background: linear-gradient(to bottom, #00262a, #00f0f8);
             content: "";
             position: absolute;
             width: inherit;
             height: inherit;
             -webkit-mask-image: linear-gradient(to left, white, transparent);
+            opacity: 100;
+            transition: 5s;
+        }
+
+        #flowy-background-2 {
+            background: linear-gradient(to bottom, #00f0f8, #00262a);
+            width: 1920px;
+            height: 1080px;
+            -webkit-mask-image: url(assets/Mask_Test.png);
+            transition: 5s;
+        }
+
+        #flowy-background-2::after {
+            background: linear-gradient(to bottom, #007477, #0297b5);
+            content: "";
+            position: absolute;
+            width: inherit;
+            height: inherit;
+            -webkit-mask-image: linear-gradient(to left, white, transparent);
+            transition: 5s;
         }
     </style>
 </head>
@@ -69,75 +91,30 @@
 <body>
     <div id="page-container">
         <div id="map-veto-overlay">
-            <div id="flowy-background" style="grid-area: 1/1;"></div>
+            <img src="assets/Valorant_Preview.png" style="grid-area: 1/1;">
+            <!-- <div id="flowy-background-1" style="opacity: 100; grid-area: 1/1;"></div>
+            <div id="flowy-background-2" style="opacity: 0; grid-area: 1/1;"></div> -->
+            <div id="test"></div>
         </div>
 
         <div class="flex-row">
-            <div class="flex-row">
-                <span>Color 1 Red</span>
-                <input type="range" id="r1" min="0" max="256" value="0">
-            </div>
-
-            <div class="flex-row">
-                <span>Color 1 Green</span>
-                <input type="range" id="g1" min="0" max="256" value="240">
-            </div>
-
-            <div class="flex-row">
-                <span>Color 1 Blue</span>
-                <input type="range" id="b1" min="0" max="256" value="248">
-            </div>
+            <span style="margin-right: 20px;">Color 1</span>
+            <input type="color" id="c1" value="#007477">
         </div>
 
         <div class="flex-row">
-            <div class="flex-row">
-                <span>Color 2 Red</span>
-                <input type="range" id="r2" min="0" max="256" value="0">
-            </div>
-
-            <div class="flex-row">
-                <span>Color 2 Green</span>
-                <input type="range" id="g2" min="0" max="256" value="116">
-            </div>
-
-            <div class="flex-row">
-                <span>Color 2 Blue</span>
-                <input type="range" id="b2" min="0" max="256" value="119">
-            </div>
+            <span style="margin-right: 20px;">Color 2</span>
+            <input type="color" id="c2" value="#00262a">
         </div>
             
         <div class="flex-row">
-            <div class="flex-row">
-                <span>Color 3 Red</span>
-                <input type="range" id="r3" min="0" max="256" value="0">
-            </div>
-
-            <div class="flex-row">
-                <span>Color 3 Green</span>
-                <input type="range" id="g3" min="0" max="256" value="38">
-            </div>
-
-            <div class="flex-row">
-                <span>Color 3 Blue</span>
-                <input type="range" id="b3" min="0" max="256" value="42">
-            </div>
+            <span style="margin-right: 20px;">Color 3</span>
+            <input type="color" id="c3" value="#0297b5">
         </div>
-            
+
         <div class="flex-row">
-            <div class="flex-row">
-                <span>Color 4 Red</span>
-                <input type="range" id="r4" min="0" max="256" value="2">
-            </div>
-
-            <div class="flex-row">
-                <span>Color 4 Green</span>
-                <input type="range" id="g4" min="0" max="256" value="151">
-            </div>
-
-            <div class="flex-row">
-                <span>Color 4 Blue</span>
-                <input type="range" id="b4" min="0" max="256" value="181">
-            </div>
+            <span style="margin-right: 20px;">Color 4</span>
+            <input type="color" id="c4" value="#00f0f8">
         </div>
         
     </div> <!-- page-container -->

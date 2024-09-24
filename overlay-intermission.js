@@ -1,5 +1,10 @@
 let socket
 let overlaySetup = {}
+let timer = null
+let deadline = null
+let countdown = null
+const intermissionHeading = document.getElementById('intermission-heading')
+let overlaySelection = 0
 
 function onPageLoad() {
     openSocket()
@@ -50,21 +55,25 @@ function closeSocket() {
 
 function setOverlay() {
     // Overlay Theme
-    let overlaySelection = 'VCL'
-    if (overlaySetup.overlaySelection === 0) {
-        overlaySelection = 'VCL'
-    } else if (overlaySetup.overlaySelection === 1) {
-        overlaySelection = 'GC'
-    }
-
-    const overlayElements = document.getElementsByClassName('overlay-element')
-    if (overlaySelection === "GC") {
-        for (const element of overlayElements) {
-            element.src = element.src.replace(/(VCL|LPL)/g, "GC")
+    let overlayType = 'VCL'
+    if (overlaySelection !== overlaySetup.overlaySelection) {
+        if (overlaySetup.overlaySelection === 0) {
+            overlayType = 'VCL'
+            overlaySelection = 0
+        } else if (overlaySetup.overlaySelection === 1) {
+            overlayType = 'GC'
+            overlaySelection = 1
         }
-    } else if (overlaySelection === "VCL") {
-        for (const element of overlayElements) {
-            element.src = element.src.replace(/(GC|LPL)/g, "VCL")
+    
+        const overlayElements = document.getElementsByClassName('overlay-element')
+        if (overlayType === "GC") {
+            for (const element of overlayElements) {
+                element.src = element.src.replace(/(VCL|LPL)/g, "GC")
+            }
+        } else if (overlayType === "VCL") {
+            for (const element of overlayElements) {
+                element.src = element.src.replace(/(GC|LPL)/g, "VCL")
+            }
         }
     }
 
@@ -121,31 +130,26 @@ function setOverlay() {
         }
     })
     // Updates current map on intermission overlay
-    const currentMap = document.getElementsByClassName('current-map')
+    const currentMap = document.getElementById('current-map')
     const bo3IntermissionBackgroundMap = document.getElementsByClassName('bo3-intermission-background-video')
     if (overlaySetup.seriesLengthSelection === 1) {        
         if (overlaySetup.teamASeriesScore !== 2 && overlaySetup.teamBSeriesScore !== 2) {
-            for (const element of currentMap) {
-                element.textContent = `Map ${overlaySetup.mapNumber+1} - ${overlaySetup.mapPicks[overlaySetup.mapNumber]}`
-            }
+            currentMap.textContent = `Map ${overlaySetup.mapNumber+1} - ${overlaySetup.mapPicks[overlaySetup.mapNumber]}`
         } else if (overlaySetup.teamASeriesScore>overlaySetup.teamBSeriesScore) {
-            for (const element of currentMap) {
-                element.textContent = `${overlaySetup.teamATri} ${overlaySetup.teamASeriesScore} - ${overlaySetup.teamBSeriesScore} ${overlaySetup.teamBTri}`
-            }
+            currentMap.textContent = `${overlaySetup.teamATri} ${overlaySetup.teamASeriesScore} - ${overlaySetup.teamBSeriesScore} ${overlaySetup.teamBTri}`
         } else {
-            for (const element of currentMap) {
-                element.textContent = `${overlaySetup.teamBTri} ${overlaySetup.teamBSeriesScore} - ${overlaySetup.teamASeriesScore} ${overlaySetup.teamBTri}`
-            }
+            currentMap.textContent = `${overlaySetup.teamBTri} ${overlaySetup.teamBSeriesScore} - ${overlaySetup.teamASeriesScore} ${overlaySetup.teamBTri}`
         }
-        if (overlaySetup.mapNumber<3) {
-            Array.from(bo3IntermissionBackgroundMap).forEach((element, i) => {
-                if (i === overlaySetup.mapNumber) {
-                    element.style.opacity = 100
-                } else {
-                    element.style.opacity = 0
-                }
-            })
-        }    
+        Array.from(bo3IntermissionBackgroundMap).forEach((element, i) => {
+            if (i === overlaySetup.mapNumber) {
+                element.style.opacity = 100
+            } else {
+                element.style.opacity = 0
+            }
+        })
+        if (overlaySetup.mapNumber === 3) {
+            bo3IntermissionBackgroundMap[2].style.opacity = 100
+        }
     }
     // Shows/Hides map results for finished maps on map veto and intermission overlay
     Array.from(scheduleResultOverlays).forEach((element, i) => {
@@ -156,16 +160,23 @@ function setOverlay() {
             element.style.display = 'none'
         }
     })
-    // Sets logos on intermission screen 
-    const intermissionDefTeams = document.getElementsByClassName('bo3-def-logo')
-    const intermissionAttackTeams = document.getElementsByClassName('bo3-attack-logo')
+    // Sets logos on intermission screen
+    const intermissionDefLogos = document.getElementsByClassName('bo3-def-logo')
+    const intermissionAttackLogos = document.getElementsByClassName('bo3-attack-logo')
+    const intermissionDefNames = document.getElementsByClassName('bo3-def-team')
+    const intermissionAttackNames  = document.getElementsByClassName('bo3-attack-team')
     overlaySetup.mapPicksSides.forEach((team, i) => {
         if (team === 'team-a') {
-            intermissionDefTeams[i].className = intermissionDefTeams[i].className.replace(/(team-a|team-b)/g, `team-a`)
-            intermissionAttackTeams[i].className = intermissionAttackTeams[i].className.replace(/(team-a|team-b)/g, `team-b`)
+            intermissionDefLogos[i].className = intermissionDefLogos[i].className.replace(/(team-a|team-b)/g, `team-a`)
+            intermissionAttackLogos[i].className = intermissionAttackLogos[i].className.replace(/(team-a|team-b)/g, `team-b`)
+            intermissionDefNames[i].className = intermissionDefNames[i].className.replace(/(team-a|team-b)/g, `team-a`)
+            intermissionAttackNames[i].className = intermissionAttackNames[i].className.replace(/(team-a|team-b)/g, `team-b`)
+
         } else {
-            intermissionDefTeams[i].className = intermissionDefTeams[i].className.replace(/(team-a|team-b)/g, `team-b`)
-            intermissionAttackTeams[i].className = intermissionAttackTeams[i].className.replace(/(team-a|team-b)/g, `team-a`)
+            intermissionDefLogos[i].className = intermissionDefLogos[i].className.replace(/(team-a|team-b)/g, `team-b`)
+            intermissionAttackLogos[i].className = intermissionAttackLogos[i].className.replace(/(team-a|team-b)/g, `team-a`)
+            intermissionDefNames[i].className = intermissionDefNames[i].className.replace(/(team-a|team-b)/g, `team-b`)
+            intermissionAttackNames[i].className = intermissionAttackNames[i].className.replace(/(team-a|team-b)/g, `team-a`)
         }
     })
     // Sets map pick team names on intermission overlay
@@ -177,7 +188,9 @@ function setOverlay() {
     const pickImgsIntermission = document.getElementsByClassName('bo3-pick-img-intermission')
     overlaySetup.mapPicks.forEach((pick, i) => {
         pickImgsIntermission[i].src = `assets/Maps/${pick}_524x214.png`
-        bo3IntermissionBackgroundMap[i].src = `https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/${pick}_Cinematic.webm?raw=true`
+        if (bo3IntermissionBackgroundMap[i].src !== `https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/${pick}_Cinematic.webm?raw=true`) {
+            bo3IntermissionBackgroundMap[i].src = `https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/${pick}_Cinematic.webm?raw=true`
+        }
     })
 
     // Set Names
@@ -224,6 +237,125 @@ function setOverlay() {
     }
     for (const element of eventLogoAll) {
         element.src = overlaySetup.eventLogo
+    }
+
+    // Intermission Heading
+    if (overlaySetup.intermissionState === 0) {
+        intermissionDefault()
+    } else if (overlaySetup.intermissionState === 1) {
+        intermissionTech()
+    } else {
+        if (timer !=null) {
+            clearTimeout(timer)
+            timer = null
+        }
+        if (countdown !=null) {
+            clearInterval(countdown)
+            countdown = null
+        }
+        deadline = overlaySetup.deadline
+        countdownTimer()
+        countdown = setInterval(countdownTimer, 1000)
+    }
+}
+
+function intermissionDefault() {
+    if (timer !=null) {
+        clearTimeout(timer)
+        timer = null
+    }
+    if (countdown !=null) {
+        clearInterval(countdown)
+        countdown = null
+    }
+    if (overlaySetup.mapNumber === 0) {
+        if (intermissionHeading.innerHTML.includes('Starting Soon') === false) {
+            intermissionHeading.innerHTML = 'Starting Soon'
+            intermissionHeading.style.width = '253px'
+        } else if (intermissionHeading.innerHTML.length > 15) {
+            intermissionHeading.innerHTML = 'Starting Soon'
+            intermissionHeading.style.width = '253px'
+        } else {
+            intermissionHeading.innerHTML += '.'
+            intermissionHeading.style.width = '253px'
+        }
+        timer = setTimeout(intermissionDefault, 500)
+    } else if (((overlaySetup.seriesLengthSelection === 0) && (overlaySetup.teamASeriesScore === 1 || overlaySetup.teamBSeriesScore === 1)) || ((overlaySetup.seriesLengthSelection === 1) && (overlaySetup.teamASeriesScore === 2 || overlaySetup.teamBSeriesScore === 2)) || ((overlaySetup.seriesLengthSelection === 2) && (overlaySetup.teamASeriesScore === 3 || overlaySetup.teamBSeriesScore === 3))) {
+        if (intermissionHeading.innerHTML.includes('Ending Soon') === false) {
+            intermissionHeading.innerHTML = 'Ending Soon'
+            intermissionHeading.style.width = '222px'
+        } else if (intermissionHeading.innerHTML.length > 13) {
+            intermissionHeading.innerHTML = 'Ending Soon'
+            intermissionHeading.style.width = '222px'
+        } else {
+            intermissionHeading.innerHTML += '.'
+            intermissionHeading.style.width = '222px'
+        }
+        timer = setTimeout(intermissionDefault, 500)
+    } else {
+        if (intermissionHeading.innerHTML.includes('Waiting For Players') === false) {
+            intermissionHeading.innerHTML = 'Waiting For Players'
+            intermissionHeading.style.width = '350px'
+        } else if (intermissionHeading.innerHTML.length > 21) {
+            intermissionHeading.innerHTML = 'Waiting For Players'
+            intermissionHeading.style.width = '350px'
+        } else {
+            intermissionHeading.innerHTML += '.'
+            intermissionHeading.style.width = '350px'
+        }
+        timer = setTimeout(intermissionDefault, 500)
+    }
+}
+
+function intermissionTech() {
+    if (timer !=null) {
+        clearTimeout(timer)
+        timer = null
+    }
+    if (countdown !=null) {
+        clearInterval(countdown)
+        countdown = null
+    }
+    if (intermissionHeading.innerHTML.includes('Tech Pause') === false) {
+        intermissionHeading.innerHTML = 'Tech Pause'
+        intermissionHeading.style.width = '198px'
+    } else if (intermissionHeading.innerHTML.length > 12) {
+        intermissionHeading.innerHTML = 'Tech Pause'
+        intermissionHeading.style.width = '198px'
+
+    } else {
+        intermissionHeading.innerHTML += '.'
+        intermissionHeading.style.width = '198px'
+    }
+    timer = setTimeout(intermissionTech, 500)
+}
+
+
+
+function countdownTimer() {
+    intermissionHeading.style.width = '321px'
+    let t = deadline - Date.now() + 500
+    // console.log(t)
+    let minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0')
+    let seconds = Math.floor((t % (1000 * 60)) / 1000).toString().padStart(2, '0')
+
+    // minutes = `${minutes}`
+    // seconds = `${seconds}`
+    // minutes = minutes.padStart(2, '0')
+    // seconds = seconds.padStart(2, '0')
+
+    // if (Number(t)<0) {
+    //     clearInterval(countdown)
+    //     countdown = null
+    //     intermissionDefault()
+    // }
+
+    intermissionHeading.innerHTML = "Intermission - " + minutes + ":" + seconds
+
+    if (minutes === '-1' && seconds === '-1') {
+        clearInterval(countdown)
+        countdown = null
+        intermissionDefault()
     }
 }
 

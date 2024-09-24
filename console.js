@@ -1281,7 +1281,7 @@ function intermissionDefault() {
     } else if (((seriesLengthSelection === 0) && (teamASeriesScore === 1 || teamBSeriesScore === 1)) || ((seriesLengthSelection === 1) && (teamASeriesScore === 2 || teamBSeriesScore === 2)) || ((seriesLengthSelection === 2) && (teamASeriesScore === 3 || teamBSeriesScore === 3))) {
         if (intermissionHeading.innerHTML.includes('Ending Soon') === false) {
             intermissionHeading.innerHTML = 'Ending Soon'
-        } else if (intermissionHeading.innerHTML.length > 14) {
+        } else if (intermissionHeading.innerHTML.length > 13) {
             intermissionHeading.innerHTML = 'Ending Soon'
         } else {
             intermissionHeading.innerHTML += '.'
@@ -1341,6 +1341,7 @@ function countdownTimer() {
         countdown = null
         intermissionState = 0
         intermissionDefault()
+        settingsSend()
     }
 }
 
@@ -1353,7 +1354,7 @@ function intermission3() {
         clearInterval(countdown)
         countdown = null
     }
-    deadline = Date.now() + 3*60000
+    deadline = Date.now() + 3*1000
     countdownTimer()
     countdown = setInterval(countdownTimer, 1000)
 }
@@ -1393,7 +1394,7 @@ function setLiveGameSideBar() {
     const sideBarDefLogo = document.getElementById('side-bar-def-logo')
     const sideBarAtkLogo = document.getElementById('side-bar-atk-logo')
     const sideBarDefTeam = document.getElementById('side-bar-def-team')
-    const sideBarAtkTeam = document.getElementById('side-bar-atk-logo')
+    const sideBarAtkTeam = document.getElementById('side-bar-atk-team')
     
     function sideBarTeamsDefAtk() {
         if (mapPicksSides[mapNumber] === 'team-a') {
@@ -1713,6 +1714,7 @@ function onPageLoad() {
         document.getElementById('map-veto-menu').disabled = true
         document.getElementById('event-casters-menu').disabled = true
         document.getElementById('overlay-menu').disabled = true
+        document.getElementById('intermission-menu').disabled = true
         document.getElementById('modules-menu').disabled = true
         document.getElementById('sign-in-button-contents').children[0].innerHTML = 'Sign In/Create Account' + '<br>' + 'This is required for the console to link to the overlay modules'
         document.getElementById('sign-in-button').addEventListener('click', auth.login)
