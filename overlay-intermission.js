@@ -109,16 +109,8 @@ function setOverlay() {
     }
 
     // Updates winning team details for every complete map on intermission overlay
-    const scheduleResultOverlays = document.getElementsByClassName('schedule-result-overlay')
+    const bo3ScheduleResultOverlays = document.getElementsByClassName('bo3-schedule-result-overlay')
     overlaySetup.mapWinners.forEach((mapWinner, i) => {
-        const applyWinnerName = document.getElementsByClassName(`apply-map-${Number(i)+1}-winner`)
-        for (const element of applyWinnerName) {
-            element.className = element.className.replace(/(team-a|team-b)/g, `${mapWinner}`)
-        }
-        const applyWinnerLogo = document.getElementsByClassName(`apply-map-${Number(i)+1}-logo`)
-        for (const element of applyWinnerLogo) {
-            element.className = element.className.replace(/(team-a|team-b)/g, `${mapWinner}`)
-        }
         const applyWinnerScoreIntermission = document.getElementsByClassName(`apply-map-${Number(i)+1}-score-intermission`)
         if (overlaySetup.seriesLengthSelection === 1) {
             const defTeamIntermission = document.getElementsByClassName('bo3-def-logo')
@@ -152,7 +144,7 @@ function setOverlay() {
         }
     }
     // Shows/Hides map results for finished maps on map veto and intermission overlay
-    Array.from(scheduleResultOverlays).forEach((element, i) => {
+    Array.from(bo3ScheduleResultOverlays).forEach((element, i) => {
         if (Number(i)+1<=overlaySetup.mapNumber) {
             element.style.display = 'flex'
         }

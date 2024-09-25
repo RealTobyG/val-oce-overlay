@@ -127,6 +127,25 @@
             font-size: 12pt;
         }
 
+        .bo1-schedule-team {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+
+        #bo1-schedule-score {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            grid-area: 5/2/6/3;
+            font-size: 20pt;
+            text-align: center;
+            margin-top: 121px;
+            flex-direction: row;
+            column-gap: 0.4em;
+        }
+
         .intermission-schedule-heading {
             display: flex;
             align-items: center;
@@ -218,7 +237,7 @@
             <video controls autoplay loop src="https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/Abyss_Cinematic.webm?raw=true" class="bo3-intermission-background-video grid-1-1 video" style="opacity: 0;"></video>
             <video controls autoplay loop src="assets/VCL_BO3_Schedule_Background.webm" class="overlay-element grid-1-1 video"></video>
             
-            <div id="bo3-intermission" style="display: none;">
+            <div id="bo3-intermission" style="display: grid;">
                 
                 <div id="bo3-intermission-pick-imgs">
                     <img id="bo3-1st-pick-img-intermission" class="bo3-pick-img-intermission" src="assets/Maps/Abyss_524x214.png">
@@ -301,13 +320,44 @@
                 </div>
             </div> <!-- bo3-intermission -->
 
-            <div id="bo1-intermission" style="display: grid;">
+            <div id="bo1-intermission" style="display: none;">
                 <div id="bo1-pick-img-intermission" style="background-image: url(assets/Maps/Abyss_1080p.png);"></div>
 
-                <img src="assets/VCL_BO1_Schedule_Overlay.png" class="grid-1-1 overlay-element">
+                <img src="assets/VCL_BO1_Schedule_Overlay_2.png" class="grid-1-1 overlay-element">
 
                 <div id="bo1-intermission-schedule-content">
+                    <div class="intermission-schedule-heading" style="grid-area: 1/2;">
+                        <div class="flex-row" style="font-size: 24pt; margin-top: 5px; column-gap: 0.4em;">
+                            <span class="apply-team-a-tri"></span>
+                            <span>VS</span>
+                            <span class="apply-team-b-tri"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="intermission-schedule-heading" style="grid-area: 2/2;">
+                        <div class="flex-row">
+                            <span style="margin-right: 0.4em;">BO1 -</span>
+                            <span class="bo1-intermission-schedule-map-pick">Fracture</span>
+                        </div>
+                    </div>
 
+                    <div class="bo1-schedule-team" style="grid-area: 2/1/4/2; margin-left: 25px;">
+                        <span>DEF</span>
+                        <img class="apply-team-a-logo bo1-defense-logo" style="width: 80px;" src="assets/200x200_No_Logo.png">
+                        <span class="apply-team-a-tri bo1-defense-team"></span>
+                    </div>
+
+                    <div class="bo1-schedule-team" style="grid-area: 5/3/6/4; margin-right: 25px;">
+                        <span>ATK</span>
+                        <img class="apply-team-b-logo bo1-defense-logo" style="width: 80px;" src="assets/200x200_No_Logo.png">
+                        <span class="apply-team-b-tri bo1-defense-team"></span>
+                    </div>
+
+                    <div id="bo1-schedule-score">
+                        <span class="apply-team-a-tri"></span>
+                        <span class="apply-map-1-score-intermission">14-12</span>
+                        <span class="apply-team-b-tri"></span>
+                    </div>
                 </div>
             </div>
 
