@@ -139,9 +139,9 @@
             align-items: center;
             justify-content: center;
             grid-area: 5/2/6/3;
-            font-size: 20pt;
+            font-size: 15pt;
             text-align: center;
-            margin-top: 121px;
+            margin-top: 135px;
             flex-direction: row;
             column-gap: 0.4em;
         }
@@ -232,11 +232,19 @@
     <div id="page-container">
         <div id="intermission-overlay">
 
-            <video controls autoplay loop src="https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/Abyss_Cinematic.webm?raw=true" class="bo3-intermission-background-video grid-1-1 video" style="opacity: 0;"></video>
-            <video controls autoplay loop src="https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/Abyss_Cinematic.webm?raw=true" class="bo3-intermission-background-video grid-1-1 video" style="opacity: 0;"></video>
-            <video controls autoplay loop src="https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/Abyss_Cinematic.webm?raw=true" class="bo3-intermission-background-video grid-1-1 video" style="opacity: 0;"></video>
-            <video controls autoplay loop src="assets/VCL_BO3_Schedule_Background.webm" class="overlay-element grid-1-1 video"></video>
+            <div id="bo3-bg-videos" style="display: flex; grid-area: 1/1;">
+                <video controls autoplay loop src="https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/Abyss_Cinematic.webm?raw=true" class="bo3-intermission-background-video video" style="opacity: 0;"></video>
+                <video controls autoplay loop src="https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/Abyss_Cinematic.webm?raw=true" class="bo3-intermission-background-video video" style="opacity: 0;"></video>
+                <video controls autoplay loop src="https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/Abyss_Cinematic.webm?raw=true" class="bo3-intermission-background-video video" style="opacity: 0;"></video>    
+            </div>
+
+            <div id="bo1-bg-videos" style="display: none; grid-area: 1/1;">
+                <video controls autoplay loop src="https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/Abyss_Cinematic.webm?raw=true" id="bo1-intermission-background-video" class="video"></video>
+            </div>
             
+            
+            <video controls autoplay loop src="assets/VCL_BO3_Schedule_Background.webm" class="overlay-element grid-1-1 video"></video>
+
             <div id="bo3-intermission" style="display: grid;">
                 
                 <div id="bo3-intermission-pick-imgs">
@@ -282,13 +290,13 @@
                         </div>
                     </div>
 
-                    <div class="bo3-schedule-result-overlay" style="display: none; grid-area: 3/2;">
+                    <div class="bo3-schedule-result-overlay" style="display: flex; grid-area: 3/2;">
                         <span class="apply-map-1-score-intermission"></span>
                     </div>
-                    <div class="bo3-schedule-result-overlay" style="display: none; grid-area: 5/2;">
+                    <div class="bo3-schedule-result-overlay" style="display: flex; grid-area: 5/2;">
                         <span class="apply-map-2-score-intermission"></span>
                     </div>
-                    <div class="bo3-schedule-result-overlay" style="display: none; grid-area: 7/2;">
+                    <div class="bo3-schedule-result-overlay" style="display: flex; grid-area: 7/2;">
                         <span class="apply-map-3-score-intermission"></span>
                     </div>
 
@@ -337,17 +345,17 @@
                     <div class="intermission-schedule-heading" style="grid-area: 2/2;">
                         <div class="flex-row">
                             <span style="margin-right: 0.4em;">BO1 -</span>
-                            <span class="bo1-intermission-schedule-map-pick">Fracture</span>
+                            <span id="bo1-intermission-schedule-map-pick">Fracture</span>
                         </div>
                     </div>
 
-                    <div class="bo1-schedule-team" style="grid-area: 2/1/4/2; margin-left: 25px;">
+                    <div class="bo1-schedule-team" style="grid-area: 2/1/4/2; margin-left: 22px;">
                         <span>DEF</span>
                         <img class="apply-team-a-logo bo1-defense-logo" style="width: 80px;" src="assets/200x200_No_Logo.png">
                         <span class="apply-team-a-tri bo1-defense-team"></span>
                     </div>
 
-                    <div class="bo1-schedule-team" style="grid-area: 5/3/6/4; margin-right: 25px;">
+                    <div class="bo1-schedule-team" style="grid-area: 5/3/6/4; margin-right: 22px;">
                         <span>ATK</span>
                         <img class="apply-team-b-logo bo1-defense-logo" style="width: 80px;" src="assets/200x200_No_Logo.png">
                         <span class="apply-team-b-tri bo1-defense-team"></span>
