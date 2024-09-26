@@ -60,9 +60,19 @@ function setOverlay() {
         if (overlaySetup.overlaySelection === 0) {
             overlayType = 'VCL'
             overlaySelection = 0
+            // TEMP
+            for (element of document.getElementsByClassName('bg-video-frame')) {
+                element.style.display = flex
+            }
+            // TEMP
         } else if (overlaySetup.overlaySelection === 1) {
             overlayType = 'GC'
             overlaySelection = 1
+            // TEMP
+            for (element of document.getElementsByClassName('bg-video-frame')) {
+                element.style.display = none
+            }
+            // TEMP
         }
     
         const overlayElements = document.getElementsByClassName('overlay-element')
@@ -118,7 +128,7 @@ function setOverlay() {
         document.getElementById('bo1-intermission').style.display = 'none'
         document.getElementById('bo1-bg-videos').style.display = 'none'
         document.getElementById('bo3-intermission').style.display = 'grid'
-        document.getElementById('bo3-bg-videos').style.display = 'flex'
+        document.getElementById('bo3-bg-videos').style.display = 'grid'
     } else if (overlaySetup.seriesLengthSelection === 2) {
         document.getElementById('bo1-intermission').style.display = 'none'
         document.getElementById('bo1-bg-videos').style.display = 'none'
@@ -144,7 +154,7 @@ function setOverlay() {
         overlaySetup.mapPicks.forEach((map, i) => {
             const applyWinnerScoreIntermission = document.getElementsByClassName(`apply-map-${Number(i)+1}-score-intermission`)
             if (overlaySetup.seriesLengthSelection === 1) {
-                const defTeamIntermission = document.getElementsByClassName('bo3-def-logo')
+                const defTeamIntermission = document.getElementsByClassName('def-logo')
                 if (defTeamIntermission[i].classList.contains('apply-team-a-logo')) {
                     applyWinnerScoreIntermission[0].textContent = `${overlaySetup.mapScores[(i*2)+1]} - ${overlaySetup.mapScores[i*2]}`
                 } else {
@@ -187,24 +197,42 @@ function setOverlay() {
     }
     
     // Sets logos on intermission screen (TO BE CHANGED TO WORK WITH BO5)
-    const intermissionDefLogos = document.getElementsByClassName('bo3-def-logo')
-    const intermissionAttackLogos = document.getElementsByClassName('bo3-attack-logo')
-    const intermissionDefNames = document.getElementsByClassName('bo3-def-team')
-    const intermissionAttackNames  = document.getElementsByClassName('bo3-attack-team')
-    overlaySetup.mapPicksSides.forEach((team, i) => {
-        if (team === 'team-a') {
-            intermissionDefLogos[i].className = intermissionDefLogos[i].className.replace(/(team-a|team-b)/g, `team-a`)
-            intermissionAttackLogos[i].className = intermissionAttackLogos[i].className.replace(/(team-a|team-b)/g, `team-b`)
-            intermissionDefNames[i].className = intermissionDefNames[i].className.replace(/(team-a|team-b)/g, `team-a`)
-            intermissionAttackNames[i].className = intermissionAttackNames[i].className.replace(/(team-a|team-b)/g, `team-b`)
-
-        } else {
-            intermissionDefLogos[i].className = intermissionDefLogos[i].className.replace(/(team-a|team-b)/g, `team-b`)
-            intermissionAttackLogos[i].className = intermissionAttackLogos[i].className.replace(/(team-a|team-b)/g, `team-a`)
-            intermissionDefNames[i].className = intermissionDefNames[i].className.replace(/(team-a|team-b)/g, `team-b`)
-            intermissionAttackNames[i].className = intermissionAttackNames[i].className.replace(/(team-a|team-b)/g, `team-a`)
-        }
-    })
+    const intermissionDefLogos = document.getElementsByClassName('def-logo')
+    const intermissionAttackLogos = document.getElementsByClassName('atk-logo')
+    const intermissionDefNames = document.getElementsByClassName('def-name')
+    const intermissionAttackNames  = document.getElementsByClassName('atk-name')
+    if (overlaySetup.seriesLengthSelection === 0) {
+        overlaySetup.mapPicksSides.forEach((team, i) => {
+            if (team === 'team-a') {
+                intermissionDefLogos[i+3].className = intermissionDefLogos[i].className.replace(/(team-a|team-b)/g, `team-a`)
+                intermissionAttackLogos[i+3].className = intermissionAttackLogos[i].className.replace(/(team-a|team-b)/g, `team-b`)
+                intermissionDefNames[i+3].className = intermissionDefNames[i].className.replace(/(team-a|team-b)/g, `team-a`)
+                intermissionAttackNames[i+3].className = intermissionAttackNames[i].className.replace(/(team-a|team-b)/g, `team-b`)
+    
+            } else {
+                intermissionDefLogos[i+3].className = intermissionDefLogos[i].className.replace(/(team-a|team-b)/g, `team-b`)
+                intermissionAttackLogos[i+3].className = intermissionAttackLogos[i].className.replace(/(team-a|team-b)/g, `team-a`)
+                intermissionDefNames[i+3].className = intermissionDefNames[i].className.replace(/(team-a|team-b)/g, `team-b`)
+                intermissionAttackNames[i+3].className = intermissionAttackNames[i].className.replace(/(team-a|team-b)/g, `team-a`)
+            }
+        })
+    } else if (overlaySetup.seriesLengthSelection === 1) {
+        overlaySetup.mapPicksSides.forEach((team, i) => {
+            if (team === 'team-a') {
+                intermissionDefLogos[i].className = intermissionDefLogos[i].className.replace(/(team-a|team-b)/g, `team-a`)
+                intermissionAttackLogos[i].className = intermissionAttackLogos[i].className.replace(/(team-a|team-b)/g, `team-b`)
+                intermissionDefNames[i].className = intermissionDefNames[i].className.replace(/(team-a|team-b)/g, `team-a`)
+                intermissionAttackNames[i].className = intermissionAttackNames[i].className.replace(/(team-a|team-b)/g, `team-b`)
+    
+            } else {
+                intermissionDefLogos[i].className = intermissionDefLogos[i].className.replace(/(team-a|team-b)/g, `team-b`)
+                intermissionAttackLogos[i].className = intermissionAttackLogos[i].className.replace(/(team-a|team-b)/g, `team-a`)
+                intermissionDefNames[i].className = intermissionDefNames[i].className.replace(/(team-a|team-b)/g, `team-b`)
+                intermissionAttackNames[i].className = intermissionAttackNames[i].className.replace(/(team-a|team-b)/g, `team-a`)
+            }
+        })
+    }
+    
 
     // Sets map pick team names on intermission overlay
     const pickNamesIntermission = document.getElementsByClassName('bo3-pick-team-intermission')
@@ -313,15 +341,27 @@ function intermissionDefault() {
         }
         timer = setTimeout(intermissionDefault, 500)
     } else if (((overlaySetup.seriesLengthSelection === 0) && (overlaySetup.teamASeriesScore === 1 || overlaySetup.teamBSeriesScore === 1)) || ((overlaySetup.seriesLengthSelection === 1) && (overlaySetup.teamASeriesScore === 2 || overlaySetup.teamBSeriesScore === 2)) || ((overlaySetup.seriesLengthSelection === 2) && (overlaySetup.teamASeriesScore === 3 || overlaySetup.teamBSeriesScore === 3))) {
-        if (intermissionHeading.innerHTML.includes('Ending Soon') === false) {
-            intermissionHeading.innerHTML = 'Ending Soon'
-            intermissionHeading.style.width = '222px'
-        } else if (intermissionHeading.innerHTML.length > 13) {
-            intermissionHeading.innerHTML = 'Ending Soon'
-            intermissionHeading.style.width = '222px'
+        if (intermissionHeading.innerHTML.includes(`${overlaySetup.matchEnd}`) === false) {
+            intermissionHeading.innerHTML = `${overlaySetup.matchEnd}`
+            if (overlaySetup.matchEnd === 'Ending Soon') {
+                intermissionHeading.style.width = '222px'
+            } else {
+                intermissionHeading.style.width = '375px'
+            }
+        } else if (intermissionHeading.innerHTML.includes('...')) {
+            intermissionHeading.innerHTML = `${overlaySetup.matchEnd}`
+            if (overlaySetup.matchEnd === 'Ending Soon') {
+                intermissionHeading.style.width = '222px'
+            } else {
+                intermissionHeading.style.width = '375px'
+            }
         } else {
             intermissionHeading.innerHTML += '.'
-            intermissionHeading.style.width = '222px'
+            if (overlaySetup.matchEnd === 'Ending Soon') {
+                intermissionHeading.style.width = '222px'
+            } else {
+                intermissionHeading.style.width = '375px'
+            }
         }
         timer = setTimeout(intermissionDefault, 500)
     } else {

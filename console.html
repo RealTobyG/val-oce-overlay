@@ -1442,6 +1442,32 @@
             top: 30px;
             left: 1430px;
         }
+
+        #intermission-config [type=text] {
+            background-color: rgb(52, 52, 52);
+            align-self: center;
+            font-size: 30pt;
+            color: white;
+            border-radius: 10px;
+            transition: 0.2s;
+        }
+
+        #intermission-config [type=text]:hover {
+            background-color: rgb(78, 75, 68);
+        }
+
+        #intermission-config [type=text]:focus {
+            background-color: rgb(78, 75, 68);
+        }
+
+        #intermission-config [type=text]:hover + div[class=help] {
+            display: flex;
+            background-color: rgb(52, 52, 52);
+            color: white;
+            position: absolute;
+            top: 30px;
+            left: 1430px;
+        }
         
 
         /* ############################ */
@@ -2310,9 +2336,9 @@
                     </div>
                 </label>
 
-                <!-- ######################################################## -->
-                <!-- #################### OVERLAY CONFIG #################### -->
-                <!-- ########################################################  -->
+                <!-- ############################################################# -->
+                <!-- #################### INTERMISSION CONFIG #################### -->
+                <!-- #############################################################  -->
                 <label for="intermission-menu">
                     <input type="radio" id="intermission-menu" value="5" name="menu-selection">
                     <div class="menu-tab">
@@ -2392,6 +2418,14 @@
 
                                 <span class="overlay-heading" style="grid-area: 1/3/2/6; color: yellow;">Note: This is LIVE tab - any edits will immediately update overlays</span>
                                
+                                <div class="flex-row" style="grid-area: 4/1/5/6; z-index: 1; height: 80px; margin-top: 50px;">
+                                    <span class="event-casters-heading">Match Ended Heading Replacement: </span>
+                                    <input type="text" id="match-end-replace" value="Ending Soon" class="menu">
+                                    <div class="help">
+                                        <span style="color: red;">RECOMMEND TO LEAVE DEFAULT: <br> Ending Soon</span>
+                                        <span style="color: yellow;">If playing multiple series change to: <br> Setting Up Next Match</span>                                      
+                                    </div>
+                                </div>
                             </div> <!-- Overlay Config -->
 
                         </div>
@@ -2412,9 +2446,15 @@
                             </div>
                         </span>
                         <div class="menu-contents">
-                            <span>Modules</span>                            
-                            
-                        </div>
+                            <div class="flex-column">
+                                <span>LINKS</span>
+                                <a id="in-game-overlay-link" href="https://val-community-caster-overlay.pages.dev/overlay-in-game" target="_blank" rel="noopener noreferrer">In Game Overlay</a>                            
+                                <a id="map-veto-overlay-link" href="https://val-community-caster-overlay.pages.dev/overlay-map-veto" target="_blank" rel="noopener noreferrer">Map Veto Overlay</a>
+                                <a id="intermission-overlay-link" href="https://val-community-caster-overlay.pages.dev/overlay-intermission" target="_blank" rel="noopener noreferrer">Intermission Overlay</a>
+                                <a id="cams-overlay-link" href="https://val-community-caster-overlay.pages.dev/overlay-cams" target="_blank" rel="noopener noreferrer">Cams Overlay</a>
+                                <a id="cams-screen-overlay-link" href="https://val-community-caster-overlay.pages.dev/overlay-cams-screen" target="_blank" rel="noopener noreferrer">Cams + Screen Overlay</a>
+                            </div>
+                        </div> 
                     </div>
                 </label>
 

@@ -80,12 +80,6 @@
             grid-area: 1/1;
         }
 
-        #bo1-intermission {
-            display: grid;
-            grid-template: 1080px/1920px;
-            grid-area: 1/1;
-        }
-
         #bo3-intermission-pick-imgs {
             grid-area: 1/1;
             margin: 140px 0px 0px 1292px;
@@ -104,6 +98,30 @@
             text-transform: uppercase;
             color: white;
             font-size: 12pt;
+        }
+
+        .bo3-schedule-result-overlay {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 214px;
+            font-size: 40pt;
+        }
+
+        .bo3-schedule-team {
+            display: flex;
+            height: 214px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 18pt;
+            row-gap: 10px;
+        }
+
+        #bo1-intermission {
+            display: grid;
+            grid-template: 1080px/1920px;
+            grid-area: 1/1;
         }
 
         #bo1-pick-img-intermission {
@@ -152,34 +170,13 @@
             justify-content: center;
         }
 
-        .bo3-schedule-result-overlay {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding-bottom: 10px;
-            font-family: 'Foundry';
-            font-size: 40pt;
-            margin-bottom: 15px;
-        }
-
-        .schedule-team-logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding-bottom: 80px;
-        }
-
-        .schedule-team-name {
-            font-size: 18pt;
-            text-align: center;
-            margin-top: 120px;
-        }
-
         #intermission-heading-bottom-left {
             grid-area: 1/1;
             margin: 899px 0px 0px 114px;
             display: flex;
+            flex-direction: row;
             height: 55px;
+            width: fit-content;
             align-items: center;
             font-family: 'Foundry';
             font-size: 22pt;
@@ -209,11 +206,26 @@
             padding-right: 15px;
         }
 
-        #intermission-heading-triangle {
+        #intermission-heading-top-triangle {
             height: 0;
             width: 0;
             border-top: 55px solid #0D9093;
             border-right: 55px solid transparent;
+        }
+
+        #intermission-heading-bottom-triangle {
+            height: 0;
+            width: 0;
+            border-bottom: 55px solid #0D9093;
+            border-right: 55px solid transparent;
+        }
+
+        #current-map {
+            height: 55px;
+            display: flex;
+            align-items: center;
+            background-color: #0D9093;
+            padding-right: 15px;
         }
 
         #event-logo-area {
@@ -232,10 +244,10 @@
     <div id="page-container">
         <div id="intermission-overlay">
 
-            <div id="bo3-bg-videos" style="display: flex; grid-area: 1/1;">
-                <video controls autoplay loop src="https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/Abyss_Cinematic.webm?raw=true" class="bo3-intermission-background-video video" style="opacity: 0;"></video>
-                <video controls autoplay loop src="https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/Abyss_Cinematic.webm?raw=true" class="bo3-intermission-background-video video" style="opacity: 0;"></video>
-                <video controls autoplay loop src="https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/Abyss_Cinematic.webm?raw=true" class="bo3-intermission-background-video video" style="opacity: 0;"></video>    
+            <div id="bo3-bg-videos" style="display: grid; grid-area: 1/1;">
+                <video controls autoplay loop src="https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/Abyss_Cinematic.webm?raw=true" class="bo3-intermission-background-video video grid-1-1" style="opacity: 0;"></video>
+                <video controls autoplay loop src="https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/Abyss_Cinematic.webm?raw=true" class="bo3-intermission-background-video video grid-1-1" style="opacity: 0;"></video>
+                <video controls autoplay loop src="https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/Abyss_Cinematic.webm?raw=true" class="bo3-intermission-background-video video grid-1-1" style="opacity: 0;"></video>    
             </div>
 
             <div id="bo1-bg-videos" style="display: none; grid-area: 1/1;">
@@ -244,6 +256,13 @@
             
             
             <video controls autoplay loop src="assets/VCL_BO3_Schedule_Background.webm" class="overlay-element grid-1-1 video"></video>
+
+            <!-- TEMP -->
+            <div class="grid-1-1 bg-video-frame" style="width: 1436px; height: 15px; margin: 145px 0px 0px 99px; background-color: #0D9093;"></div>
+            <div class="grid-1-1 bg-video-frame" style="width: 1436px; height: 15px; margin: 939px 0px 0px 99px; background-color: #0D9093;"></div>
+            <div class="grid-1-1 bg-video-frame" style="width: 15px; height: 779px; margin: 160px 0px 0px 99px; background-color: #0D9093;"></div>
+            <div class="grid-1-1 bg-video-frame" style="width: 15px; height: 779px; margin: 160px 0px 0px 1520px; background-color: #0D9093;"></div>
+            <!-- TEMP -->
 
             <div id="bo3-intermission" style="display: grid;">
                 
@@ -290,41 +309,34 @@
                         </div>
                     </div>
 
-                    <div class="bo3-schedule-result-overlay" style="display: flex; grid-area: 3/2;">
-                        <span class="apply-map-1-score-intermission"></span>
-                    </div>
-                    <div class="bo3-schedule-result-overlay" style="display: flex; grid-area: 5/2;">
-                        <span class="apply-map-2-score-intermission"></span>
-                    </div>
-                    <div class="bo3-schedule-result-overlay" style="display: flex; grid-area: 7/2;">
-                        <span class="apply-map-3-score-intermission"></span>
-                    </div>
+                    <span class="bo3-schedule-result-overlay apply-map-1-score-intermission" style="grid-area: 2/2/4/3;"></span>
+                    <span class="bo3-schedule-result-overlay apply-map-2-score-intermission" style="grid-area: 4/2/6/3;"></span>
+                    <span class="bo3-schedule-result-overlay apply-map-3-score-intermission" style="grid-area: 6/2/8/3;"></span>
 
-                    <div class="schedule-team-logo" style="grid-area: 3/3;">
-                        <img class="apply-team-a-logo bo3-def-logo" style="width: 120px;" src="assets/200x200_No_Logo.png">
+                    <div class="bo3-schedule-team" style="grid-area: 2/3/4/4;">
+                        <img class="apply-team-a-logo def-logo" style="width: 120px;" src="assets/200x200_No_Logo.png">
+                        <span class="apply-team-a-tri def-name"></span>
                     </div>
-                    <div class="schedule-team-logo" style="grid-area: 5/3;">
-                        <img class="apply-team-a-logo bo3-def-logo" style="width: 120px;" src="assets/200x200_No_Logo.png">
+                    <div class="bo3-schedule-team" style="grid-area: 4/3/6/4;">
+                        <img class="apply-team-a-logo def-logo" style="width: 120px;" src="assets/200x200_No_Logo.png">
+                        <span class="apply-team-a-tri def-name"></span>
                     </div>
-                    <div class="schedule-team-logo" style="grid-area: 7/3;">
-                        <img class="apply-team-a-logo bo3-def-logo" style="width: 120px;" src="assets/200x200_No_Logo.png">
+                    <div class="bo3-schedule-team" style="grid-area: 6/3/8/4;">
+                        <img class="apply-team-a-logo def-logo" style="width: 120px;" src="assets/200x200_No_Logo.png">
+                        <span class="apply-team-a-tri def-name"></span>
                     </div>
-                    <div class="schedule-team-logo" style="grid-area: 3/1;">
-                        <img class="apply-team-b-logo bo3-attack-logo" style="width: 120px;" src="assets/200x200_No_Logo.png">
+                    <div class="bo3-schedule-team" style="grid-area: 2/1/4/2;">
+                        <img class="apply-team-b-logo atk-logo" style="width: 120px;" src="assets/200x200_No_Logo.png">
+                        <span class="apply-team-b-tri atk-name"></span>
                     </div>
-                    <div class="schedule-team-logo" style="grid-area: 5/1;">
-                        <img class="apply-team-b-logo bo3-attack-logo" style="width: 120px;" src="assets/200x200_No_Logo.png">
+                    <div class="bo3-schedule-team" style="grid-area: 4/1/6/2;">
+                        <img class="apply-team-b-logo atk-logo" style="width: 120px;" src="assets/200x200_No_Logo.png">
+                        <span class="apply-team-b-tri atk-name"></span>
                     </div>
-                    <div class="schedule-team-logo" style="grid-area: 7/1;">
-                        <img class="apply-team-b-logo bo3-attack-logo" style="width: 120px;" src="assets/200x200_No_Logo.png">
-                    </div>
-
-                    <span class="schedule-team-name apply-team-a-tri bo3-def-team" style="grid-area: 3/3;"></span>
-                    <span class="schedule-team-name apply-team-a-tri bo3-def-team" style="grid-area: 5/3;"></span>
-                    <span class="schedule-team-name apply-team-a-tri bo3-def-team" style="grid-area: 7/3;"></span>
-                    <span class="schedule-team-name apply-team-b-tri bo3-attack-team" style="grid-area: 3/1;"></span>
-                    <span class="schedule-team-name apply-team-b-tri bo3-attack-team" style="grid-area: 5/1;"></span>
-                    <span class="schedule-team-name apply-team-b-tri bo3-attack-team" style="grid-area: 7/1;"></span>
+                    <div class="bo3-schedule-team" style="grid-area: 6/1/8/2;">
+                        <img class="apply-team-b-logo atk-logo" style="width: 120px;" src="assets/200x200_No_Logo.png">
+                        <span class="apply-team-b-tri atk-name"></span>
+                    </div>                    
                 </div>
             </div> <!-- bo3-intermission -->
 
@@ -345,29 +357,29 @@
                     <div class="intermission-schedule-heading" style="grid-area: 2/2;">
                         <div class="flex-row">
                             <span style="margin-right: 0.4em;">BO1 -</span>
-                            <span id="bo1-intermission-schedule-map-pick">Fracture</span>
+                            <span id="bo1-intermission-schedule-map-pick"></span>
                         </div>
                     </div>
 
                     <div class="bo1-schedule-team" style="grid-area: 2/1/4/2; margin-left: 22px;">
                         <span>DEF</span>
-                        <img class="apply-team-a-logo bo1-defense-logo" style="width: 80px;" src="assets/200x200_No_Logo.png">
-                        <span class="apply-team-a-tri bo1-defense-team"></span>
+                        <img class="apply-team-a-logo def-logo" style="width: 80px;" src="assets/200x200_No_Logo.png">
+                        <span class="apply-team-a-tri def-name"></span>
                     </div>
 
                     <div class="bo1-schedule-team" style="grid-area: 5/3/6/4; margin-right: 22px;">
                         <span>ATK</span>
-                        <img class="apply-team-b-logo bo1-defense-logo" style="width: 80px;" src="assets/200x200_No_Logo.png">
-                        <span class="apply-team-b-tri bo1-defense-team"></span>
+                        <img class="apply-team-b-logo atk-logo" style="width: 80px;" src="assets/200x200_No_Logo.png">
+                        <span class="apply-team-b-tri atk-name"></span>
                     </div>
 
                     <div id="bo1-schedule-score">
                         <span class="apply-team-a-tri"></span>
-                        <span class="apply-map-1-score-intermission">14-12</span>
+                        <span class="apply-map-1-score-intermission"></span>
                         <span class="apply-team-b-tri"></span>
                     </div>
                 </div>
-            </div>
+            </div> <!-- bo1-intermission -->
 
             <div class="bottom-bar" style="display: grid; font-size: 25pt;"> 
                 <img src="assets/VCL_Bottom_Bar.png" class="overlay-element grid-1-1">
@@ -385,11 +397,12 @@
 
             <div id="intermission-heading-bottom-left">
                 <span id="current-map"></span>
+                <div id="intermission-heading-bottom-triangle"></div>
             </div>
 
             <div id="intermission-heading-top-left">
                 <span id="intermission-heading">Starting Soon</span>
-                <div id="intermission-heading-triangle"></div>
+                <div id="intermission-heading-top-triangle"></div>
             </div>
 
             <div id="event-logo-area">

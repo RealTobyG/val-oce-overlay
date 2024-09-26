@@ -76,7 +76,7 @@
             padding-bottom: 150px;
         }
 
-        #map-veto-title {
+        #map-veto-bo3-title {
             display: flex;
             font-family: 'Foundry';
             font-size: 64px;
@@ -219,6 +219,107 @@
             color: white;
             background-color: rgba(26, 26, 26, 0.5);
         }
+
+        #map-veto-bo1 {
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+            padding-bottom: 150px;
+        }
+
+        #map-veto-bo1-img-grid {
+            display: grid;
+            grid-template: 800px/1500px;
+            margin-left: 60px;
+            box-shadow: -60px 125px rgb(26 26 26 / 80%);
+        }
+
+        #bo1-map-img {
+            grid-area: 1/1;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        #bo1-def-team {
+            grid-area: 1/1;
+            display: flex;
+            flex-direction: row;
+            width: fit-content;
+            height: 150px;
+            font-family: 'Foundry';
+            font-size: 40pt;
+        }
+
+        #bo1-def-logo {
+            width: 120px;
+            margin-right: 20px;
+        }
+
+        #bo1-def-triangle {
+            height: 0;
+            width: 0;
+            border-top: solid 150px rgba(78, 138, 131, 0.5);
+            border-right: solid 150px transparent;
+        }
+
+        #bo1-atk-team {
+            grid-area: 1/1;
+            display: flex;
+            flex-direction: row;
+            width: fit-content;
+            height: 150px;
+            font-family: 'Foundry';
+            font-size: 40pt;
+            justify-self: flex-end;
+            align-self: flex-end;
+        }
+
+        #bo1-atk-logo {
+            width: 120px;
+            margin-left: 20px;
+        }
+
+        #bo1-atk-triangle {
+            height: 0;
+            width: 0;
+            border-bottom: solid 150px rgba(124, 92, 93, 0.5);
+            border-left: solid 150px transparent;
+        }
+
+        #bo1-map-pick-overlay {
+            grid-area: 1/1;
+            display: flex;
+            flex-direction: row;
+            height: 125px;
+            align-items: center;
+            margin: 800px 0px 0px 20px;
+            width: 1420px;
+        }
+
+        #bo1-pick-mapname {
+            color: white; 
+            font-family: 'Foundry'; 
+            font-size: 55pt;
+            margin-right: 70px;
+            text-transform: uppercase;
+        }
+
+        .bo1-map-pick-details {
+            display: grid;
+            grid-template: 40px 40px/130px 130px;
+            font-size: 20pt;
+            text-transform: uppercase;
+            align-items: center;
+        }
+
+        #bo1-map-result {
+            color: white;
+            font-family: 'Foundry';
+            font-size: 55pt;
+            margin-left: auto;
+            margin-right: 30px;
+        }
     </style>
 </head>
 
@@ -226,8 +327,9 @@
     <div id="page-container">
         <div id="map-veto-overlay">
             <video controls autoplay loop src="assets/VCL_Animated_Background.webm" class="overlay-element grid-1-1 video"></video>
-            <div id="map-veto-bo3" class="grid-1-1">
-                <div id="map-veto-title">
+            
+            <div id="map-veto-bo3" class="grid-1-1" style="display: none;">
+                <div id="map-veto-bo3-title">
                     <span style="color: white; text-transform: uppercase;" class="apply-team-a-name"></span>
                     <span style="color: red; margin: 0px 20px 0px 20px;"> VS </span>
                     <span style="color: white; text-transform: uppercase;" class="apply-team-b-name"></span>
@@ -314,7 +416,44 @@
                     </div>
                 </div>
             </div>
-        </div>
+
+            <div id="map-veto-bo1" class="grid-1-1" style="display: grid;">
+                <div id="map-veto-bo1-img-grid">
+                    <div id="bo1-map-img" style="background-image: url(assets/Maps/Abyss_1080p.png);"></div>
+                    
+                    <div id="bo1-def-team">
+                        <div class="flex-row" style="background-color: rgba(78, 138, 131, 0.5); padding: 0px 20px 0px 20px; column-gap: 20px;">
+                            <img id="bo1-def-logo" class="apply-team-a-logo" src="assets/200x200_No_Logo.png">
+                            <span id="bo1-def-name" class="apply-team-a-name"></span>
+                        </div>
+                        
+                        <div id="bo1-def-triangle"></div>
+                    </div>
+
+                    <div id="bo1-atk-team">
+                        <div id="bo1-atk-triangle"></div>
+                        
+                        <div class="flex-row" style="background-color: rgba(124, 92, 93, 0.5); padding: 0px 20px 0px 20px; column-gap: 20px;">
+                            <span id="bo1-atk-name" class="apply-team-b-name"></span>
+                            <img id="bo1-atk-logo" class="apply-team-b-logo" src="assets/200x200_No_Logo.png">
+                        </div>
+                    </div>
+
+                    <div id="bo1-map-pick-overlay">
+                        <span id="bo1-pick-mapname">ABYSS</span>
+                        <div class="bo1-map-pick-details">
+                            <span style="color: rgb(242, 246, 178);">DEF</span>
+                            <span style="color: rgb(242, 246, 178);" class="bo1-side-team apply-team-a-tri">TEAM</span>
+                            <span style="color: white;">PICK</span>
+                            <span style="color: white;" class="bo1-pick-team apply-team-a-tri"></span>
+                        </div>
+                        <span id="bo1-map-result">14-12</span>
+                    </div>
+                    
+                </div>
+            </div>
+
+        </div> <!-- map-veto-overlay -->
     </div>
 
 </body>

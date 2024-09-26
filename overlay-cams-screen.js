@@ -1,5 +1,6 @@
 let socket
 let overlaySetup = {}
+overlaySelection = 0
 
 function onPageLoad() {
     openSocket()
@@ -96,21 +97,25 @@ function setOverlay() {
     }
 
     // Overlay Theme
-    let overlaySelection = 'VCL'
-    if (overlaySetup.overlaySelection === 0) {
-        overlaySelection = 'VCL'
-    } else if (overlaySetup.overlaySelection === 1) {
-        overlaySelection = 'GC'
-    }
-
-    const overlayElements = document.getElementsByClassName('overlay-element')
-    if (overlaySelection === "GC") {
-        for (const element of overlayElements) {
-            element.src = element.src.replace(/(VCL|LPL)/g, "GC")
+    let overlayType = 'VCL'
+    if (overlaySelection !== overlaySetup.overlaySelection) {
+        if (overlaySetup.overlaySelection === 0) {
+            overlayType = 'VCL'
+            overlaySelection = 0
+        } else if (overlaySetup.overlaySelection === 1) {
+            overlayType = 'GC'
+            overlaySelection = 1
         }
-    } else if (overlaySelection === "VCL") {
-        for (const element of overlayElements) {
-            element.src = element.src.replace(/(GC|LPL)/g, "VCL")
+    
+        const overlayElements = document.getElementsByClassName('overlay-element')
+        if (overlayType === "GC") {
+            for (const element of overlayElements) {
+                element.src = element.src.replace(/(VCL|LPL)/g, "GC")
+            }
+        } else if (overlayType === "VCL") {
+            for (const element of overlayElements) {
+                element.src = element.src.replace(/(GC|LPL)/g, "VCL")
+            }
         }
     }
 

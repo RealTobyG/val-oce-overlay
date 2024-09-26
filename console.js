@@ -40,6 +40,8 @@ const defaultSettings = {
     bottomBarSelection: 1,
     chatCommandsSelection: 1,
     bottomBarTextSizeSelection: 1,
+    // Intermission Config
+    matchEnd: "Ending Soon",
 }
 
 const exampleSettings = {
@@ -84,6 +86,7 @@ const exampleSettings = {
     bottomBarSelection: 1,
     chatCommandsSelection: 1,
     bottomBarTextSizeSelection: 1,
+    matchEnd: "Ending Soon",
 }
  
 function restoreFromSettings(settings) {
@@ -97,6 +100,7 @@ function restoreFromSettings(settings) {
     restoreLiveGame(settings)
     restoreEventCasters(settings)
     restoreOverlay(settings)
+    restoreIntermission(settings)
 }
 
 function restoreTeams(settings) {
@@ -396,6 +400,10 @@ function restoreOverlay(settings) {
     }
     setOverlay()
     bottomBarUpdate()
+}
+
+function restoreIntermission(settings) {
+    document.getElementById('match-end-replace').value = settings.matchEnd
 }
 
 
@@ -1585,6 +1593,7 @@ const currentSettings = {
     bottomBarSelection: 1,
     chatCommandsSelection: 1,
     bottomBarTextSizeSelection: 1,
+    matchEnd: "Ending Soon",
 }
 
 function settingsSend() {
@@ -1593,6 +1602,7 @@ function settingsSend() {
     mapVetoSend()
     eventCastersSend()
     overlaySend()
+    intermissionSend()
     api.writeOverlaySetup(currentSettings)
 }
 
@@ -1642,7 +1652,7 @@ function mapVetoSend() {
             currentSettings.mapPoolSelection = Number(option.value)
         }
     }
-    for (option of document.getElementsByName('map-pool-selection')) {
+    for (option of document.getElementsByName('team-identifier-selection')) {
         if (option.checked) {
             currentSettings.teamIdentifierSelection = Number(option.value)
         }
@@ -1704,6 +1714,12 @@ for (element of document.getElementsByClassName('save-button')) {
     element.addEventListener('click', settingsSend)
 }
 
+function intermissionSend() {
+    currentSettings.matchEnd = document.getElementById('match-end-replace').value
+}
+
+document.getElementById('match-end-replace').addEventListener('change', settingsSend)
+
 
 function onPageLoad() {
     if (!auth.qmValidTokenInStorage()) {
@@ -1731,8 +1747,6 @@ function onPageLoad() {
     }
 }
 
-let url = new URL(document.location.href)
-
 async function getOverlaySetup() {
     let setupData
     setupData = await api.readOverlaySetup()
@@ -1741,8 +1755,11 @@ async function getOverlaySetup() {
         setupData = await api.readOverlaySetup()
     }
     restoreFromSettings(setupData.overlaySetup)
-    url.searchParams.set('token', `${setupData.token}`)
-    // document.location.href = document.location.href + `?token=${setupData.token}`
+    document.getElementById('in-game-overlay-link').href = `https://val-community-caster-overlay.pages.dev/overlay-in-game?token=${setupData.token}`                            
+    document.getElementById('map-veto-overlay-link').href =`https://val-community-caster-overlay.pages.dev/overlay-map-veto?token=${setupData.token}`
+    document.getElementById('intermission-overlay-link').href = `https://val-community-caster-overlay.pages.dev/overlay-intermission?token=${setupData.token}`
+    document.getElementById('cams-overlay-link').href = `https://val-community-caster-overlay.pages.dev/overlay-cams?token=${setupData.token}`
+    document.getElementById('cams-screen-overlay-link').href = `https://val-community-caster-overlay.pages.dev/overlay-cams-screen?token=${setupData.token}`
     console.log(setupData.token)
 }
 

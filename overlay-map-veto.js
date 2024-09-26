@@ -1,5 +1,6 @@
 let socket
 let overlaySetup = {}
+let overlaySelection = 0
 
 function onPageLoad() {
     openSocket()
@@ -50,21 +51,25 @@ function closeSocket() {
 
 function setOverlay() {
     // Overlay Theme
-    let overlaySelection = 'VCL'
-    if (overlaySetup.overlaySelection === 0) {
-        overlaySelection = 'VCL'
-    } else if (overlaySetup.overlaySelection === 1) {
-        overlaySelection = 'GC'
-    }
-
-    const overlayElements = document.getElementsByClassName('overlay-element')
-    if (overlaySelection === "GC") {
-        for (const element of overlayElements) {
-            element.src = element.src.replace(/(VCL|LPL)/g, "GC")
+    let overlayType = 'VCL'
+    if (overlaySelection !== overlaySetup.overlaySelection) {
+        if (overlaySetup.overlaySelection === 0) {
+            overlayType = 'VCL'
+            overlaySelection = 0
+        } else if (overlaySetup.overlaySelection === 1) {
+            overlayType = 'GC'
+            overlaySelection = 1
         }
-    } else if (overlaySelection === "VCL") {
-        for (const element of overlayElements) {
-            element.src = element.src.replace(/(GC|LPL)/g, "VCL")
+    
+        const overlayElements = document.getElementsByClassName('overlay-element')
+        if (overlayType === "GC") {
+            for (const element of overlayElements) {
+                element.src = element.src.replace(/(VCL|LPL)/g, "GC")
+            }
+        } else if (overlayType === "VCL") {
+            for (const element of overlayElements) {
+                element.src = element.src.replace(/(GC|LPL)/g, "VCL")
+            }
         }
     }
 
@@ -99,46 +104,92 @@ function setOverlay() {
         }
     }
 
-    // Sets defense teams for map veto overlay 
-    const pickSides = document.getElementsByClassName('bo3-side-team')
-    overlaySetup.mapPicksSides.forEach((team, i) => {
-        pickSides[i].className = pickSides[i].className.replace(/(team-a|team-b)/g, `${team}`)
-    })
-    // Sets map ban team names on map veto overlay
-    const banNames = document.getElementsByClassName('bo3-ban-team')
-    Array.from(banNames).forEach((element, i) => {
-        element.className = element.className.replace(/(team-a|team-b)/g, `${overlaySetup.mapBansTeams[i]}`)
-    })
-    // Sets map pick team names on map veto overlay
-    const pickNames = document.getElementsByClassName('bo3-pick-team')
-    overlaySetup.mapPicksTeams.forEach((pick, i) => {
-        pickNames[i].className = pickNames[i].className.replace(/(team-a|team-b)/g, `${pick}`)
-    })
-    // Sets map names and images for each map ban on map veto overlay
-    const banImgs = document.getElementsByClassName('bo3-ban-img')
-    const banMapNames = document.getElementsByClassName('bo3-ban-mapname')
-    overlaySetup.mapBans.forEach((ban, i) => {
-        banImgs[i].src = `assets/Maps/${ban}_320x320.png`
-        banMapNames[i].textContent = `${ban}`
-    })
-    // Sets map names and images for each map pick on map veto overlay
-    const pickImgs = document.getElementsByClassName('bo3-pick-img')
-    const pickMapNames = document.getElementsByClassName('bo3-pick-mapname')
-    overlaySetup.mapPicks.forEach((pick, i) => {
-        pickImgs[i].src = `assets/Maps/${pick}_320x640.png`
-        pickMapNames[i].textContent = `${pick}`
-    })
+    // Show BO1/BO3/BO5 Overlay
+    if (overlaySetup.seriesLengthSelection === 0) {
+        document.getElementById('map-veto-bo1').style.display = 'grid'
+        document.getElementById('map-veto-bo3').style.display = 'none'
+    } else if (overlaySetup.seriesLengthSelection === 1) {
+        document.getElementById('map-veto-bo1').style.display = 'none'
+        document.getElementById('map-veto-bo3').style.display = 'grid'
 
-    // Shows/Hides map results for finished maps
-    const mapResultOverlays = document.getElementsByClassName('map-result-overlay')
-    Array.from(mapResultOverlays).forEach((element, i) => {
-        if (Number(i)+1<=overlaySetup.mapNumber) {
-            element.style.display = 'flex'
+    }
+
+    if (overlaySetup.seriesLengthSelection === 1) {
+        // Sets defense teams for map veto overlay 
+        const bo3PickSides = document.getElementsByClassName('bo3-side-team')
+        overlaySetup.mapPicksSides.forEach((team, i) => {
+            bo3PickSides[i].className = bo3PickSides[i].className.replace(/(team-a|team-b)/g, `${team}`)
+        })
+        // Sets map ban team names on map veto overlay
+        const bo3BanNames = document.getElementsByClassName('bo3-ban-team')
+        Array.from(bo3BanNames).forEach((element, i) => {
+            element.className = element.className.replace(/(team-a|team-b)/g, `${overlaySetup.mapBansTeams[i]}`)
+        })
+        // Sets map pick team names on map veto overlay
+        const bo3PickNames = document.getElementsByClassName('bo3-pick-team')
+        overlaySetup.mapPicksTeams.forEach((pick, i) => {
+            bo3PickNames[i].className = bo3PickNames[i].className.replace(/(team-a|team-b)/g, `${pick}`)
+        })
+        // Sets map names and images for each map ban on map veto overlay
+        const bo3BanImgs = document.getElementsByClassName('bo3-ban-img')
+        const bo3BanMapNames = document.getElementsByClassName('bo3-ban-mapname')
+        overlaySetup.mapBans.forEach((ban, i) => {
+            bo3BanImgs[i].src = `assets/Maps/${ban}_320x320.png`
+            bo3BanMapNames[i].textContent = `${ban}`
+        })
+        // Sets map names and images for each map pick on map veto overlay
+        const bo3PickImgs = document.getElementsByClassName('bo3-pick-img')
+        const bo3PickMapNames = document.getElementsByClassName('bo3-pick-mapname')
+        overlaySetup.mapPicks.forEach((pick, i) => {
+            bo3PickImgs[i].src = `assets/Maps/${pick}_320x640.png`
+            bo3PickMapNames[i].textContent = `${pick}`
+        })
+        // Shows/Hides map results for finished maps
+        const mapResultOverlays = document.getElementsByClassName('map-result-overlay')
+        Array.from(mapResultOverlays).forEach((element, i) => {
+            if (Number(i)+1<=overlaySetup.mapNumber) {
+                element.style.display = 'flex'
+            }
+            else {
+                element.style.display = 'none'
+            }
+        })
+    } else if (overlaySetup.seriesLengthSelection === 0) {
+        // Sets defense teams for map veto overlay 
+        const bo1PickSides = document.getElementsByClassName('bo1-side-team')
+        overlaySetup.mapPicksSides.forEach((team, i) => {
+            bo1PickSides[i].className = bo1PickSides[i].className.replace(/(team-a|team-b)/g, `${team}`)
+            if (team === 'team-a') {
+                document.getElementById('bo1-def-logo').className.replace(/(team-a|team-b)/g, 'team-a')
+                document.getElementById('bo1-def-name').className.replace(/(team-a|team-b)/g, 'team-a')
+                document.getElementById('bo1-atk-logo').className.replace(/(team-a|team-b)/g, 'team-b')
+                document.getElementById('bo1-atk-name').className.replace(/(team-a|team-b)/g, 'team-b')
+            } else if (team === 'team-a') {
+                document.getElementById('bo1-def-logo').className.replace(/(team-a|team-b)/g, 'team-b')
+                document.getElementById('bo1-def-name').className.replace(/(team-a|team-b)/g, 'team-b')
+                document.getElementById('bo1-atk-logo').className.replace(/(team-a|team-b)/g, 'team-a')
+                document.getElementById('bo1-atk-name').className.replace(/(team-a|team-b)/g, 'team-a')
+            }
+        })
+        // Sets map pick team names and logos on map veto overlay
+        const bo1PickNames = document.getElementsByClassName('bo1-pick-team')
+        overlaySetup.mapPicksTeams.forEach((pick, i) => {
+            bo1PickNames[i].className = bo1PickNames[i].className.replace(/(team-a|team-b)/g, `${pick}`)
+        })
+        // Sets map names and images for each map pick on map veto overlay
+        overlaySetup.mapPicks.forEach((pick, i) => {
+            document.getElementById('bo1-map-img').src = `assets/Maps/${pick}_1080p.png`
+            document.getElementById('bo1-pick-mapname').textContent = `${pick}`
+        })
+        // Sets and shows/hides BO1 result
+        document.getElementById('bo1-map-result').textContent = `${overlaySetup.teamATri} ${overlaySetup.mapScores[0]} - ${overlaySetup.mapScores[1]} ${overlaySetup.teamBTri}`
+        if (overlaySetup.mapNumber === 1) {
+            document.getElementById('bo1-map-result').style.display = 'block'
+        } else {
+            document.getElementById('bo1-map-result').style.display = 'none'
         }
-        else {
-            element.style.display = 'none'
-        }
-    })
+    }
+    
 
     // Updates winning team details for every complete map
     overlaySetup.mapWinners.forEach((mapWinner, i) => {
