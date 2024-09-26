@@ -155,7 +155,7 @@ function setOverlay() {
     const casterHandles2 = document.getElementsByClassName('caster-handle-2')
     if (overlaySetup.castersSelection === 0) {
         // document.getElementById('cams-overlay-video').src = `assets/${overlaySelection}_Cam_Background.webm`
-        document.getElementById('cams-screen-overlay-video').src = `assets/${overlaySelection}_Cam_Screen_Background.webm`
+        document.getElementById('cams-screen-overlay-video').src = `assets/${overlayType}_Cam_Screen_Background.webm`
         for (const element of casterHandles1) {
             element.style.display = 'grid'
         }
@@ -164,7 +164,7 @@ function setOverlay() {
         }
     } else {
         // document.getElementById('cams-overlay-video').src = `assets/${overlaySelection}_Dual_Cam_Background.webm`
-        document.getElementById('cams-screen-overlay-video').src = `assets/${overlaySelection}_Dual_Cam_Screen_Background.webm`
+        document.getElementById('cams-screen-overlay-video').src = `assets/${overlayType}_Dual_Cam_Screen_Background.webm`
         for (const element of casterHandles2) {
             element.style.display = 'grid'
         }
