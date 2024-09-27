@@ -4,7 +4,12 @@ let overlaySelection = 0
 
 function onPageLoad() {
     openSocket()
+}
 
+function openSocket() {
+    let urlParams = new URLSearchParams(document.location.search)
+    let token = urlParams.get('token')
+    socket = new WebSocket(`wss://7o4cyso8n2.execute-api.ap-southeast-2.amazonaws.com/production/?token=${token}`); // Replace Token with URL Query/known token
     socket.onopen = function (e) {
         console.log('Socket Open Success')
         socket.send(JSON.stringify({ action: 'get' }))
@@ -22,18 +27,12 @@ function onPageLoad() {
         } else {
             console.log('[close] Connection died');
         }
-        openSocket()
+        setTimeout(openSocket, 1000)
     };
 
     socket.onerror = function (error) {
         console.log(`[error]`);
     };
-}
-
-function openSocket() {
-    let urlParams = new URLSearchParams(document.location.search)
-    let token = urlParams.get('token')
-    socket = new WebSocket(`wss://7o4cyso8n2.execute-api.ap-southeast-2.amazonaws.com/production/?token=${token}`); // Replace Token with URL Query/known token
 }
 
 async function getOverlay() {
@@ -178,7 +177,7 @@ function setOverlay() {
         })
         // Sets map names and images for each map pick on map veto overlay
         overlaySetup.mapPicks.forEach((pick, i) => {
-            document.getElementById('bo1-map-img').src = `assets/Maps/${pick}_1080p.png`
+            document.getElementById('bo1-map-img').style.backgroundImage = `url(assets/Maps/${pick}_1080p.png)`
             document.getElementById('bo1-pick-mapname').textContent = `${pick}`
         })
         // Sets and shows/hides BO1 result

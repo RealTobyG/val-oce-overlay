@@ -8,7 +8,12 @@ let overlaySelection = 0
 
 function onPageLoad() {
     openSocket()
+}
 
+function openSocket() {
+    let urlParams = new URLSearchParams(document.location.search)
+    let token = urlParams.get('token')
+    socket = new WebSocket(`wss://7o4cyso8n2.execute-api.ap-southeast-2.amazonaws.com/production/?token=${token}`); // Replace Token with URL Query/known token
     socket.onopen = function (e) {
         console.log('Socket Open Success')
         socket.send(JSON.stringify({ action: 'get' }))
@@ -26,18 +31,12 @@ function onPageLoad() {
         } else {
             console.log('[close] Connection died');
         }
-        openSocket()
+        setTimeout(openSocket, 1000)
     };
 
     socket.onerror = function (error) {
         console.log(`[error]`);
     };
-}
-
-function openSocket() {
-    let urlParams = new URLSearchParams(document.location.search)
-    let token = urlParams.get('token')
-    socket = new WebSocket(`wss://7o4cyso8n2.execute-api.ap-southeast-2.amazonaws.com/production/?token=${token}`); // Replace Token with URL Query/known token
 }
 
 async function getOverlay() {
