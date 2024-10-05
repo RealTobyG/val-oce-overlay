@@ -9,6 +9,15 @@
 
 
     <style>
+        :root {
+            --c1: #007477;
+            --c2: #00262a;
+            --c3: #0297b5;
+            --c4: #00f0f8;
+            --f1: #204546;
+            --f2: #257878;
+        }
+        
         @font-face {
             font-family: 'Arial';
             src: url(assets/fonts/ARIALBD.TTF);
@@ -39,82 +48,254 @@
 
         #page-container {
             display: grid;
-            grid-template-columns: 1080px, 1080px/1920px;
+            grid-template: 1080px 200px/1920px;
         }
 
-        #map-veto-overlay {
+        /* ################################################################# */
+
+        #background {
             display: grid;
             grid-template: 1080px/1920px;
-            grid-area: 1/1
+            grid-area: 1/1;
+            overflow: hidden;
         }
 
-        #flowy-background-1 {
-            background: linear-gradient(to bottom, #007477, #0297b5);
+        #default-background {
+            grid-area: 1/1;
+            display: grid;
+            grid-template: 1080px/1920px;
+        }
+
+        #gradient {
+            grid-area: 1/1;
+            width: 9600px;
+            transform: translate(-7680px);
+            display: flex;
+            -webkit-animation: gradientAnimate 20s linear infinite;
+        }
+
+        .gradient-1 {
+            background: linear-gradient(to bottom, var(--c1), var(--c3));
             width: 1920px;
             height: 1080px;
-            -webkit-mask-image: url(assets/Mask_Test.png);
-            opacity: 100;
-            transition: 5s;
         }
 
-        #flowy-background-1::after {
-            background: linear-gradient(to bottom, #00262a, #00f0f8);
+        .gradient-1::after {
+            background: linear-gradient(to bottom, var(--c2), var(--c4));
             content: "";
             position: absolute;
-            width: inherit;
-            height: inherit;
-            -webkit-mask-image: linear-gradient(to left, white, transparent);
-            opacity: 100;
-            transition: 5s;
-        }
-
-        #flowy-background-2 {
-            background: linear-gradient(to bottom, #00f0f8, #00262a);
             width: 1920px;
             height: 1080px;
-            -webkit-mask-image: url(assets/Mask_Test.png);
-            transition: 5s;
+            -webkit-mask-image: linear-gradient(to left, white, transparent);
         }
 
-        #flowy-background-2::after {
-            background: linear-gradient(to bottom, #007477, #0297b5);
+        .gradient-2 {
+            background: linear-gradient(to bottom, var(--c4), var(--c2));
+            width: 1920px;
+            height: 1080px;
+        }
+
+        .gradient-2::after {
+            background: linear-gradient(to bottom, var(--c1), var(--c3));
             content: "";
             position: absolute;
-            width: inherit;
-            height: inherit;
+            width: 1920px;
+            height: 1080px;
             -webkit-mask-image: linear-gradient(to left, white, transparent);
-            transition: 5s;
+        }
+
+        .gradient-3 {
+            background: linear-gradient(to bottom, var(--c3), var(--c1));
+            width: 1920px;
+            height: 1080px;
+        }
+
+        .gradient-3::after {
+            background: linear-gradient(to bottom, var(--c4), var(--c2));
+            content: "";
+            position: absolute;
+            width: 1920px;
+            height: 1080px;
+            -webkit-mask-image: linear-gradient(to left, white, transparent);
+        }
+
+        .gradient-4 {
+            background: linear-gradient(to bottom, var(--c2), var(--c4));
+            width: 1920px;
+            height: 1080px;
+        }
+
+        .gradient-4::after {
+            background: linear-gradient(to bottom, var(--c3), var(--c1));
+            content: "";
+            position: absolute;
+            width: 1920px;
+            height: 1080px;
+            -webkit-mask-image: linear-gradient(to left, white, transparent);
+        }
+
+        @-webkit-keyframes gradientAnimate {
+            0% {transform: translate(-7680px);}
+            100% {transform: translate(0px);}
+        }
+
+        #moving-bars {
+            grid-area: 1/1;
+            display: grid;
+            grid-template: 1080px/1920px;
+            z-index: 1;
+        }
+
+        #bar-1 {
+            grid-area: 1/1;
+            display: flex;
+            flex-direction: column;
+            height: fit-content;
+            width: fit-content;
+            margin: 100px 0px 0px 73px;
+            -webkit-animation: bar1Animate 40s linear infinite;
+            filter: drop-shadow(30px 30px 12px rgba(0, 0, 0, 0.5));
+        }
+
+        #bar-2 {
+            grid-area: 1/1;
+            display: flex;
+            flex-direction: column;
+            height: fit-content;
+            width: fit-content;
+            margin: 550px 0px 0px 268px;
+            -webkit-animation: bar2Animate 40s linear infinite;
+            filter: drop-shadow(30px 30px 12px rgba(0, 0, 0, 0.5));
+        }
+
+        #bar-3 {
+            grid-area: 1/1;
+            display: flex;
+            flex-direction: column;
+            height: fit-content;
+            width: fit-content;
+            margin: 140px 0px 0px 1579px;
+            -webkit-animation: bar3Animate 10s linear infinite;
+            filter: drop-shadow(30px 30px 12px rgba(0, 0, 0, 0.5));
+        }
+
+        #bar-4 {
+            grid-area: 1/1;
+            display: flex;
+            flex-direction: column;
+            height: fit-content;
+            width: fit-content;
+            margin: 415px 0px 0px 1744px;
+            -webkit-animation: bar4Animate 40s linear infinite;
+            filter: drop-shadow(30px 30px 12px rgba(0, 0, 0, 0.5));
+        }
+
+        @-webkit-keyframes bar1Animate {
+            0% {transform: translate(0px, -700px);}
+            50% {transform: translate(0px, 980px);}
+            52.5% {transform: translate(0px, 980px);}
+            100% {transform: translate(0px, -700px);}
+        }
+
+        @-webkit-keyframes bar2Animate {
+            0% {transform: translate(0px, -250px);}
+            12.5% {transform: translate(0px, -1000px);}
+            12.500001% {transform: translate(0px, 550px);}
+            37.5% {transform: translate(0px, -1000px);}
+            40% {transform: translate(0px, -1000px);}
+            62.5% {transform: translate(0px, 550px);}
+            62.500001% {transform: translate(0px, -1000px);}
+            87.5% {transform: translate(0px, 550px);}
+            88% {transform: translate(0px, 550px);}
+            100% {transform: translate(0px, -250px);}
+        }
+
+        @-webkit-keyframes bar3Animate {
+            0% {transform: translate(0px, -580px);}
+            100% {transform: translate(0px, 950px);}
+        }
+
+        @-webkit-keyframes bar4Animate {
+            0% {transform: translate(0px, 150px);}
+            26.25% {transform: translate(0px, 700px);}
+            28.75% {transform: translate(0px, 700px);}
+            65.85% {transform: translate(0px, -1020px);}
+            68.35% {transform: translate(0px, -1020px);}
+            100% {transform: translate(0px, 150px);}
         }
     </style>
 </head>
 
 <body>
     <div id="page-container">
-        <div id="map-veto-overlay">
-            <img src="assets/Valorant_Preview.png" style="grid-area: 1/1;">
-            <!-- <div id="flowy-background-1" style="opacity: 100; grid-area: 1/1;"></div>
-            <div id="flowy-background-2" style="opacity: 0; grid-area: 1/1;"></div> -->
-            <div id="test"></div>
+        <img src="assets/Valorant_Preview.png" style="grid-area: 1/1;">
+        <div id="background">
+            <div id="default-background">
+                <div id="gradient">
+                    <div class="gradient-1"></div>
+                    <div class="gradient-4"></div>
+                    <div class="gradient-3"></div>
+                    <div class="gradient-2"></div>
+                    <div class="gradient-1"></div>
+                </div>
+                <div id="moving-bars">
+                    <div id="bar-1">
+                        <div style="height: 0; width: 0; border-bottom: 100px solid var(--f1); border-left: 100px solid transparent;"></div>
+                        <div style="height: 360px; width: 100px; background-color: var(--f1);"></div>
+                        <div style="height: 0; width: 0; border-top: 100px solid var(--f1); border-left: 100px solid transparent;"></div>
+                    </div>
+
+                    <div id="bar-2">
+                        <div style="height: 0; width: 0; border-bottom: 75px solid var(--f2); border-right: 75px solid transparent;"></div>
+                        <div style="height: 250px; width: 75px; background-color: var(--f2);"></div>
+                        <div style="height: 0; width: 0; border-top: 75px solid var(--f2); border-right: 75px solid transparent;"></div>
+                    </div>
+
+                    <div id="bar-3">
+                        <div style="height: 0; width: 0; border-bottom: 75px solid var(--f2); border-left: 75px solid transparent;"></div>
+                        <div style="height: 250px; width: 75px; background-color: var(--f2);"></div>
+                        <div style="height: 0; width: 0; border-top: 75px solid var(--f2); border-left: 75px solid transparent;"></div>
+                    </div>
+
+                    <div id="bar-4">
+                        <div style="height: 0; width: 0; border-bottom: 100px solid var(--f1); border-right: 100px solid transparent;"></div>
+                        <div style="height: 360px; width: 100px; background-color: var(--f1);"></div>
+                        <div style="height: 0; width: 0; border-top: 100px solid var(--f1); border-right: 100px solid transparent;"></div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="flex-row">
-            <span style="margin-right: 20px;">Color 1</span>
-            <input type="color" id="c1" value="#007477">
-        </div>
+        <div class="flex-column" style="margin-top: 20px; row-gap: 10px;">
+            <div class="flex-row">
+                <span style="margin-right: 20px;">BG Color 1</span>
+                <input type="color" id="c1" value="#007477">
+            </div>
+    
+            <div class="flex-row">
+                <span style="margin-right: 20px;">BG Color 2</span>
+                <input type="color" id="c2" value="#00262a">
+            </div>
+                
+            <div class="flex-row">
+                <span style="margin-right: 20px;">BG Color 3</span>
+                <input type="color" id="c3" value="#0297b5">
+            </div>
+    
+            <div class="flex-row">
+                <span style="margin-right: 20px;">BG Color 4</span>
+                <input type="color" id="c4" value="#00f0f8">
+            </div>
 
-        <div class="flex-row">
-            <span style="margin-right: 20px;">Color 2</span>
-            <input type="color" id="c2" value="#00262a">
-        </div>
-            
-        <div class="flex-row">
-            <span style="margin-right: 20px;">Color 3</span>
-            <input type="color" id="c3" value="#0297b5">
-        </div>
+            <div class="flex-row">
+                <span style="margin-right: 20px;">BG Feature 1</span>
+                <input type="color" id="f1" value="#204546">
+            </div>
 
-        <div class="flex-row">
-            <span style="margin-right: 20px;">Color 4</span>
-            <input type="color" id="c4" value="#00f0f8">
+            <div class="flex-row">
+                <span style="margin-right: 20px;">BG Feature 2</span>
+                <input type="color" id="f2" value="#257878">    
+            </div>
         </div>
         
     </div> <!-- page-container -->
