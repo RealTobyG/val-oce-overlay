@@ -152,7 +152,8 @@ function setOverlay() {
 
     // Casters Selection
     if (overlaySetup.castersSelection === 0) {
-        document.getElementById('background').style.maskImage = 'url(assets/Mask_Cam_Screen.png)'
+        document.getElementById('background').setAttribute('style', '-webkit-mask-image: url(assets/Mask_Cam_Screen.png)') 
+        // document.getElementById('background').style.webkitMaskImage = 'url(assets/Mask_Cam_Screen.png)'
         document.getElementById('caster-handle-1').style.display = "flex"
         document.getElementById('caster-handle-2-1').style.display = "none"
         document.getElementById('caster-handle-2-2').style.display = "none"
@@ -160,7 +161,8 @@ function setOverlay() {
         document.getElementById('cam-2-1').style.display = "none"
         document.getElementById('cam-2-2').style.display = "none"
     } else {
-        document.getElementById('background').style.maskImage = 'url(assets/Mask_Dual_Cam_Screen.png)'
+        document.getElementById('background').setAttribute('style', '-webkit-mask-image: url(assets/Mask_Dual_Cam_Screen.png)')
+        // document.getElementById('background').style.maskImage = 'url(assets/Mask_Dual_Cam_Screen.png)'
         document.getElementById('caster-handle-1').style.display = "none"
         document.getElementById('caster-handle-2-1').style.display = "flex"
         document.getElementById('caster-handle-2-2').style.display = "flex"
