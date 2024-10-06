@@ -1377,7 +1377,7 @@ function intermission3() {
         clearInterval(countdown)
         countdown = null
     }
-    deadline = Date.now() + 3*1000
+    deadline = Date.now() + 3*60000
     countdownTimer()
     countdown = setInterval(countdownTimer, 1000)
 }

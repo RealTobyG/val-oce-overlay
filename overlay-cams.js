@@ -1,6 +1,5 @@
 let socket
 let overlaySetup = {}
-let overlaySelection = 0
 
 function onPageLoad() {
     openSocket()
@@ -96,39 +95,21 @@ function setOverlay() {
     }
 
     // Overlay Theme
-    let overlayType = 'VCL'
-    if (overlaySelection !== overlaySetup.overlaySelection) {
-        if (overlaySetup.overlaySelection === 0) {
-            overlayType = 'VCL'
-            overlaySelection = 0
-        } else if (overlaySetup.overlaySelection === 1) {
-            overlayType = 'GC'
-            overlaySelection = 1
-        }
-    
-        const overlayElements = document.getElementsByClassName('overlay-element')
-        if (overlayType === "GC") {
-            for (const element of overlayElements) {
-                element.src = element.src.replace(/(VCL|LPL)/g, "GC")
-            }
-        } else if (overlayType === "VCL") {
-            for (const element of overlayElements) {
-                element.src = element.src.replace(/(GC|LPL)/g, "VCL")
-            }
-        }
-    }
+    document.documentElement.style.setProperty('--bg1', `${overlaySetup.bg1}`)
+    document.documentElement.style.setProperty('--bg2', `${overlaySetup.bg2}`)
+    document.documentElement.style.setProperty('--bg3', `${overlaySetup.bg3}`)
+    document.documentElement.style.setProperty('--bg4', `${overlaySetup.bg4}`)
+    document.documentElement.style.setProperty('--bga1', `${overlaySetup.bga1}`)
+    document.documentElement.style.setProperty('--bga2', `${overlaySetup.bga2}`)
+    document.documentElement.style.setProperty('--frames', `${overlaySetup.frames}`)
 
     // Bottom Bar
-    const bottomBarAll = document.getElementsByClassName('bottom-bar')
+    const bottomBar = document.getElementById('bottom-bar')
     const chatCommandsAll = document.getElementsByClassName('chat-commands')
     if (overlaySetup.bottomBarSelection === 0) {
-        for (const instance of bottomBarAll) {
-            instance.style.display = 'none'
-        }
+        bottomBar.style.display = 'none'
     } else {
-        for (const instance of bottomBarAll) {
-            instance.style.display = 'grid'
-        }
+        bottomBar.style.display = 'grid'
     }
     if (overlaySetup.chatCommandsSelection === 0) {
         for (const instance of chatCommandsAll) {
@@ -140,35 +121,27 @@ function setOverlay() {
         }
     }
     if (overlaySetup.bottomBarTextSizeSelection === 1) {
-        for (const instance of bottomBarAll) {
-            instance.style.fontSize = '25pt'
-        }
+        bottomBar.style.fontSize = '25pt'
     } else {
-        for (const instance of bottomBarAll) {
-            instance.style.fontSize = '20pt'
-        }
+        bottomBar.style.fontSize = '20pt'
     }
 
     // Casters Selection
-    const casterHandles1 = document.getElementsByClassName('caster-handle-1')
-    const casterHandles2 = document.getElementsByClassName('caster-handle-2')
     if (overlaySetup.castersSelection === 0) {
-        document.getElementById('cams-overlay-video').src = `assets/${overlayType}_Cam_Background.webm`
-        // document.getElementById('cams-screen-overlay-video').src = `assets/${overlaySelection}_Cam_Screen_Background.webm`
-        for (const element of casterHandles1) {
-            element.style.display = 'grid'
-        }
-        for (const element of casterHandles2) {
-            element.style.display = 'none'
-        }
+        document.getElementById('background').setAttribute('style', '-webkit-mask-image: url(assets/Mask_Cam.png)') 
+        document.getElementById('caster-handle-1').style.display = "flex"
+        document.getElementById('caster-handle-2-1').style.display = "none"
+        document.getElementById('caster-handle-2-2').style.display = "none"
+        document.getElementById('cam-1').style.display = "flex"
+        document.getElementById('cam-2-1').style.display = "none"
+        document.getElementById('cam-2-2').style.display = "none"
     } else {
-        document.getElementById('cams-overlay-video').src = `assets/${overlayType}_Dual_Cam_Background.webm`
-        // document.getElementById('cams-screen-overlay-video').src = `assets/${overlaySelection}_Dual_Cam_Screen_Background.webm`
-        for (const element of casterHandles2) {
-            element.style.display = 'grid'
-        }
-        for (const element of casterHandles1) {
-            element.style.display = 'none'
-        }
+        document.getElementById('background').setAttribute('style', '-webkit-mask-image: url(assets/Mask_Dual_Cam.png)')
+        document.getElementById('caster-handle-1').style.display = "none"
+        document.getElementById('caster-handle-2-1').style.display = "flex"
+        document.getElementById('caster-handle-2-2').style.display = "flex"
+        document.getElementById('cam-1').style.display = "none"
+        document.getElementById('cam-2-1').style.display = "flex"
+        document.getElementById('cam-2-2').style.display = "flex"
     }
 }

@@ -15,7 +15,7 @@
             --bg4: #00f0f8;
             --bga1: #204546;
             --bga2: #257878;
-            --frames: #257878;
+            --frames: #0D9093;
         }
 
         @font-face {
@@ -264,6 +264,21 @@
             100% {transform: translate(0px, 150px);}
         }
 
+        #screen-frame {
+            grid-area: 1/1;
+            border: solid 20px var(--frames);
+            height: 640px; 
+            width: 1137px;
+            margin: 175px 0px 0px 49px;
+        }
+
+        .caster-frame {
+            grid-area: 1/1;
+            border: solid 20px var(--frames);
+            height: 300px;
+            width: 533px;
+        }
+
         .caster-container {
             grid-area: 1/1;
             display: flex;
@@ -336,21 +351,21 @@
                 </div>
 
                 <div id="frames">
-                    <div id="screen-frame" style="border: solid 20px var(--frames); height: 640px; width: 1137px; margin: 175px 0px 0px 49px; grid-area: 1/1;"></div>
+                    <div id="screen-frame"></div>
                     
-                    <div id="cam-1" style="display: none; border: solid 20px var(--frames); height: 300px; width: 533px; margin: 330px 0px 0px 1288px; grid-area: 1/1;"></div>
+                    <div id="cam-1" class="caster-frame" style="display: block; margin: 330px 0px 0px 1288px;"></div>
                     <div id="caster-handle-1" class="caster-container" style="display: flex; margin: 670px 0px 0px 1288px;">
                         <span id="caster-1" class="apply-caster-1-name caster-name">@</span>
                         <div class="lower-right-triangle"></div>
                     </div>
                     
-                    <div id="cam-2-1" style="display: block; border: solid 20px var(--frames); height: 300px; width: 533px; margin: 107px 0px 0px 1288px; grid-area: 1/1;"></div>
+                    <div id="cam-2-1" class="caster-frame" style="display: none; margin: 107px 0px 0px 1288px;"></div>
                     <div id="caster-handle-2-1" class="caster-container" style="display: none; margin: 447px 0px 0px 1288px;">
                         <span id="caster-2-1" class="apply-caster-1-name caster-name">@</span>
                         <div class="lower-right-triangle"></div>
                     </div>
 
-                    <div id="cam-2-2" style="display: block; border: solid 20px var(--frames); height: 300px; width: 533px; margin: 552px 0px 0px 1288px; grid-area: 1/1;"></div>
+                    <div id="cam-2-2" class="caster-frame" style="display: none; margin: 552px 0px 0px 1288px;"></div>
                     <div id="caster-handle-2-2" class="caster-container" style="display: none; margin: 892px 0px 0px 1288px;">
                         <span id="caster-2-2" class="apply-caster-2-name caster-name">@</span>
                         <div class="lower-right-triangle"></div>
@@ -378,19 +393,6 @@
 
             </div> <!-- background -->
 
-            <!-- <div class="caster-handle-1" style="display: grid;">
-                <div id="cam-screen-1">
-                    <span class="apply-caster-1-name">@</span>
-                </div>
-            </div>
-            <div class="caster-handle-2" style="display: none;">
-                <div id="cam-screen-2-1">
-                    <span class="apply-caster-1-name">@</span>
-                </div>
-                <div id="cam-screen-2-2">
-                    <span class="apply-caster-2-name">@</span>
-                </div>
-            </div> -->
         </div>
     </div>
 

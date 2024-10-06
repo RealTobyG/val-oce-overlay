@@ -8,6 +8,16 @@
     <script src="overlay-intermission.js" defer></script>
 
     <style>
+        :root {
+            --bg1: #007477;
+            --bg2: #00262a;
+            --bg3: #0297b5;
+            --bg4: #00f0f8;
+            --bga1: #204546;
+            --bga2: #257878;
+            --frames: #0D9093;
+        }
+
         @font-face {
             font-family: 'Arial';
             src: url(assets/fonts/ARIALBD.TTF);
@@ -43,10 +53,16 @@
             color: white;
         }
 
-        .bottom-bar {
+        #bottom-bar {
             grid-area: 1/1;
             display: grid;
             grid-template: 1080px/1920px;
+        }
+
+        #bottom-bar-bg {
+            grid-area: 1/1;
+            display: grid;
+            grid-template: 1030px 50px/360px 50px 1100px 50px 360px;
         }
 
         .bottom-bar-content {
@@ -69,15 +85,187 @@
             grid-template: 1080px/1920px;
         }
 
+        #background {
+            display: grid;
+            grid-template: 1080px/1920px;
+            grid-area: 1/1;
+            overflow: hidden;
+        }
+
+        #default-background {
+            grid-area: 1/1;
+            display: grid;
+            grid-template: 1080px/1920px;
+        }
+
+        #gradient {
+            grid-area: 1/1;
+            width: 9600px;
+            transform: translate(-7680px);
+            display: flex;
+            -webkit-animation: gradientAnimate 20s linear infinite;
+        }
+
+        .gradient-1 {
+            background: linear-gradient(to bottom, var(--bg1), var(--bg3));
+            width: 1920px;
+            height: 1080px;
+        }
+
+        .gradient-1::after {
+            background: linear-gradient(to bottom, var(--bg2), var(--bg4));
+            content: "";
+            position: absolute;
+            width: 1920px;
+            height: 1080px;
+            -webkit-mask-image: linear-gradient(to left, white, transparent);
+        }
+
+        .gradient-2 {
+            background: linear-gradient(to bottom, var(--bg4), var(--bg2));
+            width: 1920px;
+            height: 1080px;
+        }
+
+        .gradient-2::after {
+            background: linear-gradient(to bottom, var(--bg1), var(--bg3));
+            content: "";
+            position: absolute;
+            width: 1920px;
+            height: 1080px;
+            -webkit-mask-image: linear-gradient(to left, white, transparent);
+        }
+
+        .gradient-3 {
+            background: linear-gradient(to bottom, var(--bg3), var(--bg1));
+            width: 1920px;
+            height: 1080px;
+        }
+
+        .gradient-3::after {
+            background: linear-gradient(to bottom, var(--bg4), var(--bg2));
+            content: "";
+            position: absolute;
+            width: 1920px;
+            height: 1080px;
+            -webkit-mask-image: linear-gradient(to left, white, transparent);
+        }
+
+        .gradient-4 {
+            background: linear-gradient(to bottom, var(--bg2), var(--bg4));
+            width: 1920px;
+            height: 1080px;
+        }
+
+        .gradient-4::after {
+            background: linear-gradient(to bottom, var(--bg3), var(--bg1));
+            content: "";
+            position: absolute;
+            width: 1920px;
+            height: 1080px;
+            -webkit-mask-image: linear-gradient(to left, white, transparent);
+        }
+
+        @-webkit-keyframes gradientAnimate {
+            0% {transform: translate(-7680px);}
+            100% {transform: translate(0px);}
+        }
+
+        #moving-bars {
+            grid-area: 1/1;
+            display: grid;
+            grid-template: 1080px/1920px;
+            z-index: 1;
+        }
+
+        #bar-1 {
+            grid-area: 1/1;
+            display: flex;
+            flex-direction: column;
+            height: fit-content;
+            width: fit-content;
+            margin: 100px 0px 0px 73px;
+            -webkit-animation: bar1Animate 40s linear infinite;
+            filter: drop-shadow(30px 30px 12px rgba(0, 0, 0, 0.5));
+        }
+
+        #bar-2 {
+            grid-area: 1/1;
+            display: flex;
+            flex-direction: column;
+            height: fit-content;
+            width: fit-content;
+            margin: 550px 0px 0px 268px;
+            -webkit-animation: bar2Animate 40s linear infinite;
+            filter: drop-shadow(30px 30px 12px rgba(0, 0, 0, 0.5));
+        }
+
+        #bar-3 {
+            grid-area: 1/1;
+            display: flex;
+            flex-direction: column;
+            height: fit-content;
+            width: fit-content;
+            margin: 140px 0px 0px 1579px;
+            -webkit-animation: bar3Animate 10s linear infinite;
+            filter: drop-shadow(30px 30px 12px rgba(0, 0, 0, 0.5));
+        }
+
+        #bar-4 {
+            grid-area: 1/1;
+            display: flex;
+            flex-direction: column;
+            height: fit-content;
+            width: fit-content;
+            margin: 415px 0px 0px 1744px;
+            -webkit-animation: bar4Animate 40s linear infinite;
+            filter: drop-shadow(30px 30px 12px rgba(0, 0, 0, 0.5));
+        }
+
+        @-webkit-keyframes bar1Animate {
+            0% {transform: translate(0px, -700px);}
+            50% {transform: translate(0px, 980px);}
+            52.5% {transform: translate(0px, 980px);}
+            100% {transform: translate(0px, -700px);}
+        }
+
+        @-webkit-keyframes bar2Animate {
+            0% {transform: translate(0px, -250px);}
+            12.5% {transform: translate(0px, -1000px);}
+            12.500001% {transform: translate(0px, 550px);}
+            37.5% {transform: translate(0px, -1000px);}
+            40% {transform: translate(0px, -1000px);}
+            62.5% {transform: translate(0px, 550px);}
+            62.500001% {transform: translate(0px, -1000px);}
+            87.5% {transform: translate(0px, 550px);}
+            88% {transform: translate(0px, 550px);}
+            100% {transform: translate(0px, -250px);}
+        }
+
+        @-webkit-keyframes bar3Animate {
+            0% {transform: translate(0px, -580px);}
+            100% {transform: translate(0px, 950px);}
+        }
+
+        @-webkit-keyframes bar4Animate {
+            0% {transform: translate(0px, 150px);}
+            26.25% {transform: translate(0px, 700px);}
+            28.75% {transform: translate(0px, 700px);}
+            65.85% {transform: translate(0px, -1020px);}
+            68.35% {transform: translate(0px, -1020px);}
+            100% {transform: translate(0px, 150px);}
+        }
+
         .bo3-intermission-background-video {
             margin: 160px 0px 0px 114px;
-            width: 1406px;
+            width: 1410px;
         }
 
         #bo3-intermission {
             display: grid;
             grid-template: 1080px/1920px;
             grid-area: 1/1;
+            z-index: 1;
         }
 
         #bo3-intermission-pick-imgs {
@@ -118,10 +306,16 @@
             row-gap: 10px;
         }
 
+        #bo1-intermission-background-video {
+            margin: 160px 0px 0px 114px;
+            width: 1410px;
+        }
+
         #bo1-intermission {
             display: grid;
             grid-template: 1080px/1920px;
             grid-area: 1/1;
+            z-index: 1;
         }
 
         #bo1-pick-img-intermission {
@@ -172,7 +366,7 @@
 
         #intermission-heading-bottom-left {
             grid-area: 1/1;
-            margin: 899px 0px 0px 114px;
+            margin: 913px 0px 0px 114px;
             display: flex;
             flex-direction: row;
             height: 55px;
@@ -202,21 +396,21 @@
             height: 55px;
             display: flex;
             align-items: center;
-            background-color: #0D9093;
+            background-color: var(--frames);
             padding-right: 15px;
         }
 
         #intermission-heading-top-triangle {
             height: 0;
             width: 0;
-            border-top: 55px solid #0D9093;
+            border-top: 55px solid var(--frames);
             border-right: 55px solid transparent;
         }
 
         #intermission-heading-bottom-triangle {
             height: 0;
             width: 0;
-            border-bottom: 55px solid #0D9093;
+            border-bottom: 55px solid var(--frames);
             border-right: 55px solid transparent;
         }
 
@@ -224,7 +418,7 @@
             height: 55px;
             display: flex;
             align-items: center;
-            background-color: #0D9093;
+            background-color: var(--frames);
             padding-right: 15px;
         }
 
@@ -236,6 +430,30 @@
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+        
+        #frames {
+            grid-area: 1/1;
+            display: grid;
+            grid-template: 1080px/1920px;
+            filter: drop-shadow(0px 0px 12px rgba(0, 0, 0, 0.5));
+            z-index: 2;
+        }
+
+        #bg-video-frame {
+            grid-area: 1/1;
+            border: solid 15px var(--frames);
+            height: 793px;
+            width: 1410px;
+            margin: 145px 0px 0px 99px;
+        }
+
+        #schedule-frame {
+            grid-area: 1/1;
+            border: solid 10px var(--frames);
+            height: 712px;
+            width: 524px;
+            margin: 85px 0px 0px 1282px;
         }
     </style>
 </head>
@@ -254,16 +472,75 @@
                 <video controls autoplay loop src="https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/Abyss_Cinematic.webm?raw=true" id="bo1-intermission-background-video" class="video"></video>
             </div>
             
+            <div id="background" style="-webkit-mask-image: url(assets/Mask_Schedule.png)">
+
+                <div id="default-background">
+                    <div id="gradient">
+                        <div class="gradient-1"></div>
+                        <div class="gradient-4"></div>
+                        <div class="gradient-3"></div>
+                        <div class="gradient-2"></div>
+                        <div class="gradient-1"></div>
+                    </div>
+    
+                    <div id="moving-bars">
+                        <div id="bar-1">
+                            <div style="height: 0; width: 0; border-bottom: 100px solid var(--bga1); border-left: 100px solid transparent;"></div>
+                            <div style="height: 360px; width: 100px; background-color: var(--bga1);"></div>
+                            <div style="height: 0; width: 0; border-top: 100px solid var(--bga1); border-left: 100px solid transparent;"></div>
+                        </div>
+    
+                        <div id="bar-2">
+                            <div style="height: 0; width: 0; border-bottom: 75px solid var(--bga2); border-right: 75px solid transparent;"></div>
+                            <div style="height: 250px; width: 75px; background-color: var(--bga2);"></div>
+                            <div style="height: 0; width: 0; border-top: 75px solid var(--bga2); border-right: 75px solid transparent;"></div>
+                        </div>
+    
+                        <div id="bar-3">
+                            <div style="height: 0; width: 0; border-bottom: 75px solid var(--bga2); border-left: 75px solid transparent;"></div>
+                            <div style="height: 250px; width: 75px; background-color: var(--bga2);"></div>
+                            <div style="height: 0; width: 0; border-top: 75px solid var(--bga2); border-left: 75px solid transparent;"></div>
+                        </div>
+    
+                        <div id="bar-4">
+                            <div style="height: 0; width: 0; border-bottom: 100px solid var(--bga1); border-right: 100px solid transparent;"></div>
+                            <div style="height: 360px; width: 100px; background-color: var(--bga1);"></div>
+                            <div style="height: 0; width: 0; border-top: 100px solid var(--bga1); border-right: 100px solid transparent;"></div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div id="frames">
+                    <div id="bg-video-frame"></div>
+
+                    <div id="schedule-frame"></div>
+
+                    <div id="bottom-bar" style="display: grid; font-size: 25pt;"> 
+                        <div id="bottom-bar-bg">
+                            <div style="grid-area: 2/2; width: 0; height: 0; border-bottom: solid 50px var(--frames); border-left: solid 50px transparent;"></div>
+                            <div style="grid-area: 2/3; width: 1100px; height: 50px; background-color: var(--frames);"></div>
+                            <div style="grid-area: 2/4; width: 0; height: 0; border-bottom: solid 50px var(--frames); border-right: solid 50px transparent;"></div>
+                        </div>
+                        <div class="bottom-bar-content">
+                            <span class="apply-event-name">Event Name</span>
+                            <span>|</span>
+                            <span class="apply-team-a-tri"></span>
+                            <span>VS</span>
+                            <span class="apply-team-b-tri"></span>
+                            <span class="chat-commands" style="display: flex;">|</span>
+                            <span class="chat-commands" style="display: flex;">!score</span>
+                            <span class="chat-commands" style="display: flex;">!maps</span>
+                        </div>
+                    </div>
+
+                    <div id="event-logo-area">
+                        <img src="" id="event-logo-intermission" class="apply-event-logo" style="width: 300px;">
+                    </div>
+
+                </div>
+
+            </div>
             
-            <video controls autoplay loop src="assets/VCL_BO3_Schedule_Background.webm" class="overlay-element grid-1-1 video"></video>
-
-            <!-- TEMP -->
-            <div class="grid-1-1 bg-video-frame" style="width: 1436px; height: 15px; margin: 145px 0px 0px 99px; background-color: #0D9093;"></div>
-            <div class="grid-1-1 bg-video-frame" style="width: 1436px; height: 15px; margin: 939px 0px 0px 99px; background-color: #0D9093;"></div>
-            <div class="grid-1-1 bg-video-frame" style="width: 15px; height: 779px; margin: 160px 0px 0px 99px; background-color: #0D9093;"></div>
-            <div class="grid-1-1 bg-video-frame" style="width: 15px; height: 779px; margin: 160px 0px 0px 1520px; background-color: #0D9093;"></div>
-            <!-- TEMP -->
-
             <div id="bo3-intermission" style="display: grid;">
                 
                 <div id="bo3-intermission-pick-imgs">
@@ -272,7 +549,7 @@
                     <img id="bo3-3rd-pick-img-intermission" class="bo3-pick-img-intermission" src="assets/Maps/Abyss_524x214.png">
                 </div>
                 
-                <img src="assets/VCL_BO3_Schedule_Overlay.png" class="overlay-element grid-1-1">
+                <img src="assets/VCL_BO3_Schedule_Overlay.png" class="grid-1-1">
                 
                 <div id="bo3-intermission-schedule-content">
                     <div class="intermission-schedule-heading" style="grid-area: 1/1;">
@@ -343,7 +620,7 @@
             <div id="bo1-intermission" style="display: none;">
                 <div id="bo1-pick-img-intermission" style="background-image: url(assets/Maps/Abyss_1080p.png);"></div>
 
-                <img src="assets/VCL_BO1_Schedule_Overlay_2.png" class="grid-1-1 overlay-element">
+                <img src="assets/VCL_BO1_Schedule_Overlay_2.png" class="grid-1-1">
 
                 <div id="bo1-intermission-schedule-content">
                     <div class="intermission-schedule-heading" style="grid-area: 1/2;">
@@ -381,20 +658,6 @@
                 </div>
             </div> <!-- bo1-intermission -->
 
-            <div class="bottom-bar" style="display: grid; font-size: 25pt;"> 
-                <img src="assets/VCL_Bottom_Bar.png" class="overlay-element grid-1-1">
-                <div class="bottom-bar-content">
-                    <span class="apply-event-name">Event Name</span>
-                    <span>|</span>
-                    <span class="apply-team-a-tri"></span>
-                    <span>VS</span>
-                    <span class="apply-team-b-tri"></span>
-                    <span class="chat-commands" style="display: flex;">|</span>
-                    <span class="chat-commands" style="display: flex;">!score</span>
-                    <span class="chat-commands" style="display: flex;">!maps</span>
-                </div>
-            </div>
-
             <div id="intermission-heading-bottom-left">
                 <span id="current-map"></span>
                 <div id="intermission-heading-bottom-triangle"></div>
@@ -405,10 +668,7 @@
                 <div id="intermission-heading-top-triangle"></div>
             </div>
 
-            <div id="event-logo-area">
-                <img src="" id="event-logo-intermission" class="apply-event-logo" style="width: 300px;">
-            </div>
-        </div>
+        </div> <!-- intermission-overlay -->
     </div>
 
 </body>

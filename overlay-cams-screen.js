@@ -1,6 +1,5 @@
 let socket
 let overlaySetup = {}
-overlaySelection = 0
 
 function onPageLoad() {
     openSocket()
@@ -96,28 +95,6 @@ function setOverlay() {
     }
 
     // Overlay Theme
-    let overlayType = 'VCL'
-    if (overlaySelection !== overlaySetup.overlaySelection) {
-        if (overlaySetup.overlaySelection === 0) {
-            overlayType = 'VCL'
-            overlaySelection = 0
-        } else if (overlaySetup.overlaySelection === 1) {
-            overlayType = 'GC'
-            overlaySelection = 1
-        }
-    
-        const overlayElements = document.getElementsByClassName('overlay-element')
-        if (overlayType === "GC") {
-            for (const element of overlayElements) {
-                element.src = element.src.replace(/(VCL|LPL)/g, "GC")
-            }
-        } else if (overlayType === "VCL") {
-            for (const element of overlayElements) {
-                element.src = element.src.replace(/(GC|LPL)/g, "VCL")
-            }
-        }
-    }
-
     document.documentElement.style.setProperty('--bg1', `${overlaySetup.bg1}`)
     document.documentElement.style.setProperty('--bg2', `${overlaySetup.bg2}`)
     document.documentElement.style.setProperty('--bg3', `${overlaySetup.bg3}`)
@@ -125,7 +102,6 @@ function setOverlay() {
     document.documentElement.style.setProperty('--bga1', `${overlaySetup.bga1}`)
     document.documentElement.style.setProperty('--bga2', `${overlaySetup.bga2}`)
     document.documentElement.style.setProperty('--frames', `${overlaySetup.frames}`)
-
 
     // Bottom Bar
     const bottomBar = document.getElementById('bottom-bar')
@@ -153,7 +129,6 @@ function setOverlay() {
     // Casters Selection
     if (overlaySetup.castersSelection === 0) {
         document.getElementById('background').setAttribute('style', '-webkit-mask-image: url(assets/Mask_Cam_Screen.png)') 
-        // document.getElementById('background').style.webkitMaskImage = 'url(assets/Mask_Cam_Screen.png)'
         document.getElementById('caster-handle-1').style.display = "flex"
         document.getElementById('caster-handle-2-1').style.display = "none"
         document.getElementById('caster-handle-2-2').style.display = "none"
@@ -162,7 +137,6 @@ function setOverlay() {
         document.getElementById('cam-2-2').style.display = "none"
     } else {
         document.getElementById('background').setAttribute('style', '-webkit-mask-image: url(assets/Mask_Dual_Cam_Screen.png)')
-        // document.getElementById('background').style.maskImage = 'url(assets/Mask_Dual_Cam_Screen.png)'
         document.getElementById('caster-handle-1').style.display = "none"
         document.getElementById('caster-handle-2-1').style.display = "flex"
         document.getElementById('caster-handle-2-2').style.display = "flex"

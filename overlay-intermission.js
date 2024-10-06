@@ -4,7 +4,6 @@ let timer = null
 let deadline = null
 let countdown = null
 const intermissionHeading = document.getElementById('intermission-heading')
-let overlaySelection = 0
 
 function onPageLoad() {
     openSocket()
@@ -54,49 +53,21 @@ function closeSocket() {
 
 function setOverlay() {
     // Overlay Theme
-    let overlayType = 'VCL'
-    if (overlaySelection !== overlaySetup.overlaySelection) {
-        if (overlaySetup.overlaySelection === 0) {
-            overlayType = 'VCL'
-            overlaySelection = 0
-            // TEMP
-            for (element of document.getElementsByClassName('bg-video-frame')) {
-                element.style.display = flex
-            }
-            // TEMP
-        } else if (overlaySetup.overlaySelection === 1) {
-            overlayType = 'GC'
-            overlaySelection = 1
-            // TEMP
-            for (element of document.getElementsByClassName('bg-video-frame')) {
-                element.style.display = none
-            }
-            // TEMP
-        }
-    
-        const overlayElements = document.getElementsByClassName('overlay-element')
-        if (overlayType === "GC") {
-            for (const element of overlayElements) {
-                element.src = element.src.replace(/(VCL|LPL)/g, "GC")
-            }
-        } else if (overlayType === "VCL") {
-            for (const element of overlayElements) {
-                element.src = element.src.replace(/(GC|LPL)/g, "VCL")
-            }
-        }
-    }
+    document.documentElement.style.setProperty('--bg1', `${overlaySetup.bg1}`)
+    document.documentElement.style.setProperty('--bg2', `${overlaySetup.bg2}`)
+    document.documentElement.style.setProperty('--bg3', `${overlaySetup.bg3}`)
+    document.documentElement.style.setProperty('--bg4', `${overlaySetup.bg4}`)
+    document.documentElement.style.setProperty('--bga1', `${overlaySetup.bga1}`)
+    document.documentElement.style.setProperty('--bga2', `${overlaySetup.bga2}`)
+    document.documentElement.style.setProperty('--frames', `${overlaySetup.frames}`)
 
     // Bottom Bar
-    const bottomBarAll = document.getElementsByClassName('bottom-bar')
+    const bottomBar = document.getElementById('bottom-bar')
     const chatCommandsAll = document.getElementsByClassName('chat-commands')
     if (overlaySetup.bottomBarSelection === 0) {
-        for (const instance of bottomBarAll) {
-            instance.style.display = 'none'
-        }
+        bottomBar.style.display = 'none'
     } else {
-        for (const instance of bottomBarAll) {
-            instance.style.display = 'grid'
-        }
+        bottomBar.style.display = 'grid'
     }
     if (overlaySetup.chatCommandsSelection === 0) {
         for (const instance of chatCommandsAll) {
@@ -108,19 +79,15 @@ function setOverlay() {
         }
     }
     if (overlaySetup.bottomBarTextSizeSelection === 1) {
-        for (const instance of bottomBarAll) {
-            instance.style.fontSize = '25pt'
-        }
+        bottomBar.style.fontSize = '25pt'
     } else {
-        for (const instance of bottomBarAll) {
-            instance.style.fontSize = '20pt'
-        }
+        bottomBar.style.fontSize = '20pt'
     }
 
     // Shows intermission schedule for BO1/BO3/BO5
     if (overlaySetup.seriesLengthSelection === 0) {
         document.getElementById('bo1-intermission').style.display = 'grid'
-        document.getElementById('bo1-bg-videos').style.display = 'flex'
+        document.getElementById('bo1-bg-videos').style.display = 'grid'
         document.getElementById('bo3-intermission').style.display = 'none'
         document.getElementById('bo3-bg-videos').style.display = 'none'
     } else if (overlaySetup.seriesLengthSelection === 1) {
