@@ -36,7 +36,13 @@ const defaultSettings = {
     caster2Name: "",
     // Overlay Config
     overlaySelection: 0,
-    scoreIconSelection: 0,
+    bg1: "#007477",
+    bg2: "#00262a",
+    bg3: "#0297b5",
+    bg4: "#00f0f8",
+    bga1: "#204546",
+    bga2: "#257878",
+    frames: "#0D9093",
     bottomBarSelection: 1,
     chatCommandsSelection: 1,
     bottomBarTextSizeSelection: 1,
@@ -49,11 +55,11 @@ const exampleSettings = {
     // Teams Config
     teamAName: "Team Heretics",
     teamATri: "TH",
-    teamALogo: "https://media.discordapp.net/attachments/891904001120034866/1280823379640979487/Heretics_Logo.png?ex=66f08d7a&is=66ef3bfa&hm=5ff00d07ffd8870b493f97e7d902fa4a81a6c898957ea9c1de345a2ba625822c&=&format=webp&quality=lossless&width=250&height=250",
+    teamALogo: "https://files.catbox.moe/gx2wtj.png",
     teamANoLogo: 0,
     teamBName: "Team Vitality",
     teamBTri:  "VIT",
-    teamBLogo: "https://media.discordapp.net/attachments/891904001120034866/1280823381293400124/Vitality_Logo.png?ex=66f08d7a&is=66ef3bfa&hm=a8d4d83c56cf781bdf82ff4485934710b8f43eb42f138b283c08c2afd8d94f52&=&format=webp&quality=lossless&width=250&height=250",
+    teamBLogo: "https://files.catbox.moe/r2r9ri.png",
     teamBNoLogo: 0, 
     // Map Veto Config
     seriesLengthSelection: 1,
@@ -75,14 +81,20 @@ const exampleSettings = {
     deadline: null,
     // Event/Casters Config
     eventName: "VCT EMEA Stage 2 Playoffs",
-    eventLogo: "https://media.discordapp.net/attachments/891904001120034866/1280823380962054186/VCT_EMEA_Logo.png?ex=66f08d7a&is=66ef3bfa&hm=fe6922d28d86401e39068869b6b07968512c9cfe7c295ff7059a62fd67f318e0&=&format=webp&quality=lossless&width=408&height=137",
+    eventLogo: "https://files.catbox.moe/suc0fy.png",
     eventNoLogo: 0,
     castersSelection: 1,
     caster1Name: "MitchMan",
     caster2Name: "Tombizz",
     // Overlay Config
     overlaySelection: 0,
-    scoreIconSelection: 0,
+    bg1: "#007477",
+    bg2: "#00262a",
+    bg3: "#0297b5",
+    bg4: "#00f0f8",
+    bga1: "#204546",
+    bga2: "#257878",
+    frames: "#0D9093",
     bottomBarSelection: 1,
     chatCommandsSelection: 1,
     bottomBarTextSizeSelection: 1,
@@ -378,11 +390,13 @@ function restoreOverlay(settings) {
             option.checked = true
         }
     }
-    for (option of document.getElementsByName('score-icon-selection')) {
-        if (Number(option.value) === settings.scoreIconSelection) {
-            option.checked = true
-        }
-    }
+    document.getElementById('bg1').value = settings.bg1
+    document.getElementById('bg2').value = settings.bg2
+    document.getElementById('bg3').value = settings.bg3
+    document.getElementById('bg4').value = settings.bg4
+    document.getElementById('bga1').value = settings.bga1
+    document.getElementById('bga2').value = settings.bga2
+    document.getElementById('frames').value = settings.frames
     if (settings.bottomBarSelection === 0) {
         document.getElementById('bottom-bar-selection').checked = false
     } else {
@@ -400,6 +414,7 @@ function restoreOverlay(settings) {
     }
     setOverlay()
     bottomBarUpdate()
+    setGradient()
 }
 
 function restoreIntermission(settings) {
@@ -1497,11 +1512,33 @@ function setOverlay() {
             for (const element of overlayElements) {
                 element.src = element.src.replace(/(GC|LPL)/g, "VCL")
             }
+            document.getElementById('bg1').value = '#007477'
+            document.getElementById('bg2').value = '#00262a'
+            document.getElementById('bg3').value = '#0297b5'
+            document.getElementById('bg4').value = '#00f0f8'
+            document.getElementById('bga1').value = '#204546'
+            document.getElementById('bga2').value = '#257878'
+            document.getElementById('frames').value = '#0D9093'
+            setGradient()
         }
         
         if (Number(option.value) === 1 && option.checked) {
             for (const element of overlayElements) {
                 element.src = element.src.replace(/(VCL|LPL)/g, "GC")
+            }
+            document.getElementById('bg1').value = '#fcb401'
+            document.getElementById('bg2').value = '#b36200'
+            document.getElementById('bg3').value = '#b58200'
+            document.getElementById('bg4').value = '#f8cf00'
+            document.getElementById('bga1').value = '#eda507'
+            document.getElementById('bga2').value = '#fbd992'
+            document.getElementById('frames').value = '#e09600'
+            setGradient()
+        }
+
+        if (Number(option.value) === 2 && option.checked) {
+            for (const element of overlayElements) {
+                element.src = element.src.replace(/(VCL|LPL)/g, "VCL")
             }
         }
     }
@@ -1512,6 +1549,32 @@ document.getElementsByName('overlay-selection').forEach((menu) => {
     menu.addEventListener('change', setOverlay)
 })
 
+function customGradient() {
+    document.getElementsByName('overlay-selection')[2].checked = true
+}
+
+Array.from(document.getElementsByClassName('overlay-color')).forEach((menu) => {
+    menu.addEventListener('change', customGradient)
+})
+
+function setGradient() {
+    document.documentElement.style.setProperty('--bg1', `${document.getElementById('bg1').value}`)
+    document.documentElement.style.setProperty('--bg2', `${document.getElementById('bg2').value}`)
+    document.documentElement.style.setProperty('--bg3', `${document.getElementById('bg3').value}`)
+    document.documentElement.style.setProperty('--bg4', `${document.getElementById('bg4').value}`)
+    document.documentElement.style.setProperty('--bga1', `${document.getElementById('bga1').value}`)
+    document.documentElement.style.setProperty('--bga2', `${document.getElementById('bga2').value}`)
+    document.documentElement.style.setProperty('--frames', `${document.getElementById('frames').value}`)
+}
+
+
+document.getElementById('bg1').addEventListener('change', setGradient)
+document.getElementById('bg2').addEventListener('change', setGradient)
+document.getElementById('bg3').addEventListener('change', setGradient)
+document.getElementById('bg4').addEventListener('change', setGradient)
+document.getElementById('bga1').addEventListener('change', setGradient)
+document.getElementById('bga2').addEventListener('change', setGradient)
+document.getElementById('frames').addEventListener('change', setGradient)
 
 function bottomBarUpdate() {
     const bottomBarSelection = document.getElementById('bottom-bar-selection')
@@ -1589,7 +1652,13 @@ const currentSettings = {
     caster2Name: "",
     // Overlay Config
     overlaySelection: 0,
-    scoreIconSelection: 0,
+    bg1: "#007477",
+    bg2: "#00262a",
+    bg3: "#0297b5",
+    bg4: "#00f0f8",
+    bga1: "#204546",
+    bga2: "#257878",
+    frames: "#0D9093",
     bottomBarSelection: 1,
     chatCommandsSelection: 1,
     bottomBarTextSizeSelection: 1,
@@ -1688,11 +1757,13 @@ function overlaySend() {
             currentSettings.overlaySelection = Number(option.value)
         }
     }
-    for (option of document.getElementsByName('score-icon-selection')) {
-        if (option.checked) {
-            currentSettings.scoreIconSelection = Number(option.value)
-        }
-    }
+    currentSettings.bg1 = document.getElementById('bg1').value
+    currentSettings.bg2 = document.getElementById('bg2').value
+    currentSettings.bg3 = document.getElementById('bg3').value
+    currentSettings.bg4 = document.getElementById('bg4').value
+    currentSettings.bga1 = document.getElementById('bga1').value
+    currentSettings.bga2 = document.getElementById('bga2').value
+    currentSettings.frames = document.getElementById('frames').value
     if (document.getElementById('bottom-bar-selection').checked) {
         currentSettings.bottomBarSelection = 1
     } else {

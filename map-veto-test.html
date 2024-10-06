@@ -10,12 +10,13 @@
 
     <style>
         :root {
-            --c1: #007477;
-            --c2: #00262a;
-            --c3: #0297b5;
-            --c4: #00f0f8;
-            --f1: #204546;
-            --f2: #257878;
+            --bg1: #007477;
+            --bg2: #00262a;
+            --bg3: #0297b5;
+            --bg4: #00f0f8;
+            --bga1: #204546;
+            --bga2: #257878;
+            --frames: #257878;
         }
         
         @font-face {
@@ -75,13 +76,13 @@
         }
 
         .gradient-1 {
-            background: linear-gradient(to bottom, var(--c1), var(--c3));
+            background: linear-gradient(to bottom, var(--bg1), var(--bg3));
             width: 1920px;
             height: 1080px;
         }
 
         .gradient-1::after {
-            background: linear-gradient(to bottom, var(--c2), var(--c4));
+            background: linear-gradient(to bottom, var(--bg2), var(--bg4));
             content: "";
             position: absolute;
             width: 1920px;
@@ -90,13 +91,13 @@
         }
 
         .gradient-2 {
-            background: linear-gradient(to bottom, var(--c4), var(--c2));
+            background: linear-gradient(to bottom, var(--bg4), var(--bg2));
             width: 1920px;
             height: 1080px;
         }
 
         .gradient-2::after {
-            background: linear-gradient(to bottom, var(--c1), var(--c3));
+            background: linear-gradient(to bottom, var(--bg1), var(--bg3));
             content: "";
             position: absolute;
             width: 1920px;
@@ -105,13 +106,13 @@
         }
 
         .gradient-3 {
-            background: linear-gradient(to bottom, var(--c3), var(--c1));
+            background: linear-gradient(to bottom, var(--bg3), var(--bg1));
             width: 1920px;
             height: 1080px;
         }
 
         .gradient-3::after {
-            background: linear-gradient(to bottom, var(--c4), var(--c2));
+            background: linear-gradient(to bottom, var(--bg4), var(--bg2));
             content: "";
             position: absolute;
             width: 1920px;
@@ -120,13 +121,13 @@
         }
 
         .gradient-4 {
-            background: linear-gradient(to bottom, var(--c2), var(--c4));
+            background: linear-gradient(to bottom, var(--bg2), var(--bg4));
             width: 1920px;
             height: 1080px;
         }
 
         .gradient-4::after {
-            background: linear-gradient(to bottom, var(--c3), var(--c1));
+            background: linear-gradient(to bottom, var(--bg3), var(--bg1));
             content: "";
             position: absolute;
             width: 1920px;
@@ -230,6 +231,7 @@
     <div id="page-container">
         <img src="assets/Valorant_Preview.png" style="grid-area: 1/1;">
         <div id="background">
+
             <div id="default-background">
                 <div id="gradient">
                     <div class="gradient-1"></div>
@@ -238,63 +240,71 @@
                     <div class="gradient-2"></div>
                     <div class="gradient-1"></div>
                 </div>
+
                 <div id="moving-bars">
                     <div id="bar-1">
-                        <div style="height: 0; width: 0; border-bottom: 100px solid var(--f1); border-left: 100px solid transparent;"></div>
-                        <div style="height: 360px; width: 100px; background-color: var(--f1);"></div>
-                        <div style="height: 0; width: 0; border-top: 100px solid var(--f1); border-left: 100px solid transparent;"></div>
+                        <div style="height: 0; width: 0; border-bottom: 100px solid var(--bga1); border-left: 100px solid transparent;"></div>
+                        <div style="height: 360px; width: 100px; background-color: var(--bga1);"></div>
+                        <div style="height: 0; width: 0; border-top: 100px solid var(--bga1); border-left: 100px solid transparent;"></div>
                     </div>
 
                     <div id="bar-2">
-                        <div style="height: 0; width: 0; border-bottom: 75px solid var(--f2); border-right: 75px solid transparent;"></div>
-                        <div style="height: 250px; width: 75px; background-color: var(--f2);"></div>
-                        <div style="height: 0; width: 0; border-top: 75px solid var(--f2); border-right: 75px solid transparent;"></div>
+                        <div style="height: 0; width: 0; border-bottom: 75px solid var(--bga2); border-right: 75px solid transparent;"></div>
+                        <div style="height: 250px; width: 75px; background-color: var(--bga2);"></div>
+                        <div style="height: 0; width: 0; border-top: 75px solid var(--bga2); border-right: 75px solid transparent;"></div>
                     </div>
 
                     <div id="bar-3">
-                        <div style="height: 0; width: 0; border-bottom: 75px solid var(--f2); border-left: 75px solid transparent;"></div>
-                        <div style="height: 250px; width: 75px; background-color: var(--f2);"></div>
-                        <div style="height: 0; width: 0; border-top: 75px solid var(--f2); border-left: 75px solid transparent;"></div>
+                        <div style="height: 0; width: 0; border-bottom: 75px solid var(--bga2); border-left: 75px solid transparent;"></div>
+                        <div style="height: 250px; width: 75px; background-color: var(--bga2);"></div>
+                        <div style="height: 0; width: 0; border-top: 75px solid var(--bga2); border-left: 75px solid transparent;"></div>
                     </div>
 
                     <div id="bar-4">
-                        <div style="height: 0; width: 0; border-bottom: 100px solid var(--f1); border-right: 100px solid transparent;"></div>
-                        <div style="height: 360px; width: 100px; background-color: var(--f1);"></div>
-                        <div style="height: 0; width: 0; border-top: 100px solid var(--f1); border-right: 100px solid transparent;"></div>
+                        <div style="height: 0; width: 0; border-bottom: 100px solid var(--bga1); border-right: 100px solid transparent;"></div>
+                        <div style="height: 360px; width: 100px; background-color: var(--bga1);"></div>
+                        <div style="height: 0; width: 0; border-top: 100px solid var(--bga1); border-right: 100px solid transparent;"></div>
                     </div>
                 </div>
+
             </div>
+            
         </div>
 
         <div class="flex-column" style="margin-top: 20px; row-gap: 10px;">
             <div class="flex-row">
                 <span style="margin-right: 20px;">BG Color 1</span>
-                <input type="color" id="c1" value="#007477">
+                <input type="color" id="bg1" value="#007477">
             </div>
     
             <div class="flex-row">
                 <span style="margin-right: 20px;">BG Color 2</span>
-                <input type="color" id="c2" value="#00262a">
+                <input type="color" id="bg2" value="#00262a">
             </div>
                 
             <div class="flex-row">
                 <span style="margin-right: 20px;">BG Color 3</span>
-                <input type="color" id="c3" value="#0297b5">
+                <input type="color" id="bg3" value="#0297b5">
             </div>
     
             <div class="flex-row">
                 <span style="margin-right: 20px;">BG Color 4</span>
-                <input type="color" id="c4" value="#00f0f8">
+                <input type="color" id="bg4" value="#00f0f8">
             </div>
 
             <div class="flex-row">
                 <span style="margin-right: 20px;">BG Feature 1</span>
-                <input type="color" id="f1" value="#204546">
+                <input type="color" id="bga1" value="#204546">
             </div>
 
             <div class="flex-row">
                 <span style="margin-right: 20px;">BG Feature 2</span>
-                <input type="color" id="f2" value="#257878">    
+                <input type="color" id="bga2" value="#257878">    
+            </div>
+
+            <div class="flex-row">
+                <span style="margin-right: 20px;">Frames</span>
+                <input type="color" id="frames" value="#257878">    
             </div>
         </div>
         

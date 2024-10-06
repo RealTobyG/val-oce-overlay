@@ -9,6 +9,16 @@
 
 
     <style>
+        :root {
+            --bg1: #007477;
+            --bg2: #00262a;
+            --bg3: #0297b5;
+            --bg4: #00f0f8;
+            --bga1: #204546;
+            --bga2: #257878;
+            --frames: #0D9093;
+        }
+
         @font-face {
             font-family: 'Arial';
             src: url(assets/fonts/ARIALBD.TTF);
@@ -1253,6 +1263,33 @@
             left: 1430px;
         }
 
+        .overlay-color {
+            display: grid;
+            grid-template: 85px/129px;
+        }
+
+        .overlay-color:hover {
+            cursor: pointer;
+        }
+
+        #overlay-config [type=color] {
+            height: 85px;
+            width: 129px;
+        }
+
+        #overlay-config [type=color]:hover {
+            cursor: pointer;
+        }
+
+        #overlay-config [type=color]:hover + div[class=help] {
+            display: flex;
+            background-color: rgb(52, 52, 52);
+            color: white;
+            position: absolute;
+            top: 30px;
+            left: 1430px;
+        }
+
         #igo-bottom-bar-preview {
             grid-area: 1/1;
             display: flex;
@@ -1271,11 +1308,19 @@
         #bottom-bar-preview {
             display: grid;
             grid-template: 1080px/1920px;
-            transform: scale(1.5) translate(0px, -82px);
+            transform: scale(1.5) translate(0px, -750px);
+        }
+
+        #bottom-bar-bg {
+            grid-area: 1/1;
+            display: grid;
+            grid-template: 1030px 50px/360px 50px 1100px 50px 360px;
+            filter: drop-shadow(0px 0px 12px rgba(0, 0, 0, 0.5))
         }
 
         .bottom-bar-content {
             grid-area: 1/1;
+            z-index: 1;
             margin: 1030px 0px 0px 363px;
             height: 50px;
             width: 1195px;
@@ -1287,6 +1332,144 @@
             text-transform: uppercase;
             color: white;
             gap: 20px;
+        }
+
+        /* Background Animation */
+        #background {
+            display: grid;
+            grid-template: 1080px/1920px;
+            grid-area: 1/1;
+            overflow: hidden;
+        }
+
+        #default-background {
+            grid-area: 1/1;
+            display: grid;
+            grid-template: 1080px/1920px;
+        }
+
+        #gradient {
+            grid-area: 1/1;
+            width: 9600px;
+            transform: translate(-7680px);
+            display: flex;
+            -webkit-animation: gradientAnimate 20s linear infinite;
+        }
+
+        .gradient-1 {
+            background: linear-gradient(to bottom, var(--bg1), var(--bg3));
+            width: 1920px;
+            height: 1080px;
+        }
+
+        .gradient-1::after {
+            background: linear-gradient(to bottom, var(--bg2), var(--bg4));
+            content: "";
+            position: absolute;
+            width: 1920px;
+            height: 1080px;
+            -webkit-mask-image: linear-gradient(to left, white, transparent);
+        }
+
+        .gradient-2 {
+            background: linear-gradient(to bottom, var(--bg4), var(--bg2));
+            width: 1920px;
+            height: 1080px;
+        }
+
+        .gradient-2::after {
+            background: linear-gradient(to bottom, var(--bg1), var(--bg3));
+            content: "";
+            position: absolute;
+            width: 1920px;
+            height: 1080px;
+            -webkit-mask-image: linear-gradient(to left, white, transparent);
+        }
+
+        .gradient-3 {
+            background: linear-gradient(to bottom, var(--bg3), var(--bg1));
+            width: 1920px;
+            height: 1080px;
+        }
+
+        .gradient-3::after {
+            background: linear-gradient(to bottom, var(--bg4), var(--bg2));
+            content: "";
+            position: absolute;
+            width: 1920px;
+            height: 1080px;
+            -webkit-mask-image: linear-gradient(to left, white, transparent);
+        }
+
+        .gradient-4 {
+            background: linear-gradient(to bottom, var(--bg2), var(--bg4));
+            width: 1920px;
+            height: 1080px;
+        }
+
+        .gradient-4::after {
+            background: linear-gradient(to bottom, var(--bg3), var(--bg1));
+            content: "";
+            position: absolute;
+            width: 1920px;
+            height: 1080px;
+            -webkit-mask-image: linear-gradient(to left, white, transparent);
+        }
+
+        @-webkit-keyframes gradientAnimate {
+            0% {transform: translate(-7680px);}
+            100% {transform: translate(0px);}
+        }
+
+        #moving-bars {
+            grid-area: 1/1;
+            display: grid;
+            grid-template: 1080px/1920px;
+            z-index: 1;
+        }
+
+        #bar-1 {
+            grid-area: 1/1;
+            display: flex;
+            flex-direction: column;
+            height: fit-content;
+            width: fit-content;
+            margin: 100px 0px 0px 73px;
+            -webkit-animation: bar1Animate 40s linear infinite;
+            filter: drop-shadow(30px 30px 12px rgba(0, 0, 0, 0.5));
+        }
+
+        #bar-2 {
+            grid-area: 1/1;
+            display: flex;
+            flex-direction: column;
+            height: fit-content;
+            width: fit-content;
+            margin: 550px 0px 0px 268px;
+            -webkit-animation: bar2Animate 40s linear infinite;
+            filter: drop-shadow(30px 30px 12px rgba(0, 0, 0, 0.5));
+        }
+
+        #bar-3 {
+            grid-area: 1/1;
+            display: flex;
+            flex-direction: column;
+            height: fit-content;
+            width: fit-content;
+            margin: 140px 0px 0px 1579px;
+            -webkit-animation: bar3Animate 10s linear infinite;
+            filter: drop-shadow(30px 30px 12px rgba(0, 0, 0, 0.5));
+        }
+
+        #bar-4 {
+            grid-area: 1/1;
+            display: flex;
+            flex-direction: column;
+            height: fit-content;
+            width: fit-content;
+            margin: 415px 0px 0px 1744px;
+            -webkit-animation: bar4Animate 40s linear infinite;
+            filter: drop-shadow(30px 30px 12px rgba(0, 0, 0, 0.5));
         }
 
 
@@ -2184,47 +2367,60 @@
                                     </label>
 
                                     <label for="custom-theme" style="z-index: 1; height: 80px; width: 167px;">
-                                        <input type="radio" id="custom-theme" value="2" name="overlay-selection" disabled class="menu">
+                                        <input type="radio" id="custom-theme" value="2" name="overlay-selection" class="menu">
                                         <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid; border-color: rgb(149, 149, 149);">
-                                            <span>Custom Theme <br> (coming soon)</span>
+                                            <span>Custom Theme</span>
                                             <div class="help">
-                                                <span>Adjust sliders to set a custom color scheme for your overlay</span>
+                                                <span>Choose colors to create a custom color scheme for your overlay</span>
                                             </div>
                                         </div>
                                     </label>
                                 </div>
 
-                                <!-- #################### Score Icon Theme #################### -->
-                                <div class="flex-row" style="grid-area: 2/1/3/2; z-index: 1;">
-                                    <span class="overlay-heading">Map Score Icons: </span>
+                                <!-- #################### Theme Colors #################### -->
+                                <div class="flex-row" style="grid-area: 2/1/3/2; z-index: 1; column-gap: 6px;">
+                                    <span class="overlay-heading">BG Gradient: </span>
 
-                                    <label for="themed-score-icons" style="z-index: 1; height: 80px; width: 238px;">
-                                        <input type="radio" id="themed-score-icons" value="0" name="score-icon-selection" checked class="menu">
-                                        <div class="input-contents" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-width: 5px 0px 5px 5px; border-style: solid; border-color: rgb(149, 149, 149);">
-                                            <span>Themed</span>
-                                            <img src="assets/VCL_Score_Icons_Preview.png" class="overlay-element">
-                                            <div class="help">
-                                                <span>Sets the map score icons on the in game overlay to follow the color scheme of the selected theme</span>
-                                            </div>
-                                        </div>
-                                    </label>
+                                    <input id="bg1" class="menu grid-1-1 overlay-color" type="color" value="#007477">
+                                    <div class="help">
+                                        <span>Color 1 for overlay background gradient</span>
+                                    </div>
 
-                                    <label for="generic-score-icons" style="z-index: 1; height: 80px; width: 238px;">
-                                        <input type="radio" id="generic-score-icons" value="1" name="score-icon-selection" class="menu">
-                                        <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid; border-color: rgb(149, 149, 149);">
-                                            <span>Generic (White)</span>
-                                            <img src="assets/Generic_Score_Icons_Preview.png">
-                                            <div class="help">
-                                                <span>Sets the map score icons on the in game overlay to be white</span>
-                                                <span style="color: yellow;">NOTE: This does not show up on the preview</span>
-                                            </div>
-                                        </div>
-                                    </label>
+                                    <input id="bg2" class="menu grid-1-1 overlay-color" type="color" value="#00262a">
+                                    <div class="help">
+                                        <span>Color 2 for overlay background gradient</span>
+                                    </div>
+
+                                    <input id="bg3" class="menu grid-1-1 overlay-color" type="color" value="#0297b5">
+                                    <div class="help">
+                                        <span>Color 3 for overlay background gradient</span>
+                                    </div>
+
+                                    <input id="bg4" class="menu grid-1-1 overlay-color" type="color" value="#00f0f8">
+                                    <div class="help">
+                                        <span>Color 4 for overlay background gradient</span>
+                                    </div>
                                 </div>
 
-                                
-                                <div class="flex-row" style="grid-area: 3/1/4/2; z-index: 1;">
-                                    <span class="overlay-heading" style="text-align: center; margin: auto;">Note: Preview colors may not match the actual overlay modules exactly</span>
+                                <div class="flex-row" style="grid-area: 3/1/4/2; z-index: 1; column-gap: 6px;">
+                                    <span class="overlay-heading">BG Bars:</span>
+                                    
+                                    <input id="bga1" class="menu grid-1-1 overlay-color" type="color" value="#204546">
+                                    <div class="help">
+                                        <span>Sets the color for the outer background bars</span>
+                                    </div>
+
+                                    <input id="bga2" class="menu grid-1-1 overlay-color" type="color" value="#257878">
+                                    <div class="help">
+                                        <span>Sets the color for the inner background bars</span>
+                                    </div>
+
+                                    <span class="overlay-heading" style="margin-left: 57px;">Frames:</span>
+
+                                    <input id="frames" class="menu grid-1-1 overlay-color" type="color" value="#0D9093">
+                                    <div class="help">
+                                        <span>Sets the color for overlay frames and the bottom bar</span>
+                                    </div>
                                 </div>
 
                                 <!-- #################### Bottom Bar #################### -->
@@ -2303,22 +2499,52 @@
                             </div> <!-- Overlay Config -->
 
                             <div id="igo-bottom-bar-preview" class="grid-1-1">
-                                <div class="in-game-overlay">
-                                    <img src="assets/Valorant_Preview.png" class="grid-1-1">
-                                    <img src="assets/VCL_IGO.png" class="overlay-element grid-1-1">
-                                    <img src="assets/200x200_No_Logo.png" id="team-a-logo-igo2" class="team-logo-left-igo apply-team-a-logo">
-                                    <span id="team-a-name-igo2" class="team-name-left-igo apply-team-a-name"></span>
-                                    <img src="assets/map_scores/VCL_BO3_0-1.png" id="map-score2" class="grid-1-1 overlay-element">
-                                    <span id="team-b-name-igo2" class="team-name-right-igo apply-team-b-name"></span>
-                                    <img src="assets/200x200_No_Logo.png" id="team-b-logo-igo2" class="team-logo-right-igo apply-team-b-logo">
-                                    <div class="chat-cover-igo">
-                                        <img src="" id="event-logo-igo2" class="apply-event-logo" style="height: 110px;">
+                                <div id="background">
+                                    <div id="default-background">
+                                        <div id="gradient">
+                                            <div class="gradient-1"></div>
+                                            <div class="gradient-4"></div>
+                                            <div class="gradient-3"></div>
+                                            <div class="gradient-2"></div>
+                                            <div class="gradient-1"></div>
+                                        </div>
+                                        <div id="moving-bars">
+                                            <div id="bar-1">
+                                                <div style="height: 0; width: 0; border-bottom: 100px solid var(--bga1); border-left: 100px solid transparent;"></div>
+                                                <div style="height: 360px; width: 100px; background-color: var(--bga1);"></div>
+                                                <div style="height: 0; width: 0; border-top: 100px solid var(--bga1); border-left: 100px solid transparent;"></div>
+                                            </div>
+                        
+                                            <div id="bar-2">
+                                                <div style="height: 0; width: 0; border-bottom: 75px solid var(--bga2); border-right: 75px solid transparent;"></div>
+                                                <div style="height: 250px; width: 75px; background-color: var(--bga2);"></div>
+                                                <div style="height: 0; width: 0; border-top: 75px solid var(--bga2); border-right: 75px solid transparent;"></div>
+                                            </div>
+                        
+                                            <div id="bar-3">
+                                                <div style="height: 0; width: 0; border-bottom: 75px solid var(--bga2); border-left: 75px solid transparent;"></div>
+                                                <div style="height: 250px; width: 75px; background-color: var(--bga2);"></div>
+                                                <div style="height: 0; width: 0; border-top: 75px solid var(--bga2); border-left: 75px solid transparent;"></div>
+                                            </div>
+                        
+                                            <div id="bar-4">
+                                                <div style="height: 0; width: 0; border-bottom: 100px solid var(--bga1); border-right: 100px solid transparent;"></div>
+                                                <div style="height: 360px; width: 100px; background-color: var(--bga1);"></div>
+                                                <div style="height: 0; width: 0; border-top: 100px solid var(--bga1); border-right: 100px solid transparent;"></div>
+                                            </div>
+                                        </div>
                                     </div>
+
+                                    <div style="grid-area: 1/1; margin: auto; height: 575px; width: 1025px; border: solid 35px var(--frames); z-index: 1; filter: drop-shadow(0px 0px 12px rgba(0, 0, 0, 0.5)); background-image: url(assets/Cam_Placeholder.png); background-size: cover; background-position: center;"></div>
                                 </div>
 
-                                <span id="bottom-bar-preview-heading" style="width: 100%; text-align: center; transform: scale(3.5) translate(0px, 306px);">▼ Bottom Bar Preview ▼</span>
-                                <div id="bottom-bar-preview" style="font-size: 25pt;"> 
-                                    <img src="assets/VCL_Bottom_Bar.png" class="overlay-element grid-1-1">
+                                <span id="bottom-bar-preview-heading" style="width: 100%; text-align: center; transform: scale(3.5) translate(0px, 22px);">▼ Bottom Bar Preview ▼</span>
+                                <div id="bottom-bar-preview" style="font-size: 25pt;">
+                                    <div id="bottom-bar-bg">
+                                        <div style="grid-area: 2/2; width: 0; height: 0; border-bottom: solid 50px var(--frames); border-left: solid 50px transparent;"></div>
+                                        <div style="grid-area: 2/3; width: 1100px; height: 50px; background-color: var(--frames);"></div>
+                                        <div style="grid-area: 2/4; width: 0; height: 0; border-bottom: solid 50px var(--frames); border-right: solid 50px transparent;"></div>
+                                    </div>
                                     <div class="bottom-bar-content">
                                         <span class="apply-event-name">Event Name</span>
                                         <span>|</span>
@@ -2401,11 +2627,15 @@
                                 <div class="flex-row" style="grid-area: 3/1/4/2; z-index: 1;">
                                     <span class="overlay-heading" style="text-align: center;">Schedule BG <br> Color 1: </span>
 
-                                    <input id="schedule-bg-1" type="color" value="#1a1a1a">
-                                    <div class="help">
-                                        <span>Sets the color for odd rows on the broadcast schedule</span>
-                                        <span style="color: yellow;">WARNING: This is an experimental feature</span>
-                                    </div>
+                                    <label for="schedule-bg-1" style="display: grid;">
+                                        <input id="schedule-bg-1" class="menu grid-1-1" type="color" value="#1a1a1a">
+                                        <span class="grid-1-1">BG1</span>
+                                        <div class="help">
+                                            <span>Sets the color for odd rows on the broadcast schedule</span>
+                                            <span style="color: yellow;">WARNING: This is an experimental feature</span>
+                                        </div>
+                                    </label>
+                                    
 
                                     <span class="overlay-heading" style="text-align: center; margin-left: 30px;">Schedule BG <br> Color 2: </span>
 

@@ -8,6 +8,16 @@
     <script src="overlay-cams-screen.js" defer></script>
 
     <style>
+        :root {
+            --bg1: #007477;
+            --bg2: #00262a;
+            --bg3: #0297b5;
+            --bg4: #00f0f8;
+            --bga1: #204546;
+            --bga2: #257878;
+            --frames: #257878;
+        }
+
         @font-face {
             font-family: 'Arial';
             src: url(assets/fonts/ARIALBD.TTF);
@@ -47,55 +57,17 @@
             display: grid;
             grid-template: 1080px/1920px;
         }
-
-        .caster-handle-1 {
-            display: grid;
-            grid-template: 1080px/1920px;;
-            grid-area: 1/1;
-        }
         
-        .caster-handle-2 {
-            display: grid;
-            grid-template: 1080px/1920px;;
-            grid-area: 1/1;
-        }
-
-        #cam-screen-1 {
-            margin: 634px 0px 0px 1308px;
-            display: flex;
-            align-items: center;
-            height: 48px;
-            font-family: 'Arial';
-            color: white;
-            font-size: 20pt;
-        }
-
-        #cam-screen-2-1 {
-            grid-area: 1/1;
-            margin: 422px 0px 0px 1308px;
-            display: flex;
-            align-items: center;
-            height: 48px;
-            font-family: 'Arial';
-            color: white;
-            font-size: 20pt;
-        }
-
-        #cam-screen-2-2 {
-            grid-area: 1/1;
-            margin: 848px 0px 0px 1308px;
-            display: flex;
-            align-items: center;
-            height: 48px;
-            font-family: 'Arial';
-            color: white;
-            font-size: 20pt;
-        }
-
-        .bottom-bar {
+        #bottom-bar {
             grid-area: 1/1;
             display: grid;
             grid-template: 1080px/1920px;
+        }
+
+        #bottom-bar-bg {
+            grid-area: 1/1;
+            display: grid;
+            grid-template: 1030px 50px/360px 50px 1100px 50px 360px;
         }
 
         .bottom-bar-content {
@@ -112,27 +84,301 @@
             color: white;
             gap: 20px;
         }
+
+        #frames {
+            grid-area: 1/1;
+            display: grid;
+            grid-template: 1080px/1920px;
+            filter: drop-shadow(0px 0px 12px rgba(0, 0, 0, 0.5));
+            z-index: 2;
+        }
+
+        #background {
+            display: grid;
+            grid-template: 1080px/1920px;
+            grid-area: 1/1;
+            overflow: hidden;
+        }
+
+        #default-background {
+            grid-area: 1/1;
+            display: grid;
+            grid-template: 1080px/1920px;
+        }
+
+        #gradient {
+            grid-area: 1/1;
+            width: 9600px;
+            transform: translate(-7680px);
+            display: flex;
+            -webkit-animation: gradientAnimate 20s linear infinite;
+        }
+
+        .gradient-1 {
+            background: linear-gradient(to bottom, var(--bg1), var(--bg3));
+            width: 1920px;
+            height: 1080px;
+        }
+
+        .gradient-1::after {
+            background: linear-gradient(to bottom, var(--bg2), var(--bg4));
+            content: "";
+            position: absolute;
+            width: 1920px;
+            height: 1080px;
+            -webkit-mask-image: linear-gradient(to left, white, transparent);
+        }
+
+        .gradient-2 {
+            background: linear-gradient(to bottom, var(--bg4), var(--bg2));
+            width: 1920px;
+            height: 1080px;
+        }
+
+        .gradient-2::after {
+            background: linear-gradient(to bottom, var(--bg1), var(--bg3));
+            content: "";
+            position: absolute;
+            width: 1920px;
+            height: 1080px;
+            -webkit-mask-image: linear-gradient(to left, white, transparent);
+        }
+
+        .gradient-3 {
+            background: linear-gradient(to bottom, var(--bg3), var(--bg1));
+            width: 1920px;
+            height: 1080px;
+        }
+
+        .gradient-3::after {
+            background: linear-gradient(to bottom, var(--bg4), var(--bg2));
+            content: "";
+            position: absolute;
+            width: 1920px;
+            height: 1080px;
+            -webkit-mask-image: linear-gradient(to left, white, transparent);
+        }
+
+        .gradient-4 {
+            background: linear-gradient(to bottom, var(--bg2), var(--bg4));
+            width: 1920px;
+            height: 1080px;
+        }
+
+        .gradient-4::after {
+            background: linear-gradient(to bottom, var(--bg3), var(--bg1));
+            content: "";
+            position: absolute;
+            width: 1920px;
+            height: 1080px;
+            -webkit-mask-image: linear-gradient(to left, white, transparent);
+        }
+
+        @-webkit-keyframes gradientAnimate {
+            0% {transform: translate(-7680px);}
+            100% {transform: translate(0px);}
+        }
+
+        #moving-bars {
+            grid-area: 1/1;
+            display: grid;
+            grid-template: 1080px/1920px;
+            z-index: 1;
+        }
+
+        #bar-1 {
+            grid-area: 1/1;
+            display: flex;
+            flex-direction: column;
+            height: fit-content;
+            width: fit-content;
+            margin: 100px 0px 0px 73px;
+            -webkit-animation: bar1Animate 40s linear infinite;
+            filter: drop-shadow(30px 30px 12px rgba(0, 0, 0, 0.5));
+        }
+
+        #bar-2 {
+            grid-area: 1/1;
+            display: flex;
+            flex-direction: column;
+            height: fit-content;
+            width: fit-content;
+            margin: 550px 0px 0px 268px;
+            -webkit-animation: bar2Animate 40s linear infinite;
+            filter: drop-shadow(30px 30px 12px rgba(0, 0, 0, 0.5));
+        }
+
+        #bar-3 {
+            grid-area: 1/1;
+            display: flex;
+            flex-direction: column;
+            height: fit-content;
+            width: fit-content;
+            margin: 140px 0px 0px 1579px;
+            -webkit-animation: bar3Animate 10s linear infinite;
+            filter: drop-shadow(30px 30px 12px rgba(0, 0, 0, 0.5));
+        }
+
+        #bar-4 {
+            grid-area: 1/1;
+            display: flex;
+            flex-direction: column;
+            height: fit-content;
+            width: fit-content;
+            margin: 415px 0px 0px 1744px;
+            -webkit-animation: bar4Animate 40s linear infinite;
+            filter: drop-shadow(30px 30px 12px rgba(0, 0, 0, 0.5));
+        }
+
+        @-webkit-keyframes bar1Animate {
+            0% {transform: translate(0px, -700px);}
+            50% {transform: translate(0px, 980px);}
+            52.5% {transform: translate(0px, 980px);}
+            100% {transform: translate(0px, -700px);}
+        }
+
+        @-webkit-keyframes bar2Animate {
+            0% {transform: translate(0px, -250px);}
+            12.5% {transform: translate(0px, -1000px);}
+            12.500001% {transform: translate(0px, 550px);}
+            37.5% {transform: translate(0px, -1000px);}
+            40% {transform: translate(0px, -1000px);}
+            62.5% {transform: translate(0px, 550px);}
+            62.500001% {transform: translate(0px, -1000px);}
+            87.5% {transform: translate(0px, 550px);}
+            88% {transform: translate(0px, 550px);}
+            100% {transform: translate(0px, -250px);}
+        }
+
+        @-webkit-keyframes bar3Animate {
+            0% {transform: translate(0px, -580px);}
+            100% {transform: translate(0px, 950px);}
+        }
+
+        @-webkit-keyframes bar4Animate {
+            0% {transform: translate(0px, 150px);}
+            26.25% {transform: translate(0px, 700px);}
+            28.75% {transform: translate(0px, 700px);}
+            65.85% {transform: translate(0px, -1020px);}
+            68.35% {transform: translate(0px, -1020px);}
+            100% {transform: translate(0px, 150px);}
+        }
+
+        .caster-container {
+            grid-area: 1/1;
+            display: flex;
+            height: 30px;
+            width: fit-content;
+            align-items: center;
+        }
+
+        .caster-name {
+            display: flex;
+            align-items: center;
+            height: 10px;
+            background-color: var(--frames);
+            padding: 0px 20px 20px 20px;
+            font-family: 'Arial';
+            color: white;
+            font-size: 20pt;
+        }
+
+        .lower-right-triangle {
+            width: 0px;
+            height: 0px;
+            border-top: solid 30px var(--frames);
+            border-right: solid 30px transparent;
+        }
+
     </style>
 </head>
 
 <body style="margin: 0;" onload="onPageLoad()">
     <div id="page-container">
         <div id="cams-screen-overlay">
-            <video controls autoplay loop src="assets/VCL_Cam_Screen_Background.webm" id="cams-screen-overlay-video" class="overlay-element grid-1-1 video"></video>
-            <div class="bottom-bar" style="display: grid; font-size: 25pt;"> 
-                <img src="assets/VCL_Bottom_Bar.png" class="overlay-element grid-1-1">
-                <div class="bottom-bar-content">
-                    <span class="apply-event-name">Event Name</span>
-                    <span>|</span>
-                    <span class="apply-team-a-tri"></span>
-                    <span>VS</span>
-                    <span class="apply-team-b-tri"></span>
-                    <span class="chat-commands" style="display: flex;">|</span>
-                    <span class="chat-commands" style="display: flex;">!score</span>
-                    <span class="chat-commands" style="display: flex;">!maps</span>
+            
+            <div id="background" style="mask-image: url(assets/Mask_Cam_Screen.png);">
+                
+                <div id="default-background">
+                    <div id="gradient">
+                        <div class="gradient-1"></div>
+                        <div class="gradient-4"></div>
+                        <div class="gradient-3"></div>
+                        <div class="gradient-2"></div>
+                        <div class="gradient-1"></div>
+                    </div>
+
+                    <div id="moving-bars">
+                        <div id="bar-1">
+                            <div style="height: 0; width: 0; border-bottom: 100px solid var(--bga1); border-left: 100px solid transparent;"></div>
+                            <div style="height: 360px; width: 100px; background-color: var(--bga1);"></div>
+                            <div style="height: 0; width: 0; border-top: 100px solid var(--bga1); border-left: 100px solid transparent;"></div>
+                        </div>
+    
+                        <div id="bar-2">
+                            <div style="height: 0; width: 0; border-bottom: 75px solid var(--bga2); border-right: 75px solid transparent;"></div>
+                            <div style="height: 250px; width: 75px; background-color: var(--bga2);"></div>
+                            <div style="height: 0; width: 0; border-top: 75px solid var(--bga2); border-right: 75px solid transparent;"></div>
+                        </div>
+    
+                        <div id="bar-3">
+                            <div style="height: 0; width: 0; border-bottom: 75px solid var(--bga2); border-left: 75px solid transparent;"></div>
+                            <div style="height: 250px; width: 75px; background-color: var(--bga2);"></div>
+                            <div style="height: 0; width: 0; border-top: 75px solid var(--bga2); border-left: 75px solid transparent;"></div>
+                        </div>
+    
+                        <div id="bar-4">
+                            <div style="height: 0; width: 0; border-bottom: 100px solid var(--bga1); border-right: 100px solid transparent;"></div>
+                            <div style="height: 360px; width: 100px; background-color: var(--bga1);"></div>
+                            <div style="height: 0; width: 0; border-top: 100px solid var(--bga1); border-right: 100px solid transparent;"></div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="caster-handle-1" style="display: grid;">
+
+                <div id="frames">
+                    <div id="screen-frame" style="border: solid 20px var(--frames); height: 640px; width: 1137px; margin: 175px 0px 0px 49px; grid-area: 1/1;"></div>
+                    
+                    <div id="cam-1" style="display: none; border: solid 20px var(--frames); height: 300px; width: 533px; margin: 330px 0px 0px 1288px; grid-area: 1/1;"></div>
+                    <div id="caster-handle-1" class="caster-container" style="display: flex; margin: 670px 0px 0px 1288px;">
+                        <span id="caster-1" class="apply-caster-1-name caster-name">@</span>
+                        <div class="lower-right-triangle"></div>
+                    </div>
+                    
+                    <div id="cam-2-1" style="display: block; border: solid 20px var(--frames); height: 300px; width: 533px; margin: 107px 0px 0px 1288px; grid-area: 1/1;"></div>
+                    <div id="caster-handle-2-1" class="caster-container" style="display: none; margin: 447px 0px 0px 1288px;">
+                        <span id="caster-2-1" class="apply-caster-1-name caster-name">@</span>
+                        <div class="lower-right-triangle"></div>
+                    </div>
+
+                    <div id="cam-2-2" style="display: block; border: solid 20px var(--frames); height: 300px; width: 533px; margin: 552px 0px 0px 1288px; grid-area: 1/1;"></div>
+                    <div id="caster-handle-2-2" class="caster-container" style="display: none; margin: 892px 0px 0px 1288px;">
+                        <span id="caster-2-2" class="apply-caster-2-name caster-name">@</span>
+                        <div class="lower-right-triangle"></div>
+                    </div>
+
+                    <div id="bottom-bar" style="display: grid; font-size: 25pt;"> 
+                        <div id="bottom-bar-bg">
+                            <div style="grid-area: 2/2; width: 0; height: 0; border-bottom: solid 50px var(--frames); border-left: solid 50px transparent;"></div>
+                            <div style="grid-area: 2/3; width: 1100px; height: 50px; background-color: var(--frames);"></div>
+                            <div style="grid-area: 2/4; width: 0; height: 0; border-bottom: solid 50px var(--frames); border-right: solid 50px transparent;"></div>
+                        </div>
+                        <div class="bottom-bar-content">
+                            <span class="apply-event-name">Event Name</span>
+                            <span>|</span>
+                            <span class="apply-team-a-tri"></span>
+                            <span>VS</span>
+                            <span class="apply-team-b-tri"></span>
+                            <span class="chat-commands" style="display: flex;">|</span>
+                            <span class="chat-commands" style="display: flex;">!score</span>
+                            <span class="chat-commands" style="display: flex;">!maps</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div> <!-- background -->
+
+            <!-- <div class="caster-handle-1" style="display: grid;">
                 <div id="cam-screen-1">
                     <span class="apply-caster-1-name">@</span>
                 </div>
@@ -144,7 +390,7 @@
                 <div id="cam-screen-2-2">
                     <span class="apply-caster-2-name">@</span>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 
