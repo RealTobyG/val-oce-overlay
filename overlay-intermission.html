@@ -455,6 +455,10 @@
             width: 524px;
             margin: 85px 0px 0px 1282px;
         }
+
+        video::-webkit-media-controls {
+            display: none;
+        }
     </style>
 </head>
 
@@ -549,8 +553,36 @@
                     <img id="bo3-3rd-pick-img-intermission" class="bo3-pick-img-intermission" src="assets/Maps/Abyss_524x214.png">
                 </div>
                 
-                <img src="assets/VCL_BO3_Schedule_Overlay.png" class="grid-1-1">
-                
+                <div id="bo3-intermission-schedule" style="grid-area: 1/1; display: grid; grid-template: 55px 30px 184px 10px 30px 184px 10px 30px 184px 15px/10px 162px 30px 140px 30px 162px 10px; margin: 85px 0px 0px 1282px;">
+                    <!-- Main Frame -->
+                    <div style="grid-area: 1/1/2/8; background-color: var(--frames);"></div>
+                    <div style="grid-area: 2/1/10/2; background-color: var(--frames);"></div>
+                    <div style="grid-area: 2/7/10/8; background-color: var(--frames);"></div>
+                    <div style="grid-area: 10/1/11/8; background-color: var(--frames);"></div>
+                    <div style="grid-area: 4/2/5/7; background-color: var(--frames);"></div>
+                    <div style="grid-area: 7/2/8/7; background-color: var(--frames);"></div>
+                    <!-- Atk/Def Backgrounds -->
+                    <div style="grid-area: 2/6/4/7; background-color: rgba(78, 138, 131, 0.5);"></div>
+                    <div style="grid-area: 5/6/7/7; background-color: rgba(78, 138, 131, 0.5);"></div>
+                    <div style="grid-area: 8/6/10/7; background-color: rgba(78, 138, 131, 0.5);"></div>
+                    <div style="grid-area: 2/2/4/3; background-color: rgba(124, 92, 93, 0.5);"></div>
+                    <div style="grid-area: 5/2/7/3; background-color: rgba(124, 92, 93, 0.5);"></div>
+                    <div style="grid-area: 8/2/10/3; background-color: rgba(124, 92, 93, 0.5);"></div>
+                    <div style="grid-area: 2/3/4/6; background-color: rgba(26, 26, 26, 0.5);"></div>
+                    <div style="grid-area: 5/3/7/6; background-color: rgba(26, 26, 26, 0.5);"></div>
+                    <div style="grid-area: 8/3/10/6; background-color: rgba(26, 26, 26, 0.5);"></div>
+                    <!-- Inner Tags -->
+                    <div style="grid-area: 2/4; background-color: var(--frames);"></div>
+                    <div style="grid-area: 5/4; background-color: var(--frames);"></div>
+                    <div style="grid-area: 8/4; background-color: var(--frames);"></div>
+                    <div style="grid-area: 2/3; height: 0; width: 0; border-top: solid 30px var(--frames); border-left: solid 30px transparent;"></div>
+                    <div style="grid-area: 5/3; height: 0; width: 0; border-top: solid 30px var(--frames); border-left: solid 30px transparent;"></div>
+                    <div style="grid-area: 8/3; height: 0; width: 0; border-top: solid 30px var(--frames); border-left: solid 30px transparent;"></div>
+                    <div style="grid-area: 2/5; height: 0; width: 0; border-top: solid 30px var(--frames); border-right: solid 30px transparent;"></div>
+                    <div style="grid-area: 5/5; height: 0; width: 0; border-top: solid 30px var(--frames); border-right: solid 30px transparent;"></div>
+                    <div style="grid-area: 8/5; height: 0; width: 0; border-top: solid 30px var(--frames); border-right: solid 30px transparent;"></div>
+                </div>
+
                 <div id="bo3-intermission-schedule-content">
                     <div class="intermission-schedule-heading" style="grid-area: 1/1;">
                         <span style="margin-top: 20px;">▼ ATK ▼</span>
@@ -620,7 +652,29 @@
             <div id="bo1-intermission" style="display: none;">
                 <div id="bo1-pick-img-intermission" style="background-image: url(assets/Maps/Abyss_1080p.png);"></div>
 
-                <img src="assets/VCL_BO1_Schedule_Overlay_2.png" class="grid-1-1">
+                <div id="bo1-intermission-schedule" style="grid-area: 1/1; display: grid; grid-template: 55px 30px 90px 30px 362px 30px 90px 30px 15px/10px 162px 30px 140px 30px 162px 10px; margin: 85px 0px 0px 1282px;">
+                    <!-- Main Frame -->
+                    <div style="grid-area: 1/1/2/8; background-color: var(--frames);"></div>
+                    <div style="grid-area: 2/1/9/2; background-color: var(--frames);"></div>
+                    <div style="grid-area: 2/7/9/8; background-color: var(--frames);"></div>
+                    <div style="grid-area: 9/1/10/8; background-color: var(--frames);"></div>
+                    <!-- Inner Tags -->
+                    <div style="grid-area: 2/4; background-color: var(--frames);"></div>
+                    <div style="grid-area: 8/4; background-color: var(--frames);"></div>
+                    <div style="grid-area: 2/3; height: 0; width: 0; border-top: solid 30px var(--frames); border-left: solid 30px transparent;"></div>
+                    <div style="grid-area: 8/3; height: 0; width: 0; border-bottom: solid 30px var(--frames); border-left: solid 30px transparent;"></div>
+                    <div style="grid-area: 2/5; height: 0; width: 0; border-top: solid 30px var(--frames); border-right: solid 30px transparent;"></div>
+                    <div style="grid-area: 8/5; height: 0; width: 0; border-bottom: solid 30px var(--frames); border-right: solid 30px transparent;"></div>
+                    <!-- Atk/Def Backgrounds -->
+                    <div style="grid-area: 2/2/5/3; background-color: rgba(78, 138, 131, 0.5);"></div>
+                    <div style="grid-area: 3/3; background-color: rgba(78, 138, 131, 0.5);"></div>
+                    <div style="grid-area: 2/3; height: 0; width: 0; border-bottom: solid 30px rgba(78, 138, 131, 0.5); border-right: solid 30px transparent;"></div>
+                    <div style="grid-area: 4/3; height: 0; width: 0; border-top: solid 30px rgba(78, 138, 131, 0.5); border-right: solid 30px transparent;"></div>
+                    <div style="grid-area: 6/6/9/7; background-color: rgba(124, 92, 93, 0.5);"></div>
+                    <div style="grid-area: 7/5; background-color: rgba(124, 92, 93, 0.5);"></div>
+                    <div style="grid-area: 6/5; height: 0; width: 0; border-bottom: solid 30px rgba(124, 92, 93, 0.5); border-left: solid 30px transparent;"></div>
+                    <div style="grid-area: 8/5; height: 0; width: 0; border-top: solid 30px rgba(124, 92, 93, 0.5); border-left: solid 30px transparent;"></div>
+                </div>
 
                 <div id="bo1-intermission-schedule-content">
                     <div class="intermission-schedule-heading" style="grid-area: 1/2;">

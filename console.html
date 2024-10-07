@@ -1067,49 +1067,46 @@
             grid-template: 1080px/1920px;
             grid-area: 2/3;
         }
-        
-        .caster-handle-1 {
-            display: grid;
-            grid-template: 1080px/1920px;;
+
+        #screen-frame {
             grid-area: 1/1;
-        }
-        
-        .caster-handle-2 {
-            display: grid;
-            grid-template: 1080px/1920px;;
-            grid-area: 1/1;
+            border: solid 20px var(--frames);
+            height: 640px; 
+            width: 1137px;
+            margin: 175px 0px 0px 49px;
         }
 
-        #cam-screen-1 {
-            margin: 634px 0px 0px 1308px;
+        .cams-screen-caster-frame {
+            grid-area: 1/1;
+            border: solid 20px var(--frames);
+            height: 300px;
+            width: 533px;
+        }
+
+        .cams-screen-caster-container {
+            grid-area: 1/1;
+            display: flex;
+            height: 30px;
+            width: fit-content;
+            align-items: center;
+        }
+
+        .cams-screen-caster-name {
             display: flex;
             align-items: center;
-            height: 48px;
+            height: 10px;
+            background-color: var(--frames);
+            padding: 0px 20px 20px 20px;
             font-family: 'Arial';
             color: white;
             font-size: 20pt;
         }
 
-        #cam-screen-2-1 {
-            grid-area: 1/1;
-            margin: 422px 0px 0px 1308px;
-            display: flex;
-            align-items: center;
-            height: 48px;
-            font-family: 'Arial';
-            color: white;
-            font-size: 20pt;
-        }
-
-        #cam-screen-2-2 {
-            grid-area: 1/1;
-            margin: 848px 0px 0px 1308px;
-            display: flex;
-            align-items: center;
-            height: 48px;
-            font-family: 'Arial';
-            color: white;
-            font-size: 20pt;
+        .cams-screen-lower-right-triangle {
+            width: 0px;
+            height: 0px;
+            border-top: solid 30px var(--frames);
+            border-right: solid 30px transparent;
         }
         
         /* Caster Cams Overlay */
@@ -1119,36 +1116,70 @@
             grid-area: 1/3;
         }
 
-        #cam-1 {
-            margin: 771px 0px 0px 479px;
+        .caster-frame-1 {
+            grid-area: 1/1;
+            border: solid 30px var(--frames);
+            height: 562px;
+            width: 1000px;
+        }
+
+        .caster-frame-2 {
+            grid-area: 1/1;
+            border: solid 25px var(--frames);
+            height: 410px;
+            width: 729px;
+        }
+
+        .caster-container-1 {
+            grid-area: 1/1;
+            display: flex;
+            height: 55px;
+            width: fit-content;
+            align-items: center;
+        }
+
+        .caster-container-2 {
+            grid-area: 1/1;
+            display: flex;
+            height: 40px;
+            width: fit-content;
+            align-items: center;
+        }
+
+        .caster-name-1 {
             display: flex;
             align-items: center;
-            height: 85px;
+            height: 25px;
+            background-color: var(--frames);
+            padding: 0px 55px 30px 55px;
             font-family: 'Arial';
             color: white;
             font-size: 40pt;
         }
 
-        #cam-2-1 {
-            grid-area: 1/1;
-            margin: 735px 0px 0px 145px;
+        .caster-name-2 {
             display: flex;
             align-items: center;
-            height: 66px;
+            height: 15px;
+            background-color: var(--frames);
+            padding: 0px 40px 25px 40px;
             font-family: 'Arial';
             color: white;
             font-size: 25pt;
         }
 
-        #cam-2-2 {
-            grid-area: 1/1;
-            margin: 735px 0px 0px 1046px;
-            display: flex;
-            align-items: center;
-            height: 66px;
-            font-family: 'Arial';
-            color: white;
-            font-size: 25pt;
+        .lower-right-triangle-1 {
+            width: 0px;
+            height: 0px;
+            border-top: solid 55px var(--frames);
+            border-right: solid 55px transparent;
+        }
+
+        .lower-right-triangle-2 {
+            width: 0px;
+            height: 0px;
+            border-top: solid 40px var(--frames);
+            border-right: solid 40px transparent;
         }
 
 
@@ -1311,11 +1342,23 @@
             transform: scale(1.5) translate(0px, -750px);
         }
 
-        #bottom-bar-bg {
+        #bottom-bar-bg-preview {
             grid-area: 1/1;
             display: grid;
             grid-template: 1030px 50px/360px 50px 1100px 50px 360px;
             filter: drop-shadow(0px 0px 12px rgba(0, 0, 0, 0.5))
+        }
+
+        .bottom-bar {
+            grid-area: 1/1;
+            display: grid;
+            grid-template: 1080px/1920px;
+        }
+
+        .bottom-bar-bg {
+            grid-area: 1/1;
+            display: grid;
+            grid-template: 1030px 50px/360px 50px 1100px 50px 360px;
         }
 
         .bottom-bar-content {
@@ -1335,20 +1378,20 @@
         }
 
         /* Background Animation */
-        #background {
+        .background {
             display: grid;
             grid-template: 1080px/1920px;
             grid-area: 1/1;
             overflow: hidden;
         }
 
-        #default-background {
+        .default-background {
             grid-area: 1/1;
             display: grid;
             grid-template: 1080px/1920px;
         }
 
-        #gradient {
+        .gradient {
             grid-area: 1/1;
             width: 9600px;
             transform: translate(-7680px);
@@ -1421,14 +1464,14 @@
             100% {transform: translate(0px);}
         }
 
-        #moving-bars {
+        .moving-bars {
             grid-area: 1/1;
             display: grid;
             grid-template: 1080px/1920px;
             z-index: 1;
         }
 
-        #bar-1 {
+        .bar-1 {
             grid-area: 1/1;
             display: flex;
             flex-direction: column;
@@ -1438,7 +1481,7 @@
             filter: drop-shadow(30px 30px 12px rgba(0, 0, 0, 0.5));
         }
 
-        #bar-2 {
+        .bar-2 {
             grid-area: 1/1;
             display: flex;
             flex-direction: column;
@@ -1448,7 +1491,7 @@
             filter: drop-shadow(30px 30px 12px rgba(0, 0, 0, 0.5));
         }
 
-        #bar-3 {
+        .bar-3 {
             grid-area: 1/1;
             display: flex;
             flex-direction: column;
@@ -1458,7 +1501,7 @@
             filter: drop-shadow(30px 30px 12px rgba(0, 0, 0, 0.5));
         }
 
-        #bar-4 {
+        .bar-4 {
             grid-area: 1/1;
             display: flex;
             flex-direction: column;
@@ -1469,6 +1512,13 @@
             filter: drop-shadow(30px 30px 12px rgba(0, 0, 0, 0.5));
         }
 
+        .frames {
+            grid-area: 1/1;
+            display: grid;
+            grid-template: 1080px/1920px;
+            filter: drop-shadow(0px 0px 12px rgba(0, 0, 0, 0.5));
+            z-index: 2;
+        }
 
 
         /* ############################### */
@@ -2269,49 +2319,167 @@
                             <!-- #################### Casters Preview #################### -->
                             <div id="casters-preview" class="grid-1-1">
                                 <div id="cams-overlay">
-                                    <img src="assets/Single_Cam_Preview.png" id="cams-overlay-video" class="grid-1-1">
-                                    
-                                    <img src="assets/VCL_Bottom_Bar.png" class="grid-1-1">
-                                    <div class="bottom-bar-content" style="grid-area: 1/1; font-size: 25pt;">
-                                        <span>Preview/config the bottom bar on overlay config tab</span>
-                                    </div>
-                                    
-                                    <div class="caster-handle-1" style="display: grid;">
-                                        <div id="cam-1">
-                                            <span class="apply-caster-1-name">@</span>
+                                    <div id="cams-background" class="background" style="-webkit-mask-image: url(assets/Mask_Cam.png);">
+                
+                                        <div class="default-background">
+                                            <div class="gradient">
+                                                <div class="gradient-1"></div>
+                                                <div class="gradient-4"></div>
+                                                <div class="gradient-3"></div>
+                                                <div class="gradient-2"></div>
+                                                <div class="gradient-1"></div>
+                                            </div>
+                        
+                                            <div class="moving-bars">
+                                                <div class="bar-1">
+                                                    <div style="height: 0; width: 0; border-bottom: 100px solid var(--bga1); border-left: 100px solid transparent;"></div>
+                                                    <div style="height: 360px; width: 100px; background-color: var(--bga1);"></div>
+                                                    <div style="height: 0; width: 0; border-top: 100px solid var(--bga1); border-left: 100px solid transparent;"></div>
+                                                </div>
+                            
+                                                <div class="bar-2">
+                                                    <div style="height: 0; width: 0; border-bottom: 75px solid var(--bga2); border-right: 75px solid transparent;"></div>
+                                                    <div style="height: 250px; width: 75px; background-color: var(--bga2);"></div>
+                                                    <div style="height: 0; width: 0; border-top: 75px solid var(--bga2); border-right: 75px solid transparent;"></div>
+                                                </div>
+                            
+                                                <div class="bar-3">
+                                                    <div style="height: 0; width: 0; border-bottom: 75px solid var(--bga2); border-left: 75px solid transparent;"></div>
+                                                    <div style="height: 250px; width: 75px; background-color: var(--bga2);"></div>
+                                                    <div style="height: 0; width: 0; border-top: 75px solid var(--bga2); border-left: 75px solid transparent;"></div>
+                                                </div>
+                            
+                                                <div class="bar-4">
+                                                    <div style="height: 0; width: 0; border-bottom: 100px solid var(--bga1); border-right: 100px solid transparent;"></div>
+                                                    <div style="height: 360px; width: 100px; background-color: var(--bga1);"></div>
+                                                    <div style="height: 0; width: 0; border-top: 100px solid var(--bga1); border-right: 100px solid transparent;"></div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="caster-handle-2" style="display: none;">
-                                        <div id="cam-2-1">
-                                            <span class="apply-caster-1-name">@</span>
+
+                                        <div class="frames">
+                                            <div id="cams-cam-1" class="caster-frame-1" style="display: block; margin: 202px 0px 0px 430px;"></div>
+                                            <div id="cams-caster-handle-1" class="caster-container-1" style="display: flex; margin: 824px 0px 0px 430px;">
+                                                <span class="apply-caster-1-name caster-name-1">@</span>
+                                                <div class="lower-right-triangle-1"></div>
+                                            </div>
+                                            
+                                            <div id="cams-cam-2-1" class="caster-frame-2" style="display: none; margin: 290px 0px 0px 120px;"></div>
+                                            <div id="cams-caster-handle-2-1" class="caster-container-2" style="display: none; margin: 750px 0px 0px 120px;">
+                                                <span class="apply-caster-1-name caster-name-2">@</span>
+                                                <div class="lower-right-triangle-2"></div>
+                                            </div>
+                        
+                                            <div id="cams-cam-2-2" class="caster-frame-2" style="display: none; margin: 290px 0px 0px 1021px;"></div>
+                                            <div id="cams-caster-handle-2-2" class="caster-container-2" style="display: none; margin: 750px 0px 0px 1021px;">
+                                                <span class="apply-caster-2-name caster-name-2">@</span>
+                                                <div class="lower-right-triangle-2"></div>
+                                            </div>
+                        
+                                            <div class="bottom-bar" style="display: grid; font-size: 25pt;"> 
+                                                <div class="bottom-bar-bg">
+                                                    <div style="grid-area: 2/2; width: 0; height: 0; border-bottom: solid 50px var(--frames); border-left: solid 50px transparent;"></div>
+                                                    <div style="grid-area: 2/3; width: 1100px; height: 50px; background-color: var(--frames);"></div>
+                                                    <div style="grid-area: 2/4; width: 0; height: 0; border-bottom: solid 50px var(--frames); border-right: solid 50px transparent;"></div>
+                                                </div>
+                                                <div class="bottom-bar-content">
+                                                    <span class="apply-event-name">Event Name</span>
+                                                    <span>|</span>
+                                                    <span class="apply-team-a-tri"></span>
+                                                    <span>VS</span>
+                                                    <span class="apply-team-b-tri"></span>
+                                                    <span class="chat-commands" style="display: flex;">|</span>
+                                                    <span class="chat-commands" style="display: flex;">!score</span>
+                                                    <span class="chat-commands" style="display: flex;">!maps</span>
+                                                </div>
+                                            </div>
+                        
                                         </div>
-                                        <div id="cam-2-2">
-                                            <span class="apply-caster-2-name">@</span>
-                                        </div>
-                                    </div>
+                        
+                                    </div> <!-- background -->
                                 </div>
 
                                 <div id="cams-screen-overlay">
-                                    <img src="assets/Single_Cam_Screen_Preview.png" id="cams-screen-overlay-video" class="grid-1-1">
+                                    <div id="cams-screen-background" class="background" style="-webkit-mask-image: url(assets/Mask_Cam_Screen.png);">
+                
+                                        <div class="default-background">
+                                            <div class="gradient">
+                                                <div class="gradient-1"></div>
+                                                <div class="gradient-4"></div>
+                                                <div class="gradient-3"></div>
+                                                <div class="gradient-2"></div>
+                                                <div class="gradient-1"></div>
+                                            </div>
+                        
+                                            <div class="moving-bars">
+                                                <div class="bar-1">
+                                                    <div style="height: 0; width: 0; border-bottom: 100px solid var(--bga1); border-left: 100px solid transparent;"></div>
+                                                    <div style="height: 360px; width: 100px; background-color: var(--bga1);"></div>
+                                                    <div style="height: 0; width: 0; border-top: 100px solid var(--bga1); border-left: 100px solid transparent;"></div>
+                                                </div>
+                            
+                                                <div class="bar-2">
+                                                    <div style="height: 0; width: 0; border-bottom: 75px solid var(--bga2); border-right: 75px solid transparent;"></div>
+                                                    <div style="height: 250px; width: 75px; background-color: var(--bga2);"></div>
+                                                    <div style="height: 0; width: 0; border-top: 75px solid var(--bga2); border-right: 75px solid transparent;"></div>
+                                                </div>
+                            
+                                                <div class="bar-3">
+                                                    <div style="height: 0; width: 0; border-bottom: 75px solid var(--bga2); border-left: 75px solid transparent;"></div>
+                                                    <div style="height: 250px; width: 75px; background-color: var(--bga2);"></div>
+                                                    <div style="height: 0; width: 0; border-top: 75px solid var(--bga2); border-left: 75px solid transparent;"></div>
+                                                </div>
+                            
+                                                <div class="bar-4">
+                                                    <div style="height: 0; width: 0; border-bottom: 100px solid var(--bga1); border-right: 100px solid transparent;"></div>
+                                                    <div style="height: 360px; width: 100px; background-color: var(--bga1);"></div>
+                                                    <div style="height: 0; width: 0; border-top: 100px solid var(--bga1); border-right: 100px solid transparent;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                    <img src="assets/VCL_Bottom_Bar.png" class="grid-1-1">
-                                    <div class="bottom-bar-content" style="grid-area: 1/1; font-size: 25pt;">
-                                        <span>Preview/config the bottom bar on overlay config tab</span>
-                                    </div>
-
-                                    <div class="caster-handle-1" style="display: grid;">
-                                        <div id="cam-screen-1">
-                                            <span class="apply-caster-1-name">@</span>
+                                        <div class="frames">
+                                            <div id="screen-frame"></div>
+                                            
+                                            <div id="cams-screen-cam-1" class="cams-screen-caster-frame" style="display: block; margin: 330px 0px 0px 1288px;"></div>
+                                            <div id="cams-screen-caster-handle-1" class="cams-screen-caster-container" style="display: flex; margin: 670px 0px 0px 1288px;">
+                                                <span class="apply-caster-1-name cams-screen-caster-name">@</span>
+                                                <div class="cams-screen-lower-right-triangle"></div>
+                                            </div>
+                                            
+                                            <div id="cams-screen-cam-2-1" class="cams-screen-caster-frame" style="display: none; margin: 107px 0px 0px 1288px;"></div>
+                                            <div id="cams-screen-caster-handle-2-1" class="cams-screen-caster-container" style="display: none; margin: 447px 0px 0px 1288px;">
+                                                <span class="apply-caster-1-name cams-screen-caster-name">@</span>
+                                                <div class="cams-screen-lower-right-triangle"></div>
+                                            </div>
+                        
+                                            <div id="cams-screen-cam-2-2" class="cams-screen-caster-frame" style="display: none; margin: 552px 0px 0px 1288px;"></div>
+                                            <div id="cams-screen-caster-handle-2-2" class="cams-screen-caster-container" style="display: none; margin: 892px 0px 0px 1288px;">
+                                                <span class="apply-caster-2-name cams-screen-caster-name">@</span>
+                                                <div class="cams-screen-lower-right-triangle"></div>
+                                            </div>
+                        
+                                            <div class="bottom-bar" style="display: grid; font-size: 25pt;"> 
+                                                <div class="bottom-bar-bg">
+                                                    <div style="grid-area: 2/2; width: 0; height: 0; border-bottom: solid 50px var(--frames); border-left: solid 50px transparent;"></div>
+                                                    <div style="grid-area: 2/3; width: 1100px; height: 50px; background-color: var(--frames);"></div>
+                                                    <div style="grid-area: 2/4; width: 0; height: 0; border-bottom: solid 50px var(--frames); border-right: solid 50px transparent;"></div>
+                                                </div>
+                                                <div class="bottom-bar-content">
+                                                    <span class="apply-event-name">Event Name</span>
+                                                    <span>|</span>
+                                                    <span class="apply-team-a-tri"></span>
+                                                    <span>VS</span>
+                                                    <span class="apply-team-b-tri"></span>
+                                                    <span class="chat-commands" style="display: flex;">|</span>
+                                                    <span class="chat-commands" style="display: flex;">!score</span>
+                                                    <span class="chat-commands" style="display: flex;">!maps</span>
+                                                </div>
+                                            </div>
+                        
                                         </div>
-                                    </div>
-                                    <div class="caster-handle-2" style="display: none;">
-                                        <div id="cam-screen-2-1">
-                                            <span class="apply-caster-1-name">@</span>
-                                        </div>
-                                        <div id="cam-screen-2-2">
-                                            <span class="apply-caster-2-name">@</span>
-                                        </div>
-                                    </div>
+                        
+                                    </div> <!-- background -->
                                 </div>
 
                                 <span style="width: 1920px; font-size: 70pt;">Caster Cameras Preview</span>
@@ -2496,35 +2664,35 @@
                             </div> <!-- Overlay Config -->
 
                             <div id="igo-bottom-bar-preview" class="grid-1-1">
-                                <div id="background">
-                                    <div id="default-background">
-                                        <div id="gradient">
+                                <div class="background">
+                                    <div class="default-background">
+                                        <div class="gradient">
                                             <div class="gradient-1"></div>
                                             <div class="gradient-4"></div>
                                             <div class="gradient-3"></div>
                                             <div class="gradient-2"></div>
                                             <div class="gradient-1"></div>
                                         </div>
-                                        <div id="moving-bars">
-                                            <div id="bar-1">
+                                        <div class="moving-bars">
+                                            <div class="bar-1">
                                                 <div style="height: 0; width: 0; border-bottom: 100px solid var(--bga1); border-left: 100px solid transparent;"></div>
                                                 <div style="height: 360px; width: 100px; background-color: var(--bga1);"></div>
                                                 <div style="height: 0; width: 0; border-top: 100px solid var(--bga1); border-left: 100px solid transparent;"></div>
                                             </div>
                         
-                                            <div id="bar-2">
+                                            <div class="bar-2">
                                                 <div style="height: 0; width: 0; border-bottom: 75px solid var(--bga2); border-right: 75px solid transparent;"></div>
                                                 <div style="height: 250px; width: 75px; background-color: var(--bga2);"></div>
                                                 <div style="height: 0; width: 0; border-top: 75px solid var(--bga2); border-right: 75px solid transparent;"></div>
                                             </div>
                         
-                                            <div id="bar-3">
+                                            <div class="bar-3">
                                                 <div style="height: 0; width: 0; border-bottom: 75px solid var(--bga2); border-left: 75px solid transparent;"></div>
                                                 <div style="height: 250px; width: 75px; background-color: var(--bga2);"></div>
                                                 <div style="height: 0; width: 0; border-top: 75px solid var(--bga2); border-left: 75px solid transparent;"></div>
                                             </div>
                         
-                                            <div id="bar-4">
+                                            <div class="bar-4">
                                                 <div style="height: 0; width: 0; border-bottom: 100px solid var(--bga1); border-right: 100px solid transparent;"></div>
                                                 <div style="height: 360px; width: 100px; background-color: var(--bga1);"></div>
                                                 <div style="height: 0; width: 0; border-top: 100px solid var(--bga1); border-right: 100px solid transparent;"></div>
@@ -2537,7 +2705,7 @@
 
                                 <span id="bottom-bar-preview-heading" style="width: 100%; text-align: center; transform: scale(3.5) translate(0px, 22px);">▼ Bottom Bar Preview ▼</span>
                                 <div id="bottom-bar-preview" style="font-size: 25pt;">
-                                    <div id="bottom-bar-bg">
+                                    <div id="bottom-bar-bg-preview">
                                         <div style="grid-area: 2/2; width: 0; height: 0; border-bottom: solid 50px var(--frames); border-left: solid 50px transparent;"></div>
                                         <div style="grid-area: 2/3; width: 1100px; height: 50px; background-color: var(--frames);"></div>
                                         <div style="grid-area: 2/4; width: 0; height: 0; border-bottom: solid 50px var(--frames); border-right: solid 50px transparent;"></div>
@@ -2624,19 +2792,16 @@
                                 <div class="flex-row" style="grid-area: 3/1/4/2; z-index: 1;">
                                     <span class="overlay-heading" style="text-align: center;">Schedule BG <br> Color 1: </span>
 
-                                    <label for="schedule-bg-1" style="display: grid;">
-                                        <input id="schedule-bg-1" class="menu grid-1-1" type="color" value="#1a1a1a">
-                                        <span class="grid-1-1">BG1</span>
-                                        <div class="help">
-                                            <span>Sets the color for odd rows on the broadcast schedule</span>
-                                            <span style="color: yellow;">WARNING: This is an experimental feature</span>
-                                        </div>
-                                    </label>
+                                    <input id="schedule-bg-1" class="menu" type="color" value="#1a1a1a">
+                                    <div class="help">
+                                        <span>Sets the color for odd rows on the broadcast schedule</span>
+                                        <span style="color: yellow;">WARNING: This is an experimental feature</span>
+                                    </div>
                                     
 
                                     <span class="overlay-heading" style="text-align: center; margin-left: 30px;">Schedule BG <br> Color 2: </span>
 
-                                    <input id="schedule-bg-2" type="color" value="#3a3a3a">
+                                    <input id="schedule-bg-2" class="menu" type="color" value="#3a3a3a">
                                     <div class="help">
                                         <span>Sets the color for even rows on the broadcast schedule</span>
                                         <span style="color: yellow;">WARNING: This is an experimental feature</span>

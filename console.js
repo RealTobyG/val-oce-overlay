@@ -1473,23 +1473,39 @@ function castersUpdate() {
         if (element.checked) {
             castersSelection = Number(element.value)
             if (Number(element.value) === 0) {
-                document.getElementById('cams-overlay-video').src = 'assets/Single_Cam_Preview.png'
-                document.getElementById('cams-screen-overlay-video').src = 'assets/Single_Cam_Screen_Preview.png'
-                for (const element of casterHandles1) {
-                    element.style.display = 'grid'
-                }
-                for (const element of casterHandles2) {
-                    element.style.display = 'none'
-                }
+                document.getElementById('cams-screen-background').setAttribute('style', '-webkit-mask-image: url(assets/Mask_Cam_Screen.png)') 
+                document.getElementById('cams-screen-caster-handle-1').style.display = "flex"
+                document.getElementById('cams-screen-caster-handle-2-1').style.display = "none"
+                document.getElementById('cams-screen-caster-handle-2-2').style.display = "none"
+                document.getElementById('cams-screen-cam-1').style.display = "flex"
+                document.getElementById('cams-screen-cam-2-1').style.display = "none"
+                document.getElementById('cams-screen-cam-2-2').style.display = "none"
+
+                document.getElementById('cams-background').setAttribute('style', '-webkit-mask-image: url(assets/Mask_Cam.png)') 
+                document.getElementById('cams-caster-handle-1').style.display = "flex"
+                document.getElementById('cams-caster-handle-2-1').style.display = "none"
+                document.getElementById('cams-caster-handle-2-2').style.display = "none"
+                document.getElementById('cams-cam-1').style.display = "flex"
+                document.getElementById('cams-cam-2-1').style.display = "none"
+                document.getElementById('cams-cam-2-2').style.display = "none"
+
             } else {
-                document.getElementById('cams-overlay-video').src = 'assets/Dual_Cam_Preview.png'
-                document.getElementById('cams-screen-overlay-video').src = 'assets/Dual_Cam_Screen_Preview.png'
-                for (const element of casterHandles2) {
-                    element.style.display = 'grid'
-                }
-                for (const element of casterHandles1) {
-                    element.style.display = 'none'
-                }
+                document.getElementById('cams-screen-background').setAttribute('style', '-webkit-mask-image: url(assets/Mask_Dual_Cam_Screen.png)')
+                document.getElementById('cams-screen-caster-handle-1').style.display = "none"
+                document.getElementById('cams-screen-caster-handle-2-1').style.display = "flex"
+                document.getElementById('cams-screen-caster-handle-2-2').style.display = "flex"
+                document.getElementById('cams-screen-cam-1').style.display = "none"
+                document.getElementById('cams-screen-cam-2-1').style.display = "flex"
+                document.getElementById('cams-screen-cam-2-2').style.display = "flex"
+            
+                document.getElementById('cams-background').setAttribute('style', '-webkit-mask-image: url(assets/Mask_Dual_Cam.png)')
+                document.getElementById('cams-caster-handle-1').style.display = "none"
+                document.getElementById('cams-caster-handle-2-1').style.display = "flex"
+                document.getElementById('cams-caster-handle-2-2').style.display = "flex"
+                document.getElementById('cams-cam-1').style.display = "none"
+                document.getElementById('cams-cam-2-1').style.display = "flex"
+                document.getElementById('cams-cam-2-2').style.display = "flex"
+            
             }
         }
     }
@@ -1582,12 +1598,19 @@ function bottomBarUpdate() {
     const bottomBarTextSizeSelection = document.getElementById('bottom-bar-text-size-selection')
     const bottomBarPreview = document.getElementById('bottom-bar-preview')
     const chatCommandsAll = document.getElementsByClassName('chat-commands')
+    const bottomBarAll = document.getElementsByClassName('bottom-bar')
     if (bottomBarSelection.checked === false) {
         bottomBarPreview.style.display = 'none'
         document.getElementById('bottom-bar-preview-heading').textContent = 'Bottom Bar is currently hidden'
+        for (const instance of bottomBarAll) {
+            instance.style.display = 'none'
+        }
     } else {
         bottomBarPreview.style.display = 'grid'
         document.getElementById('bottom-bar-preview-heading').textContent = '▼ Bottom Bar Preview ▼'
+        for (const instance of bottomBarAll) {
+            instance.style.display = 'grid'
+        }
     }
     if (chatCommandsSelection.checked === false) {
         for (const instance of chatCommandsAll) {
@@ -1600,8 +1623,14 @@ function bottomBarUpdate() {
     }
     if (bottomBarTextSizeSelection.checked) {
         bottomBarPreview.style.fontSize = '25pt'
+        for (const instance of bottomBarAll) {
+            instance.style.fontSize = '25pt'
+        }
     } else {
         bottomBarPreview.style.fontSize = '20pt'
+        for (const instance of bottomBarAll) {
+            instance.style.fontSize = '20pt'
+        }
     }
 }
 
