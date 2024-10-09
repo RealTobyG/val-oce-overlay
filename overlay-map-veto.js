@@ -114,15 +114,15 @@ function setOverlay() {
         overlaySetup.mapPicksSides.forEach((team, i) => {
             bo1PickSides[i].className = bo1PickSides[i].className.replace(/(team-a|team-b)/g, `${team}`)
             if (team === 'team-a') {
-                document.getElementById('bo1-def-logo').className.replace(/(team-a|team-b)/g, 'team-a')
-                document.getElementById('bo1-def-name').className.replace(/(team-a|team-b)/g, 'team-a')
-                document.getElementById('bo1-atk-logo').className.replace(/(team-a|team-b)/g, 'team-b')
-                document.getElementById('bo1-atk-name').className.replace(/(team-a|team-b)/g, 'team-b')
-            } else if (team === 'team-a') {
-                document.getElementById('bo1-def-logo').className.replace(/(team-a|team-b)/g, 'team-b')
-                document.getElementById('bo1-def-name').className.replace(/(team-a|team-b)/g, 'team-b')
-                document.getElementById('bo1-atk-logo').className.replace(/(team-a|team-b)/g, 'team-a')
-                document.getElementById('bo1-atk-name').className.replace(/(team-a|team-b)/g, 'team-a')
+                document.getElementById('bo1-def-logo').className = document.getElementById('bo1-def-logo').className.replace(/(team-a|team-b)/g, 'team-a')
+                document.getElementById('bo1-def-name').className = document.getElementById('bo1-def-name').className.replace(/(team-a|team-b)/g, 'team-a')
+                document.getElementById('bo1-atk-logo').className = document.getElementById('bo1-atk-logo').className.replace(/(team-a|team-b)/g, 'team-b')
+                document.getElementById('bo1-atk-name').className = document.getElementById('bo1-atk-name').className.replace(/(team-a|team-b)/g, 'team-b')
+            } else if (team === 'team-b') {
+                document.getElementById('bo1-def-logo').className = document.getElementById('bo1-def-logo').className.replace(/(team-a|team-b)/g, 'team-b')
+                document.getElementById('bo1-def-name').className = document.getElementById('bo1-def-name').className.replace(/(team-a|team-b)/g, 'team-b')
+                document.getElementById('bo1-atk-logo').className = document.getElementById('bo1-atk-logo').className.replace(/(team-a|team-b)/g, 'team-a')
+                document.getElementById('bo1-atk-name').className = document.getElementById('bo1-atk-name').className.replace(/(team-a|team-b)/g, 'team-a')
             }
         })
         // Sets map pick team names and logos on map veto overlay

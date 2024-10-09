@@ -17,6 +17,9 @@
             --bga1: #204546;
             --bga2: #257878;
             --frames: #0D9093;
+            --numberOfMatches: 6;
+            --sbg1: #1a1a1a;
+            --sbg2: #3a3a3a;
         }
 
         @font-face {
@@ -219,9 +222,6 @@
         #menu-select [type=radio]:checked + div[class=menu-tab] div[class=menu-contents] {
             display: grid;
             grid-template: 990px/1880px;
-            /* flex-direction: column;
-            height: 990px;
-            width: 1880px; */
             position: absolute;
             top: 70px;
             left: 20px;
@@ -514,6 +514,11 @@
             background-color: rgb(35, 35, 35);
         }
 
+        #team-config [type=checkbox]:active + div[class=input-contents] {
+            cursor: default;
+            background-color: rgb(149, 149, 149);
+        }
+
         #team-config [type=checkbox]:hover + div[class=input-contents] div[class=help] {
             display: flex;
             background-color: rgb(52, 52, 52);
@@ -567,7 +572,9 @@
         }
 
         .team-logo-left-igo {
-            width: 70px;
+            max-width: 70px;
+            max-height: 70px;
+            object-fit: contain;
             grid-column: 1;
             grid-row: 1;
             margin: 8px 0px 0px 15px;
@@ -575,7 +582,9 @@
         }
         
         .team-logo-right-igo {
-            width: 70px;
+            max-width: 70px;
+            max-height: 70px;
+            object-fit: contain;
             grid-column: 7;
             grid-row: 1;
             margin: 8px 15px 0px 0px;
@@ -811,11 +820,15 @@
         }
 
         #veto-config-body [type=checkbox] + div[class=team-input-contents] img {
-            width: 45px;
+            max-width: 45px;
+            max-height: 45px;
+            object-fit: contain;
         }
 
         #veto-config-body [type=checkbox]:hover + div[class=team-input-contents] img {
-            width: 55px;
+            max-width: 55px;
+            max-height: 55px;
+            object-fit: contain;
         }
 
         #veto-config-body [type=checkbox]:hover + div[class=team-input-contents] div[class=help] {
@@ -933,6 +946,11 @@
         #event-config [type=checkbox]:checked + div[class=input-contents] {
             color: white;
             background-color: rgb(35, 35, 35);
+        }
+
+        #event-config [type=checkbox]:active + div[class=input-contents] {
+            cursor: default;
+            background-color: rgb(149, 149, 149);
         }
 
         #event-config [type=checkbox]:hover + div[class=input-contents] div[class=help] {
@@ -1294,15 +1312,6 @@
             left: 1430px;
         }
 
-        .overlay-color {
-            display: grid;
-            grid-template: 85px/129px;
-        }
-
-        .overlay-color:hover {
-            cursor: pointer;
-        }
-
         #overlay-config [type=color] {
             height: 85px;
             width: 129px;
@@ -1579,52 +1588,6 @@
             left: 1430px;
         }
 
-        #intermission-config [type=radio]:disabled + div[class=input-contents] {
-            cursor: not-allowed;
-        }
-
-        
-        #intermission-config [type=checkbox] + div[class=input-contents] {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 168px;
-            height: 80px;
-            background-color: rgb(52, 52, 52);
-            color: rgb(149, 149, 149);
-            border-radius: 10px;
-            transition: 0.2s;
-            font-size: 24pt;
-        }
-
-        #intermission-config [type=checkbox]:checked + div[class=input-contents] {
-            color: white;
-            background-color: rgb(35, 35, 35);
-        }
-
-        #intermission-config [type=checkbox]:checked + div[class=input-contents] span[class=checked] {
-            display: block;
-        }
-
-        #intermission-config [type=checkbox]:checked + div[class=input-contents] span[class=unchecked] {
-            display: none;
-        }
-
-        #intermission-config [type=checkbox]:hover + div[class=input-contents] {
-            cursor: pointer;
-            color: white;
-            background-color: rgb(78, 75, 68);
-        }
-
-        #intermission-config [type=checkbox]:hover + div[class=input-contents] div[class=help] {
-            display: flex;
-            background-color: rgb(52, 52, 52);
-            color: white;
-            position: absolute;
-            top: 30px;
-            left: 1430px;
-        }
-
         #intermission-config [type=number] {
             height: 85px;
             width: 88px;
@@ -1852,10 +1815,10 @@
                                                 <span style="width: 50%;">DEF</span>
                                                 <span style="width: 50%;">ATK</span>
                                                 <div style="width: 50%; margin: 10px 0px 5px 0px;">
-                                                    <img src="assets/200x200_No_Logo.png" id="side-bar-def-logo" class="apply-team-a-logo" width="75px">
+                                                    <img src="assets/200x200_No_Logo.png" id="side-bar-def-logo" class="apply-team-a-logo" style="max-width: 75px; max-height: 75px; object-fit: contain;">
                                                 </div>
                                                 <div style="width: 50%; margin: 10px 0px 5px 0px;">
-                                                    <img src="assets/200x200_No_Logo.png" id="side-bar-atk-logo" class="apply-team-b-logo" width="75px">
+                                                    <img src="assets/200x200_No_Logo.png" id="side-bar-atk-logo" class="apply-team-b-logo" style="max-width: 75px; max-height: 75px; object-fit: contain;">
                                                 </div>
                                                 <span style="width: 50%;" id="side-bar-def-team" class="apply-team-a-tri"></span>
                                                 <span style="width: 50%;" id="side-bar-atk-team" class="apply-team-b-tri"></span>
@@ -1919,7 +1882,7 @@
                                 <!-- #################### Team A #################### -->
                                 <div class="team-config-background" style="grid-area: 1/1/4/5;"></div>
                                 
-                                <img src="assets/200x200_No_Logo.png" class="apply-team-a-logo" style="width: 180px; grid-area: 1/1; margin: 10px 0px 0px 10px; z-index: 1;">
+                                <img src="assets/200x200_No_Logo.png" class="apply-team-a-logo" style="max-width: 180px; max-height: 180px; object-fit: contain; grid-area: 1/1; margin: 10px 0px 0px 10px; z-index: 1;">
                                 
                                 <label for="team-a-logo-upload" style="grid-area: 3/1; z-index: 1;">
                                     <input type="button" id="team-a-logo-upload" class="menu">
@@ -1936,7 +1899,7 @@
                                 </label>
                                 
                                 <label for="team-a-no-logo" style="grid-area: 3/2; z-index: 1;">
-                                    <input type="checkbox" id="team-a-no-logo" class="menu">
+                                    <input type="checkbox" id="team-a-no-logo" checked class="menu">
                                     <div class="input-contents">
                                         <span>No Logo</span>
                                         <div class="help">
@@ -1964,7 +1927,7 @@
                                 <!-- #################### Team B #################### -->
                                 <div class="team-config-background" style="grid-area: 5/1/8/5;"></div>
                                 
-                                <img src="assets/200x200_No_Logo.png" class="apply-team-b-logo" style="width: 180px; grid-area: 5/1; margin: 10px 0px 0px 10px; z-index: 1;">
+                                <img src="assets/200x200_No_Logo.png" class="apply-team-b-logo" style="max-width: 180px; max-height: 180px; object-fit: contain; grid-area: 5/1; margin: 10px 0px 0px 10px; z-index: 1;">
                                 
                                 <label for="team-b-logo-upload" style="grid-area: 7/1; z-index: 1;">
                                     <input type="button" id="team-b-logo-upload" class="menu">
@@ -1981,7 +1944,7 @@
                                 </label>
                                 
                                 <label for="team-b-no-logo" style="grid-area: 7/2; z-index: 1;">
-                                    <input type="checkbox" id="team-b-no-logo" class="menu">
+                                    <input type="checkbox" id="team-b-no-logo" checked class="menu">
                                     <div class="input-contents">
                                         <span>No Logo</span>
                                         <div class="help">
@@ -2041,7 +2004,7 @@
                                     <span id="team-b-name-igo" class="team-name-right-igo apply-team-b-name"></span>
                                     <img src="assets/200x200_No_Logo.png" id="team-b-logo-igo" class="team-logo-right-igo apply-team-b-logo">
                                     <div class="chat-cover-igo">
-                                        <img src="" id="event-logo-igo" class="apply-event-logo" style="height: 110px;">
+                                        <img src="" id="event-logo-igo" class="apply-event-logo" style="max-width: 430px; max-height: 110px; object-fit: contain;">
                                     </div>
                                 </div>
                             </div> <!-- IGO Preview -->
@@ -2132,8 +2095,8 @@
                                         <div class="input-contents" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-width: 5px 0px 5px 5px; border-style: solid;">
                                             <span>Use Team Logos</span>
                                             <div class="flex-row">
-                                                <img class="apply-team-a-logo" src="assets/200x200_No_Logo.png" style="width: 40px; margin-right: 30px;">
-                                                <img class="apply-team-b-logo" src="assets/200x200_No_Logo.png" style="width: 40px;">
+                                                <img class="apply-team-a-logo" src="assets/200x200_No_Logo.png" style="max-width: 40px; max-height: 40px; object-fit: contain; margin-right: 30px;">
+                                                <img class="apply-team-b-logo" src="assets/200x200_No_Logo.png" style="max-width: 40px; max-height: 40px; object-fit: contain;">
                                             </div>
                                             <div class="help">
                                                 <span>Use team logos to represent what team is <br> picking/banning or starting on defense</span>
@@ -2229,7 +2192,7 @@
                                 </label>
                                 
                                 <label for="event-no-logo" style="grid-area: 3/4; z-index: 1; width: 100px;">
-                                    <input type="checkbox" id="event-no-logo" class="menu">
+                                    <input type="checkbox" id="event-no-logo" checked class="menu">
                                     <div class="input-contents">
                                         <span>No Logo</span>
                                         <div class="help">
@@ -2584,7 +2547,7 @@
 
                                     <input id="frames" class="menu grid-1-1 overlay-color" type="color" value="#0D9093">
                                     <div class="help">
-                                        <span>Sets the color for overlay frames and the bottom bar</span>
+                                        <span>Sets the color for overlay frames <br> and the bottom bar</span>
                                     </div>
                                 </div>
 
@@ -2779,12 +2742,12 @@
 
                                 <!-- #################### Number of Series Being Played #################### -->
                                 <div class="flex-row" style="grid-area: 2/1/3/2; z-index: 1;">
-                                    <span class="overlay-heading">Number of series being played: </span>
+                                    <span class="overlay-heading">Number of matches being played: </span>
 
-                                    <input id="number-of-series" type="number" value="1" min="1">
+                                    <input id="number-of-matches" type="number" value="1" min="1" max="6">
                                     <div class="help">
-                                        <span>Sets the amount of rows (series) displayed on the broadcast schedule</span>
-                                        <span style="color: yellow;">WARNING: This is an experimental feature. It is best to stay below 6 games displayed at a time.</span>
+                                        <span>Sets the amount of rows (matches) displayed on the broadcast schedule</span>
+                                        <span style="color: yellow;">WARNING: This is an experimental feature. Maximum of 6 matches can be displayed.</span>
                                     </div>
                                 </div>
 
@@ -2792,7 +2755,7 @@
                                 <div class="flex-row" style="grid-area: 3/1/4/2; z-index: 1;">
                                     <span class="overlay-heading" style="text-align: center;">Schedule BG <br> Color 1: </span>
 
-                                    <input id="schedule-bg-1" class="menu" type="color" value="#1a1a1a">
+                                    <input id="sbg1" class="menu" type="color" value="#1a1a1a">
                                     <div class="help">
                                         <span>Sets the color for odd rows on the broadcast schedule</span>
                                         <span style="color: yellow;">WARNING: This is an experimental feature</span>
@@ -2801,24 +2764,482 @@
 
                                     <span class="overlay-heading" style="text-align: center; margin-left: 30px;">Schedule BG <br> Color 2: </span>
 
-                                    <input id="schedule-bg-2" class="menu" type="color" value="#3a3a3a">
+                                    <input id="sbg2" class="menu" type="color" value="#3a3a3a">
                                     <div class="help">
                                         <span>Sets the color for even rows on the broadcast schedule</span>
                                         <span style="color: yellow;">WARNING: This is an experimental feature</span>
                                     </div>
                                 </div>
 
-                                <span class="overlay-heading" style="grid-area: 1/3/2/6; color: yellow;">Note: This is LIVE tab - any edits will immediately update overlays</span>
-                               
+                                <!-- #################### Save/Reset Buttons #################### -->
+                                <label for="save-intermission-config" style="grid-area: 1/3; z-index: 1;">
+                                    <input type="button" id="save-intermission-config" class="menu">
+                                    <div class="save-button">
+                                        <span>Save Intermission Config</span>
+                                        <div class="help">
+                                            <span>Updates overlays with selected settings</span>
+                                        </div>
+                                    </div>
+                                </label>
+
+                                <label for="reset-intermission-config" style="grid-area: 1/5; z-index: 1;">
+                                    <input type="button" id="reset-intermission-config" class="menu">
+                                    <div class="reset-button">
+                                        <span>Reset Intermission Config</span>
+                                        <div class="help">
+                                            <span>Resets intermission config settings to default</span>
+                                            <span style="color: red;">WARNING: There is no undo for this action</span>
+                                        </div>
+                                    </div>
+                                </label>
+
+
+                                <!-- TEMP -->
                                 <div class="flex-row" style="grid-area: 4/1/5/6; z-index: 1; height: 80px; margin-top: 50px;">
-                                    <span class="event-casters-heading">Match Ended Heading Replacement: </span>
+                                    <span class="overlay-heading">Match Ended Heading Replacement: </span>
                                     <input type="text" id="match-end-replace" value="Ending Soon" class="menu">
                                     <div class="help">
-                                        <span style="color: red;">RECOMMEND TO LEAVE DEFAULT: <br> Ending Soon</span>
+                                        <span style="color: red;">RECOMMENDED TO LEAVE DEFAULT: <br> Ending Soon</span>
                                         <span style="color: yellow;">If playing multiple series change to: <br> Setting Up Next Match</span>                                      
                                     </div>
                                 </div>
-                            </div> <!-- Overlay Config -->
+                                <!-- TEMP -->
+
+                            </div> <!-- Intermission Config -->
+
+                            <style>
+                                #match-schedule-config {
+                                    grid-area: 1/1;
+                                    display: grid;
+                                    grid-template: 50px/repeat(var(--numberOfMatches), 1fr);
+                                    margin: 500px 1080px 0px 30px;
+                                }
+
+                                #match-schedule-config div[class=match-tab] {
+                                    display: grid;
+                                    grid-template: 50px/auto;
+                                    background-color: rgb(52, 52, 52);
+                                    border-top-left-radius: 10px;
+                                    border-top-right-radius: 10px;
+                                    font-size: 15pt;
+                                    color: rgb(149, 149, 149);
+                                    transition: 0.2s;
+                                }
+
+                                #match-schedule-config div[class=match-contents] {
+                                    display: none;
+                                }
+
+                                #match-schedule-config span[class=match-name] {
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                }
+
+                                #match-schedule-config [type=radio]:hover + div[class=match-tab] {
+                                    background-color: rgb(149, 149, 149);
+                                    color: white;
+                                    cursor: pointer;
+                                }
+
+                                #match-schedule-config [type=radio]:checked + div[class=match-tab] {
+                                    background-color: rgb(78, 75, 68);
+                                    color: white;
+                                    cursor: default;
+                                }
+
+                                #match-schedule-config [type=radio]:checked + div[class=match-tab] div[class=match-contents] {
+                                    display: grid;
+                                    width: 770px;
+                                    grid-template: 10px 30px 80px 30px 80px 30px 80px 10px/20px 80px 80px 1fr 5px 1fr 80px 80px 80px 1fr 5px 1fr 80px 80px 20px;
+                                    position: absolute;
+                                    top: 550px;
+                                    left: 30px;
+                                }
+
+                                #match-schedule-config div[class=match-tab] span[class=match-name]:hover div[class=help] {
+                                    display: flex;
+                                    background-color: rgb(52, 52, 52);
+                                    color: white;
+                                    position: absolute;
+                                    top: 30px;
+                                    left: 1430px;
+                                }
+
+                                .match-contents-bg {
+                                    grid-area: 1/1/-1/-1;
+                                    display: flex;
+                                    background-color: rgb(78, 75, 68);
+                                    border-bottom-left-radius: 10px;
+                                    border-bottom-right-radius: 10px;
+                                }
+
+                                #match-schedule-config [type=checkbox] + div[class=input-contents] {
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    width: 80px;
+                                    height: 80px;
+                                    background-color: rgb(52, 52, 52);
+                                    color: rgb(149, 149, 149);
+                                    border-radius: 10px;
+                                    transition: 0.2s;
+                                    font-size: 12pt;
+                                }
+
+                                #match-schedule-config [type=checkbox]:checked + div[class=input-contents] {
+                                    color: white;
+                                    background-color: rgb(35, 35, 35);
+                                }
+
+                                #match-schedule-config [type=checkbox]:hover + div[class=input-contents] {
+                                    cursor: pointer;
+                                    color: white;
+                                    background-color: rgb(78, 75, 68);
+                                }
+
+                                #match-schedule-config [type=checkbox]:active + div[class=input-contents] {
+                                    cursor: default;
+                                    background-color: rgb(149, 149, 149);
+                                }
+
+                                #match-schedule-config [type=checkbox]:hover + div[class=input-contents] div[class=help] {
+                                    display: flex;
+                                    background-color: rgb(52, 52, 52);
+                                    color: white;
+                                    position: absolute;
+                                    top: -520px;
+                                    left: 1395px;
+                                }
+
+                                #match-schedule-config [type=button] + div[class=input-contents] {
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    width: 80px;
+                                    height: 80px;
+                                    background-color: rgb(52, 52, 52);
+                                    border-radius: 10px;
+                                    transition: 0.2s;
+                                }
+
+                                #match-schedule-config [type=button]:hover + div[class=input-contents] {
+                                    cursor: pointer;
+                                    background-color: rgb(78, 75, 68);
+                                }
+
+                                #match-schedule-config [type=button] + div[class=input-contents] img {
+                                    width: 40px;
+                                }
+
+                                #match-schedule-config [type=button]:hover + div[class=input-contents] img {
+                                    width: 50px;
+                                }
+
+                                #match-schedule-config [type=button]:active + div[class=input-contents] {
+                                    cursor: default;
+                                    background-color: rgb(35, 35, 35);
+                                }
+
+                                #match-schedule-config [type=button]:hover + div[class=input-contents] div[class=help] {
+                                    display: flex;
+                                    background-color: rgb(52, 52, 52);
+                                    color: white;
+                                    position: absolute;
+                                    top: -520px;
+                                    left: 1395px;
+                                }
+
+                                #match-schedule-config [type=text] {
+                                    background-color: rgb(52, 52, 52);
+                                    align-self: center;
+                                    font-size: 30pt;
+                                    color: white;
+                                    border-radius: 10px;
+                                    height: 70px;
+                                    transition: 0.2s;
+                                }
+
+                                #match-schedule-config [type=text]:hover {
+                                    background-color: rgb(78, 75, 68);
+                                }
+
+                                #match-schedule-config [type=text]:focus {
+                                    background-color: rgb(78, 75, 68);
+                                }
+
+                                #match-schedule-config [type=text]:hover + div[class=help] {
+                                    display: flex;
+                                    background-color: rgb(52, 52, 52);
+                                    color: white;
+                                    position: absolute;
+                                    top: -520px;
+                                    left: 1395px;
+                                }
+
+                                #match-schedule-config [type=radio] + div[class=input-contents] {
+                                    display: flex;
+                                    justify-content: space-evenly;
+                                    align-items: center;
+                                    flex-direction: column;
+                                    text-align: center;
+                                    height: 70px;
+                                    background-color: rgb(52, 52, 52);
+                                    color: rgb(149, 149, 149);
+                                    font-size: 15pt;
+                                    border-color: rgb(78, 75, 68);
+                                    transition: 0.2s;
+                                }
+
+                                #match-schedule-config [type=radio]:hover + div[class=input-contents] {
+                                    cursor: pointer;
+                                    background-color: rgb(78, 75, 68);
+                                    color: white;
+                                }
+
+                                #match-schedule-config [type=radio]:checked + div[class=input-contents] {
+                                    cursor: default;
+                                    background-color: rgb(35, 35, 35);
+                                    color: white;
+                                }
+
+                                #match-schedule-config [type=radio]:hover + div[class=input-contents] div[class=help] {
+                                    display: flex;
+                                    background-color: rgb(52, 52, 52);
+                                    color: white;
+                                    position: absolute;
+                                    top: -520px;
+                                    left: 1395px;
+                                }
+
+                                #match-schedule-config [type=number] {
+                                    height: 75px;
+                                    width: 75px;
+                                    background-color: rgb(52, 52, 52);
+                                    cursor: text;
+                                    color: white;
+                                    font-size: 40pt;
+                                    text-align: center;
+
+                                }
+                                
+                                #match-schedule-config [type=number]:hover {
+                                    background-color: rgb(78, 75, 68);
+                                }
+
+                                #match-schedule-config [type=number]:focus {
+                                    background-color: rgb(78, 75, 68);
+                                }
+
+                                #match-schedule-config [type=number]:hover + div[class=help] {
+                                    display: flex;
+                                    background-color: rgb(52, 52, 52);
+                                    color: white;
+                                    position: absolute;
+                                    top: -520px;
+                                    left: 1395px;
+                                }
+                            </style>
+
+                            <div id="match-schedule-config">
+                                <label for="match-1-config">
+                                    <input type="radio" id="match-1-config" value="0" checked name="match-config-selection">
+                                    <div class="match-tab">
+                                        <span class="match-name">Match 1
+                                            <div class="help">
+                                                <span>Edit settings for match 1 on the <br> broadcast schedule</span>
+                                            </div>
+                                        </span>
+                                        <div class="match-contents">
+                                            <div class="match-contents-bg"></div>
+                                            <div style="grid-area: 2/5/-2/6; background-color: rgb(149, 149, 149); border-radius: 5px;"></div>
+                                            <div style="grid-area: 2/-6/-2/-5; background-color: rgb(149, 149, 149); border-radius: 5px;"></div>
+
+                                            <span style="grid-area: 2/2/3/4; text-align: center; margin-top: 5px;">Team A</span>
+                                            <span style="grid-area: 2/-2/3/-4; text-align: center; margin-top: 5px;">Team B</span>
+                                            <span style="grid-area: 4/2/5/4; text-align: center; margin-top: 5px;">Team A Logo</span>
+                                            <span style="grid-area: 4/-2/5/-4; text-align: center; margin-top: 5px;">Team B Logo</span>
+                                            <span style="grid-area: 6/2/7/4; text-align: center; margin-top: 5px;">Team A Tricode</span>
+                                            <span style="grid-area: 6/-2/7/-4; text-align: center; margin-top: 5px;">Team B Tricode</span>
+                                            <span style="grid-area: 2/7/3/10; text-align: center; margin-top: 5px;">Match Length</span>
+                                            <span style="grid-area: 4/8; text-align: center; margin-top: 5px;">Score</span>
+                                            <span style="grid-area: 4/7; text-align: center; margin-top: 5px;" class="apply-match-1-team-a-tri">TMA</span>
+                                            <span style="grid-area: 4/9; text-align: center; margin-top: 5px;" class="apply-match-1-team-b-tri">TMB</span>
+                                            <span style="grid-area: 5/8; text-align: center; transform: translate(0px, -12px); font-size: 60pt;">-</span>
+                                            <span style="grid-area: 6/7/7/10; text-align: center; margin-top: 5px;">Map/Tournament Round</span>
+                                            
+                                            <label for="match-1-bo1" style="grid-area: 3/7;">
+                                                <input type="radio" id="match-1-bo1" value="0" name="match-1-series-length-selection" checked class="match-1-menu menu">
+                                                <div class="input-contents" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-width: 5px 0px 5px 5px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>BO1</span>
+                                                    <div class="help">
+                                                        <span>Select if match 1 is a Best of 1.</span>
+                                                        <span style="color: yellow;">IMPORTANT: This will affect certain pieces of internal logic that interacts with the automatic default intermission headings</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+
+                                            <label for="match-1-bo3" style="grid-area: 3/8;">
+                                                <input type="radio" id="match-1-bo3" value="1" name="match-1-series-length-selection" class="match-1-menu menu">
+                                                <div class="input-contents" style="border-width: 5px 0px 5px 0px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>BO3</span>
+                                                    <div class="help">
+                                                        <span>Select if match 1 is a Best of 3.</span>
+                                                        <span style="color: yellow;">IMPORTANT: This will affect certain pieces of internal logic that interacts with the automatic default intermission headings</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+        
+                                            <label for="match-1-bo5" style="grid-area: 3/9;">
+                                                <input type="radio" id="match-1-bo5" value="2" name="match-1-series-length-selection" class="match-1-menu menu">
+                                                <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>BO5</span>
+                                                    <div class="help">
+                                                        <span>Select if match 1 is a Best of 5.</span>
+                                                        <span style="color: yellow;">IMPORTANT: This will affect certain pieces of internal logic that interacts with the automatic default intermission headings</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+
+                                            <input id="match-1-team-a-score" type="number" value="0" min="0" style="grid-area: 5/7;" class="match-1-menu">
+                                            <div class="help">
+                                                <span>Number of rounds/maps that Team A won during match 1</span>
+                                            </div>
+
+                                            <input id="match-1-team-b-score" type="number" value="0" min="0" style="grid-area: 5/9;" class="match-1-menu">
+                                            <div class="help">
+                                                <span>Number of rounds/maps that Team B won during match 1</span>
+                                            </div>
+
+                                            <input type="text" id="match-1-heading" value="" style="grid-area: 7/7/8/10;" class="match-1-menu menu">
+                                            <div class="help">
+                                                <span>Sub heading that appears next to the series length. We recommend using a map name for BO1s or tournament round</span>
+                                                <span>Examples: BO1 - Haven | BO3 - Upper Bracket Round 2 | BO5 Grand Finals</span>                                   
+                                            </div>
+
+                                            <label for="match-1-team-a-tbd" style="grid-area: 3/2;">
+                                                <input type="radio" id="match-1-team-a-tbd" value="0" name="match-1-team-a-selection" checked class="match-1-menu menu">
+                                                <div class="input-contents" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-width: 5px 0px 5px 5px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>TBD</span>
+                                                    <div class="help">
+                                                        <span>Select if Team A for match 1 is unknown. Will use large 'TBD' text in place of a team logo and tricode on the broadcast schedule.</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+        
+                                            <label for="match-1-team-a-team" style="grid-area: 3/3;">
+                                                <input type="radio" id="match-1-team-a-team" value="1" name="match-1-team-a-selection" class="match-1-menu menu">
+                                                <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <div style="display: flex; flex-direction: column; justify-content: space-evenly; align-items: center;">
+                                                        <img src="assets/200x200_No_Logo.png" style="max-width: 40px; max-height: 40px; object-fit: contain;" class="apply-match-1-team-a-logo">
+                                                        <span class="apply-match-1-team-a-tri">TMA</span>  
+                                                    </div>
+                                                    <div class="help">
+                                                        <span>Uses provided logo and tricode for match 1 <br> Team A on the broadcast schedule</span>
+                                                        <span>Edit Team A details below</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+
+                                            <label for="match-1-team-b-tbd" style="grid-area: 3/-4;">
+                                                <input type="radio" id="match-1-team-b-tbd" value="0" name="match-1-team-b-selection" checked class="match-1-menu menu">
+                                                <div class="input-contents" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-width: 5px 0px 5px 5px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>TBD</span>
+                                                    <div class="help">
+                                                        <span>Select if Team B for match 1 is unknown. Will use large 'TBD' text in place of a team logo and tricode on the broadcast schedule.</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+        
+                                            <label for="match-1-team-b-team" style="grid-area: 3/-3;">
+                                                <input type="radio" id="match-1-team-b-team" value="1" name="match-1-team-b-selection" class="match-1-menu menu">
+                                                <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <div style="display: flex; flex-direction: column; justify-content: space-evenly; align-items: center;">
+                                                        <img src="assets/200x200_No_Logo.png" style="max-width: 40px; max-height: 40px; object-fit: contain;" class="apply-match-1-team-b-logo">
+                                                        <span class="apply-match-1-team-b-tri">TMB</span>  
+                                                    </div>
+                                                    <div class="help">
+                                                        <span>Uses provided logo and tricode for match 1 <br> Team B on the broadcast schedule</span>
+                                                        <span>Edit Team B details below</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+
+                                            <label for="match-1-team-a-logo-upload" style="grid-area: 5/2;">
+                                                <input type="button" id="match-1-team-a-logo-upload" class="menu">
+                                                <div class="input-contents">
+                                                    <img src="assets/Upload_Icon.png">
+                                                    <div class="help">
+                                                        <span>Upload logo for match 1 Team A on the <br> broadcast schedule</span>
+                                                        <span>Use square image files for logos for best results <br> We recommend logo dimensions of 500x500 px</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+
+                                            <label for="match-1-team-b-logo-upload" style="grid-area: 5/-4;">
+                                                <input type="button" id="match-1-team-b-logo-upload" class="menu">
+                                                <div class="input-contents">
+                                                    <img src="assets/Upload_Icon.png">
+                                                    <div class="help">
+                                                        <span>Upload logo for match 1 Team A on the <br> broadcast schedule</span>
+                                                        <span>Use square image files for logos for best results <br> We recommend logo dimensions of 500x500 px</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+
+                                            <label for="match-1-team-a-no-logo" style="grid-area: 5/3;">
+                                                <input type="checkbox" id="match-1-team-a-no-logo" checked class="match-1-menu menu">
+                                                <div class="input-contents">
+                                                    <span>No Logo</span>
+                                                    <div class="help">
+                                                        <span>Toggle generic logo for match 1 Team A on the <br> broadcast schedule</span>
+                                                        <span>Uses a generic Valorant 'V' logo <br> in place of a custom logo</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                            
+                                            <label for="match-1-team-b-no-logo" style="grid-area: 5/-3;">
+                                                <input type="checkbox" id="match-1-team-b-no-logo" checked class="match-1-menu menu">
+                                                <div class="input-contents">
+                                                    <span>No Logo</span>
+                                                    <div class="help">
+                                                        <span>Toggle generic logo for match 1 Team B on the <br> broadcast schedule</span>
+                                                        <span>Uses a generic Valorant 'V' logo <br> in place of a custom logo</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+
+                                            <input type="text" id="match-1-team-a-tri" maxlength="4" value="TMA" style="grid-area: 7/2/8/4;" class="match-1-menu menu">
+                                            <div class="help">
+                                                <span>Set the tricode for match 1 Team A on the <br> broadcast schedule</span>                                   
+                                                <span>Tricodes are a 2-4 character representation of a <br> team's name such as PRX or SEN </span>
+                                            </div>
+
+                                            <input type="text" id="match-1-team-b-tri" maxlength="4" value="TMB" style="grid-area: 7/-4/8/-2;" class="match-1-menu menu">
+                                            <div class="help">
+                                                <span>Set the tricode for match 1 Team B on the <br> broadcast schedule</span>                                   
+                                                <span>Tricodes are a 2-4 character representation of a <br> team's name such as PRX or SEN </span>
+                                            </div>
+                                        
+                                        </div> <!-- match-contents -->
+                                    </div> <!-- match-tab -->
+                                </label> <!-- match-1-config -->
+
+                                <label for="match-2-config">
+                                    <input type="radio" id="match-2-config" value="1" name="match-config-selection">
+                                    <div class="match-tab">
+                                        <span class="match-name">Match 2
+                                            <div class="help">
+                                                <span>Edit settings for match 2 on the <br> broadcast schedule</span>
+                                            </div>
+                                        </span>
+                                        <div class="match-contents">
+                                            <div class="match-contents-bg"></div>
+
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
 
                         </div>
                     </div>

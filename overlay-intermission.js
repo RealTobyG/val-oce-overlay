@@ -61,6 +61,10 @@ function setOverlay() {
     document.documentElement.style.setProperty('--bga2', `${overlaySetup.bga2}`)
     document.documentElement.style.setProperty('--frames', `${overlaySetup.frames}`)
 
+    document.documentElement.style.setProperty('--numberOfMatches', overlaySetup.numberOfMatches)
+    document.documentElement.style.setProperty('--sbg1', `${overlaySetup.sbg1}`)
+    document.documentElement.style.setProperty('--sbg2', `${overlaySetup.sbg2}`)
+
     // Bottom Bar
     const bottomBar = document.getElementById('bottom-bar')
     const chatCommandsAll = document.getElementsByClassName('chat-commands')
@@ -85,22 +89,34 @@ function setOverlay() {
     }
 
     // Shows intermission schedule for BO1/BO3/BO5
-    if (overlaySetup.seriesLengthSelection === 0) {
-        document.getElementById('bo1-intermission').style.display = 'grid'
-        document.getElementById('bo1-bg-videos').style.display = 'grid'
-        document.getElementById('bo3-intermission').style.display = 'none'
-        document.getElementById('bo3-bg-videos').style.display = 'none'
-    } else if (overlaySetup.seriesLengthSelection === 1) {
-        document.getElementById('bo1-intermission').style.display = 'none'
-        document.getElementById('bo1-bg-videos').style.display = 'none'
-        document.getElementById('bo3-intermission').style.display = 'grid'
-        document.getElementById('bo3-bg-videos').style.display = 'grid'
-    } else if (overlaySetup.seriesLengthSelection === 2) {
+    if (overlaySetup.scheduleSelection === 0) {
+        if (overlaySetup.seriesLengthSelection === 0) {
+            document.getElementById('broadcast-schedule-intermission').style.display = 'none'
+            document.getElementById('bo1-intermission').style.display = 'grid'
+            document.getElementById('bo1-bg-videos').style.display = 'grid'
+            document.getElementById('bo3-intermission').style.display = 'none'
+            document.getElementById('bo3-bg-videos').style.display = 'none'
+        } else if (overlaySetup.seriesLengthSelection === 1) {
+            document.getElementById('broadcast-schedule-intermission').style.display = 'none'
+            document.getElementById('bo1-intermission').style.display = 'none'
+            document.getElementById('bo1-bg-videos').style.display = 'none'
+            document.getElementById('bo3-intermission').style.display = 'grid'
+            document.getElementById('bo3-bg-videos').style.display = 'grid'
+        } else if (overlaySetup.seriesLengthSelection === 2) {
+            document.getElementById('broadcast-schedule-intermission').style.display = 'none'
+            document.getElementById('bo1-intermission').style.display = 'none'
+            document.getElementById('bo1-bg-videos').style.display = 'none'
+            document.getElementById('bo3-intermission').style.display = 'none'
+            document.getElementById('bo3-bg-videos').style.display = 'none'
+        }
+    } else if (overlaySetup.scheduleSelection === 1) {
+        document.getElementById('broadcast-schedule-intermission').style.display = 'grid'
         document.getElementById('bo1-intermission').style.display = 'none'
         document.getElementById('bo1-bg-videos').style.display = 'none'
         document.getElementById('bo3-intermission').style.display = 'none'
         document.getElementById('bo3-bg-videos').style.display = 'none'
     }
+    
 
     // Updates scores for every complete map on intermission overlay
     const map1Score = document.getElementsByClassName('apply-map-1-score-intermission')

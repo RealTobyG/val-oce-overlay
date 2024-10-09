@@ -4,11 +4,11 @@ const defaultSettings = {
     teamAName: "Team A",
     teamATri: "TMA",
     teamALogo: "assets/200x200_No_Logo.png",
-    teamANoLogo: 0,
+    teamANoLogo: 1,
     teamBName: "Team B",
     teamBTri:  "TMB",
     teamBLogo: "assets/200x200_No_Logo.png",
-    teamBNoLogo: 0, 
+    teamBNoLogo: 1, 
     // Map Veto Config
     seriesLengthSelection: 1,
     mapPoolSelection: 0,
@@ -29,8 +29,8 @@ const defaultSettings = {
     deadline: null,
     // Event/Casters Config
     eventName: "Event Name",
-    eventLogo: "assets/Event_Logo_Preview.png",
-    eventNoLogo: 0,
+    eventLogo: "",
+    eventNoLogo: 1,
     castersSelection: 0,
     caster1Name: "",
     caster2Name: "",
@@ -47,7 +47,121 @@ const defaultSettings = {
     chatCommandsSelection: 1,
     bottomBarTextSizeSelection: 1,
     // Intermission Config
+    scheduleSelection: 0,
+    numberOfMatches: 1,
+    sbg1: "#1a1a1a",
+    sbg2: "#3a3a3a",
     matchEnd: "Ending Soon",
+    matchSchedule: [
+        // Match 1
+        {
+            // Team A
+            teamASelection: 0,
+            teamALogo: "assets/200x200_No_Logo.png",
+            teamANoLogo: 1,
+            teamATri: "TMA",
+            // Team B
+            teamBSelection: 0,
+            teamBLogo: "assets/200x200_No_Logo.png",
+            teamBNoLogo: 1,
+            teamBTri: "TMB",
+            // Misc
+            seriesLengthSelection: 0,
+            teamAScore: 0,
+            teamBScore: 0,
+            matchHeading: "",
+        },
+        // Match 2
+        {
+            // Team A
+            teamASelection: 0,
+            teamALogo: "assets/200x200_No_Logo.png",
+            teamANoLogo: 1,
+            teamATri: "TMA",
+            // Team B
+            teamBSelection: 0,
+            teamBLogo: "assets/200x200_No_Logo.png",
+            teamBNoLogo: 1,
+            teamBTri: "TMB",
+            // Misc
+            seriesLengthSelection: 0,
+            teamAScore: 0,
+            teamBScore: 0,
+            matchHeading: "",
+        },
+        // Match 3
+        {
+            // Team A
+            teamASelection: 0,
+            teamALogo: "assets/200x200_No_Logo.png",
+            teamANoLogo: 1,
+            teamATri: "TMA",
+            // Team B
+            teamBSelection: 0,
+            teamBLogo: "assets/200x200_No_Logo.png",
+            teamBNoLogo: 1,
+            teamBTri: "TMB",
+            // Misc
+            seriesLengthSelection: 0,
+            teamAScore: 0,
+            teamBScore: 0,
+            matchHeading: "",
+        },
+        // Match 4
+        {
+            // Team A
+            teamASelection: 0,
+            teamALogo: "assets/200x200_No_Logo.png",
+            teamANoLogo: 1,
+            teamATri: "TMA",
+            // Team B
+            teamBSelection: 0,
+            teamBLogo: "assets/200x200_No_Logo.png",
+            teamBNoLogo: 1,
+            teamBTri: "TMB",
+            // Misc
+            seriesLengthSelection: 0,
+            teamAScore: 0,
+            teamBScore: 0,
+            matchHeading: "",
+        },
+        // Match 5
+        {
+            // Team A
+            teamASelection: 0,
+            teamALogo: "assets/200x200_No_Logo.png",
+            teamANoLogo: 1,
+            teamATri: "TMA",
+            // Team B
+            teamBSelection: 0,
+            teamBLogo: "assets/200x200_No_Logo.png",
+            teamBNoLogo: 1,
+            teamBTri: "TMB",
+            // Misc
+            seriesLengthSelection: 0,
+            teamAScore: 0,
+            teamBScore: 0,
+            matchHeading: "",
+        },
+        // Match 6
+        {
+            // Team A
+            teamASelection: 0,
+            teamALogo: "assets/200x200_No_Logo.png",
+            teamANoLogo: 1,
+            teamATri: "TMA",
+            // Team B
+            teamBSelection: 0,
+            teamBLogo: "assets/200x200_No_Logo.png",
+            teamBNoLogo: 1,
+            teamBTri: "TMB",
+            // Misc
+            seriesLengthSelection: 0,
+            teamAScore: 0,
+            teamBScore: 0,
+            matchHeading: "",
+        },
+    ],
 }
 
 const exampleSettings = {
@@ -63,7 +177,7 @@ const exampleSettings = {
     teamBNoLogo: 0, 
     // Map Veto Config
     seriesLengthSelection: 1,
-    mapPoolSelection: 1,
+    mapPoolSelection: 0,
     teamIdentifierSelection: 0,
     mapBans: ['Abyss', 'Ascent', 'Haven', 'Lotus'],
     mapPicks: ['Icebox', 'Sunset', 'Bind'],
@@ -98,7 +212,122 @@ const exampleSettings = {
     bottomBarSelection: 1,
     chatCommandsSelection: 1,
     bottomBarTextSizeSelection: 1,
+    // Intermission Config
+    scheduleSelection: 0,
+    numberOfMatches: 3,
+    sbg1: "#1a1a1a",
+    sbg2: "#3a3a3a",
     matchEnd: "Ending Soon",
+    matchSchedule: [
+        // Match 1
+        {
+            // Team A
+            teamASelection: 1,
+            teamALogo: "https://files.catbox.moe/gx2wtj.png",
+            teamANoLogo: 0,
+            teamATri: "TH",
+            // Team B
+            teamBSelection: 1,
+            teamBLogo: "https://files.catbox.moe/r2r9ri.png",
+            teamBNoLogo: 0,
+            teamBTri: "VIT",
+            // Misc
+            seriesLengthSelection: 1,
+            teamAScore: 1,
+            teamBScore: 2,
+            matchHeading: "Upper Semifinal 1",
+        },
+        // Match 2
+        {
+            // Team A
+            teamASelection: 1,
+            teamALogo: "https://files.catbox.moe/a3vmrr.png",
+            teamANoLogo: 0,
+            teamATri: "FUT",
+            // Team B
+            teamBSelection: 1,
+            teamBLogo: "https://files.catbox.moe/jpsglx.png",
+            teamBNoLogo: 0,
+            teamBTri: "FNC",
+            // Misc
+            seriesLengthSelection: 1,
+            teamAScore: 0,
+            teamBScore: 2,
+            matchHeading: "Upper Semifinal 2",
+        },
+        // Match 3
+        {
+            // Team A
+            teamASelection: 0,
+            teamALogo: "assets/200x200_No_Logo.png",
+            teamANoLogo: 1,
+            teamATri: "TMA",
+            // Team B
+            teamBSelection: 0,
+            teamBLogo: "assets/200x200_No_Logo.png",
+            teamBNoLogo: 1,
+            teamBTri: "TMB",
+            // Misc
+            seriesLengthSelection: 0,
+            teamAScore: 0,
+            teamBScore: 0,
+            matchHeading: "",
+        },
+        // Match 4
+        {
+            // Team A
+            teamASelection: 0,
+            teamALogo: "assets/200x200_No_Logo.png",
+            teamANoLogo: 1,
+            teamATri: "TMA",
+            // Team B
+            teamBSelection: 0,
+            teamBLogo: "assets/200x200_No_Logo.png",
+            teamBNoLogo: 1,
+            teamBTri: "TMB",
+            // Misc
+            seriesLengthSelection: 0,
+            teamAScore: 0,
+            teamBScore: 0,
+            matchHeading: "",
+        },
+        // Match 5
+        {
+            // Team A
+            teamASelection: 0,
+            teamALogo: "assets/200x200_No_Logo.png",
+            teamANoLogo: 1,
+            teamATri: "TMA",
+            // Team B
+            teamBSelection: 0,
+            teamBLogo: "assets/200x200_No_Logo.png",
+            teamBNoLogo: 1,
+            teamBTri: "TMB",
+            // Misc
+            seriesLengthSelection: 0,
+            teamAScore: 0,
+            teamBScore: 0,
+            matchHeading: "",
+        },
+        // Match 6
+        {
+            // Team A
+            teamASelection: 0,
+            teamALogo: "assets/200x200_No_Logo.png",
+            teamANoLogo: 1,
+            teamATri: "TMA",
+            // Team B
+            teamBSelection: 0,
+            teamBLogo: "assets/200x200_No_Logo.png",
+            teamBNoLogo: 1,
+            teamBTri: "TMB",
+            // Misc
+            seriesLengthSelection: 0,
+            teamAScore: 0,
+            teamBScore: 0,
+            matchHeading: "",
+        },
+    ],
 }
  
 function restoreFromSettings(settings) {
@@ -418,7 +647,66 @@ function restoreOverlay(settings) {
 }
 
 function restoreIntermission(settings) {
+    for (option of document.getElementsByName('schedule-selection')) {
+        if (Number(option.value) === settings.scheduleSelection) {
+            option.checked = true
+        }
+    }
+    document.getElementById('number-of-matches').value = settings.numberOfMatches
+    document.getElementById('sbg1').value = settings.sbg1
+    document.getElementById('sbg2').value = settings.sbg2
     document.getElementById('match-end-replace').value = settings.matchEnd
+    setMatchSchedule()
+
+    function restoreMatchConfig(matchNumber) {
+        for (option of document.getElementsByName(`match-${matchNumber+1}-team-a-selection`)) {
+            if (Number(option.value) === settings.matchSchedule[matchNumber].teamASelection) {
+                option.checked = true
+            }
+        }
+        for (option of document.getElementsByName(`match-${matchNumber+1}-team-b-selection`)) {
+            if (Number(option.value) === settings.matchSchedule[matchNumber].teamBSelection) {
+                option.checked = true
+            }
+        }
+        for (option of document.getElementsByName(`match-${matchNumber+1}-series-length-selection`)) {
+            if (Number(option.value) === settings.matchSchedule[matchNumber].seriesLengthSelection) {
+                option.checked = true
+            }
+        }
+        if (settings.matchSchedule[matchNumber].teamANoLogo === 0) {
+            document.getElementById(`match-${matchNumber+1}-team-a-no-logo`).checked = false
+        } else {
+            document.getElementById(`match-${matchNumber+1}-team-a-no-logo`).checked = true
+        }
+        if (settings.matchSchedule[matchNumber].teamBNoLogo === 0) {
+            document.getElementById(`match-${matchNumber+1}-team-b-no-logo`).checked = false
+        } else {
+            document.getElementById(`match-${matchNumber+1}-team-b-no-logo`).checked = true
+        }
+        document.getElementById(`match-${matchNumber+1}-team-a-tri`).value = settings.matchSchedule[matchNumber].teamATri
+        document.getElementById(`match-${matchNumber+1}-team-b-tri`).value = settings.matchSchedule[matchNumber].teamBTri
+        document.getElementById(`match-${matchNumber+1}-team-a-score`).value = settings.matchSchedule[matchNumber].teamAScore
+        document.getElementById(`match-${matchNumber+1}-team-b-score`).value = settings.matchSchedule[matchNumber].teamBScore
+        document.getElementById(`match-${matchNumber+1}-heading`).value = settings.matchSchedule[matchNumber].matchHeading
+        matchSchedule[matchNumber].teamALogo = settings.matchSchedule[matchNumber].teamALogo
+        matchSchedule[matchNumber].teamBLogo = settings.matchSchedule[matchNumber].teamBLogo
+        matchSchedule[matchNumber].teamATri = settings.matchSchedule[matchNumber].teamATri
+        matchSchedule[matchNumber].teamBTri = settings.matchSchedule[matchNumber].teamBTri
+        for (instance of document.getElementsByClassName(`apply-match-${matchNumber+1}-team-a-logo`)) {
+            instance.src = matchSchedule[matchNumber].teamALogo
+        }
+        for (instance of document.getElementsByClassName(`apply-match-${matchNumber+1}-team-b-logo`)) {
+            instance.src = matchSchedule[matchNumber].teamBLogo
+        }
+        for (instance of document.getElementsByClassName(`apply-match-${matchNumber+1}-team-a-tri`)) {
+            instance.textContent = matchSchedule[matchNumber].teamATri
+        }
+        for (instance of document.getElementsByClassName(`apply-match-${matchNumber+1}-team-b-tri`)) {
+            instance.textContent = matchSchedule[matchNumber].teamBTri
+        }
+    }
+    restoreMatchConfig(0)
 }
 
 
@@ -527,6 +815,11 @@ function setAllLogos() {
     }
     if (eventNoLogo.checked) {
         eventLogoUpload.value = ''
+        URL.revokeObjectURL(eventLogo)
+        eventLogo = ''
+        for (const element of eventLogoAll) {
+            element.src = eventLogo
+        }
         document.getElementById('event-logo-preview').src = 'assets/Event_Logo_Preview.png'
     }
     if (teamANoLogo.checked === false) {
@@ -543,6 +836,9 @@ function setAllLogos() {
         for (const element of eventLogoAll) {
             element.src = eventLogo
         }
+        if (eventLogo === "" || eventLogo === null) {
+            document.getElementById('event-logo-preview').src = 'assets/Event_Logo_Preview.png'
+        }
     }
 }
 
@@ -552,7 +848,8 @@ function uploadTeamALogo() {
     if (teamALogo !== '' && teamALogo !== null) {
         setAllLogos()
     } else {
-        teamALogo = 'assets/200x200_No_Logo.png'
+        document.getElementById('team-a-no-logo').checked = true
+        setAllLogos()
     }
 }
 
@@ -562,7 +859,8 @@ function uploadTeamBLogo() {
     if (teamBLogo !== '' && teamBLogo !== null) {
         setAllLogos()
     } else {
-        teamBLogo = 'assets/200x200_No_Logo.png'
+        document.getElementById('team-b-no-logo').checked = true
+        setAllLogos()
     }
 }
 
@@ -572,7 +870,8 @@ function uploadEventLogo() {
     if (eventLogo !== '' && eventLogo !== null) {
         setAllLogos()
     } else {
-        eventLogo = 'assets/Event_Logo_Preview.png'
+        document.getElementById('event-no-logo').checked = true
+        setAllLogos()
     }
 }
 
@@ -1041,7 +1340,9 @@ function createLiveScores() {
                             const mapPickImgTeamLogo = document.createElement('img')
                                 mapPickImgTeamLogo.src = "assets/200x200_No_Logo.png"
                                 mapPickImgTeamLogo.className = `apply-${mapPicksTeams[i]}-logo`
-                                mapPickImgTeamLogo.style.width = "100px"
+                                mapPickImgTeamLogo.style.maxWidth = "100px"
+                                mapPickImgTeamLogo.style.maxHeight = "100px"
+                                mapPickImgTeamLogo.style.objectFit = "contain"
                                 mapPickImg.appendChild(mapPickImgTeamLogo)
                             const mapPickImgDiv = document.createElement('div')
                                 mapPickImgDiv.className = "flex-column"
@@ -1055,7 +1356,9 @@ function createLiveScores() {
                 const liveGameTeamALogo = document.createElement('img')
                     liveGameTeamALogo.src = "assets/200x200_No_Logo.png"
                     liveGameTeamALogo.className = "apply-team-a-logo"
-                    liveGameTeamALogo.style.width = "100px"
+                    liveGameTeamALogo.style.maxWidth = "100px"
+                    liveGameTeamALogo.style.maxHeight = "100px"
+                    liveGameTeamALogo.style.objectFit = "contain"
                 const liveGameTeamAName = document.createElement('span')
                     liveGameTeamAName.className = "apply-team-a-tri"
                     liveGameTeamAName.style.fontSize = "30pt"
@@ -1104,7 +1407,9 @@ function createLiveScores() {
                 const liveGameTeamBLogo = document.createElement('img')
                     liveGameTeamBLogo.src = "assets/200x200_No_Logo.png"
                     liveGameTeamBLogo.className = "apply-team-b-logo"
-                    liveGameTeamBLogo.style.width = "100px"
+                    liveGameTeamBLogo.style.maxWidth = "100px"
+                    liveGameTeamBLogo.style.maxHeight = "100px"
+                    liveGameTeamBLogo.style.objectFit = "contain"
         liveGamePick.appendChild(mapPickImg)
         liveGamePick.appendChild(liveGameTeamALogo)
         liveGamePick.appendChild(liveGameTeamAName)
@@ -1517,9 +1822,9 @@ for (const element of document.getElementsByName('casters-selection')) {
 
 
 
-// #################################################################
-// #################### Overlay Display Options ####################
-// #################################################################
+// ##############################################################################
+// #################### Overlay/Intermission Display Options ####################
+// ##############################################################################
 
 function setOverlay() {
     const overlayElements = document.getElementsByClassName('overlay-element')
@@ -1591,6 +1896,215 @@ document.getElementById('bg4').addEventListener('change', setGradient)
 document.getElementById('bga1').addEventListener('change', setGradient)
 document.getElementById('bga2').addEventListener('change', setGradient)
 document.getElementById('frames').addEventListener('change', setGradient)
+
+let matchSchedule = [
+    // Match 1
+    {
+        // Team A
+        teamASelection: 0,
+        teamALogo: "assets/200x200_No_Logo.png",
+        teamANoLogo: 1,
+        teamATri: "TMA",
+        // Team B
+        teamBSelection: 0,
+        teamBLogo: "assets/200x200_No_Logo.png",
+        teamBNoLogo: 1,
+        teamBTri: "TMB",
+        // Misc
+        seriesLengthSelection: 0,
+        teamAScore: 0,
+        teamBScore: 0,
+        matchHeading: "",
+    },
+    // Match 2
+    {
+        // Team A
+        teamASelection: 0,
+        teamALogo: "assets/200x200_No_Logo.png",
+        teamANoLogo: 1,
+        teamATri: "TMA",
+        // Team B
+        teamBSelection: 0,
+        teamBLogo: "assets/200x200_No_Logo.png",
+        teamBNoLogo: 1,
+        teamBTri: "TMB",
+        // Misc
+        seriesLengthSelection: 0,
+        teamAScore: 0,
+        teamBScore: 0,
+        matchHeading: "",
+    },
+    // Match 3
+    {
+        // Team A
+        teamASelection: 0,
+        teamALogo: "assets/200x200_No_Logo.png",
+        teamANoLogo: 1,
+        teamATri: "TMA",
+        // Team B
+        teamBSelection: 0,
+        teamBLogo: "assets/200x200_No_Logo.png",
+        teamBNoLogo: 1,
+        teamBTri: "TMB",
+        // Misc
+        seriesLengthSelection: 0,
+        teamAScore: 0,
+        teamBScore: 0,
+        matchHeading: "",
+    },
+    // Match 4
+    {
+        // Team A
+        teamASelection: 0,
+        teamALogo: "assets/200x200_No_Logo.png",
+        teamANoLogo: 1,
+        teamATri: "TMA",
+        // Team B
+        teamBSelection: 0,
+        teamBLogo: "assets/200x200_No_Logo.png",
+        teamBNoLogo: 1,
+        teamBTri: "TMB",
+        // Misc
+        seriesLengthSelection: 0,
+        teamAScore: 0,
+        teamBScore: 0,
+        matchHeading: "",
+    },
+    // Match 5
+    {
+        // Team A
+        teamASelection: 0,
+        teamALogo: "assets/200x200_No_Logo.png",
+        teamANoLogo: 1,
+        teamATri: "TMA",
+        // Team B
+        teamBSelection: 0,
+        teamBLogo: "assets/200x200_No_Logo.png",
+        teamBNoLogo: 1,
+        teamBTri: "TMB",
+        // Misc
+        seriesLengthSelection: 0,
+        teamAScore: 0,
+        teamBScore: 0,
+        matchHeading: "",
+    },
+    // Match 6
+    {
+        // Team A
+        teamASelection: 0,
+        teamALogo: "assets/200x200_No_Logo.png",
+        teamANoLogo: 1,
+        teamATri: "TMA",
+        // Team B
+        teamBSelection: 0,
+        teamBLogo: "assets/200x200_No_Logo.png",
+        teamBNoLogo: 1,
+        teamBTri: "TMB",
+        // Misc
+        seriesLengthSelection: 0,
+        teamAScore: 0,
+        teamBScore: 0,
+        matchHeading: "",
+    },
+]
+
+function setMatchScheduleData(matchNumber) {
+    for (option of document.getElementsByName(`match-${matchNumber+1}-team-a-selection`)) {
+        if (option.checked) {
+            matchSchedule[matchNumber].teamASelection = Number(option.value)
+        }
+    }
+    for (option of document.getElementsByName(`match-${matchNumber+1}-team-b-selection`)) {
+        if (option.checked) {
+            matchSchedule[matchNumber].teamBSelection = Number(option.value)
+        }
+    }
+    if (document.getElementById(`match-${matchNumber+1}-team-a-no-logo`).checked) {
+        matchSchedule[matchNumber].teamANoLogo = 1
+        matchSchedule[matchNumber].teamALogo = "assets/200x200_No_Logo.png"
+        for (instance of document.getElementsByClassName(`apply-match-${matchNumber+1}-team-a-logo`)) {
+            instance.src = matchSchedule[matchNumber].teamALogo
+        }
+    } else {
+        matchSchedule[matchNumber].teamANoLogo = 0
+    }
+    if (document.getElementById(`match-${matchNumber+1}-team-b-no-logo`).checked) {
+        matchSchedule[matchNumber].teamBNoLogo = 1
+        matchSchedule[matchNumber].teamBLogo = "assets/200x200_No_Logo.png"
+        for (instance of document.getElementsByClassName(`apply-match-${matchNumber+1}-team-b-logo`)) {
+            instance.src = matchSchedule[matchNumber].teamBLogo
+        }
+    } else {
+        matchSchedule[matchNumber].teamBNoLogo = 0
+    }
+    document.getElementById(`match-${matchNumber+1}-team-a-tri`).value = document.getElementById(`match-${matchNumber+1}-team-a-tri`).value.toUpperCase()
+    document.getElementById(`match-${matchNumber+1}-team-b-tri`).value = document.getElementById(`match-${matchNumber+1}-team-b-tri`).value.toUpperCase()
+    matchSchedule[matchNumber].teamATri = document.getElementById(`match-${matchNumber+1}-team-a-tri`).value    
+    matchSchedule[matchNumber].teamBTri = document.getElementById(`match-${matchNumber+1}-team-b-tri`).value    
+    for (instance of document.getElementsByClassName(`apply-match-${matchNumber+1}-team-a-tri`)) {
+        instance.textContent = matchSchedule[matchNumber].teamATri
+    }
+    for (instance of document.getElementsByClassName(`apply-match-${matchNumber+1}-team-b-tri`)) {
+        instance.textContent = matchSchedule[matchNumber].teamBTri
+    }
+    for (option of document.getElementsByName(`match-${matchNumber+1}-series-length-selection`)) {
+        if (option.checked) {
+            matchSchedule[matchNumber].seriesLengthSelection = Number(option.value)
+        }
+    }
+    matchSchedule[matchNumber].teamAScore = Number(document.getElementById(`match-${matchNumber+1}-team-a-score`).value)
+    matchSchedule[matchNumber].teamBScore = Number(document.getElementById(`match-${matchNumber+1}-team-b-score`).value)
+    matchSchedule[matchNumber].matchHeading = document.getElementById(`match-${matchNumber+1}-heading`).value
+    
+    console.log(matchSchedule[matchNumber])
+}
+
+for (menu of document.getElementsByClassName('match-1-menu')) {
+    menu.addEventListener('change', () => {setMatchScheduleData(0)})
+}
+
+function uploadMatchTeamALogo(matchNumber) {
+    document.getElementById(`match-${matchNumber+1}-team-a-no-logo`).checked = false
+    matchSchedule[matchNumber].teamALogo = prompt(`Please provide an img link for ${document.getElementById(`match-${matchNumber+1}-team-a-tri`).value}'s logo. We recommend uploading the logo to Discord and copying the image link`)
+    if (matchSchedule[matchNumber].teamALogo !== '' && matchSchedule[matchNumber].teamALogo !== null) {
+        for (instance of document.getElementsByClassName(`apply-match-${matchNumber+1}-team-a-logo`)) {
+            instance.src = matchSchedule[matchNumber].teamALogo
+        }
+        setMatchScheduleData(matchNumber)
+    } else {
+        document.getElementById(`match-${matchNumber+1}-team-a-no-logo`).checked = true
+        setMatchScheduleData(matchNumber)
+    }
+}
+
+function uploadMatchTeamBLogo(matchNumber) {
+    document.getElementById(`match-${matchNumber+1}-team-b-no-logo`).checked = false
+    matchSchedule[matchNumber].teamBLogo = prompt(`Please provide an img link for ${document.getElementById(`match-${matchNumber+1}-team-b-tri`).value}'s logo. We recommend uploading the logo to Discord and copying the image link`)
+    if (matchSchedule[matchNumber].teamBLogo !== '' && matchSchedule[matchNumber].teamBLogo !== null) {
+        for (instance of document.getElementsByClassName(`apply-match-${matchNumber+1}-team-b-logo`)) {
+            instance.src = matchSchedule[matchNumber].teamBLogo
+        }
+        setMatchScheduleData(matchNumber)
+    } else {
+        document.getElementById(`match-${matchNumber+1}-team-b-no-logo`).checked = true
+        setMatchScheduleData(matchNumber)
+    }
+}
+
+document.getElementById('match-1-team-a-logo-upload').addEventListener('click', () => {uploadMatchTeamALogo(0)})
+document.getElementById('match-1-team-b-logo-upload').addEventListener('click', () => {uploadMatchTeamBLogo(0)})
+
+
+
+function setMatchSchedule() {
+    document.documentElement.style.setProperty('--numberOfMatches', Number(document.getElementById('number-of-matches').value))
+    document.documentElement.style.setProperty('--sbg1', `${document.getElementById('sbg1').value}`)
+    document.documentElement.style.setProperty('--sbg2', `${document.getElementById('sbg2').value}`)
+}
+
+document.getElementById('number-of-matches').addEventListener('change', setMatchSchedule)
+document.getElementById('sbg1').addEventListener('change', setMatchSchedule)
+document.getElementById('sbg2').addEventListener('change', setMatchSchedule)
 
 function bottomBarUpdate() {
     const bottomBarSelection = document.getElementById('bottom-bar-selection')
@@ -1674,7 +2188,7 @@ const currentSettings = {
     deadline: null,
     // Event/Casters Config
     eventName: "Event Name",
-    eventLogo: "assets/Event_Logo_Preview.png",
+    eventLogo: "",
     eventNoLogo: 0,
     castersSelection: 0,
     caster1Name: "",
@@ -1691,7 +2205,122 @@ const currentSettings = {
     bottomBarSelection: 1,
     chatCommandsSelection: 1,
     bottomBarTextSizeSelection: 1,
+    // Intermission Config
+    scheduleSelection: 0,
+    numberOfMatches: 1,
+    sbg1: "#1a1a1a",
+    sbg2: "#3a3a3a",
     matchEnd: "Ending Soon",
+    matchSchedule: [
+        // Match 1
+        {
+            // Team A
+            teamASelection: 0,
+            teamALogo: "assets/200x200_No_Logo.png",
+            teamANoLogo: 1,
+            teamATri: "TMA",
+            // Team B
+            teamBSelection: 0,
+            teamBLogo: "assets/200x200_No_Logo.png",
+            teamBNoLogo: 1,
+            teamBTri: "TMB",
+            // Misc
+            seriesLengthSelection: 0,
+            teamAScore: 0,
+            teamBScore: 0,
+            matchHeading: "",
+        },
+        // Match 2
+        {
+            // Team A
+            teamASelection: 0,
+            teamALogo: "assets/200x200_No_Logo.png",
+            teamANoLogo: 1,
+            teamATri: "TMA",
+            // Team B
+            teamBSelection: 0,
+            teamBLogo: "assets/200x200_No_Logo.png",
+            teamBNoLogo: 1,
+            teamBTri: "TMB",
+            // Misc
+            seriesLengthSelection: 0,
+            teamAScore: 0,
+            teamBScore: 0,
+            matchHeading: "",
+        },
+        // Match 3
+        {
+            // Team A
+            teamASelection: 0,
+            teamALogo: "assets/200x200_No_Logo.png",
+            teamANoLogo: 1,
+            teamATri: "TMA",
+            // Team B
+            teamBSelection: 0,
+            teamBLogo: "assets/200x200_No_Logo.png",
+            teamBNoLogo: 1,
+            teamBTri: "TMB",
+            // Misc
+            seriesLengthSelection: 0,
+            teamAScore: 0,
+            teamBScore: 0,
+            matchHeading: "",
+        },
+        // Match 4
+        {
+            // Team A
+            teamASelection: 0,
+            teamALogo: "assets/200x200_No_Logo.png",
+            teamANoLogo: 1,
+            teamATri: "TMA",
+            // Team B
+            teamBSelection: 0,
+            teamBLogo: "assets/200x200_No_Logo.png",
+            teamBNoLogo: 1,
+            teamBTri: "TMB",
+            // Misc
+            seriesLengthSelection: 0,
+            teamAScore: 0,
+            teamBScore: 0,
+            matchHeading: "",
+        },
+        // Match 5
+        {
+            // Team A
+            teamASelection: 0,
+            teamALogo: "assets/200x200_No_Logo.png",
+            teamANoLogo: 1,
+            teamATri: "TMA",
+            // Team B
+            teamBSelection: 0,
+            teamBLogo: "assets/200x200_No_Logo.png",
+            teamBNoLogo: 1,
+            teamBTri: "TMB",
+            // Misc
+            seriesLengthSelection: 0,
+            teamAScore: 0,
+            teamBScore: 0,
+            matchHeading: "",
+        },
+        // Match 6
+        {
+            // Team A
+            teamASelection: 0,
+            teamALogo: "assets/200x200_No_Logo.png",
+            teamANoLogo: 1,
+            teamATri: "TMA",
+            // Team B
+            teamBSelection: 0,
+            teamBLogo: "assets/200x200_No_Logo.png",
+            teamBNoLogo: 1,
+            teamBTri: "TMB",
+            // Misc
+            seriesLengthSelection: 0,
+            teamAScore: 0,
+            teamBScore: 0,
+            matchHeading: "",
+        },
+    ],
 }
 
 function settingsSend() {
@@ -1815,10 +2444,18 @@ for (element of document.getElementsByClassName('save-button')) {
 }
 
 function intermissionSend() {
+    setMatchScheduleData(0)
+    for (option of document.getElementsByName('schedule-selection')) {
+        if (option.checked) {
+            currentSettings.scheduleSelection = Number(option.value)
+        }
+    }
+    currentSettings.numberOfMatches = Number(document.getElementById('number-of-matches').value)
+    currentSettings.sbg1 = document.getElementById('sbg1').value
+    currentSettings.sbg2 = document.getElementById('sbg2').value
     currentSettings.matchEnd = document.getElementById('match-end-replace').value
+    currentSettings.matchSchedule = matchSchedule
 }
-
-document.getElementById('match-end-replace').addEventListener('change', settingsSend)
 
 
 function onPageLoad() {
@@ -1867,5 +2504,6 @@ document.getElementById('reset-team-config').addEventListener('click', () => {re
 document.getElementById('reset-map-veto').addEventListener('click', () => {restoreMapVeto(defaultSettings)})
 document.getElementById('reset-event-casters-config').addEventListener('click', () => {restoreEventCasters(defaultSettings)})
 document.getElementById('reset-overlay-config').addEventListener('click', () => {restoreOverlay(defaultSettings)})
+document.getElementById('reset-intermission-config').addEventListener('click', () => {restoreIntermission(defaultSettings)})
 document.getElementById('reset-console').addEventListener('click', () => {restoreFromSettings(defaultSettings)})
 restoreFromSettings(defaultSettings)

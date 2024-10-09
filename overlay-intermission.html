@@ -16,6 +16,9 @@
             --bga1: #204546;
             --bga2: #257878;
             --frames: #0D9093;
+            --numberOfMatches: 6;
+            --sbg1: #1a1a1a;
+            --sbg2: #3a3a3a;
         }
 
         @font-face {
@@ -254,6 +257,43 @@
             65.85% {transform: translate(0px, -1020px);}
             68.35% {transform: translate(0px, -1020px);}
             100% {transform: translate(0px, 150px);}
+        }
+
+        #broadcast-schedule-intermission {
+            display: grid;
+            grid-template: 1080px/1920px;
+            grid-area: 1/1;
+            z-index: 1;
+            color: white;
+            font-family: 'Foundry';
+        }
+
+        #broadcast-schedule-frame {
+            grid-area: 1/1; 
+            height: 662px; 
+            width: 524px; 
+            border-top: solid 55px var(--frames); 
+            border-right: solid 10px var(--frames); 
+            border-left: solid 10px var(--frames); 
+            border-bottom: solid 15px var(--frames); 
+            margin: 85px 0px 0px 1282px;
+        }
+
+        #broadcast-schedule-title {
+            grid-area: 1/1;
+            align-content: center;
+            text-align: center;
+            height: 55px;
+            width: 544px;
+            font-size: 24pt;
+            margin: 87px 0px 0px 1282px;
+        }
+
+        #broadcast-schedule-content {
+            grid-area: 1/1;
+            display: grid;
+            grid-template: repeat(var(--numberOfMatches), 1fr)/524px;
+            margin: 140px 0px 278px 1292px;
         }
 
         .bo3-intermission-background-video {
@@ -538,12 +578,20 @@
                     </div>
 
                     <div id="event-logo-area">
-                        <img src="" id="event-logo-intermission" class="apply-event-logo" style="width: 300px;">
+                        <img src="" id="event-logo-intermission" class="apply-event-logo" style="max-width: 300px; max-height: 180px; object-fit: contain;">
                     </div>
 
                 </div>
 
-            </div>
+            </div> <!-- background -->
+
+            <div id="broadcast-schedule-intermission" style="display: none;">
+                <div id="broadcast-schedule-frame"></div>
+                <span id="broadcast-schedule-title">SCHEDULE</span>
+                <div id="broadcast-schedule-content">
+
+                </div>
+            </div> <!-- broadcast-schedule-intermission -->
             
             <div id="bo3-intermission" style="display: grid;">
                 
@@ -562,15 +610,15 @@
                     <div style="grid-area: 4/2/5/7; background-color: var(--frames);"></div>
                     <div style="grid-area: 7/2/8/7; background-color: var(--frames);"></div>
                     <!-- Atk/Def Backgrounds -->
-                    <div style="grid-area: 2/6/4/7; background-color: rgba(78, 138, 131, 0.5);"></div>
-                    <div style="grid-area: 5/6/7/7; background-color: rgba(78, 138, 131, 0.5);"></div>
-                    <div style="grid-area: 8/6/10/7; background-color: rgba(78, 138, 131, 0.5);"></div>
-                    <div style="grid-area: 2/2/4/3; background-color: rgba(124, 92, 93, 0.5);"></div>
-                    <div style="grid-area: 5/2/7/3; background-color: rgba(124, 92, 93, 0.5);"></div>
-                    <div style="grid-area: 8/2/10/3; background-color: rgba(124, 92, 93, 0.5);"></div>
-                    <div style="grid-area: 2/3/4/6; background-color: rgba(26, 26, 26, 0.5);"></div>
-                    <div style="grid-area: 5/3/7/6; background-color: rgba(26, 26, 26, 0.5);"></div>
-                    <div style="grid-area: 8/3/10/6; background-color: rgba(26, 26, 26, 0.5);"></div>
+                    <div style="grid-area: 2/6/4/7; background-color: rgba(78, 138, 131, 0.7);"></div>
+                    <div style="grid-area: 5/6/7/7; background-color: rgba(78, 138, 131, 0.7);"></div>
+                    <div style="grid-area: 8/6/10/7; background-color: rgba(78, 138, 131, 0.7);"></div>
+                    <div style="grid-area: 2/2/4/3; background-color: rgba(124, 92, 93, 0.7);"></div>
+                    <div style="grid-area: 5/2/7/3; background-color: rgba(124, 92, 93, 0.7);"></div>
+                    <div style="grid-area: 8/2/10/3; background-color: rgba(124, 92, 93, 0.7);"></div>
+                    <div style="grid-area: 2/3/4/6; background-color: rgba(26, 26, 26, 0.4);"></div>
+                    <div style="grid-area: 5/3/7/6; background-color: rgba(26, 26, 26, 0.4);"></div>
+                    <div style="grid-area: 8/3/10/6; background-color: rgba(26, 26, 26, 0.4);"></div>
                     <!-- Inner Tags -->
                     <div style="grid-area: 2/4; background-color: var(--frames);"></div>
                     <div style="grid-area: 5/4; background-color: var(--frames);"></div>
@@ -623,27 +671,27 @@
                     <span class="bo3-schedule-result-overlay apply-map-3-score-intermission" style="grid-area: 6/2/8/3;"></span>
 
                     <div class="bo3-schedule-team" style="grid-area: 2/3/4/4;">
-                        <img class="apply-team-a-logo def-logo" style="width: 120px;" src="assets/200x200_No_Logo.png">
+                        <img class="apply-team-a-logo def-logo" style="max-width: 120px; max-height: 120px; object-fit: contain;" src="assets/200x200_No_Logo.png">
                         <span class="apply-team-a-tri def-name"></span>
                     </div>
                     <div class="bo3-schedule-team" style="grid-area: 4/3/6/4;">
-                        <img class="apply-team-a-logo def-logo" style="width: 120px;" src="assets/200x200_No_Logo.png">
+                        <img class="apply-team-a-logo def-logo" style="max-width: 120px; max-height: 120px; object-fit: contain;" src="assets/200x200_No_Logo.png">
                         <span class="apply-team-a-tri def-name"></span>
                     </div>
                     <div class="bo3-schedule-team" style="grid-area: 6/3/8/4;">
-                        <img class="apply-team-a-logo def-logo" style="width: 120px;" src="assets/200x200_No_Logo.png">
+                        <img class="apply-team-a-logo def-logo" style="max-width: 120px; max-height: 120px; object-fit: contain;" src="assets/200x200_No_Logo.png">
                         <span class="apply-team-a-tri def-name"></span>
                     </div>
                     <div class="bo3-schedule-team" style="grid-area: 2/1/4/2;">
-                        <img class="apply-team-b-logo atk-logo" style="width: 120px;" src="assets/200x200_No_Logo.png">
+                        <img class="apply-team-b-logo atk-logo" style="max-width: 120px; max-height: 120px; object-fit: contain;" src="assets/200x200_No_Logo.png">
                         <span class="apply-team-b-tri atk-name"></span>
                     </div>
                     <div class="bo3-schedule-team" style="grid-area: 4/1/6/2;">
-                        <img class="apply-team-b-logo atk-logo" style="width: 120px;" src="assets/200x200_No_Logo.png">
+                        <img class="apply-team-b-logo atk-logo" style="max-width: 120px; max-height: 120px; object-fit: contain;" src="assets/200x200_No_Logo.png">
                         <span class="apply-team-b-tri atk-name"></span>
                     </div>
                     <div class="bo3-schedule-team" style="grid-area: 6/1/8/2;">
-                        <img class="apply-team-b-logo atk-logo" style="width: 120px;" src="assets/200x200_No_Logo.png">
+                        <img class="apply-team-b-logo atk-logo" style="max-width: 120px; max-height: 120px; object-fit: contain;" src="assets/200x200_No_Logo.png">
                         <span class="apply-team-b-tri atk-name"></span>
                     </div>                    
                 </div>
@@ -668,12 +716,12 @@
                     <!-- Atk/Def Backgrounds -->
                     <div style="grid-area: 2/2/5/3; background-color: rgba(78, 138, 131, 0.5);"></div>
                     <div style="grid-area: 3/3; background-color: rgba(78, 138, 131, 0.5);"></div>
-                    <div style="grid-area: 2/3; height: 0; width: 0; border-bottom: solid 30px rgba(78, 138, 131, 0.5); border-right: solid 30px transparent;"></div>
-                    <div style="grid-area: 4/3; height: 0; width: 0; border-top: solid 30px rgba(78, 138, 131, 0.5); border-right: solid 30px transparent;"></div>
+                    <div style="grid-area: 2/3; height: 0; width: 0; border-bottom: solid 30px rgba(78, 138, 131, 0.7); border-right: solid 30px transparent;"></div>
+                    <div style="grid-area: 4/3; height: 0; width: 0; border-top: solid 30px rgba(78, 138, 131, 0.7); border-right: solid 30px transparent;"></div>
                     <div style="grid-area: 6/6/9/7; background-color: rgba(124, 92, 93, 0.5);"></div>
                     <div style="grid-area: 7/5; background-color: rgba(124, 92, 93, 0.5);"></div>
-                    <div style="grid-area: 6/5; height: 0; width: 0; border-bottom: solid 30px rgba(124, 92, 93, 0.5); border-left: solid 30px transparent;"></div>
-                    <div style="grid-area: 8/5; height: 0; width: 0; border-top: solid 30px rgba(124, 92, 93, 0.5); border-left: solid 30px transparent;"></div>
+                    <div style="grid-area: 6/5; height: 0; width: 0; border-bottom: solid 30px rgba(124, 92, 93, 0.7); border-left: solid 30px transparent;"></div>
+                    <div style="grid-area: 8/5; height: 0; width: 0; border-top: solid 30px rgba(124, 92, 93, 0.7); border-left: solid 30px transparent;"></div>
                 </div>
 
                 <div id="bo1-intermission-schedule-content">
@@ -694,13 +742,13 @@
 
                     <div class="bo1-schedule-team" style="grid-area: 2/1/4/2; margin-left: 22px;">
                         <span>DEF</span>
-                        <img class="apply-team-a-logo def-logo" style="width: 80px;" src="assets/200x200_No_Logo.png">
+                        <img class="apply-team-a-logo def-logo" style="max-width: 80px; max-height: 80px; object-fit: contain;" src="assets/200x200_No_Logo.png">
                         <span class="apply-team-a-tri def-name"></span>
                     </div>
 
                     <div class="bo1-schedule-team" style="grid-area: 5/3/6/4; margin-right: 22px;">
                         <span>ATK</span>
-                        <img class="apply-team-b-logo atk-logo" style="width: 80px;" src="assets/200x200_No_Logo.png">
+                        <img class="apply-team-b-logo atk-logo" style="max-width: 80px; max-height: 80px; object-fit: contain;" src="assets/200x200_No_Logo.png">
                         <span class="apply-team-b-tri atk-name"></span>
                     </div>
 
