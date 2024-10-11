@@ -17,7 +17,7 @@
             --bga1: #204546;
             --bga2: #257878;
             --frames: #0D9093;
-            --numberOfMatches: 6;
+            --numberOfMatches: 2;
             --sbg1: #1a1a1a;
             --sbg2: #3a3a3a;
         }
@@ -2744,10 +2744,10 @@
                                 <div class="flex-row" style="grid-area: 2/1/3/2; z-index: 1;">
                                     <span class="overlay-heading">Number of matches being played: </span>
 
-                                    <input id="number-of-matches" type="number" value="1" min="1" max="6">
+                                    <input id="number-of-matches" type="number" value="2" min="1" max="6">
                                     <div class="help">
                                         <span>Sets the amount of rows (matches) displayed on the broadcast schedule</span>
-                                        <span style="color: yellow;">WARNING: This is an experimental feature. Maximum of 6 matches can be displayed.</span>
+                                        <span style="color: yellow;">WARNING: This is an experimental feature. 1-6 matches can be displayed.</span>
                                     </div>
                                 </div>
 
@@ -2795,7 +2795,7 @@
 
 
                                 <!-- TEMP -->
-                                <div class="flex-row" style="grid-area: 4/1/5/6; z-index: 1; height: 80px; margin-top: 50px;">
+                                <div class="flex-column" style="display: none; grid-area: 4/1/5/6; z-index: 1; width: 600px; height: 80px; margin-top: 550px;">
                                     <span class="overlay-heading">Match Ended Heading Replacement: </span>
                                     <input type="text" id="match-end-replace" value="Ending Soon" class="menu">
                                     <div class="help">
@@ -2811,8 +2811,9 @@
                                 #match-schedule-config {
                                     grid-area: 1/1;
                                     display: grid;
+                                    z-index: 1;
                                     grid-template: 50px/repeat(var(--numberOfMatches), 1fr);
-                                    margin: 500px 1080px 0px 30px;
+                                    margin: 390px 1080px 250px 30px;
                                 }
 
                                 #match-schedule-config div[class=match-tab] {
@@ -2853,7 +2854,7 @@
                                     width: 770px;
                                     grid-template: 10px 30px 80px 30px 80px 30px 80px 10px/20px 80px 80px 1fr 5px 1fr 80px 80px 80px 1fr 5px 1fr 80px 80px 20px;
                                     position: absolute;
-                                    top: 550px;
+                                    top: 440px;
                                     left: 30px;
                                 }
 
@@ -2908,8 +2909,8 @@
                                     background-color: rgb(52, 52, 52);
                                     color: white;
                                     position: absolute;
-                                    top: -520px;
-                                    left: 1395px;
+                                    top: -410px;
+                                    left: 1400px;
                                 }
 
                                 #match-schedule-config [type=button] + div[class=input-contents] {
@@ -2946,8 +2947,8 @@
                                     background-color: rgb(52, 52, 52);
                                     color: white;
                                     position: absolute;
-                                    top: -520px;
-                                    left: 1395px;
+                                    top: -410px;
+                                    left: 1400px;
                                 }
 
                                 #match-schedule-config [type=text] {
@@ -2973,8 +2974,8 @@
                                     background-color: rgb(52, 52, 52);
                                     color: white;
                                     position: absolute;
-                                    top: -520px;
-                                    left: 1395px;
+                                    top: -410px;
+                                    left: 1400px;
                                 }
 
                                 #match-schedule-config [type=radio] + div[class=input-contents] {
@@ -3008,8 +3009,8 @@
                                     background-color: rgb(52, 52, 52);
                                     color: white;
                                     position: absolute;
-                                    top: -520px;
-                                    left: 1395px;
+                                    top: -410px;
+                                    left: 1400px;
                                 }
 
                                 #match-schedule-config [type=number] {
@@ -3036,8 +3037,8 @@
                                     background-color: rgb(52, 52, 52);
                                     color: white;
                                     position: absolute;
-                                    top: -520px;
-                                    left: 1395px;
+                                    top: -410px;
+                                    left: 1400px;
                                 }
                             </style>
 
@@ -3113,8 +3114,8 @@
 
                                             <input type="text" id="match-1-heading" value="" style="grid-area: 7/7/8/10;" class="match-1-menu menu">
                                             <div class="help">
-                                                <span>Sub heading that appears next to the series length. We recommend using a map name for BO1s or tournament round</span>
-                                                <span>Examples: BO1 - Haven | BO3 - Upper Bracket Round 2 | BO5 Grand Finals</span>                                   
+                                                <span>Sub heading that appears below the VS/score on the broadcast schedule</span>
+                                                <span>We recommend using a map name for BO1s or the relevant tournament round such as 'Semifinal 2'</span>                                   
                                             </div>
 
                                             <label for="match-1-team-a-tbd" style="grid-area: 3/2;">
@@ -3226,7 +3227,7 @@
                                 </label> <!-- match-1-config -->
 
                                 <label for="match-2-config">
-                                    <input type="radio" id="match-2-config" value="1" name="match-config-selection">
+                                    <input type="radio" id="match-2-config" value="0" name="match-config-selection">
                                     <div class="match-tab">
                                         <span class="match-name">Match 2
                                             <div class="help">
@@ -3235,12 +3236,1211 @@
                                         </span>
                                         <div class="match-contents">
                                             <div class="match-contents-bg"></div>
+                                            <div style="grid-area: 2/5/-2/6; background-color: rgb(149, 149, 149); border-radius: 5px;"></div>
+                                            <div style="grid-area: 2/-6/-2/-5; background-color: rgb(149, 149, 149); border-radius: 5px;"></div>
 
+                                            <span style="grid-area: 2/2/3/4; text-align: center; margin-top: 5px;">Team A</span>
+                                            <span style="grid-area: 2/-2/3/-4; text-align: center; margin-top: 5px;">Team B</span>
+                                            <span style="grid-area: 4/2/5/4; text-align: center; margin-top: 5px;">Team A Logo</span>
+                                            <span style="grid-area: 4/-2/5/-4; text-align: center; margin-top: 5px;">Team B Logo</span>
+                                            <span style="grid-area: 6/2/7/4; text-align: center; margin-top: 5px;">Team A Tricode</span>
+                                            <span style="grid-area: 6/-2/7/-4; text-align: center; margin-top: 5px;">Team B Tricode</span>
+                                            <span style="grid-area: 2/7/3/10; text-align: center; margin-top: 5px;">Match Length</span>
+                                            <span style="grid-area: 4/8; text-align: center; margin-top: 5px;">Score</span>
+                                            <span style="grid-area: 4/7; text-align: center; margin-top: 5px;" class="apply-match-2-team-a-tri">TMA</span>
+                                            <span style="grid-area: 4/9; text-align: center; margin-top: 5px;" class="apply-match-2-team-b-tri">TMB</span>
+                                            <span style="grid-area: 5/8; text-align: center; transform: translate(0px, -12px); font-size: 60pt;">-</span>
+                                            <span style="grid-area: 6/7/7/10; text-align: center; margin-top: 5px;">Map/Tournament Round</span>
+                                            
+                                            <label for="match-2-bo1" style="grid-area: 3/7;">
+                                                <input type="radio" id="match-2-bo1" value="0" name="match-2-series-length-selection" checked class="match-2-menu menu">
+                                                <div class="input-contents" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-width: 5px 0px 5px 5px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>BO1</span>
+                                                    <div class="help">
+                                                        <span>Select if match 2 is a Best of 1.</span>
+                                                        <span style="color: yellow;">IMPORTANT: This will affect certain pieces of internal logic that interacts with the automatic default intermission headings</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+
+                                            <label for="match-2-bo3" style="grid-area: 3/8;">
+                                                <input type="radio" id="match-2-bo3" value="1" name="match-2-series-length-selection" class="match-2-menu menu">
+                                                <div class="input-contents" style="border-width: 5px 0px 5px 0px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>BO3</span>
+                                                    <div class="help">
+                                                        <span>Select if match 2 is a Best of 3.</span>
+                                                        <span style="color: yellow;">IMPORTANT: This will affect certain pieces of internal logic that interacts with the automatic default intermission headings</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+        
+                                            <label for="match-2-bo5" style="grid-area: 3/9;">
+                                                <input type="radio" id="match-2-bo5" value="2" name="match-2-series-length-selection" class="match-2-menu menu">
+                                                <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>BO5</span>
+                                                    <div class="help">
+                                                        <span>Select if match 2 is a Best of 5.</span>
+                                                        <span style="color: yellow;">IMPORTANT: This will affect certain pieces of internal logic that interacts with the automatic default intermission headings</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+
+                                            <input id="match-2-team-a-score" type="number" value="0" min="0" style="grid-area: 5/7;" class="match-2-menu">
+                                            <div class="help">
+                                                <span>Number of rounds/maps that Team A won during match 2</span>
+                                            </div>
+
+                                            <input id="match-2-team-b-score" type="number" value="0" min="0" style="grid-area: 5/9;" class="match-2-menu">
+                                            <div class="help">
+                                                <span>Number of rounds/maps that Team B won during match 2</span>
+                                            </div>
+
+                                            <input type="text" id="match-2-heading" value="" style="grid-area: 7/7/8/10;" class="match-2-menu menu">
+                                            <div class="help">
+                                                <span>Sub heading that appears next to the series length. We recommend using a map name for BO1s or tournament round</span>
+                                                <span>Examples: BO1 - Haven | BO3 - Upper Bracket Round 2 | BO5 Grand Finals</span>                                   
+                                            </div>
+
+                                            <label for="match-2-team-a-tbd" style="grid-area: 3/2;">
+                                                <input type="radio" id="match-2-team-a-tbd" value="0" name="match-2-team-a-selection" checked class="match-2-menu menu">
+                                                <div class="input-contents" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-width: 5px 0px 5px 5px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>TBD</span>
+                                                    <div class="help">
+                                                        <span>Select if Team A for match 2 is unknown. Will use large 'TBD' text in place of a team logo and tricode on the broadcast schedule.</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+        
+                                            <label for="match-2-team-a-team" style="grid-area: 3/3;">
+                                                <input type="radio" id="match-2-team-a-team" value="1" name="match-2-team-a-selection" class="match-2-menu menu">
+                                                <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <div style="display: flex; flex-direction: column; justify-content: space-evenly; align-items: center;">
+                                                        <img src="assets/200x200_No_Logo.png" style="max-width: 40px; max-height: 40px; object-fit: contain;" class="apply-match-2-team-a-logo">
+                                                        <span class="apply-match-2-team-a-tri">TMA</span>  
+                                                    </div>
+                                                    <div class="help">
+                                                        <span>Uses provided logo and tricode for match 2 <br> Team A on the broadcast schedule</span>
+                                                        <span>Edit Team A details below</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+
+                                            <label for="match-2-team-b-tbd" style="grid-area: 3/-4;">
+                                                <input type="radio" id="match-2-team-b-tbd" value="0" name="match-2-team-b-selection" checked class="match-2-menu menu">
+                                                <div class="input-contents" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-width: 5px 0px 5px 5px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>TBD</span>
+                                                    <div class="help">
+                                                        <span>Select if Team B for match 2 is unknown. Will use large 'TBD' text in place of a team logo and tricode on the broadcast schedule.</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+        
+                                            <label for="match-2-team-b-team" style="grid-area: 3/-3;">
+                                                <input type="radio" id="match-2-team-b-team" value="1" name="match-2-team-b-selection" class="match-2-menu menu">
+                                                <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <div style="display: flex; flex-direction: column; justify-content: space-evenly; align-items: center;">
+                                                        <img src="assets/200x200_No_Logo.png" style="max-width: 40px; max-height: 40px; object-fit: contain;" class="apply-match-2-team-b-logo">
+                                                        <span class="apply-match-2-team-b-tri">TMB</span>  
+                                                    </div>
+                                                    <div class="help">
+                                                        <span>Uses provided logo and tricode for match 2 <br> Team B on the broadcast schedule</span>
+                                                        <span>Edit Team B details below</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+
+                                            <label for="match-2-team-a-logo-upload" style="grid-area: 5/2;">
+                                                <input type="button" id="match-2-team-a-logo-upload" class="menu">
+                                                <div class="input-contents">
+                                                    <img src="assets/Upload_Icon.png">
+                                                    <div class="help">
+                                                        <span>Upload logo for match 2 Team A on the <br> broadcast schedule</span>
+                                                        <span>Use square image files for logos for best results <br> We recommend logo dimensions of 500x500 px</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+
+                                            <label for="match-2-team-b-logo-upload" style="grid-area: 5/-4;">
+                                                <input type="button" id="match-2-team-b-logo-upload" class="menu">
+                                                <div class="input-contents">
+                                                    <img src="assets/Upload_Icon.png">
+                                                    <div class="help">
+                                                        <span>Upload logo for match 2 Team A on the <br> broadcast schedule</span>
+                                                        <span>Use square image files for logos for best results <br> We recommend logo dimensions of 500x500 px</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+
+                                            <label for="match-2-team-a-no-logo" style="grid-area: 5/3;">
+                                                <input type="checkbox" id="match-2-team-a-no-logo" checked class="match-2-menu menu">
+                                                <div class="input-contents">
+                                                    <span>No Logo</span>
+                                                    <div class="help">
+                                                        <span>Toggle generic logo for match 2 Team A on the <br> broadcast schedule</span>
+                                                        <span>Uses a generic Valorant 'V' logo <br> in place of a custom logo</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                            
+                                            <label for="match-2-team-b-no-logo" style="grid-area: 5/-3;">
+                                                <input type="checkbox" id="match-2-team-b-no-logo" checked class="match-2-menu menu">
+                                                <div class="input-contents">
+                                                    <span>No Logo</span>
+                                                    <div class="help">
+                                                        <span>Toggle generic logo for match 2 Team B on the <br> broadcast schedule</span>
+                                                        <span>Uses a generic Valorant 'V' logo <br> in place of a custom logo</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+
+                                            <input type="text" id="match-2-team-a-tri" maxlength="4" value="TMA" style="grid-area: 7/2/8/4;" class="match-2-menu menu">
+                                            <div class="help">
+                                                <span>Set the tricode for match 2 Team A on the <br> broadcast schedule</span>                                   
+                                                <span>Tricodes are a 2-4 character representation of a <br> team's name such as PRX or SEN </span>
+                                            </div>
+
+                                            <input type="text" id="match-2-team-b-tri" maxlength="4" value="TMB" style="grid-area: 7/-4/8/-2;" class="match-2-menu menu">
+                                            <div class="help">
+                                                <span>Set the tricode for match 2 Team B on the <br> broadcast schedule</span>                                   
+                                                <span>Tricodes are a 2-4 character representation of a <br> team's name such as PRX or SEN </span>
+                                            </div>
+                                        
+                                        </div> <!-- match-contents -->
+                                    </div> <!-- match-tab -->
+                                </label> <!-- match-2-config -->
+
+                                <label for="match-3-config">
+                                    <input type="radio" id="match-3-config" value="0" name="match-config-selection">
+                                    <div class="match-tab">
+                                        <span class="match-name">Match 3
+                                            <div class="help">
+                                                <span>Edit settings for match 3 on the <br> broadcast schedule</span>
+                                            </div>
+                                        </span>
+                                        <div class="match-contents">
+                                            <div class="match-contents-bg"></div>
+                                            <div style="grid-area: 2/5/-2/6; background-color: rgb(149, 149, 149); border-radius: 5px;"></div>
+                                            <div style="grid-area: 2/-6/-2/-5; background-color: rgb(149, 149, 149); border-radius: 5px;"></div>
+                                
+                                            <span style="grid-area: 2/2/3/4; text-align: center; margin-top: 5px;">Team A</span>
+                                            <span style="grid-area: 2/-2/3/-4; text-align: center; margin-top: 5px;">Team B</span>
+                                            <span style="grid-area: 4/2/5/4; text-align: center; margin-top: 5px;">Team A Logo</span>
+                                            <span style="grid-area: 4/-2/5/-4; text-align: center; margin-top: 5px;">Team B Logo</span>
+                                            <span style="grid-area: 6/2/7/4; text-align: center; margin-top: 5px;">Team A Tricode</span>
+                                            <span style="grid-area: 6/-2/7/-4; text-align: center; margin-top: 5px;">Team B Tricode</span>
+                                            <span style="grid-area: 2/7/3/10; text-align: center; margin-top: 5px;">Match Length</span>
+                                            <span style="grid-area: 4/8; text-align: center; margin-top: 5px;">Score</span>
+                                            <span style="grid-area: 4/7; text-align: center; margin-top: 5px;" class="apply-match-3-team-a-tri">TMA</span>
+                                            <span style="grid-area: 4/9; text-align: center; margin-top: 5px;" class="apply-match-3-team-b-tri">TMB</span>
+                                            <span style="grid-area: 5/8; text-align: center; transform: translate(0px, -12px); font-size: 60pt;">-</span>
+                                            <span style="grid-area: 6/7/7/10; text-align: center; margin-top: 5px;">Map/Tournament Round</span>
+                                            
+                                            <label for="match-3-bo1" style="grid-area: 3/7;">
+                                                <input type="radio" id="match-3-bo1" value="0" name="match-3-series-length-selection" checked class="match-3-menu menu">
+                                                <div class="input-contents" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-width: 5px 0px 5px 5px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>BO1</span>
+                                                    <div class="help">
+                                                        <span>Select if match 3 is a Best of 1.</span>
+                                                        <span style="color: yellow;">IMPORTANT: This will affect certain pieces of internal logic that interacts with the automatic default intermission headings</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-3-bo3" style="grid-area: 3/8;">
+                                                <input type="radio" id="match-3-bo3" value="1" name="match-3-series-length-selection" class="match-3-menu menu">
+                                                <div class="input-contents" style="border-width: 5px 0px 5px 0px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>BO3</span>
+                                                    <div class="help">
+                                                        <span>Select if match 3 is a Best of 3.</span>
+                                                        <span style="color: yellow;">IMPORTANT: This will affect certain pieces of internal logic that interacts with the automatic default intermission headings</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-3-bo5" style="grid-area: 3/9;">
+                                                <input type="radio" id="match-3-bo5" value="2" name="match-3-series-length-selection" class="match-3-menu menu">
+                                                <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>BO5</span>
+                                                    <div class="help">
+                                                        <span>Select if match 3 is a Best of 5.</span>
+                                                        <span style="color: yellow;">IMPORTANT: This will affect certain pieces of internal logic that interacts with the automatic default intermission headings</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <input id="match-3-team-a-score" type="number" value="0" min="0" style="grid-area: 5/7;" class="match-3-menu">
+                                            <div class="help">
+                                                <span>Number of rounds/maps that Team A won during match 3</span>
+                                            </div>
+                                
+                                            <input id="match-3-team-b-score" type="number" value="0" min="0" style="grid-area: 5/9;" class="match-3-menu">
+                                            <div class="help">
+                                                <span>Number of rounds/maps that Team B won during match 3</span>
+                                            </div>
+                                
+                                            <input type="text" id="match-3-heading" value="" style="grid-area: 7/7/8/10;" class="match-3-menu menu">
+                                            <div class="help">
+                                                <span>Sub heading that appears next to the series length. We recommend using a map name for BO1s or tournament round</span>
+                                                <span>Examples: BO1 - Haven | BO3 - Upper Bracket Round 2 | BO5 Grand Finals</span>                                   
+                                            </div>
+                                
+                                            <label for="match-3-team-a-tbd" style="grid-area: 3/2;">
+                                                <input type="radio" id="match-3-team-a-tbd" value="0" name="match-3-team-a-selection" checked class="match-3-menu menu">
+                                                <div class="input-contents" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-width: 5px 0px 5px 5px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>TBD</span>
+                                                    <div class="help">
+                                                        <span>Select if Team A for match 3 is unknown. Will use large 'TBD' text in place of a team logo and tricode on the broadcast schedule.</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-3-team-a-team" style="grid-area: 3/3;">
+                                                <input type="radio" id="match-3-team-a-team" value="1" name="match-3-team-a-selection" class="match-3-menu menu">
+                                                <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <div style="display: flex; flex-direction: column; justify-content: space-evenly; align-items: center;">
+                                                        <img src="assets/200x200_No_Logo.png" style="max-width: 40px; max-height: 40px; object-fit: contain;" class="apply-match-3-team-a-logo">
+                                                        <span class="apply-match-3-team-a-tri">TMA</span>  
+                                                    </div>
+                                                    <div class="help">
+                                                        <span>Uses provided logo and tricode for match 3 <br> Team A on the broadcast schedule</span>
+                                                        <span>Edit Team A details below</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-3-team-b-tbd" style="grid-area: 3/-4;">
+                                                <input type="radio" id="match-3-team-b-tbd" value="0" name="match-3-team-b-selection" checked class="match-3-menu menu">
+                                                <div class="input-contents" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-width: 5px 0px 5px 5px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>TBD</span>
+                                                    <div class="help">
+                                                        <span>Select if Team B for match 3 is unknown. Will use large 'TBD' text in place of a team logo and tricode on the broadcast schedule.</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-3-team-b-team" style="grid-area: 3/-3;">
+                                                <input type="radio" id="match-3-team-b-team" value="1" name="match-3-team-b-selection" class="match-3-menu menu">
+                                                <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <div style="display: flex; flex-direction: column; justify-content: space-evenly; align-items: center;">
+                                                        <img src="assets/200x200_No_Logo.png" style="max-width: 40px; max-height: 40px; object-fit: contain;" class="apply-match-3-team-b-logo">
+                                                        <span class="apply-match-3-team-b-tri">TMB</span>  
+                                                    </div>
+                                                    <div class="help">
+                                                        <span>Uses provided logo and tricode for match 3 <br> Team B on the broadcast schedule</span>
+                                                        <span>Edit Team B details below</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-3-team-a-logo-upload" style="grid-area: 5/2;">
+                                                <input type="button" id="match-3-team-a-logo-upload" class="menu">
+                                                <div class="input-contents">
+                                                    <img src="assets/Upload_Icon.png">
+                                                    <div class="help">
+                                                        <span>Upload logo for match 3 Team A on the <br> broadcast schedule</span>
+                                                        <span>Use square image files for logos for best results <br> We recommend logo dimensions of 500x500 px</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-3-team-b-logo-upload" style="grid-area: 5/-4;">
+                                                <input type="button" id="match-3-team-b-logo-upload" class="menu">
+                                                <div class="input-contents">
+                                                    <img src="assets/Upload_Icon.png">
+                                                    <div class="help">
+                                                        <span>Upload logo for match 3 Team A on the <br> broadcast schedule</span>
+                                                        <span>Use square image files for logos for best results <br> We recommend logo dimensions of 500x500 px</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-3-team-a-no-logo" style="grid-area: 5/3;">
+                                                <input type="checkbox" id="match-3-team-a-no-logo" checked class="match-3-menu menu">
+                                                <div class="input-contents">
+                                                    <span>No Logo</span>
+                                                    <div class="help">
+                                                        <span>Toggle generic logo for match 3 Team A on the <br> broadcast schedule</span>
+                                                        <span>Uses a generic Valorant 'V' logo <br> in place of a custom logo</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                            
+                                            <label for="match-3-team-b-no-logo" style="grid-area: 5/-3;">
+                                                <input type="checkbox" id="match-3-team-b-no-logo" checked class="match-3-menu menu">
+                                                <div class="input-contents">
+                                                    <span>No Logo</span>
+                                                    <div class="help">
+                                                        <span>Toggle generic logo for match 3 Team B on the <br> broadcast schedule</span>
+                                                        <span>Uses a generic Valorant 'V' logo <br> in place of a custom logo</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <input type="text" id="match-3-team-a-tri" maxlength="4" value="TMA" style="grid-area: 7/2/8/4;" class="match-3-menu menu">
+                                            <div class="help">
+                                                <span>Set the tricode for match 3 Team A on the <br> broadcast schedule</span>                                   
+                                                <span>Tricodes are a 2-4 character representation of a <br> team's name such as PRX or SEN </span>
+                                            </div>
+                                
+                                            <input type="text" id="match-3-team-b-tri" maxlength="4" value="TMB" style="grid-area: 7/-4/8/-2;" class="match-3-menu menu">
+                                            <div class="help">
+                                                <span>Set the tricode for match 3 Team B on the <br> broadcast schedule</span>                                   
+                                                <span>Tricodes are a 2-4 character representation of a <br> team's name such as PRX or SEN </span>
+                                            </div>
+                                        
+                                        </div> <!-- match-contents -->
+                                    </div> <!-- match-tab -->
+                                </label> <!-- match-3-config -->
+
+                                <label for="match-4-config">
+                                    <input type="radio" id="match-4-config" value="0" name="match-config-selection">
+                                    <div class="match-tab">
+                                        <span class="match-name">Match 4
+                                            <div class="help">
+                                                <span>Edit settings for match 4 on the <br> broadcast schedule</span>
+                                            </div>
+                                        </span>
+                                        <div class="match-contents">
+                                            <div class="match-contents-bg"></div>
+                                            <div style="grid-area: 2/5/-2/6; background-color: rgb(149, 149, 149); border-radius: 5px;"></div>
+                                            <div style="grid-area: 2/-6/-2/-5; background-color: rgb(149, 149, 149); border-radius: 5px;"></div>
+                                
+                                            <span style="grid-area: 2/2/3/4; text-align: center; margin-top: 5px;">Team A</span>
+                                            <span style="grid-area: 2/-2/3/-4; text-align: center; margin-top: 5px;">Team B</span>
+                                            <span style="grid-area: 4/2/5/4; text-align: center; margin-top: 5px;">Team A Logo</span>
+                                            <span style="grid-area: 4/-2/5/-4; text-align: center; margin-top: 5px;">Team B Logo</span>
+                                            <span style="grid-area: 6/2/7/4; text-align: center; margin-top: 5px;">Team A Tricode</span>
+                                            <span style="grid-area: 6/-2/7/-4; text-align: center; margin-top: 5px;">Team B Tricode</span>
+                                            <span style="grid-area: 2/7/3/10; text-align: center; margin-top: 5px;">Match Length</span>
+                                            <span style="grid-area: 4/8; text-align: center; margin-top: 5px;">Score</span>
+                                            <span style="grid-area: 4/7; text-align: center; margin-top: 5px;" class="apply-match-4-team-a-tri">TMA</span>
+                                            <span style="grid-area: 4/9; text-align: center; margin-top: 5px;" class="apply-match-4-team-b-tri">TMB</span>
+                                            <span style="grid-area: 5/8; text-align: center; transform: translate(0px, -12px); font-size: 60pt;">-</span>
+                                            <span style="grid-area: 6/7/7/10; text-align: center; margin-top: 5px;">Map/Tournament Round</span>
+                                            
+                                            <label for="match-4-bo1" style="grid-area: 3/7;">
+                                                <input type="radio" id="match-4-bo1" value="0" name="match-4-series-length-selection" checked class="match-4-menu menu">
+                                                <div class="input-contents" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-width: 5px 0px 5px 5px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>BO1</span>
+                                                    <div class="help">
+                                                        <span>Select if match 4 is a Best of 1.</span>
+                                                        <span style="color: yellow;">IMPORTANT: This will affect certain pieces of internal logic that interacts with the automatic default intermission headings</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-4-bo3" style="grid-area: 3/8;">
+                                                <input type="radio" id="match-4-bo3" value="1" name="match-4-series-length-selection" class="match-4-menu menu">
+                                                <div class="input-contents" style="border-width: 5px 0px 5px 0px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>BO3</span>
+                                                    <div class="help">
+                                                        <span>Select if match 4 is a Best of 3.</span>
+                                                        <span style="color: yellow;">IMPORTANT: This will affect certain pieces of internal logic that interacts with the automatic default intermission headings</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-4-bo5" style="grid-area: 3/9;">
+                                                <input type="radio" id="match-4-bo5" value="2" name="match-4-series-length-selection" class="match-4-menu menu">
+                                                <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>BO5</span>
+                                                    <div class="help">
+                                                        <span>Select if match 4 is a Best of 5.</span>
+                                                        <span style="color: yellow;">IMPORTANT: This will affect certain pieces of internal logic that interacts with the automatic default intermission headings</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <input id="match-4-team-a-score" type="number" value="0" min="0" style="grid-area: 5/7;" class="match-4-menu">
+                                            <div class="help">
+                                                <span>Number of rounds/maps that Team A won during match 4</span>
+                                            </div>
+                                
+                                            <input id="match-4-team-b-score" type="number" value="0" min="0" style="grid-area: 5/9;" class="match-4-menu">
+                                            <div class="help">
+                                                <span>Number of rounds/maps that Team B won during match 4</span>
+                                            </div>
+                                
+                                            <input type="text" id="match-4-heading" value="" style="grid-area: 7/7/8/10;" class="match-4-menu menu">
+                                            <div class="help">
+                                                <span>Sub heading that appears next to the series length. We recommend using a map name for BO1s or tournament round</span>
+                                                <span>Examples: BO1 - Haven | BO3 - Upper Bracket Round 2 | BO5 Grand Finals</span>                                   
+                                            </div>
+                                
+                                            <label for="match-4-team-a-tbd" style="grid-area: 3/2;">
+                                                <input type="radio" id="match-4-team-a-tbd" value="0" name="match-4-team-a-selection" checked class="match-4-menu menu">
+                                                <div class="input-contents" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-width: 5px 0px 5px 5px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>TBD</span>
+                                                    <div class="help">
+                                                        <span>Select if Team A for match 4 is unknown. Will use large 'TBD' text in place of a team logo and tricode on the broadcast schedule.</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-4-team-a-team" style="grid-area: 3/3;">
+                                                <input type="radio" id="match-4-team-a-team" value="1" name="match-4-team-a-selection" class="match-4-menu menu">
+                                                <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <div style="display: flex; flex-direction: column; justify-content: space-evenly; align-items: center;">
+                                                        <img src="assets/200x200_No_Logo.png" style="max-width: 40px; max-height: 40px; object-fit: contain;" class="apply-match-4-team-a-logo">
+                                                        <span class="apply-match-4-team-a-tri">TMA</span>  
+                                                    </div>
+                                                    <div class="help">
+                                                        <span>Uses provided logo and tricode for match 4 <br> Team A on the broadcast schedule</span>
+                                                        <span>Edit Team A details below</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-4-team-b-tbd" style="grid-area: 3/-4;">
+                                                <input type="radio" id="match-4-team-b-tbd" value="0" name="match-4-team-b-selection" checked class="match-4-menu menu">
+                                                <div class="input-contents" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-width: 5px 0px 5px 5px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>TBD</span>
+                                                    <div class="help">
+                                                        <span>Select if Team B for match 4 is unknown. Will use large 'TBD' text in place of a team logo and tricode on the broadcast schedule.</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-4-team-b-team" style="grid-area: 3/-3;">
+                                                <input type="radio" id="match-4-team-b-team" value="1" name="match-4-team-b-selection" class="match-4-menu menu">
+                                                <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <div style="display: flex; flex-direction: column; justify-content: space-evenly; align-items: center;">
+                                                        <img src="assets/200x200_No_Logo.png" style="max-width: 40px; max-height: 40px; object-fit: contain;" class="apply-match-4-team-b-logo">
+                                                        <span class="apply-match-4-team-b-tri">TMB</span>  
+                                                    </div>
+                                                    <div class="help">
+                                                        <span>Uses provided logo and tricode for match 4 <br> Team B on the broadcast schedule</span>
+                                                        <span>Edit Team B details below</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-4-team-a-logo-upload" style="grid-area: 5/2;">
+                                                <input type="button" id="match-4-team-a-logo-upload" class="menu">
+                                                <div class="input-contents">
+                                                    <img src="assets/Upload_Icon.png">
+                                                    <div class="help">
+                                                        <span>Upload logo for match 4 Team A on the <br> broadcast schedule</span>
+                                                        <span>Use square image files for logos for best results <br> We recommend logo dimensions of 500x500 px</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-4-team-b-logo-upload" style="grid-area: 5/-4;">
+                                                <input type="button" id="match-4-team-b-logo-upload" class="menu">
+                                                <div class="input-contents">
+                                                    <img src="assets/Upload_Icon.png">
+                                                    <div class="help">
+                                                        <span>Upload logo for match 4 Team A on the <br> broadcast schedule</span>
+                                                        <span>Use square image files for logos for best results <br> We recommend logo dimensions of 500x500 px</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-4-team-a-no-logo" style="grid-area: 5/3;">
+                                                <input type="checkbox" id="match-4-team-a-no-logo" checked class="match-4-menu menu">
+                                                <div class="input-contents">
+                                                    <span>No Logo</span>
+                                                    <div class="help">
+                                                        <span>Toggle generic logo for match 4 Team A on the <br> broadcast schedule</span>
+                                                        <span>Uses a generic Valorant 'V' logo <br> in place of a custom logo</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                            
+                                            <label for="match-4-team-b-no-logo" style="grid-area: 5/-3;">
+                                                <input type="checkbox" id="match-4-team-b-no-logo" checked class="match-4-menu menu">
+                                                <div class="input-contents">
+                                                    <span>No Logo</span>
+                                                    <div class="help">
+                                                        <span>Toggle generic logo for match 4 Team B on the <br> broadcast schedule</span>
+                                                        <span>Uses a generic Valorant 'V' logo <br> in place of a custom logo</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <input type="text" id="match-4-team-a-tri" maxlength="4" value="TMA" style="grid-area: 7/2/8/4;" class="match-4-menu menu">
+                                            <div class="help">
+                                                <span>Set the tricode for match 4 Team A on the <br> broadcast schedule</span>                                   
+                                                <span>Tricodes are a 2-4 character representation of a <br> team's name such as PRX or SEN </span>
+                                            </div>
+                                
+                                            <input type="text" id="match-4-team-b-tri" maxlength="4" value="TMB" style="grid-area: 7/-4/8/-2;" class="match-4-menu menu">
+                                            <div class="help">
+                                                <span>Set the tricode for match 4 Team B on the <br> broadcast schedule</span>                                   
+                                                <span>Tricodes are a 2-4 character representation of a <br> team's name such as PRX or SEN </span>
+                                            </div>
+                                        
+                                        </div> <!-- match-contents -->
+                                    </div> <!-- match-tab -->
+                                </label> <!-- match-4-config -->
+
+                                <label for="match-5-config">
+                                    <input type="radio" id="match-5-config" value="0" name="match-config-selection">
+                                    <div class="match-tab">
+                                        <span class="match-name">Match 5
+                                            <div class="help">
+                                                <span>Edit settings for match 5 on the <br> broadcast schedule</span>
+                                            </div>
+                                        </span>
+                                        <div class="match-contents">
+                                            <div class="match-contents-bg"></div>
+                                            <div style="grid-area: 2/5/-2/6; background-color: rgb(149, 149, 149); border-radius: 5px;"></div>
+                                            <div style="grid-area: 2/-6/-2/-5; background-color: rgb(149, 149, 149); border-radius: 5px;"></div>
+                                
+                                            <span style="grid-area: 2/2/3/4; text-align: center; margin-top: 5px;">Team A</span>
+                                            <span style="grid-area: 2/-2/3/-4; text-align: center; margin-top: 5px;">Team B</span>
+                                            <span style="grid-area: 4/2/5/4; text-align: center; margin-top: 5px;">Team A Logo</span>
+                                            <span style="grid-area: 4/-2/5/-4; text-align: center; margin-top: 5px;">Team B Logo</span>
+                                            <span style="grid-area: 6/2/7/4; text-align: center; margin-top: 5px;">Team A Tricode</span>
+                                            <span style="grid-area: 6/-2/7/-4; text-align: center; margin-top: 5px;">Team B Tricode</span>
+                                            <span style="grid-area: 2/7/3/10; text-align: center; margin-top: 5px;">Match Length</span>
+                                            <span style="grid-area: 4/8; text-align: center; margin-top: 5px;">Score</span>
+                                            <span style="grid-area: 4/7; text-align: center; margin-top: 5px;" class="apply-match-5-team-a-tri">TMA</span>
+                                            <span style="grid-area: 4/9; text-align: center; margin-top: 5px;" class="apply-match-5-team-b-tri">TMB</span>
+                                            <span style="grid-area: 5/8; text-align: center; transform: translate(0px, -12px); font-size: 60pt;">-</span>
+                                            <span style="grid-area: 6/7/7/10; text-align: center; margin-top: 5px;">Map/Tournament Round</span>
+                                            
+                                            <label for="match-5-bo1" style="grid-area: 3/7;">
+                                                <input type="radio" id="match-5-bo1" value="0" name="match-5-series-length-selection" checked class="match-5-menu menu">
+                                                <div class="input-contents" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-width: 5px 0px 5px 5px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>BO1</span>
+                                                    <div class="help">
+                                                        <span>Select if match 5 is a Best of 1.</span>
+                                                        <span style="color: yellow;">IMPORTANT: This will affect certain pieces of internal logic that interacts with the automatic default intermission headings</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-5-bo3" style="grid-area: 3/8;">
+                                                <input type="radio" id="match-5-bo3" value="1" name="match-5-series-length-selection" class="match-5-menu menu">
+                                                <div class="input-contents" style="border-width: 5px 0px 5px 0px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>BO3</span>
+                                                    <div class="help">
+                                                        <span>Select if match 5 is a Best of 3.</span>
+                                                        <span style="color: yellow;">IMPORTANT: This will affect certain pieces of internal logic that interacts with the automatic default intermission headings</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-5-bo5" style="grid-area: 3/9;">
+                                                <input type="radio" id="match-5-bo5" value="2" name="match-5-series-length-selection" class="match-5-menu menu">
+                                                <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>BO5</span>
+                                                    <div class="help">
+                                                        <span>Select if match 5 is a Best of 5.</span>
+                                                        <span style="color: yellow;">IMPORTANT: This will affect certain pieces of internal logic that interacts with the automatic default intermission headings</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <input id="match-5-team-a-score" type="number" value="0" min="0" style="grid-area: 5/7;" class="match-5-menu">
+                                            <div class="help">
+                                                <span>Number of rounds/maps that Team A won during match 5</span>
+                                            </div>
+                                
+                                            <input id="match-5-team-b-score" type="number" value="0" min="0" style="grid-area: 5/9;" class="match-5-menu">
+                                            <div class="help">
+                                                <span>Number of rounds/maps that Team B won during match 5</span>
+                                            </div>
+                                
+                                            <input type="text" id="match-5-heading" value="" style="grid-area: 7/7/8/10;" class="match-5-menu menu">
+                                            <div class="help">
+                                                <span>Sub heading that appears next to the series length. We recommend using a map name for BO1s or tournament round</span>
+                                                <span>Examples: BO1 - Haven | BO3 - Upper Bracket Round 2 | BO5 Grand Finals</span>                                   
+                                            </div>
+                                
+                                            <label for="match-5-team-a-tbd" style="grid-area: 3/2;">
+                                                <input type="radio" id="match-5-team-a-tbd" value="0" name="match-5-team-a-selection" checked class="match-5-menu menu">
+                                                <div class="input-contents" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-width: 5px 0px 5px 5px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>TBD</span>
+                                                    <div class="help">
+                                                        <span>Select if Team A for match 5 is unknown. Will use large 'TBD' text in place of a team logo and tricode on the broadcast schedule.</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-5-team-a-team" style="grid-area: 3/3;">
+                                                <input type="radio" id="match-5-team-a-team" value="1" name="match-5-team-a-selection" class="match-5-menu menu">
+                                                <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <div style="display: flex; flex-direction: column; justify-content: space-evenly; align-items: center;">
+                                                        <img src="assets/200x200_No_Logo.png" style="max-width: 40px; max-height: 40px; object-fit: contain;" class="apply-match-5-team-a-logo">
+                                                        <span class="apply-match-5-team-a-tri">TMA</span>  
+                                                    </div>
+                                                    <div class="help">
+                                                        <span>Uses provided logo and tricode for match 5 <br> Team A on the broadcast schedule</span>
+                                                        <span>Edit Team A details below</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-5-team-b-tbd" style="grid-area: 3/-4;">
+                                                <input type="radio" id="match-5-team-b-tbd" value="0" name="match-5-team-b-selection" checked class="match-5-menu menu">
+                                                <div class="input-contents" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-width: 5px 0px 5px 5px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>TBD</span>
+                                                    <div class="help">
+                                                        <span>Select if Team B for match 5 is unknown. Will use large 'TBD' text in place of a team logo and tricode on the broadcast schedule.</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-5-team-b-team" style="grid-area: 3/-3;">
+                                                <input type="radio" id="match-5-team-b-team" value="1" name="match-5-team-b-selection" class="match-5-menu menu">
+                                                <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <div style="display: flex; flex-direction: column; justify-content: space-evenly; align-items: center;">
+                                                        <img src="assets/200x200_No_Logo.png" style="max-width: 40px; max-height: 40px; object-fit: contain;" class="apply-match-5-team-b-logo">
+                                                        <span class="apply-match-5-team-b-tri">TMB</span>  
+                                                    </div>
+                                                    <div class="help">
+                                                        <span>Uses provided logo and tricode for match 5 <br> Team B on the broadcast schedule</span>
+                                                        <span>Edit Team B details below</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-5-team-a-logo-upload" style="grid-area: 5/2;">
+                                                <input type="button" id="match-5-team-a-logo-upload" class="menu">
+                                                <div class="input-contents">
+                                                    <img src="assets/Upload_Icon.png">
+                                                    <div class="help">
+                                                        <span>Upload logo for match 5 Team A on the <br> broadcast schedule</span>
+                                                        <span>Use square image files for logos for best results <br> We recommend logo dimensions of 500x500 px</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-5-team-b-logo-upload" style="grid-area: 5/-4;">
+                                                <input type="button" id="match-5-team-b-logo-upload" class="menu">
+                                                <div class="input-contents">
+                                                    <img src="assets/Upload_Icon.png">
+                                                    <div class="help">
+                                                        <span>Upload logo for match 5 Team A on the <br> broadcast schedule</span>
+                                                        <span>Use square image files for logos for best results <br> We recommend logo dimensions of 500x500 px</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-5-team-a-no-logo" style="grid-area: 5/3;">
+                                                <input type="checkbox" id="match-5-team-a-no-logo" checked class="match-5-menu menu">
+                                                <div class="input-contents">
+                                                    <span>No Logo</span>
+                                                    <div class="help">
+                                                        <span>Toggle generic logo for match 5 Team A on the <br> broadcast schedule</span>
+                                                        <span>Uses a generic Valorant 'V' logo <br> in place of a custom logo</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                            
+                                            <label for="match-5-team-b-no-logo" style="grid-area: 5/-3;">
+                                                <input type="checkbox" id="match-5-team-b-no-logo" checked class="match-5-menu menu">
+                                                <div class="input-contents">
+                                                    <span>No Logo</span>
+                                                    <div class="help">
+                                                        <span>Toggle generic logo for match 5 Team B on the <br> broadcast schedule</span>
+                                                        <span>Uses a generic Valorant 'V' logo <br> in place of a custom logo</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <input type="text" id="match-5-team-a-tri" maxlength="4" value="TMA" style="grid-area: 7/2/8/4;" class="match-5-menu menu">
+                                            <div class="help">
+                                                <span>Set the tricode for match 5 Team A on the <br> broadcast schedule</span>                                   
+                                                <span>Tricodes are a 2-4 character representation of a <br> team's name such as PRX or SEN </span>
+                                            </div>
+                                
+                                            <input type="text" id="match-5-team-b-tri" maxlength="4" value="TMB" style="grid-area: 7/-4/8/-2;" class="match-5-menu menu">
+                                            <div class="help">
+                                                <span>Set the tricode for match 5 Team B on the <br> broadcast schedule</span>                                   
+                                                <span>Tricodes are a 2-4 character representation of a <br> team's name such as PRX or SEN </span>
+                                            </div>
+                                        
+                                        </div> <!-- match-contents -->
+                                    </div> <!-- match-tab -->
+                                </label> <!-- match-5-config -->
+
+                                <label for="match-6-config">
+                                    <input type="radio" id="match-6-config" value="0" name="match-config-selection">
+                                    <div class="match-tab">
+                                        <span class="match-name">Match 6
+                                            <div class="help">
+                                                <span>Edit settings for match 6 on the <br> broadcast schedule</span>
+                                            </div>
+                                        </span>
+                                        <div class="match-contents">
+                                            <div class="match-contents-bg"></div>
+                                            <div style="grid-area: 2/5/-2/6; background-color: rgb(149, 149, 149); border-radius: 5px;"></div>
+                                            <div style="grid-area: 2/-6/-2/-5; background-color: rgb(149, 149, 149); border-radius: 5px;"></div>
+                                
+                                            <span style="grid-area: 2/2/3/4; text-align: center; margin-top: 5px;">Team A</span>
+                                            <span style="grid-area: 2/-2/3/-4; text-align: center; margin-top: 5px;">Team B</span>
+                                            <span style="grid-area: 4/2/5/4; text-align: center; margin-top: 5px;">Team A Logo</span>
+                                            <span style="grid-area: 4/-2/5/-4; text-align: center; margin-top: 5px;">Team B Logo</span>
+                                            <span style="grid-area: 6/2/7/4; text-align: center; margin-top: 5px;">Team A Tricode</span>
+                                            <span style="grid-area: 6/-2/7/-4; text-align: center; margin-top: 5px;">Team B Tricode</span>
+                                            <span style="grid-area: 2/7/3/10; text-align: center; margin-top: 5px;">Match Length</span>
+                                            <span style="grid-area: 4/8; text-align: center; margin-top: 5px;">Score</span>
+                                            <span style="grid-area: 4/7; text-align: center; margin-top: 5px;" class="apply-match-6-team-a-tri">TMA</span>
+                                            <span style="grid-area: 4/9; text-align: center; margin-top: 5px;" class="apply-match-6-team-b-tri">TMB</span>
+                                            <span style="grid-area: 5/8; text-align: center; transform: translate(0px, -12px); font-size: 60pt;">-</span>
+                                            <span style="grid-area: 6/7/7/10; text-align: center; margin-top: 5px;">Map/Tournament Round</span>
+                                            
+                                            <label for="match-6-bo1" style="grid-area: 3/7;">
+                                                <input type="radio" id="match-6-bo1" value="0" name="match-6-series-length-selection" checked class="match-6-menu menu">
+                                                <div class="input-contents" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-width: 5px 0px 5px 5px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>BO1</span>
+                                                    <div class="help">
+                                                        <span>Select if match 6 is a Best of 1.</span>
+                                                        <span style="color: yellow;">IMPORTANT: This will affect certain pieces of internal logic that interacts with the automatic default intermission headings</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-6-bo3" style="grid-area: 3/8;">
+                                                <input type="radio" id="match-6-bo3" value="1" name="match-6-series-length-selection" class="match-6-menu menu">
+                                                <div class="input-contents" style="border-width: 5px 0px 5px 0px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>BO3</span>
+                                                    <div class="help">
+                                                        <span>Select if match 6 is a Best of 3.</span>
+                                                        <span style="color: yellow;">IMPORTANT: This will affect certain pieces of internal logic that interacts with the automatic default intermission headings</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-6-bo5" style="grid-area: 3/9;">
+                                                <input type="radio" id="match-6-bo5" value="2" name="match-6-series-length-selection" class="match-6-menu menu">
+                                                <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>BO5</span>
+                                                    <div class="help">
+                                                        <span>Select if match 6 is a Best of 5.</span>
+                                                        <span style="color: yellow;">IMPORTANT: This will affect certain pieces of internal logic that interacts with the automatic default intermission headings</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <input id="match-6-team-a-score" type="number" value="0" min="0" style="grid-area: 5/7;" class="match-6-menu">
+                                            <div class="help">
+                                                <span>Number of rounds/maps that Team A won during match 6</span>
+                                            </div>
+                                
+                                            <input id="match-6-team-b-score" type="number" value="0" min="0" style="grid-area: 5/9;" class="match-6-menu">
+                                            <div class="help">
+                                                <span>Number of rounds/maps that Team B won during match 6</span>
+                                            </div>
+                                
+                                            <input type="text" id="match-6-heading" value="" style="grid-area: 7/7/8/10;" class="match-6-menu menu">
+                                            <div class="help">
+                                                <span>Sub heading that appears next to the series length. We recommend using a map name for BO1s or tournament round</span>
+                                                <span>Examples: BO1 - Haven | BO3 - Upper Bracket Round 2 | BO5 Grand Finals</span>                                   
+                                            </div>
+                                
+                                            <label for="match-6-team-a-tbd" style="grid-area: 3/2;">
+                                                <input type="radio" id="match-6-team-a-tbd" value="0" name="match-6-team-a-selection" checked class="match-6-menu menu">
+                                                <div class="input-contents" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-width: 5px 0px 5px 5px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>TBD</span>
+                                                    <div class="help">
+                                                        <span>Select if Team A for match 6 is unknown. Will use large 'TBD' text in place of a team logo and tricode on the broadcast schedule.</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-6-team-a-team" style="grid-area: 3/3;">
+                                                <input type="radio" id="match-6-team-a-team" value="1" name="match-6-team-a-selection" class="match-6-menu menu">
+                                                <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <div style="display: flex; flex-direction: column; justify-content: space-evenly; align-items: center;">
+                                                        <img src="assets/200x200_No_Logo.png" style="max-width: 40px; max-height: 40px; object-fit: contain;" class="apply-match-6-team-a-logo">
+                                                        <span class="apply-match-6-team-a-tri">TMA</span>  
+                                                    </div>
+                                                    <div class="help">
+                                                        <span>Uses provided logo and tricode for match 6 <br> Team A on the broadcast schedule</span>
+                                                        <span>Edit Team A details below</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-6-team-b-tbd" style="grid-area: 3/-4;">
+                                                <input type="radio" id="match-6-team-b-tbd" value="0" name="match-6-team-b-selection" checked class="match-6-menu menu">
+                                                <div class="input-contents" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-width: 5px 0px 5px 5px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <span>TBD</span>
+                                                    <div class="help">
+                                                        <span>Select if Team B for match 6 is unknown. Will use large 'TBD' text in place of a team logo and tricode on the broadcast schedule.</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-6-team-b-team" style="grid-area: 3/-3;">
+                                                <input type="radio" id="match-6-team-b-team" value="1" name="match-6-team-b-selection" class="match-6-menu menu">
+                                                <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid; border-color: rgb(149, 149, 149);">
+                                                    <div style="display: flex; flex-direction: column; justify-content: space-evenly; align-items: center;">
+                                                        <img src="assets/200x200_No_Logo.png" style="max-width: 40px; max-height: 40px; object-fit: contain;" class="apply-match-6-team-b-logo">
+                                                        <span class="apply-match-6-team-b-tri">TMB</span>  
+                                                    </div>
+                                                    <div class="help">
+                                                        <span>Uses provided logo and tricode for match 6 <br> Team B on the broadcast schedule</span>
+                                                        <span>Edit Team B details below</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-6-team-a-logo-upload" style="grid-area: 5/2;">
+                                                <input type="button" id="match-6-team-a-logo-upload" class="menu">
+                                                <div class="input-contents">
+                                                    <img src="assets/Upload_Icon.png">
+                                                    <div class="help">
+                                                        <span>Upload logo for match 6 Team A on the <br> broadcast schedule</span>
+                                                        <span>Use square image files for logos for best results <br> We recommend logo dimensions of 500x500 px</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-6-team-b-logo-upload" style="grid-area: 5/-4;">
+                                                <input type="button" id="match-6-team-b-logo-upload" class="menu">
+                                                <div class="input-contents">
+                                                    <img src="assets/Upload_Icon.png">
+                                                    <div class="help">
+                                                        <span>Upload logo for match 6 Team A on the <br> broadcast schedule</span>
+                                                        <span>Use square image files for logos for best results <br> We recommend logo dimensions of 500x500 px</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <label for="match-6-team-a-no-logo" style="grid-area: 5/3;">
+                                                <input type="checkbox" id="match-6-team-a-no-logo" checked class="match-6-menu menu">
+                                                <div class="input-contents">
+                                                    <span>No Logo</span>
+                                                    <div class="help">
+                                                        <span>Toggle generic logo for match 6 Team A on the <br> broadcast schedule</span>
+                                                        <span>Uses a generic Valorant 'V' logo <br> in place of a custom logo</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                            
+                                            <label for="match-6-team-b-no-logo" style="grid-area: 5/-3;">
+                                                <input type="checkbox" id="match-6-team-b-no-logo" checked class="match-6-menu menu">
+                                                <div class="input-contents">
+                                                    <span>No Logo</span>
+                                                    <div class="help">
+                                                        <span>Toggle generic logo for match 6 Team B on the <br> broadcast schedule</span>
+                                                        <span>Uses a generic Valorant 'V' logo <br> in place of a custom logo</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                
+                                            <input type="text" id="match-6-team-a-tri" maxlength="4" value="TMA" style="grid-area: 7/2/8/4;" class="match-6-menu menu">
+                                            <div class="help">
+                                                <span>Set the tricode for match 6 Team A on the <br> broadcast schedule</span>                                   
+                                                <span>Tricodes are a 2-4 character representation of a <br> team's name such as PRX or SEN </span>
+                                            </div>
+                                
+                                            <input type="text" id="match-6-team-b-tri" maxlength="4" value="TMB" style="grid-area: 7/-4/8/-2;" class="match-6-menu menu">
+                                            <div class="help">
+                                                <span>Set the tricode for match 6 Team B on the <br> broadcast schedule</span>                                   
+                                                <span>Tricodes are a 2-4 character representation of a <br> team's name such as PRX or SEN </span>
+                                            </div>
+                                        
+                                        </div> <!-- match-contents -->
+                                    </div> <!-- match-tab -->
+                                </label> <!-- match-6-config -->
+
+                            </div> <!-- match-schedule-config -->
+
+                            <style>
+                                #broadcast-schedule-intermission {
+                                    display: grid;
+                                    grid-template: 990px/1880px;
+                                    grid-area: 1/1;
+                                    color: white;
+                                    font-family: 'Foundry';
+                                }
+
+                                #broadcast-schedule-frame {
+                                    grid-area: 1/1; 
+                                    height: 662px; 
+                                    width: 524px; 
+                                    border-top: solid 55px var(--frames); 
+                                    border-right: solid 10px var(--frames); 
+                                    border-left: solid 10px var(--frames); 
+                                    border-bottom: solid 15px var(--frames); 
+                                    margin: 150px 0px 0px 865px;
+                                }
+
+                                #broadcast-schedule-title {
+                                    grid-area: 1/1;
+                                    align-content: center;
+                                    text-align: center;
+                                    height: 55px;
+                                    width: 544px;
+                                    font-size: 24pt;
+                                    margin: 152px 0px 0px 865px;
+                                }
+
+                                #broadcast-schedule-content {
+                                    grid-area: 1/1;
+                                    display: grid;
+                                    grid-template: repeat(var(--numberOfMatches), 1fr)/524px;
+                                    margin: 205px 0px 123px 875px;
+                                }
+
+                                .match-schedule-content {
+                                    display: grid;
+                                    grid-template: calc(662px/var(--numberOfMatches))/524px;
+                                }
+
+                                :root {
+                                    --logoMaxSize: 100px;
+                                    --matchScheduleDisplay: block;
+                                    --matchScheduleTeamsFontSize: 20pt;
+                                    --matchScheduleInfoFontSize: 13pt;
+                                    --matchScheduleScoresFontSize: 50pt;
+                                    --matchScheduleHeadingMarginTop: 105px;
+                                    --matchScheduleHeadingMarginBottom: 110px;
+                                }
+
+                                .match-schedule-team-a {
+                                    display: flex;
+                                    flex-direction: column;
+                                    height: 90%;
+                                    justify-content: center;
+                                    row-gap: 10px;
+                                }
+
+                                .match-schedule-team-b {
+                                    display: flex;
+                                    flex-direction: column;
+                                    height: 90%;
+                                    justify-content: center;
+                                    row-gap: 10px;
+                                }
+                                
+                                .match-schedule-team-a img, .match-schedule-team-b img {
+                                    max-width: var(--logoMaxSize);
+                                    max-height: var(--logoMaxSize);
+                                    object-fit: contain;
+                                }
+
+                                .match-schedule-team-a span, .match-schedule-team-b span {
+                                    display: var(--matchScheduleDisplay);
+                                    font-size: var(--matchScheduleTeamsFontSize);
+                                    text-align: center;
+                                }
+
+                                .match-schedule-heading-top {
+                                    grid-area: 1/1;
+                                    justify-self: center;
+                                    align-self: flex-start;
+                                    margin-top: var(--matchScheduleHeadingMarginTop);
+                                    font-size: var(--matchScheduleInfoFontSize);
+                                }
+
+                                .match-schedule-heading-bottom {
+                                    grid-area: 1/1;
+                                    justify-self: center;
+                                    align-self: flex-end;
+                                    margin-bottom: var(--matchScheduleHeadingMarginBottom);
+                                    font-size: var(--matchScheduleInfoFontSize);
+                                }
+
+                                .match-schedule-score-vs {
+                                    justify-self: center;
+                                    text-align: center;
+                                    font-size: var(--matchScheduleScoresFontSize);
+                                }
+
+                                .match-schedule-tbd {
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    height: var(--logoMaxSize);
+                                    width: var(--logoMaxSize);
+                                    font-size: var(--matchScheduleScoresFontSize);
+                                }
+                            </style>
+
+                            <div id="broadcast-schedule-intermission">
+                                <div id="broadcast-schedule-frame"></div>
+                                <span id="broadcast-schedule-title">SCHEDULE PREVIEW</span>
+                                <div id="broadcast-schedule-content">
+                                    <!-- Match 1 -->
+                                    <div id="match-1-schedule-content" class="match-schedule-content" style="background-color: var(--sbg1);">
+                                        
+                                        <div class="flex-row" style="grid-area: 1/1; justify-content: space-evenly;">
+                                            <div id="match-1-schedule-team-a" class="match-schedule-team-a">
+                                                <img id="match-1-schedule-team-a-logo" src="assets/200x200_No_Logo.png" class="apply-match-1-team-a-logo">
+                                                <span id="match-1-schedule-team-a-logo-bottom" class="apply-match-1-team-a-tri">TMA</span>
+                                            </div>
+
+                                            <div id="match-1-schedule-team-a-tbd" class="match-schedule-tbd" style="display: none;">
+                                                <span>TBD</span>
+                                            </div>
+
+                                            <span id="match-1-schedule-score-vs" class="match-schedule-score-vs">VS</span>
+                                                                                    
+                                            <div id="match-1-schedule-team-b-tbd" class="match-schedule-tbd" style="display: none;">
+                                                <span>TBD</span>
+                                            </div>
+
+                                            <div id="match-1-schedule-team-b" class="match-schedule-team-b">
+                                                <img id="match-1-schedule-team-b-logo" src="assets/200x200_No_Logo.png" class="apply-match-1-team-b-logo">
+                                                <span id="match-1-schedule-team-b-logo-bottom" class="apply-match-1-team-b-tri">TMB</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </label>
-                            </div>
+                                        
+                                        <span id="match-1-schedule-heading-top" class="match-schedule-heading-top">Match 1</span>
+                                        <span id="match-1-schedule-heading-bottom" class="match-schedule-heading-bottom"></span>
 
+                                    </div>
+
+                                    <!-- Match 2 -->
+                                    <div id="match-2-schedule-content" class="match-schedule-content" style="background-color: var(--sbg2);">
+                                        
+                                        <div class="flex-row" style="grid-area: 1/1; justify-content: space-evenly;">
+                                            <div id="match-2-schedule-team-a" class="match-schedule-team-a">
+                                                <img id="match-2-schedule-team-a-logo" src="assets/200x200_No_Logo.png" class="apply-match-2-team-a-logo">
+                                                <span id="match-2-schedule-team-a-logo-bottom" class="apply-match-2-team-a-tri">TMA</span>
+                                            </div>
+
+                                            <div id="match-2-schedule-team-a-tbd" class="match-schedule-tbd" style="display: none;">
+                                                <span>TBD</span>
+                                            </div>
+
+                                            <span id="match-2-schedule-score-vs" class="match-schedule-score-vs">VS</span>
+                                                                                    
+                                            <div id="match-2-schedule-team-b-tbd" class="match-schedule-tbd" style="display: none;">
+                                                <span>TBD</span>
+                                            </div>
+
+                                            <div id="match-2-schedule-team-b" class="match-schedule-team-b">
+                                                <img id="match-2-schedule-team-b-logo" src="assets/200x200_No_Logo.png" class="apply-match-2-team-b-logo">
+                                                <span id="match-2-schedule-team-b-logo-bottom" class="apply-match-2-team-b-tri">TMB</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <span id="match-2-schedule-heading-top" class="match-schedule-heading-top">Match 1</span>
+                                        <span id="match-2-schedule-heading-bottom" class="match-schedule-heading-bottom"></span>
+                                    
+                                    </div>
+
+                                    <!-- Match 3 -->
+                                    <div id="match-3-schedule-content" class="match-schedule-content" style="background-color: var(--sbg1);">
+                                                                                
+                                        <div class="flex-row" style="grid-area: 1/1; justify-content: space-evenly;">
+                                            <div id="match-3-schedule-team-a" class="match-schedule-team-a">
+                                                <img id="match-3-schedule-team-a-logo" src="assets/200x200_No_Logo.png" class="apply-match-3-team-a-logo">
+                                                <span id="match-3-schedule-team-a-logo-bottom" class="apply-match-3-team-a-tri">TMA</span>
+                                            </div>
+
+                                            <div id="match-3-schedule-team-a-tbd" class="match-schedule-tbd" style="display: none;">
+                                                <span>TBD</span>
+                                            </div>
+
+                                            <span id="match-3-schedule-score-vs" class="match-schedule-score-vs">VS</span>
+                                                                                    
+                                            <div id="match-3-schedule-team-b-tbd" class="match-schedule-tbd" style="display: none;">
+                                                <span>TBD</span>
+                                            </div>
+
+                                            <div id="match-3-schedule-team-b" class="match-schedule-team-b">
+                                                <img id="match-3-schedule-team-b-logo" src="assets/200x200_No_Logo.png" class="apply-match-3-team-b-logo">
+                                                <span id="match-3-schedule-team-b-logo-bottom" class="apply-match-3-team-b-tri">TMB</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <span id="match-3-schedule-heading-top" class="match-schedule-heading-top">Match 1</span>
+                                        <span id="match-3-schedule-heading-bottom" class="match-schedule-heading-bottom"></span>
+                                    
+                                    </div>
+
+                                    <!-- Match 4 -->
+                                    <div id="match-4-schedule-content" class="match-schedule-content" style="background-color: var(--sbg2);">
+
+                                        <div class="flex-row" style="grid-area: 1/1; justify-content: space-evenly;">
+                                            <div id="match-4-schedule-team-a" class="match-schedule-team-a">
+                                                <img id="match-4-schedule-team-a-logo" src="assets/200x200_No_Logo.png" class="apply-match-4-team-a-logo">
+                                                <span id="match-4-schedule-team-a-logo-bottom" class="apply-match-4-team-a-tri">TMA</span>
+                                            </div>
+
+                                            <div id="match-4-schedule-team-a-tbd" class="match-schedule-tbd" style="display: none;">
+                                                <span>TBD</span>
+                                            </div>
+
+                                            <span id="match-4-schedule-score-vs" class="match-schedule-score-vs">VS</span>
+                                                                                    
+                                            <div id="match-4-schedule-team-b-tbd" class="match-schedule-tbd" style="display: none;">
+                                                <span>TBD</span>
+                                            </div>
+
+                                            <div id="match-4-schedule-team-b" class="match-schedule-team-b">
+                                                <img id="match-4-schedule-team-b-logo" src="assets/200x200_No_Logo.png" class="apply-match-4-team-b-logo">
+                                                <span id="match-4-schedule-team-b-logo-bottom" class="apply-match-4-team-b-tri">TMB</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <span id="match-4-schedule-heading-top" class="match-schedule-heading-top">Match 1</span>
+                                        <span id="match-4-schedule-heading-bottom" class="match-schedule-heading-bottom"></span>
+                                    
+                                    </div>
+
+                                    <!-- Match 5 -->
+                                    <div id="match-5-schedule-content" class="match-schedule-content" style="background-color: var(--sbg1);">
+                                        
+                                        <div class="flex-row" style="grid-area: 1/1; justify-content: space-evenly;">
+                                            <div id="match-5-schedule-team-a" class="match-schedule-team-a">
+                                                <img id="match-5-schedule-team-a-logo" src="assets/200x200_No_Logo.png" class="apply-match-5-team-a-logo">
+                                                <span id="match-5-schedule-team-a-logo-bottom" class="apply-match-5-team-a-tri">TMA</span>
+                                            </div>
+
+                                            <div id="match-5-schedule-team-a-tbd" class="match-schedule-tbd" style="display: none;">
+                                                <span>TBD</span>
+                                            </div>
+
+                                            <span id="match-5-schedule-score-vs" class="match-schedule-score-vs">VS</span>
+                                                                                    
+                                            <div id="match-5-schedule-team-b-tbd" class="match-schedule-tbd" style="display: none;">
+                                                <span>TBD</span>
+                                            </div>
+
+                                            <div id="match-5-schedule-team-b" class="match-schedule-team-b">
+                                                <img id="match-5-schedule-team-b-logo" src="assets/200x200_No_Logo.png" class="apply-match-5-team-b-logo">
+                                                <span id="match-5-schedule-team-b-logo-bottom" class="apply-match-5-team-b-tri">TMB</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <span id="match-5-schedule-heading-top" class="match-schedule-heading-top">Match 1</span>
+                                        <span id="match-5-schedule-heading-bottom" class="match-schedule-heading-bottom"></span>
+                                    
+                                    </div>
+
+                                    <!-- Match 6 -->
+                                    <div id="match-6-schedule-content" class="match-schedule-content" style="background-color: var(--sbg2);">
+                                        
+                                        <div class="flex-row" style="grid-area: 1/1; justify-content: space-evenly;">
+                                            <div id="match-6-schedule-team-a" class="match-schedule-team-a">
+                                                <img id="match-6-schedule-team-a-logo" src="assets/200x200_No_Logo.png" class="apply-match-6-team-a-logo">
+                                                <span id="match-6-schedule-team-a-logo-bottom" class="apply-match-6-team-a-tri">TMA</span>
+                                            </div>
+
+                                            <div id="match-6-schedule-team-a-tbd" class="match-schedule-tbd" style="display: none;">
+                                                <span>TBD</span>
+                                            </div>
+
+                                            <span id="match-6-schedule-score-vs" class="match-schedule-score-vs">VS</span>
+                                                                                    
+                                            <div id="match-6-schedule-team-b-tbd" class="match-schedule-tbd" style="display: none;">
+                                                <span>TBD</span>
+                                            </div>
+
+                                            <div id="match-6-schedule-team-b" class="match-schedule-team-b">
+                                                <img id="match-6-schedule-team-b-logo" src="assets/200x200_No_Logo.png" class="apply-match-6-team-b-logo">
+                                                <span id="match-6-schedule-team-b-logo-bottom" class="apply-match-6-team-b-tri">TMB</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <span id="match-6-schedule-heading-top" class="match-schedule-heading-top">Match 1</span>
+                                        <span id="match-6-schedule-heading-bottom" class="match-schedule-heading-bottom"></span>
+                                    
+                                    </div>
+
+                                </div>
+                            </div> <!-- broadcast-schedule-intermission -->
                         </div>
                     </div>
                 </label>

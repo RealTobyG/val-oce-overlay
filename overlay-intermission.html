@@ -16,9 +16,16 @@
             --bga1: #204546;
             --bga2: #257878;
             --frames: #0D9093;
-            --numberOfMatches: 6;
+            --numberOfMatches: 2;
             --sbg1: #1a1a1a;
             --sbg2: #3a3a3a;
+            --logoMaxSize: 100px;
+            --matchScheduleDisplay: block;
+            --matchScheduleTeamsFontSize: 20pt;
+            --matchScheduleInfoFontSize: 13pt;
+            --matchScheduleScoresFontSize: 50pt;
+            --matchScheduleHeadingMarginTop: 105px;
+            --matchScheduleHeadingMarginBottom: 110px;
         }
 
         @font-face {
@@ -460,6 +467,7 @@
             align-items: center;
             background-color: var(--frames);
             padding-right: 15px;
+            transition: 4s;
         }
 
         #event-logo-area {
@@ -498,6 +506,70 @@
 
         video::-webkit-media-controls {
             display: none;
+        }
+
+        .match-schedule-content {
+            display: grid;
+            grid-template: calc(662px/var(--numberOfMatches))/524px;
+        }
+
+        .match-schedule-team-a {
+            display: flex;
+            flex-direction: column;
+            height: 90%;
+            justify-content: center;
+            row-gap: 10px;
+        }
+
+        .match-schedule-team-b {
+            display: flex;
+            flex-direction: column;
+            height: 90%;
+            justify-content: center;
+            row-gap: 10px;
+        }
+        
+        .match-schedule-team-a img, .match-schedule-team-b img {
+            max-width: var(--logoMaxSize);
+            max-height: var(--logoMaxSize);
+            object-fit: contain;
+        }
+
+        .match-schedule-team-a span, .match-schedule-team-b span {
+            display: var(--matchScheduleDisplay);
+            font-size: var(--matchScheduleTeamsFontSize);
+            text-align: center;
+        }
+
+        .match-schedule-heading-top {
+            grid-area: 1/1;
+            justify-self: center;
+            align-self: flex-start;
+            margin-top: var(--matchScheduleHeadingMarginTop);
+            font-size: var(--matchScheduleInfoFontSize);
+        }
+
+        .match-schedule-heading-bottom {
+            grid-area: 1/1;
+            justify-self: center;
+            align-self: flex-end;
+            margin-bottom: var(--matchScheduleHeadingMarginBottom);
+            font-size: var(--matchScheduleInfoFontSize);
+        }
+
+        .match-schedule-score-vs {
+            justify-self: center;
+            text-align: center;
+            font-size: var(--matchScheduleScoresFontSize);
+        }
+
+        .match-schedule-tbd {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: var(--logoMaxSize);
+            width: var(--logoMaxSize);
+            font-size: var(--matchScheduleScoresFontSize);
         }
     </style>
 </head>
@@ -589,6 +661,185 @@
                 <div id="broadcast-schedule-frame"></div>
                 <span id="broadcast-schedule-title">SCHEDULE</span>
                 <div id="broadcast-schedule-content">
+                    <!-- Match 1 -->
+                    <div id="match-1-schedule-content" class="match-schedule-content" style="background-color: var(--sbg1);">
+                                        
+                        <div class="flex-row" style="grid-area: 1/1; justify-content: space-evenly;">
+                            <div id="match-1-schedule-team-a" class="match-schedule-team-a">
+                                <img id="match-1-schedule-team-a-logo" src="assets/200x200_No_Logo.png" class="apply-match-1-team-a-logo">
+                                <span id="match-1-schedule-team-a-logo-bottom" class="apply-match-1-team-a-tri">TMA</span>
+                            </div>
+
+                            <div id="match-1-schedule-team-a-tbd" class="match-schedule-tbd" style="display: none;">
+                                <span>TBD</span>
+                            </div>
+
+                            <span id="match-1-schedule-score-vs" class="match-schedule-score-vs">VS</span>
+                                                                    
+                            <div id="match-1-schedule-team-b-tbd" class="match-schedule-tbd" style="display: none;">
+                                <span>TBD</span>
+                            </div>
+
+                            <div id="match-1-schedule-team-b" class="match-schedule-team-b">
+                                <img id="match-1-schedule-team-b-logo" src="assets/200x200_No_Logo.png" class="apply-match-1-team-b-logo">
+                                <span id="match-1-schedule-team-b-logo-bottom" class="apply-match-1-team-b-tri">TMB</span>
+                            </div>
+                        </div>
+                        
+                        <span id="match-1-schedule-heading-top" class="match-schedule-heading-top">Match 1</span>
+                        <span id="match-1-schedule-heading-bottom" class="match-schedule-heading-bottom"></span>
+
+                    </div>
+
+                    <!-- Match 2 -->
+                    <div id="match-2-schedule-content" class="match-schedule-content" style="background-color: var(--sbg2);">
+                        
+                        <div class="flex-row" style="grid-area: 1/1; justify-content: space-evenly;">
+                            <div id="match-2-schedule-team-a" class="match-schedule-team-a">
+                                <img id="match-2-schedule-team-a-logo" src="assets/200x200_No_Logo.png" class="apply-match-2-team-a-logo">
+                                <span id="match-2-schedule-team-a-logo-bottom" class="apply-match-2-team-a-tri">TMA</span>
+                            </div>
+
+                            <div id="match-2-schedule-team-a-tbd" class="match-schedule-tbd" style="display: none;">
+                                <span>TBD</span>
+                            </div>
+
+                            <span id="match-2-schedule-score-vs" class="match-schedule-score-vs">VS</span>
+                                                                    
+                            <div id="match-2-schedule-team-b-tbd" class="match-schedule-tbd" style="display: none;">
+                                <span>TBD</span>
+                            </div>
+
+                            <div id="match-2-schedule-team-b" class="match-schedule-team-b">
+                                <img id="match-2-schedule-team-b-logo" src="assets/200x200_No_Logo.png" class="apply-match-2-team-b-logo">
+                                <span id="match-2-schedule-team-b-logo-bottom" class="apply-match-2-team-b-tri">TMB</span>
+                            </div>
+                        </div>
+                        
+                        <span id="match-2-schedule-heading-top" class="match-schedule-heading-top">Match 1</span>
+                        <span id="match-2-schedule-heading-bottom" class="match-schedule-heading-bottom"></span>
+                    
+                    </div>
+
+                    <!-- Match 3 -->
+                    <div id="match-3-schedule-content" class="match-schedule-content" style="background-color: var(--sbg1);">
+                                                                
+                        <div class="flex-row" style="grid-area: 1/1; justify-content: space-evenly;">
+                            <div id="match-3-schedule-team-a" class="match-schedule-team-a">
+                                <img id="match-3-schedule-team-a-logo" src="assets/200x200_No_Logo.png" class="apply-match-3-team-a-logo">
+                                <span id="match-3-schedule-team-a-logo-bottom" class="apply-match-3-team-a-tri">TMA</span>
+                            </div>
+
+                            <div id="match-3-schedule-team-a-tbd" class="match-schedule-tbd" style="display: none;">
+                                <span>TBD</span>
+                            </div>
+
+                            <span id="match-3-schedule-score-vs" class="match-schedule-score-vs">VS</span>
+                                                                    
+                            <div id="match-3-schedule-team-b-tbd" class="match-schedule-tbd" style="display: none;">
+                                <span>TBD</span>
+                            </div>
+
+                            <div id="match-3-schedule-team-b" class="match-schedule-team-b">
+                                <img id="match-3-schedule-team-b-logo" src="assets/200x200_No_Logo.png" class="apply-match-3-team-b-logo">
+                                <span id="match-3-schedule-team-b-logo-bottom" class="apply-match-3-team-b-tri">TMB</span>
+                            </div>
+                        </div>
+                        
+                        <span id="match-3-schedule-heading-top" class="match-schedule-heading-top">Match 1</span>
+                        <span id="match-3-schedule-heading-bottom" class="match-schedule-heading-bottom"></span>
+                    
+                    </div>
+
+                    <!-- Match 4 -->
+                    <div id="match-4-schedule-content" class="match-schedule-content" style="background-color: var(--sbg2);">
+
+                        <div class="flex-row" style="grid-area: 1/1; justify-content: space-evenly;">
+                            <div id="match-4-schedule-team-a" class="match-schedule-team-a">
+                                <img id="match-4-schedule-team-a-logo" src="assets/200x200_No_Logo.png" class="apply-match-4-team-a-logo">
+                                <span id="match-4-schedule-team-a-logo-bottom" class="apply-match-4-team-a-tri">TMA</span>
+                            </div>
+
+                            <div id="match-4-schedule-team-a-tbd" class="match-schedule-tbd" style="display: none;">
+                                <span>TBD</span>
+                            </div>
+
+                            <span id="match-4-schedule-score-vs" class="match-schedule-score-vs">VS</span>
+                                                                    
+                            <div id="match-4-schedule-team-b-tbd" class="match-schedule-tbd" style="display: none;">
+                                <span>TBD</span>
+                            </div>
+
+                            <div id="match-4-schedule-team-b" class="match-schedule-team-b">
+                                <img id="match-4-schedule-team-b-logo" src="assets/200x200_No_Logo.png" class="apply-match-4-team-b-logo">
+                                <span id="match-4-schedule-team-b-logo-bottom" class="apply-match-4-team-b-tri">TMB</span>
+                            </div>
+                        </div>
+                        
+                        <span id="match-4-schedule-heading-top" class="match-schedule-heading-top">Match 1</span>
+                        <span id="match-4-schedule-heading-bottom" class="match-schedule-heading-bottom"></span>
+                    
+                    </div>
+
+                    <!-- Match 5 -->
+                    <div id="match-5-schedule-content" class="match-schedule-content" style="background-color: var(--sbg1);">
+                        
+                        <div class="flex-row" style="grid-area: 1/1; justify-content: space-evenly;">
+                            <div id="match-5-schedule-team-a" class="match-schedule-team-a">
+                                <img id="match-5-schedule-team-a-logo" src="assets/200x200_No_Logo.png" class="apply-match-5-team-a-logo">
+                                <span id="match-5-schedule-team-a-logo-bottom" class="apply-match-5-team-a-tri">TMA</span>
+                            </div>
+
+                            <div id="match-5-schedule-team-a-tbd" class="match-schedule-tbd" style="display: none;">
+                                <span>TBD</span>
+                            </div>
+
+                            <span id="match-5-schedule-score-vs" class="match-schedule-score-vs">VS</span>
+                                                                    
+                            <div id="match-5-schedule-team-b-tbd" class="match-schedule-tbd" style="display: none;">
+                                <span>TBD</span>
+                            </div>
+
+                            <div id="match-5-schedule-team-b" class="match-schedule-team-b">
+                                <img id="match-5-schedule-team-b-logo" src="assets/200x200_No_Logo.png" class="apply-match-5-team-b-logo">
+                                <span id="match-5-schedule-team-b-logo-bottom" class="apply-match-5-team-b-tri">TMB</span>
+                            </div>
+                        </div>
+                        
+                        <span id="match-5-schedule-heading-top" class="match-schedule-heading-top">Match 1</span>
+                        <span id="match-5-schedule-heading-bottom" class="match-schedule-heading-bottom"></span>
+                    
+                    </div>
+
+                    <!-- Match 6 -->
+                    <div id="match-6-schedule-content" class="match-schedule-content" style="background-color: var(--sbg2);">
+                        
+                        <div class="flex-row" style="grid-area: 1/1; justify-content: space-evenly;">
+                            <div id="match-6-schedule-team-a" class="match-schedule-team-a">
+                                <img id="match-6-schedule-team-a-logo" src="assets/200x200_No_Logo.png" class="apply-match-6-team-a-logo">
+                                <span id="match-6-schedule-team-a-logo-bottom" class="apply-match-6-team-a-tri">TMA</span>
+                            </div>
+
+                            <div id="match-6-schedule-team-a-tbd" class="match-schedule-tbd" style="display: none;">
+                                <span>TBD</span>
+                            </div>
+
+                            <span id="match-6-schedule-score-vs" class="match-schedule-score-vs">VS</span>
+                                                                    
+                            <div id="match-6-schedule-team-b-tbd" class="match-schedule-tbd" style="display: none;">
+                                <span>TBD</span>
+                            </div>
+
+                            <div id="match-6-schedule-team-b" class="match-schedule-team-b">
+                                <img id="match-6-schedule-team-b-logo" src="assets/200x200_No_Logo.png" class="apply-match-6-team-b-logo">
+                                <span id="match-6-schedule-team-b-logo-bottom" class="apply-match-6-team-b-tri">TMB</span>
+                            </div>
+                        </div>
+                        
+                        <span id="match-6-schedule-heading-top" class="match-schedule-heading-top">Match 1</span>
+                        <span id="match-6-schedule-heading-bottom" class="match-schedule-heading-bottom"></span>
+                    
+                    </div>
 
                 </div>
             </div> <!-- broadcast-schedule-intermission -->

@@ -61,9 +61,153 @@ function setOverlay() {
     document.documentElement.style.setProperty('--bga2', `${overlaySetup.bga2}`)
     document.documentElement.style.setProperty('--frames', `${overlaySetup.frames}`)
 
+    // Schedule
     document.documentElement.style.setProperty('--numberOfMatches', overlaySetup.numberOfMatches)
-    document.documentElement.style.setProperty('--sbg1', `${overlaySetup.sbg1}`)
-    document.documentElement.style.setProperty('--sbg2', `${overlaySetup.sbg2}`)
+    document.documentElement.style.setProperty('--sbg1', overlaySetup.sbg1)
+    document.documentElement.style.setProperty('--sbg2', overlaySetup.sbg2)
+
+    function setMatchScheduleContent(matchNumber) {
+        let matchLength = ''
+        if (overlaySetup.matchSchedule[matchNumber].seriesLengthSelection === 0) {
+            matchLength = 'BO1'
+        } else if (overlaySetup.matchSchedule[matchNumber].seriesLengthSelection === 1) {
+            matchLength = 'BO3'
+        } else if (overlaySetup.matchSchedule[matchNumber].seriesLengthSelection === 2) {
+            matchLength = 'BO5'
+        }
+
+        document.getElementById(`match-${matchNumber+1}-schedule-heading-top`).textContent = `Match ${matchNumber+1} - ${matchLength}`
+        document.getElementById(`match-${matchNumber+1}-schedule-heading-bottom`).textContent = `${overlaySetup.matchSchedule[matchNumber].matchHeading}`
+
+        if (overlaySetup.matchSchedule[matchNumber].teamAScore === 0 && overlaySetup.matchSchedule[matchNumber].teamBScore === 0) {
+            document.getElementById(`match-${matchNumber+1}-schedule-score-vs`).textContent = 'VS'
+            document.getElementById(`match-${matchNumber+1}-schedule-score-vs`).style.width = '150px'
+        } else if (overlaySetup.matchSchedule[matchNumber].teamAScore !== 0 || overlaySetup.matchSchedule[matchNumber].teamBScore !== 0) {
+            document.getElementById(`match-${matchNumber+1}-schedule-score-vs`).textContent = `${overlaySetup.matchSchedule[matchNumber].teamAScore} - ${overlaySetup.matchSchedule[matchNumber].teamBScore}`
+            document.getElementById(`match-${matchNumber+1}-schedule-score-vs`).style.width = 'fit-content'
+        }
+        
+        if (overlaySetup.matchSchedule[matchNumber].teamASelection === 0) {
+            document.getElementById(`match-${matchNumber+1}-schedule-team-a-tbd`).style.display = 'flex'
+            document.getElementById(`match-${matchNumber+1}-schedule-team-a`).style.display = 'none'
+        } else {
+            document.getElementById(`match-${matchNumber+1}-schedule-team-a-tbd`).style.display = 'none'
+            document.getElementById(`match-${matchNumber+1}-schedule-team-a`).style.display = 'flex'
+        }
+        if (overlaySetup.matchSchedule[matchNumber].teamBSelection === 0) {
+            document.getElementById(`match-${matchNumber+1}-schedule-team-b-tbd`).style.display = 'flex'
+            document.getElementById(`match-${matchNumber+1}-schedule-team-b`).style.display = 'none'
+        } else {
+            document.getElementById(`match-${matchNumber+1}-schedule-team-b-tbd`).style.display = 'none'
+            document.getElementById(`match-${matchNumber+1}-schedule-team-b`).style.display = 'flex'
+        }
+
+        for (instance of document.getElementsByClassName(`apply-match-${matchNumber+1}-team-a-logo`)) {
+            instance.src = overlaySetup.matchSchedule[matchNumber].teamALogo
+        }
+        for (instance of document.getElementsByClassName(`apply-match-${matchNumber+1}-team-b-logo`)) {
+            instance.src = overlaySetup.matchSchedule[matchNumber].teamBLogo
+        }
+        for (instance of document.getElementsByClassName(`apply-match-${matchNumber+1}-team-a-tri`)) {
+            instance.textContent = overlaySetup.matchSchedule[matchNumber].teamATri
+        }
+        for (instance of document.getElementsByClassName(`apply-match-${matchNumber+1}-team-b-tri`)) {
+            instance.textContent = overlaySetup.matchSchedule[matchNumber].teamBTri
+        }
+    }
+
+    setMatchScheduleContent(0)
+    setMatchScheduleContent(1)
+    setMatchScheduleContent(2)
+    setMatchScheduleContent(3)
+    setMatchScheduleContent(4)
+    setMatchScheduleContent(5)
+
+    if (overlaySetup.numberOfMatches === 1) {
+        document.documentElement.style.setProperty('--logoMaxSize', '130px')
+        document.documentElement.style.setProperty('--matchScheduleDisplay', 'block')
+        document.documentElement.style.setProperty('--matchScheduleTeamsFontSize', '30pt')
+        document.documentElement.style.setProperty('--matchScheduleInfoFontSize', '17pt')
+        document.documentElement.style.setProperty('--matchScheduleScoresFontSize', '50pt')
+        document.documentElement.style.setProperty('--matchScheduleHeadingMarginTop', '270px')
+        document.documentElement.style.setProperty('--matchScheduleHeadingMarginBottom', '272px')
+
+        document.getElementById('match-2-schedule-content').style.display = 'none'
+        document.getElementById('match-3-schedule-content').style.display = 'none'
+        document.getElementById('match-4-schedule-content').style.display = 'none'
+        document.getElementById('match-5-schedule-content').style.display = 'none'
+        document.getElementById('match-6-schedule-content').style.display = 'none'
+    } else if (overlaySetup.numberOfMatches === 2) {
+        document.documentElement.style.setProperty('--logoMaxSize', '130px')
+        document.documentElement.style.setProperty('--matchScheduleDisplay', 'block')
+        document.documentElement.style.setProperty('--matchScheduleTeamsFontSize', '30pt')
+        document.documentElement.style.setProperty('--matchScheduleInfoFontSize', '17pt')
+        document.documentElement.style.setProperty('--matchScheduleScoresFontSize', '50pt')
+        document.documentElement.style.setProperty('--matchScheduleHeadingMarginTop', '105px')
+        document.documentElement.style.setProperty('--matchScheduleHeadingMarginBottom', '110px')
+
+        document.getElementById('match-2-schedule-content').style.display = 'grid'
+        document.getElementById('match-3-schedule-content').style.display = 'none'
+        document.getElementById('match-4-schedule-content').style.display = 'none'
+        document.getElementById('match-5-schedule-content').style.display = 'none'
+        document.getElementById('match-6-schedule-content').style.display = 'none'
+    } else if (overlaySetup.numberOfMatches === 3) {
+        document.documentElement.style.setProperty('--logoMaxSize', '120px')
+        document.documentElement.style.setProperty('--matchScheduleDisplay', 'block')
+        document.documentElement.style.setProperty('--matchScheduleTeamsFontSize', '24pt')
+        document.documentElement.style.setProperty('--matchScheduleInfoFontSize', '13pt')
+        document.documentElement.style.setProperty('--matchScheduleScoresFontSize', '50pt')
+        document.documentElement.style.setProperty('--matchScheduleHeadingMarginTop', '57px')
+        document.documentElement.style.setProperty('--matchScheduleHeadingMarginBottom', '59px')
+
+        document.getElementById('match-2-schedule-content').style.display = 'grid'
+        document.getElementById('match-3-schedule-content').style.display = 'grid'
+        document.getElementById('match-4-schedule-content').style.display = 'none'
+        document.getElementById('match-5-schedule-content').style.display = 'none'
+        document.getElementById('match-6-schedule-content').style.display = 'none'
+    } else if (overlaySetup.numberOfMatches === 4) {
+        document.documentElement.style.setProperty('--logoMaxSize', '100px')
+        document.documentElement.style.setProperty('--matchScheduleDisplay', 'block')
+        document.documentElement.style.setProperty('--matchScheduleTeamsFontSize', '20pt')
+        document.documentElement.style.setProperty('--matchScheduleInfoFontSize', '13pt')
+        document.documentElement.style.setProperty('--matchScheduleScoresFontSize', '50pt')
+        document.documentElement.style.setProperty('--matchScheduleHeadingMarginTop', '33px')
+        document.documentElement.style.setProperty('--matchScheduleHeadingMarginBottom', '36px')
+
+        document.getElementById('match-2-schedule-content').style.display = 'grid'
+        document.getElementById('match-3-schedule-content').style.display = 'grid'
+        document.getElementById('match-4-schedule-content').style.display = 'grid'
+        document.getElementById('match-5-schedule-content').style.display = 'none'
+        document.getElementById('match-6-schedule-content').style.display = 'none'
+    } else if (overlaySetup.numberOfMatches === 5) {
+        document.documentElement.style.setProperty('--logoMaxSize', '100px')
+        document.documentElement.style.setProperty('--matchScheduleDisplay', 'none')
+        document.documentElement.style.setProperty('--matchScheduleTeamsFontSize', '20pt')
+        document.documentElement.style.setProperty('--matchScheduleInfoFontSize', '10pt')
+        document.documentElement.style.setProperty('--matchScheduleScoresFontSize', '30pt')
+        document.documentElement.style.setProperty('--matchScheduleHeadingMarginTop', '26px')
+        document.documentElement.style.setProperty('--matchScheduleHeadingMarginBottom', '30px')
+
+        document.getElementById('match-2-schedule-content').style.display = 'grid'
+        document.getElementById('match-3-schedule-content').style.display = 'grid'
+        document.getElementById('match-4-schedule-content').style.display = 'grid'
+        document.getElementById('match-5-schedule-content').style.display = 'grid'
+        document.getElementById('match-6-schedule-content').style.display = 'none'
+    } else if (overlaySetup.numberOfMatches === 6) {
+        document.documentElement.style.setProperty('--logoMaxSize', '80px')
+        document.documentElement.style.setProperty('--matchScheduleDisplay', 'none')
+        document.documentElement.style.setProperty('--matchScheduleTeamsFontSize', '20pt')
+        document.documentElement.style.setProperty('--matchScheduleInfoFontSize', '10pt')
+        document.documentElement.style.setProperty('--matchScheduleScoresFontSize', '30pt')
+        document.documentElement.style.setProperty('--matchScheduleHeadingMarginTop', '16px')
+        document.documentElement.style.setProperty('--matchScheduleHeadingMarginBottom', '20px')
+
+        document.getElementById('match-2-schedule-content').style.display = 'grid'
+        document.getElementById('match-3-schedule-content').style.display = 'grid'
+        document.getElementById('match-4-schedule-content').style.display = 'grid'
+        document.getElementById('match-5-schedule-content').style.display = 'grid'
+        document.getElementById('match-6-schedule-content').style.display = 'grid'
+    }
 
     // Bottom Bar
     const bottomBar = document.getElementById('bottom-bar')
@@ -109,12 +253,21 @@ function setOverlay() {
             document.getElementById('bo3-intermission').style.display = 'none'
             document.getElementById('bo3-bg-videos').style.display = 'none'
         }
+
+        document.getElementById('intermission-heading-bottom-left').style.display = 'flex'
     } else if (overlaySetup.scheduleSelection === 1) {
         document.getElementById('broadcast-schedule-intermission').style.display = 'grid'
         document.getElementById('bo1-intermission').style.display = 'none'
-        document.getElementById('bo1-bg-videos').style.display = 'none'
         document.getElementById('bo3-intermission').style.display = 'none'
-        document.getElementById('bo3-bg-videos').style.display = 'none'
+        if (overlaySetup.seriesLengthSelection === 0) {
+            document.getElementById('bo1-bg-videos').style.display = 'grid'
+            document.getElementById('bo3-bg-videos').style.display = 'none'
+        } else if (overlaySetup.seriesLengthSelection === 1) {
+            document.getElementById('bo1-bg-videos').style.display = 'none'
+            document.getElementById('bo3-bg-videos').style.display = 'grid'
+        }
+
+        document.getElementById('intermission-heading-bottom-left').style.display = 'none'
     }
     
 
@@ -322,28 +475,30 @@ function intermissionDefault() {
             intermissionHeading.style.width = '253px'
         }
         timer = setTimeout(intermissionDefault, 500)
-    } else if (((overlaySetup.seriesLengthSelection === 0) && (overlaySetup.teamASeriesScore === 1 || overlaySetup.teamBSeriesScore === 1)) || ((overlaySetup.seriesLengthSelection === 1) && (overlaySetup.teamASeriesScore === 2 || overlaySetup.teamBSeriesScore === 2)) || ((overlaySetup.seriesLengthSelection === 2) && (overlaySetup.teamASeriesScore === 3 || overlaySetup.teamBSeriesScore === 3))) {
-        if (intermissionHeading.innerHTML.includes(`${overlaySetup.matchEnd}`) === false) {
-            intermissionHeading.innerHTML = `${overlaySetup.matchEnd}`
-            if (overlaySetup.matchEnd === 'Ending Soon') {
-                intermissionHeading.style.width = '222px'
-            } else {
-                intermissionHeading.style.width = '375px'
-            }
+    } else if ((((overlaySetup.seriesLengthSelection === 0) && (overlaySetup.teamASeriesScore === 1 || overlaySetup.teamBSeriesScore === 1)) || ((overlaySetup.seriesLengthSelection === 1) && (overlaySetup.teamASeriesScore === 2 || overlaySetup.teamBSeriesScore === 2)) || ((overlaySetup.seriesLengthSelection === 2) && (overlaySetup.teamASeriesScore === 3 || overlaySetup.teamBSeriesScore === 3)))
+    && (((overlaySetup.numberOfMatches !== 1) && (overlaySetup.matchSchedule[overlaySetup.numberOfMatches-1].teamAScore + overlaySetup.matchSchedule[overlaySetup.numberOfMatches-1].teamBScore === 0)))) {
+        if (intermissionHeading.innerHTML.includes('Setting Up Next Match') === false) {
+            intermissionHeading.innerHTML = `Setting Up Next Match`
+            intermissionHeading.style.width = '375px'
         } else if (intermissionHeading.innerHTML.includes('...')) {
-            intermissionHeading.innerHTML = `${overlaySetup.matchEnd}`
-            if (overlaySetup.matchEnd === 'Ending Soon') {
-                intermissionHeading.style.width = '222px'
-            } else {
-                intermissionHeading.style.width = '375px'
-            }
+            intermissionHeading.innerHTML = `Setting Up Next Match`
+            intermissionHeading.style.width = '375px'
         } else {
             intermissionHeading.innerHTML += '.'
-            if (overlaySetup.matchEnd === 'Ending Soon') {
-                intermissionHeading.style.width = '222px'
-            } else {
-                intermissionHeading.style.width = '375px'
-            }
+            intermissionHeading.style.width = '375px'
+        }
+        timer = setTimeout(intermissionDefault, 500)
+    } else if (((overlaySetup.seriesLengthSelection === 0) && (overlaySetup.teamASeriesScore === 1 || overlaySetup.teamBSeriesScore === 1)) || ((overlaySetup.seriesLengthSelection === 1) && (overlaySetup.teamASeriesScore === 2 || overlaySetup.teamBSeriesScore === 2)) || ((overlaySetup.seriesLengthSelection === 2) && (overlaySetup.teamASeriesScore === 3 || overlaySetup.teamBSeriesScore === 3))
+    ) {
+        if (intermissionHeading.innerHTML.includes('Ending Soon') === false) {
+            intermissionHeading.innerHTML = 'Ending Soon'
+            intermissionHeading.style.width = '222px'
+        } else if (intermissionHeading.innerHTML.includes('...')) {
+            intermissionHeading.innerHTML = 'Ending Soon'
+            intermissionHeading.style.width = '222px'
+        } else {
+            intermissionHeading.innerHTML += '.'
+            intermissionHeading.style.width = '222px'
         }
         timer = setTimeout(intermissionDefault, 500)
     } else {
