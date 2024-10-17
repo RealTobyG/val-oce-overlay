@@ -62,10 +62,15 @@ function setOverlay() {
     if (overlaySetup.seriesLengthSelection === 0) {
         document.getElementById('map-veto-bo1').style.display = 'grid'
         document.getElementById('map-veto-bo3').style.display = 'none'
+        document.getElementById('map-veto-bo5').style.display = 'none'
     } else if (overlaySetup.seriesLengthSelection === 1) {
         document.getElementById('map-veto-bo1').style.display = 'none'
         document.getElementById('map-veto-bo3').style.display = 'grid'
-
+        document.getElementById('map-veto-bo5').style.display = 'none'
+    } else if (overlaySetup.seriesLengthSelection === 2) {
+        document.getElementById('map-veto-bo1').style.display = 'none'
+        document.getElementById('map-veto-bo3').style.display = 'none'
+        document.getElementById('map-veto-bo5').style.display = 'grid'
     }
 
     if (overlaySetup.seriesLengthSelection === 1) {
@@ -100,6 +105,46 @@ function setOverlay() {
         })
         // Shows/Hides map results for finished maps
         const mapResultOverlays = document.getElementsByClassName('map-result-overlay')
+        Array.from(mapResultOverlays).forEach((element, i) => {
+            if (Number(i)+1<=overlaySetup.mapNumber) {
+                element.style.display = 'flex'
+            }
+            else {
+                element.style.display = 'none'
+            }
+        })
+    } else if (overlaySetup.seriesLengthSelection === 2) {
+        // Sets defense teams for map veto overlay 
+        const bo5PickSides = document.getElementsByClassName('bo5-side-team')
+        overlaySetup.mapPicksSides.forEach((team, i) => {
+            bo5PickSides[i].className = bo5PickSides[i].className.replace(/(team-a|team-b)/g, `${team}`)
+        })
+        // Sets map ban team names on map veto overlay
+        const bo5BanNames = document.getElementsByClassName('bo5-ban-team')
+        Array.from(bo5BanNames).forEach((element, i) => {
+            element.className = element.className.replace(/(team-a|team-b)/g, `${overlaySetup.mapBansTeams[i]}`)
+        })
+        // Sets map pick team names on map veto overlay
+        const bo5PickNames = document.getElementsByClassName('bo5-pick-team')
+        overlaySetup.mapPicksTeams.forEach((pick, i) => {
+            bo5PickNames[i].className = bo5PickNames[i].className.replace(/(team-a|team-b)/g, `${pick}`)
+        })
+        // Sets map names and images for each map ban on map veto overlay
+        const bo5BanImgs = document.getElementsByClassName('bo5-ban-img')
+        const bo5BanMapNames = document.getElementsByClassName('bo5-ban-mapname')
+        overlaySetup.mapBans.forEach((ban, i) => {
+            bo5BanImgs[i].src = `assets/Maps/${ban}_320x320.png`
+            bo5BanMapNames[i].textContent = `${ban}`
+        })
+        // Sets map names and images for each map pick on map veto overlay
+        const bo5PickImgs = document.getElementsByClassName('bo5-pick-img')
+        const bo5PickMapNames = document.getElementsByClassName('bo5-pick-mapname')
+        overlaySetup.mapPicks.forEach((pick, i) => {
+            bo5PickImgs[i].src = `assets/Maps/${pick}_320x640.png`
+            bo5PickMapNames[i].textContent = `${pick}`
+        })
+        // Shows/Hides map results for finished maps
+        const mapResultOverlays = document.getElementsByClassName('bo5-map-result-overlay')
         Array.from(mapResultOverlays).forEach((element, i) => {
             if (Number(i)+1<=overlaySetup.mapNumber) {
                 element.style.display = 'flex'

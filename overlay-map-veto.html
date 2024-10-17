@@ -487,6 +487,179 @@
             margin-left: auto;
             margin-right: 30px;
         }
+
+        #map-veto-bo5 {
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+            padding-bottom: 150px;
+            z-index: 1;
+        }
+
+        #map-veto-bo5-title {
+            display: flex;
+            font-family: 'Foundry';
+            font-size: 64px;
+            margin-bottom: 30px;
+            justify-content: center;
+            filter: drop-shadow(0px 0px 12px rgba(0, 0, 0, 0.5));
+        }
+
+        #map-veto-bo5-img-grid {
+            display: grid;
+            grid-template: 280px 280px/repeat(6, 280px);
+            margin-left: 60px;
+            box-shadow: -60px 125px rgb(26 26 26 / 80%);
+        }
+
+        #bo5-1st-ban-overlay {
+            background-image: url(assets/BO5_Ban_Map_Overlay.png);
+            display: flex;
+            align-items: end;
+            grid-area: 1/1;
+            font-family: 'Arial';
+            font-size: 16.7pt;
+            color: white;
+            padding: 0px 0px 10px 10px;
+            text-transform: uppercase;
+        }
+
+        #bo5-2nd-ban-overlay {
+            background-image: url(assets/BO5_Ban_Map_Overlay.png);
+            display: flex;
+            align-items: end;
+            grid-area: 2/1;
+            font-family: 'Arial';
+            font-size: 16.7pt;
+            color: white;
+            padding: 0px 0px 10px 10px;
+            text-transform: uppercase;
+        }
+
+        #bo5-1st-pick-overlay {
+            display: flex;
+            flex-direction: column;
+            padding: 256px 0px 0px 12px;
+            grid-area: 2/2;
+        }
+
+        #bo5-2nd-pick-overlay {
+            display: flex;
+            flex-direction: column;
+            padding: 256px 0px 0px 12px;
+            grid-area: 2/3;
+        }
+
+        #bo5-3rd-pick-overlay {
+            display: flex;
+            flex-direction: column;
+            padding: 256px 0px 0px 12px;
+            grid-area: 2/4;
+        }
+
+        #bo5-4th-pick-overlay {
+            display: flex;
+            flex-direction: column;
+            padding: 256px 0px 0px 12px;
+            grid-area: 2/5;
+        }
+
+        #bo5-5th-pick-overlay {
+            display: flex;
+            flex-direction: column;
+            padding: 256px 0px 0px 12px;
+            grid-area: 2/6;
+        }
+
+        .bo5-pick-mapname {
+            color: white; 
+            font-family: 'Foundry'; 
+            font-size: 30pt;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .bo5-map-pick-details {
+            display: grid;
+            grid-template: 40px 40px/120px 160px;
+            font-size: 16.7pt;
+            text-transform: uppercase;
+        }
+
+        #bo5-map-1-result-overlay {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            grid-area: 1/2;
+            width: 280px;
+            height: 560px;
+            font-family: 'Foundry';
+            font-size: 60pt;
+            text-transform: uppercase;
+            color: white;
+            background-color: rgba(26, 26, 26, 0.5);
+        }
+
+        #bo5-map-2-result-overlay {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            grid-area: 1/3;
+            width: 280px;
+            height: 560px;
+            font-family: 'Foundry';
+            font-size: 60pt;
+            text-transform: uppercase;
+            color: white;
+            background-color: rgba(26, 26, 26, 0.5);
+        }
+
+        #bo5-map-3-result-overlay {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            grid-area: 1/4;
+            width: 280px;
+            height: 560px;
+            font-family: 'Foundry';
+            font-size: 60pt;
+            text-transform: uppercase;
+            color: white;
+            background-color: rgba(26, 26, 26, 0.5);
+        }
+
+        #bo5-map-4-result-overlay {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            grid-area: 1/5;
+            width: 280px;
+            height: 560px;
+            font-family: 'Foundry';
+            font-size: 60pt;
+            text-transform: uppercase;
+            color: white;
+            background-color: rgba(26, 26, 26, 0.5);
+        }
+
+        #bo5-map-5-result-overlay {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            grid-area: 1/6;
+            width: 280px;
+            height: 560px;
+            font-family: 'Foundry';
+            font-size: 60pt;
+            text-transform: uppercase;
+            color: white;
+            background-color: rgba(26, 26, 26, 0.5);
+        }
     </style>
 </head>
 
@@ -655,6 +828,110 @@
                         <span id="bo1-map-result">14-12</span>
                     </div>
                     
+                </div>
+            </div>
+            
+            <div id="map-veto-bo5" class="grid-1-1" style="display: none;">
+                <div id="map-veto-bo5-title">
+                    <span style="color: white; text-transform: uppercase;" class="apply-team-a-name"></span>
+                    <span style="color: red; margin: 0px 20px 0px 20px;"> VS </span>
+                    <span style="color: white; text-transform: uppercase;" class="apply-team-b-name"></span>
+                </div>
+                <div id="map-veto-bo5-img-grid">
+                    <img id="bo5-1st-ban-img" class="bo5-ban-img" src="assets/Maps/Abyss_320x320.png" style="grid-area: 1/1; width: 280px;">
+                    <img id="bo5-2nd-ban-img" class="bo5-ban-img" src="assets/Maps/Ascent_320x320.png" style="grid-area: 2/1; width: 280px;">
+                    <img id="bo5-1st-pick-img" class="bo5-pick-img" src="assets/Maps/Icebox_320x640.png" style="grid-area: 1/2; width: 280px;">
+                    <img id="bo5-2nd-pick-img" class="bo5-pick-img" src="assets/Maps/Sunset_320x640.png" style="grid-area: 1/3; width: 280px;">
+                    <img id="bo5-3rd-pick-img" class="bo5-pick-img" src="assets/Maps/Haven_320x640.png" style="grid-area: 1/4; width: 280px;">
+                    <img id="bo5-4th-pick-img" class="bo5-pick-img" src="assets/Maps/Lotus_320x640.png" style="grid-area: 1/5; width: 280px;">
+                    <img id="bo5-5th-pick-img" class="bo5-pick-img" src="assets/Maps/Bind_320x640.png" style="grid-area: 1/6; width: 280px;">
+
+                    <div id="bo5-1st-ban-overlay">
+                        <div>
+                            <span class="bo5-ban-team apply-team-a-tri"></span>
+                            <span> BAN </span>
+                            <span class="bo5-ban-mapname">MAP</span>
+                        </div>
+                    </div>
+                    <div id="bo5-2nd-ban-overlay">
+                        <div>
+                            <span class="bo5-ban-team apply-team-a-tri"></span>
+                            <span> BAN </span>
+                            <span class="bo5-ban-mapname">MAP</span>
+                        </div>
+                    </div>
+
+
+                    <div id="bo5-map-1-result-overlay" class="bo5-map-result-overlay" style="display: none;">
+                        <img src="assets/200x200_No_Logo.png" class="apply-map-1-logo apply-team-a-logo" style="max-width: 200px; max-height: 200px; object-fit: contain; margin-bottom: 50px;">
+                        <span class="apply-map-1-winner apply-team-a-tri"></span>
+                        <span class="apply-map-1-score"></span>
+                    </div>
+                    <div id="bo5-map-2-result-overlay" class="bo5-map-result-overlay" style="display: none;">
+                        <img src="assets/200x200_No_Logo.png" class="apply-map-2-logo apply-team-a-logo" style="max-width: 200px; max-height: 200px; object-fit: contain; margin-bottom: 50px;">
+                        <span class="apply-map-2-winner apply-team-a-tri"></span>
+                        <span class="apply-map-2-score"></span>
+                    </div>
+                    <div id="bo5-map-3-result-overlay" class="bo5-map-result-overlay" style="display: none;">
+                        <img src="assets/200x200_No_Logo.png" class="apply-map-3-logo apply-team-a-logo" style="max-width: 200px; max-height: 200px; object-fit: contain; margin-bottom: 50px;">
+                        <span class="apply-map-3-winner apply-team-a-tri"></span>
+                        <span class="apply-map-3-score"></span>
+                    </div>
+                    <div id="bo5-map-4-result-overlay" class="bo5-map-result-overlay" style="display: none;">
+                        <img src="assets/200x200_No_Logo.png" class="apply-map-4-logo apply-team-a-logo" style="max-width: 200px; max-height: 200px; object-fit: contain; margin-bottom: 50px;">
+                        <span class="apply-map-4-winner apply-team-a-tri"></span>
+                        <span class="apply-map-4-score"></span>
+                    </div>
+                    <div id="bo5-map-5-result-overlay" class="bo5-map-result-overlay" style="display: none;">
+                        <img src="assets/200x200_No_Logo.png" class="apply-map-5-logo apply-team-a-logo" style="max-width: 200px; max-height: 200px; object-fit: contain; margin-bottom: 50px;">
+                        <span class="apply-map-5-winner apply-team-a-tri"></span>
+                        <span class="apply-map-5-score"></span>
+                    </div>
+
+                    <div id="bo5-1st-pick-overlay">
+                        <span class="bo5-pick-mapname"></span>
+                        <div class="bo5-map-pick-details">
+                            <span style="color: rgb(242, 246, 178);">DEF</span>
+                            <span style="color: rgb(242, 246, 178);" class="bo5-side-team apply-team-a-tri">TEAM</span>
+                            <span style="color: white;">PICK</span>
+                            <span style="color: white;" class="bo5-pick-team apply-team-a-tri"></span>
+                        </div>
+                    </div>
+                    <div id="bo5-2nd-pick-overlay">
+                        <span class="bo5-pick-mapname"></span>
+                        <div class="bo5-map-pick-details">
+                            <span style="color: rgb(242, 246, 178);">DEF</span>
+                            <span style="color: rgb(242, 246, 178);" class="bo5-side-team apply-team-a-tri">TEAM</span>
+                            <span style="color: white;">PICK</span>
+                            <span style="color: white;" class="bo5-pick-team apply-team-a-tri"></span>
+                        </div>
+                    </div>
+                    <div id="bo5-3rd-pick-overlay">
+                        <span class="bo5-pick-mapname"></span>
+                        <div class="bo5-map-pick-details">
+                            <span style="color: rgb(242, 246, 178);">DEF</span>
+                            <span style="color: rgb(242, 246, 178);" class="bo5-side-team apply-team-a-tri">TEAM</span>
+                            <span style="color: white;">PICK</span>
+                            <span style="color: white;" class="bo5-pick-team apply-team-a-tri"></span>
+                        </div>
+                    </div>
+                    <div id="bo5-4th-pick-overlay">
+                        <span class="bo5-pick-mapname"></span>
+                        <div class="bo5-map-pick-details">
+                            <span style="color: rgb(242, 246, 178);">DEF</span>
+                            <span style="color: rgb(242, 246, 178);" class="bo5-side-team apply-team-a-tri">TEAM</span>
+                            <span style="color: white;">PICK</span>
+                            <span style="color: white;" class="bo5-pick-team apply-team-a-tri"></span>
+                        </div>
+                    </div>
+                    <div id="bo5-5th-pick-overlay">
+                        <span class="bo5-pick-mapname"></span>
+                        <div class="bo5-map-pick-details">
+                            <span style="color: rgb(242, 246, 178);">DEF</span>
+                            <span style="color: rgb(242, 246, 178);" class="bo5-side-team apply-team-a-tri">TEAM</span>
+                            <span style="color: white;">DECIDER</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 

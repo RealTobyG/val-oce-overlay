@@ -240,18 +240,24 @@ function setOverlay() {
             document.getElementById('bo1-bg-videos').style.display = 'grid'
             document.getElementById('bo3-intermission').style.display = 'none'
             document.getElementById('bo3-bg-videos').style.display = 'none'
+            document.getElementById('bo5-intermission').style.display = 'none'
+            document.getElementById('bo5-bg-videos').style.display = 'none'
         } else if (overlaySetup.seriesLengthSelection === 1) {
             document.getElementById('broadcast-schedule-intermission').style.display = 'none'
             document.getElementById('bo1-intermission').style.display = 'none'
             document.getElementById('bo1-bg-videos').style.display = 'none'
             document.getElementById('bo3-intermission').style.display = 'grid'
             document.getElementById('bo3-bg-videos').style.display = 'grid'
+            document.getElementById('bo5-intermission').style.display = 'none'
+            document.getElementById('bo5-bg-videos').style.display = 'none'
         } else if (overlaySetup.seriesLengthSelection === 2) {
             document.getElementById('broadcast-schedule-intermission').style.display = 'none'
             document.getElementById('bo1-intermission').style.display = 'none'
             document.getElementById('bo1-bg-videos').style.display = 'none'
             document.getElementById('bo3-intermission').style.display = 'none'
             document.getElementById('bo3-bg-videos').style.display = 'none'
+            document.getElementById('bo5-intermission').style.display = 'grid'
+            document.getElementById('bo5-bg-videos').style.display = 'grid'
         }
 
         document.getElementById('intermission-heading-bottom-left').style.display = 'flex'
@@ -259,24 +265,75 @@ function setOverlay() {
         document.getElementById('broadcast-schedule-intermission').style.display = 'grid'
         document.getElementById('bo1-intermission').style.display = 'none'
         document.getElementById('bo3-intermission').style.display = 'none'
+        document.getElementById('bo5-intermission').style.display = 'none'
         if (overlaySetup.seriesLengthSelection === 0) {
             document.getElementById('bo1-bg-videos').style.display = 'grid'
             document.getElementById('bo3-bg-videos').style.display = 'none'
+            document.getElementById('bo5-bg-videos').style.display = 'none'
         } else if (overlaySetup.seriesLengthSelection === 1) {
             document.getElementById('bo1-bg-videos').style.display = 'none'
             document.getElementById('bo3-bg-videos').style.display = 'grid'
+            document.getElementById('bo5-bg-videos').style.display = 'none'
+        } else if (overlaySetup.seriesLengthSelection === 2) {
+            document.getElementById('bo1-bg-videos').style.display = 'none'
+            document.getElementById('bo3-bg-videos').style.display = 'none'
+            document.getElementById('bo5-bg-videos').style.display = 'grid'
         }
 
         document.getElementById('intermission-heading-bottom-left').style.display = 'none'
     }
+
+    // Sets logos on intermission screen
+    if (overlaySetup.seriesLengthSelection === 0) {
+        overlaySetup.mapPicksSides.forEach((team, i) => {
+            if (team === 'team-a') {
+                document.getElementsByClassName('bo1-def-logo')[i].className = document.getElementsByClassName('bo1-def-logo')[i].className.replace(/(team-a|team-b)/g, `team-a`)
+                document.getElementsByClassName('bo1-atk-logo')[i].className = document.getElementsByClassName('bo1-atk-logo')[i].className.replace(/(team-a|team-b)/g, `team-b`)
+                document.getElementsByClassName('bo1-def-name')[i].className = document.getElementsByClassName('bo1-def-name')[i].className.replace(/(team-a|team-b)/g, `team-a`)
+                document.getElementsByClassName('bo1-atk-name')[i].className = document.getElementsByClassName('bo1-atk-name')[i].className.replace(/(team-a|team-b)/g, `team-b`)
     
+            } else {
+                document.getElementsByClassName('bo1-def-logo')[i].className = document.getElementsByClassName('bo1-def-logo')[i].className.replace(/(team-a|team-b)/g, `team-b`)
+                document.getElementsByClassName('bo1-atk-logo')[i].className = document.getElementsByClassName('bo1-atk-logo')[i].className.replace(/(team-a|team-b)/g, `team-a`)
+                document.getElementsByClassName('bo1-def-name')[i].className = document.getElementsByClassName('bo1-def-name')[i].className.replace(/(team-a|team-b)/g, `team-b`)
+                document.getElementsByClassName('bo1-atk-name')[i].className = document.getElementsByClassName('bo1-atk-name')[i].className.replace(/(team-a|team-b)/g, `team-a`)
+            }
+        })
+    } else if (overlaySetup.seriesLengthSelection === 1) {
+        overlaySetup.mapPicksSides.forEach((team, i) => {
+            if (team === 'team-a') {
+                document.getElementsByClassName('bo3-def-logo')[i].className = document.getElementsByClassName('bo3-def-logo')[i].className.replace(/(team-a|team-b)/g, `team-a`)
+                document.getElementsByClassName('bo3-atk-logo')[i].className = document.getElementsByClassName('bo3-atk-logo')[i].className.replace(/(team-a|team-b)/g, `team-b`)
+                document.getElementsByClassName('bo3-def-name')[i].className = document.getElementsByClassName('bo3-def-name')[i].className.replace(/(team-a|team-b)/g, `team-a`)
+                document.getElementsByClassName('bo3-atk-name')[i].className = document.getElementsByClassName('bo3-atk-name')[i].className.replace(/(team-a|team-b)/g, `team-b`)
+    
+            } else {
+                document.getElementsByClassName('bo3-def-logo')[i].className = document.getElementsByClassName('bo3-def-logo')[i].className.replace(/(team-a|team-b)/g, `team-b`)
+                document.getElementsByClassName('bo3-atk-logo')[i].className = document.getElementsByClassName('bo3-atk-logo')[i].className.replace(/(team-a|team-b)/g, `team-a`)
+                document.getElementsByClassName('bo3-def-name')[i].className = document.getElementsByClassName('bo3-def-name')[i].className.replace(/(team-a|team-b)/g, `team-b`)
+                document.getElementsByClassName('bo3-atk-name')[i].className = document.getElementsByClassName('bo3-atk-name')[i].className.replace(/(team-a|team-b)/g, `team-a`)
+            }
+        })
+    } else if (overlaySetup.seriesLengthSelection === 2) {
+        overlaySetup.mapPicksSides.forEach((team, i) => {
+            if (team === 'team-a') {
+                document.getElementsByClassName('bo5-def-logo')[i].className = document.getElementsByClassName('bo5-def-logo')[i].className.replace(/(team-a|team-b)/g, `team-a`)
+                document.getElementsByClassName('bo5-atk-logo')[i].className = document.getElementsByClassName('bo5-atk-logo')[i].className.replace(/(team-a|team-b)/g, `team-b`)
+                document.getElementsByClassName('bo5-def-name')[i].className = document.getElementsByClassName('bo5-def-name')[i].className.replace(/(team-a|team-b)/g, `team-a`)
+                document.getElementsByClassName('bo5-atk-name')[i].className = document.getElementsByClassName('bo5-atk-name')[i].className.replace(/(team-a|team-b)/g, `team-b`)
+    
+            } else {
+                document.getElementsByClassName('bo5-def-logo')[i].className = document.getElementsByClassName('bo5-def-logo')[i].className.replace(/(team-a|team-b)/g, `team-b`)
+                document.getElementsByClassName('bo5-atk-logo')[i].className = document.getElementsByClassName('bo5-atk-logo')[i].className.replace(/(team-a|team-b)/g, `team-a`)
+                document.getElementsByClassName('bo5-def-name')[i].className = document.getElementsByClassName('bo5-def-name')[i].className.replace(/(team-a|team-b)/g, `team-b`)
+                document.getElementsByClassName('bo5-atk-name')[i].className = document.getElementsByClassName('bo5-atk-name')[i].className.replace(/(team-a|team-b)/g, `team-a`)
+            }
+        })
+    }
 
     // Updates scores for every complete map on intermission overlay
-    const map1Score = document.getElementsByClassName('apply-map-1-score-intermission')
-    const map2Score = document.getElementsByClassName('apply-map-2-score-intermission')
-    const map3Score = document.getElementsByClassName('apply-map-3-score-intermission')
     if (overlaySetup.seriesLengthSelection === 0) {
-        for (element of map1Score) {
+        for (element of document.getElementsByClassName('apply-map-1-score-intermission')) {
             const triCodesCount = overlaySetup.teamATri + overlaySetup.teamBTri
             if (triCodesCount.length>6 || triCodesCount.includes('W') || triCodesCount.includes('M  ')) {
                 document.getElementById('bo1-schedule-score').style.fontSize = '12pt'
@@ -287,14 +344,24 @@ function setOverlay() {
         }
     } else if (overlaySetup.seriesLengthSelection === 1) {
         overlaySetup.mapPicks.forEach((map, i) => {
-            const applyWinnerScoreIntermission = document.getElementsByClassName(`apply-map-${Number(i)+1}-score-intermission`)
-            if (overlaySetup.seriesLengthSelection === 1) {
-                const defTeamIntermission = document.getElementsByClassName('def-logo')
-                if (defTeamIntermission[i].classList.contains('apply-team-a-logo')) {
-                    applyWinnerScoreIntermission[0].textContent = `${overlaySetup.mapScores[(i*2)+1]} - ${overlaySetup.mapScores[i*2]}`
-                } else {
-                    applyWinnerScoreIntermission[0].textContent = `${overlaySetup.mapScores[i*2]} - ${overlaySetup.mapScores[(i*2)+1]}`
-                }
+            const bo3MapResultOverlays = document.getElementsByClassName('bo5-schedule-result-overlay')
+            if (overlaySetup.mapScores[(i*2)+1] + overlaySetup.mapScores[i*2] === 0) {
+                bo3MapResultOverlays[i].textContent = ""
+            } else if (document.getElementsByClassName('bo3-def-logo')[i].classList.contains('apply-team-a-logo')) {
+                bo3MapResultOverlays[0].textContent = `${overlaySetup.mapScores[(i*2)+1]} - ${overlaySetup.mapScores[i*2]}`
+            } else {
+                bo3MapResultOverlays[0].textContent = `${overlaySetup.mapScores[i*2]} - ${overlaySetup.mapScores[(i*2)+1]}`
+            }
+        })
+    } else if (overlaySetup.seriesLengthSelection === 2) {
+        overlaySetup.mapPicks.forEach((map, i) => {
+            const bo5MapResultOverlays = document.getElementsByClassName('bo5-schedule-result-overlay')
+            if (overlaySetup.mapScores[(i*2)+1] + overlaySetup.mapScores[i*2] === 0) {
+                bo5MapResultOverlays[i].textContent = ""
+            } else if (document.getElementsByClassName('bo5-def-logo')[i].classList.contains('apply-team-a-logo')) {
+                bo5MapResultOverlays[i].textContent = `${overlaySetup.mapScores[(i*2)+1]} - ${overlaySetup.mapScores[i*2]}`
+            } else {
+                bo5MapResultOverlays[i].textContent = `${overlaySetup.mapScores[i*2]} - ${overlaySetup.mapScores[(i*2)+1]}`
             }
         })
     }
@@ -302,6 +369,7 @@ function setOverlay() {
     // Updates current map on intermission overlay
     const currentMap = document.getElementById('current-map')
     const bo3IntermissionBackgroundMap = document.getElementsByClassName('bo3-intermission-background-video')
+    const bo5IntermissionBackgroundMap = document.getElementsByClassName('bo5-intermission-background-video')
     if (overlaySetup.seriesLengthSelection === 0) {
         document.getElementById('bo1-intermission-schedule-map-pick').textContent = `${overlaySetup.mapPicks[0]}`
         if (overlaySetup.teamASeriesScore !== 1 && overlaySetup.teamBSeriesScore !== 1) {
@@ -329,64 +397,62 @@ function setOverlay() {
         if (overlaySetup.mapNumber === 3) {
             bo3IntermissionBackgroundMap[2].style.opacity = 100
         }
+    } else if (overlaySetup.seriesLengthSelection === 2) {
+        if (overlaySetup.teamASeriesScore !== 3 && overlaySetup.teamBSeriesScore !== 3) {
+            currentMap.textContent = `Map ${overlaySetup.mapNumber+1} - ${overlaySetup.mapPicks[overlaySetup.mapNumber]}`
+        } else if (overlaySetup.teamASeriesScore>overlaySetup.teamBSeriesScore) {
+            currentMap.textContent = `${overlaySetup.teamATri} ${overlaySetup.teamASeriesScore} - ${overlaySetup.teamBSeriesScore} ${overlaySetup.teamBTri}`
+        } else {
+            currentMap.textContent = `${overlaySetup.teamBTri} ${overlaySetup.teamBSeriesScore} - ${overlaySetup.teamASeriesScore} ${overlaySetup.teamATri}`
+        }
+        Array.from(bo5IntermissionBackgroundMap).forEach((element, i) => {
+            if (i === overlaySetup.mapNumber) {
+                element.style.opacity = 100
+            } else {
+                element.style.opacity = 0
+            }
+        })
+        if (overlaySetup.mapNumber === 5) {
+            bo5IntermissionBackgroundMap[4].style.opacity = 100
+        }
+    }
+
+    // Sets map pick team names on intermission overlay
+    if (overlaySetup.seriesLengthSelection === 1) {
+        const bo3pickNamesIntermission = document.getElementsByClassName('bo3-pick-team-intermission')
+        overlaySetup.mapPicksTeams.forEach((pick, i) => {
+            bo3pickNamesIntermission[i].className = bo3pickNamesIntermission[i].className.replace(/(team-a|team-b)/g, `${pick}`)
+        })
+    } else if (overlaySetup.seriesLengthSelection === 2) {
+        const bo5pickNamesIntermission = document.getElementsByClassName('bo5-pick-team-intermission')
+        overlaySetup.mapPicksTeams.forEach((pick, i) => {
+            bo5pickNamesIntermission[i].className = bo5pickNamesIntermission[i].className.replace(/(team-a|team-b)/g, `${pick}`)
+        })
     }
     
-    // Sets logos on intermission screen (TO BE CHANGED TO WORK WITH BO5)
-    const intermissionDefLogos = document.getElementsByClassName('def-logo')
-    const intermissionAttackLogos = document.getElementsByClassName('atk-logo')
-    const intermissionDefNames = document.getElementsByClassName('def-name')
-    const intermissionAttackNames  = document.getElementsByClassName('atk-name')
+    // Sets map names and images for each map pick on map veto overlay and intermission overlay
     if (overlaySetup.seriesLengthSelection === 0) {
-        overlaySetup.mapPicksSides.forEach((team, i) => {
-            if (team === 'team-a') {
-                intermissionDefLogos[i+3].className = intermissionDefLogos[i].className.replace(/(team-a|team-b)/g, `team-a`)
-                intermissionAttackLogos[i+3].className = intermissionAttackLogos[i].className.replace(/(team-a|team-b)/g, `team-b`)
-                intermissionDefNames[i+3].className = intermissionDefNames[i].className.replace(/(team-a|team-b)/g, `team-a`)
-                intermissionAttackNames[i+3].className = intermissionAttackNames[i].className.replace(/(team-a|team-b)/g, `team-b`)
-    
-            } else {
-                intermissionDefLogos[i+3].className = intermissionDefLogos[i].className.replace(/(team-a|team-b)/g, `team-b`)
-                intermissionAttackLogos[i+3].className = intermissionAttackLogos[i].className.replace(/(team-a|team-b)/g, `team-a`)
-                intermissionDefNames[i+3].className = intermissionDefNames[i].className.replace(/(team-a|team-b)/g, `team-b`)
-                intermissionAttackNames[i+3].className = intermissionAttackNames[i].className.replace(/(team-a|team-b)/g, `team-a`)
+        overlaySetup.mapPicks.forEach((pick, i) => {
+            document.getElementById('bo1-pick-img-intermission').style.backgroundImage = `url(assets/Maps/${pick}_1080p.png)`
+            if (document.getElementById('bo1-intermission-background-video').src !== `https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/${pick}_Cinematic.webm?raw=true`) {
+                document.getElementById('bo1-intermission-background-video').src = `https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/${pick}_Cinematic.webm?raw=true`
             }
         })
     } else if (overlaySetup.seriesLengthSelection === 1) {
-        overlaySetup.mapPicksSides.forEach((team, i) => {
-            if (team === 'team-a') {
-                intermissionDefLogos[i].className = intermissionDefLogos[i].className.replace(/(team-a|team-b)/g, `team-a`)
-                intermissionAttackLogos[i].className = intermissionAttackLogos[i].className.replace(/(team-a|team-b)/g, `team-b`)
-                intermissionDefNames[i].className = intermissionDefNames[i].className.replace(/(team-a|team-b)/g, `team-a`)
-                intermissionAttackNames[i].className = intermissionAttackNames[i].className.replace(/(team-a|team-b)/g, `team-b`)
-    
-            } else {
-                intermissionDefLogos[i].className = intermissionDefLogos[i].className.replace(/(team-a|team-b)/g, `team-b`)
-                intermissionAttackLogos[i].className = intermissionAttackLogos[i].className.replace(/(team-a|team-b)/g, `team-a`)
-                intermissionDefNames[i].className = intermissionDefNames[i].className.replace(/(team-a|team-b)/g, `team-b`)
-                intermissionAttackNames[i].className = intermissionAttackNames[i].className.replace(/(team-a|team-b)/g, `team-a`)
+        overlaySetup.mapPicks.forEach((pick, i) => {
+            document.getElementsByClassName('bo3-pick-img-intermission')[i].src = `assets/Maps/${pick}_524x214.png`
+            if (bo3IntermissionBackgroundMap[i].src !== `https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/${pick}_Cinematic.webm?raw=true`) {
+                bo3IntermissionBackgroundMap[i].src = `https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/${pick}_Cinematic.webm?raw=true`
+            }
+        })
+    } else if (overlaySetup.seriesLengthSelection === 2) {
+        overlaySetup.mapPicks.forEach((pick, i) => {
+            document.getElementsByClassName('bo5-pick-img-intermission')[i].src = `assets/Maps/${pick}_524x214.png`
+            if (bo5IntermissionBackgroundMap[i].src !== `https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/${pick}_Cinematic.webm?raw=true`) {
+                bo5IntermissionBackgroundMap[i].src = `https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/${pick}_Cinematic.webm?raw=true`
             }
         })
     }
-    
-
-    // Sets map pick team names on intermission overlay
-    const pickNamesIntermission = document.getElementsByClassName('bo3-pick-team-intermission')
-    overlaySetup.mapPicksTeams.forEach((pick, i) => {
-        pickNamesIntermission[i].className = pickNamesIntermission[i].className.replace(/(team-a|team-b)/g, `${pick}`)
-    })
-
-    // Sets map names and images for each map pick on map veto overlay and intermission overlay
-    const pickImgsIntermission = document.getElementsByClassName('bo3-pick-img-intermission')
-    overlaySetup.mapPicks.forEach((pick, i) => {
-        pickImgsIntermission[i].src = `assets/Maps/${pick}_524x214.png`
-        document.getElementById('bo1-pick-img-intermission').style.backgroundImage = `url(assets/Maps/${pick}_1080p.png)`
-        if (bo3IntermissionBackgroundMap[i].src !== `https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/${pick}_Cinematic.webm?raw=true`) {
-            bo3IntermissionBackgroundMap[i].src = `https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/${pick}_Cinematic.webm?raw=true`
-        }
-        if (document.getElementById('bo1-intermission-background-video').src !== `https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/${pick}_Cinematic.webm?raw=true`) {
-            document.getElementById('bo1-intermission-background-video').src = `https://github.com/caleb-cb/community-caster-overlay-videos/blob/main/${pick}_Cinematic.webm?raw=true`
-        }
-    })
 
     // Set Names
     const teamANameAll = document.getElementsByClassName('apply-team-a-name')
