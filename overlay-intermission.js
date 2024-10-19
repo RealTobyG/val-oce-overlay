@@ -344,7 +344,7 @@ function setOverlay() {
         }
     } else if (overlaySetup.seriesLengthSelection === 1) {
         overlaySetup.mapPicks.forEach((map, i) => {
-            const bo3MapResultOverlays = document.getElementsByClassName('bo5-schedule-result-overlay')
+            const bo3MapResultOverlays = document.getElementsByClassName('bo3-schedule-result-overlay')
             if (overlaySetup.mapScores[(i*2)+1] + overlaySetup.mapScores[i*2] === 0) {
                 bo3MapResultOverlays[i].textContent = ""
             } else if (document.getElementsByClassName('bo3-def-logo')[i].classList.contains('apply-team-a-logo')) {
