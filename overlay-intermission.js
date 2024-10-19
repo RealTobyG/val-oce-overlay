@@ -348,9 +348,9 @@ function setOverlay() {
             if (overlaySetup.mapScores[(i*2)+1] + overlaySetup.mapScores[i*2] === 0) {
                 bo3MapResultOverlays[i].textContent = ""
             } else if (document.getElementsByClassName('bo3-def-logo')[i].classList.contains('apply-team-a-logo')) {
-                bo3MapResultOverlays[0].textContent = `${overlaySetup.mapScores[(i*2)+1]} - ${overlaySetup.mapScores[i*2]}`
+                bo3MapResultOverlays[i].textContent = `${overlaySetup.mapScores[(i*2)+1]} - ${overlaySetup.mapScores[i*2]}`
             } else {
-                bo3MapResultOverlays[0].textContent = `${overlaySetup.mapScores[i*2]} - ${overlaySetup.mapScores[(i*2)+1]}`
+                bo3MapResultOverlays[i].textContent = `${overlaySetup.mapScores[i*2]} - ${overlaySetup.mapScores[(i*2)+1]}`
             }
         })
     } else if (overlaySetup.seriesLengthSelection === 2) {
