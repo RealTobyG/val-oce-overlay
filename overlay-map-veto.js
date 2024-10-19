@@ -1,6 +1,5 @@
 let socket
 let overlaySetup = {}
-let overlaySelection = 0
 
 function onPageLoad() {
     openSocket()
