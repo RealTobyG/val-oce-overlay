@@ -1,5 +1,6 @@
 let socket
 let overlaySetup = {}
+let gameEvent = {}
 let timer = null
 let deadline = null
 let countdown = null
@@ -19,8 +20,15 @@ function openSocket() {
     };
 
     socket.onmessage = function (event) {
-        overlaySetup = JSON.parse(event.data)
-        console.log(overlaySetup)
+        let serverMessage = JSON.parse(event.data)
+        if (serverMessage.overlay) {
+            overlaySetup = serverMessage.overlay
+            console.log(overlaySetup)   
+        }
+        if (serverMessage.gameEvent) {
+            gameEvent = serverMessage.gameEvent
+            console.log(gameEvent)
+        }
         setOverlay()
     };
 
