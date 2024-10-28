@@ -1,0 +1,1888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>In Game Overlay Advanced</title>
+    <script src="auth.js" defer></script>
+    <script src="api.js" defer></script>
+    <script src="overlay-in-game-advanced.js" defer></script>
+
+    <style>
+        :root {
+            --bg1: #007477;
+            --bg2: #00262a;
+            --bg3: #0297b5;
+            --bg4: #00f0f8;
+            --bga1: #204546;
+            --bga2: #257878;
+            --frames: #0D9093;
+
+            --teamATrim: #3CFECA;
+            --teamBTrim: #F64B5C;
+            --teamABackground: #157462;
+            --teamBBackground: #6E2B36;
+        }
+
+        @font-face {
+            font-family: 'Arial';
+            src: url(assets/fonts/ARIALBD.TTF);
+        }
+
+        @font-face {
+            font-family: 'Foundry';
+            src: url(assets/fonts/Foundry_Gridnik_W03_ExtraBold.ttf);
+        }
+
+        @font-face {
+            font-family: 'DINNext';
+            src: url(assets/fonts/DINNextLTPro-Medium.ttf);
+        }
+
+        .grid-1-1 {
+            grid-area: 1/1;
+        }
+
+        .display-none {
+            display: none;
+        }
+
+        .flex-row {
+            display: flex;
+            align-items: center;
+        }
+
+        .flex-column {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #page-container {
+            display: grid;
+            grid-template: 1080px/1920px;
+            font-family: 'Arial';
+            color: white;
+        }
+
+        #in-game-overlay-advanced {
+            grid-area: 1/1;
+            display: grid;
+            grid-template: 1080px/1920px;
+            overflow: hidden;
+        }
+
+
+        /* ########################### */
+        /* ##### Overlay Heading ##### */
+        /* ########################### */
+        #overlay-heading-team-a {
+            grid-area: 1/1;
+            display: grid;
+            margin: 13px 0px 0px 653px;
+            grid-template: 30px 30px/18px 5px 27px 5px 86px 4px 51px 18px;
+        }
+
+        #overlay-heading-team-a img{
+            grid-area: 1/3/3/4;
+            align-self: center;
+            max-width: 27px;
+            max-height: 27px;
+            object-fit: contain;
+        }
+
+        .overlay-heading-tri {
+            color: white;
+            font-size: 20pt;
+            font-family: Impact;
+            transform: scaleX(0.85);
+            text-align: center;
+        }
+
+        .overlay-heading-region-seed {
+            color: #9DA3AB;
+            font-size: 12pt;
+            font-family: "DINNext";
+            font-weight: bold;
+            text-align: center;
+            transform: translateY(-3px);
+        }
+
+        #overlay-heading-team-a-score {
+            grid-area: 1/7/3/8;
+            color: white;
+            font-size: 36pt;
+            font-family: "DINNext";
+            font-weight: bold;
+            text-align: center;
+            transform: scaleX(0.85) translate(5px, 5px);
+            z-index: 1;
+        }
+
+        #overlay-heading-team-b {
+            grid-area: 1/1;
+            display: grid;
+            margin: 13px 653px 0px 0px;
+            justify-self: end;
+            grid-template: 30px 30px/18px 51px 4px 86px 5px 27px 5px 18px;
+        }
+
+        #overlay-heading-team-b img{
+            grid-area: 1/6/3/7;
+            align-self: center;
+            max-width: 27px;
+            max-height: 27px;
+            object-fit: contain;
+        }
+
+        #overlay-heading-team-b-score {
+            grid-area: 1/2/3/3;
+            color: white;
+            font-size: 36pt;
+            font-family: "DINNext";
+            font-weight: bold;
+            text-align: center;
+            transform: scaleX(0.85) translate(-5px, 5px);
+            z-index: 1;
+        }
+
+        #overlay-heading-center {
+            grid-area: 1/1;
+            display: grid;
+            justify-self: center;
+            grid-template: 8px 2px 62px 9px 7px/181px 38px 47px 9px 7px 7px 7px 7px 9px 47px 38px 181px;
+        }
+
+        #overlay-heading-round-number {
+            grid-area: 3/3/4/-3;
+            color: #9DA3AB;
+            font-size: 11pt;
+            font-family: "DINNext";
+            text-align: center;
+            transform: translateY(-2px);
+        }
+
+        #overlay-heading-timer-cover {
+            grid-area: 3/3/4/-3;
+            background-color: #0D1821;
+            align-self: end;
+            transition: 0.5s;
+        }
+
+        #overlay-heading-spike-icon {
+            grid-area: 3/3/4/-3;
+            justify-self: center;
+            filter: invert(38%) sepia(43%) saturate(2191%) hue-rotate(324deg) brightness(99%) contrast(94%);
+            width: 60px;
+            margin-top: 18px;
+            transition: 0.5s;
+        }
+
+        #overlay-heading-spike-icon-2 {
+            grid-area: 3/3/4/-3;
+            justify-self: center;
+            filter: invert(1);
+            width: 60px;
+            margin-top: 18px;
+            transition: 0.5s;
+        }
+
+
+        /* ###################### */
+        /* ##### Scoreboard ##### */
+        /* ###################### */
+        #scoreboard {
+            grid-area: 1/1;
+            display: grid;
+            margin: 626px 25px 24px 25px;
+            grid-template: 100px 13px 317px/924px 22px 924px;
+            transition: 0.5s;
+            z-index: 2;
+        }
+
+        .scoreboard-line-trim {
+            display: flex;
+            background-color: rgba(204, 204, 204, 0.7);
+            border-left: solid 8px white;
+            border-right: solid 8px white;
+        }
+
+        .scoreboard-background-generic {
+            display: flex;
+            background-color: rgba(13, 24, 33, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        #scoreboard-team-a-heading {
+            grid-area: 1/1;
+            display: grid;
+            grid-template: 60px 40px/100px 824px;
+        }
+
+        #scoreboard-team-a-heading-logo-container {
+            grid-area: 1/1/3/2;
+            display: flex;
+            height: 100px;
+            width: 96px;
+            background-color: #0D1821;
+            border-right: 4px solid var(--teamATrim);
+            justify-content: center;
+            align-items: center;
+        }
+
+        #scoreboard-team-a-heading-logo-container img, #scoreboard-team-b-heading-logo-container img {
+            max-height: 50px;
+            max-width: 50px;
+            object-fit: contain;
+        }
+
+        #scoreboard-team-b-heading {
+            grid-area: 1/-2;
+            display: grid;
+            grid-template: 60px 40px/824px 100px;
+        }
+
+        #scoreboard-team-b-heading-logo-container {
+            grid-area: 1/-2/3/-1;
+            display: flex;
+            height: 100px;
+            width: 96px;
+            background-color: #0D1821;
+            border-left: 4px solid var(--teamBTrim);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .scoreboard-team-name {
+            font-family: Impact;
+            font-size: 32pt;
+            padding: 0px 10px 0px 10px;
+            align-content: center;
+            text-transform: uppercase;
+        }
+
+        #scoreboard-team-a-players {
+            grid-area: 3/1;
+            display: grid;
+            grid-template: 1px 29px 55px 57px 55px 57px 55px 6px 1px/40px 45px 185px 122px 163px 96px 50px 128px 95px;
+        }
+
+        .scoreboard-team-a-background {
+            display: flex;
+            background-color: rgba(52, 62, 71, 0.9);
+            border-right: solid 3px rgba(13, 24, 33, 0.8);
+            background-clip: padding-box;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .scoreboard-team-a-color-background-1 {
+            display: flex;
+            background-color: var(--teamABackground);
+            filter: opacity(0.8) brightness(1.2);
+            border-right: solid 3px #0D1821;
+            background-clip: padding-box;
+        }
+
+        .scoreboard-team-a-color-background-2 {
+            display: flex;
+            background-color: var(--teamABackground);
+            filter: opacity(0.8); 
+            border-top: solid 1px #0D1821; 
+            border-bottom: solid 1px #0D1821; 
+            border-right: solid 3px #0D1821;
+            height: 55px;
+            background-clip: padding-box;
+        }
+
+        #scoreboard-team-b-players {
+            grid-area: 3/3;
+            display: grid;
+            grid-template: 1px 29px 55px 57px 55px 57px 55px 6px 1px/95px 128px 50px 96px 163px 122px 185px 45px 40px;
+        }
+
+        .scoreboard-team-b-background {
+            display: flex;
+            background-color: rgba(52, 62, 71, 0.9);
+            border-left: solid 3px rgba(13, 24, 33, 0.8);
+            background-clip: padding-box;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .scoreboard-team-b-color-background-1 {
+            display: flex;
+            background-color: var(--teamBBackground);
+            filter: opacity(0.8) brightness(1.2);
+            border-left: solid 3px #0D1821;
+            background-clip: padding-box;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .scoreboard-team-b-color-background-2 {
+            display: flex;
+            background-color: var(--teamBBackground);
+            filter: opacity(0.8); 
+            border-top: solid 1px #0D1821; 
+            border-bottom: solid 1px #0D1821; 
+            border-left: solid 3px #0D1821;
+            height: 55px;
+            background-clip: padding-box;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .scoreboard-heading {
+            align-content: center;
+            color: #9DA3AB;
+            font-size: 12pt;
+            font-family: "DINNext";
+            text-align: center;
+        }
+
+        .scoreboard-agent-icon {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            overflow: hidden;
+            height: 55px;
+            align-self: center;
+            z-index: 1;
+        }
+
+        .scoreboard-agent-icon img {
+            width: 75px;
+        }
+
+        .scoreboard-player-name {
+            align-content: center;
+            color: white;
+            font-size: 15pt;
+            font-family: "DINNext";
+        }
+
+        .scoreboard-kda {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: auto;
+        }
+
+        .scoreboard-player-kda {
+            align-content: center;
+            color: white;
+            font-size: 15pt;
+            font-family: "DINNext";
+            text-align: center;
+        }
+
+        .scoreboard-player-abilities {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+
+        .scoreboard-player-abilities img {
+            width: 20px;
+        }
+
+        .scoreboard-astra-stars {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .scoreboard-astra-stars img {
+            width: 10px;
+        }
+
+        .scoreboard-ult-active {
+            display: grid;
+            grid-template: 2px 19px 19px 2px/2px 19px 19px 2px;
+            filter: opacity(1) brightness(1);
+            z-index: 1;
+            justify-self: center;
+            align-self: center;
+        }
+
+        .scoreboard-ult-active img {
+            grid-area: 1/1/-1/-1;
+            justify-self: center;
+            align-self: center;
+            width: 30px;
+        }
+
+        .scoreboard-ult-inactive {
+            display: flex;
+            flex-direction: column;
+            height: 55px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .scoreboard-ult-inactive img {
+            width: 20px;
+        }
+
+        .scoreboard-ult-icon {
+            margin: auto;
+            width: 33px;
+            z-index: 1;
+        }
+
+        .scoreboard-shields {
+            margin: auto;
+            width: 28px;
+        }
+
+        .scoreboard-weapons {
+            margin: auto;
+            max-width: 100px;
+            max-height: 30px;
+            object-fit: contain;
+        }
+
+        .scoreboard-spent-credits {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            font-family: "DINNext";
+            font-size: 15pt;
+            color: #E8D8A9;
+            column-gap: 2px;
+            height: 20px;
+        }
+
+        .scoreboard-credits {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            font-family: "DINNext";
+            font-size: 15pt;
+            color: white;
+            column-gap: 2px;
+            height: 20px;
+        }
+
+    </style>
+</head>
+
+<body style="margin: 0;" onload="onPageLoad()">
+    <div id="page-container">
+
+        <img src="assets/Valorant_Preview.png" style="display: none; z-index: -5;" class="grid-1-1">
+        <img src="assets/Valorant_Preview_2.png" style="display: none; z-index: -5" class="grid-1-1">
+        <img src="assets/Valorant_Preview_3.png" style="display: none; z-index: -5" class="grid-1-1">
+        <iframe src="https://vdo.ninja/?view=fS3UUmZ" width="1920" height="1080" class="grid-1-1" style="z-index: 5;"></iframe>
+        <div id="in-game-overlay-advanced" style="display: grid;"> 
+            <!-- ##################################### -->
+            <!-- ########## Overlay Heading ########## -->
+            <!-- ##################################### -->
+            <div id="overlay-heading-team-a">
+                <!-- Background Elements -->
+                <div style="grid-area: 1/1; width: 0; height: 0; border-bottom: 30px solid rgba(13, 24, 33, 0.8); border-left: 18px solid transparent;"></div>
+                <div style="grid-area: 2/1; width: 0; height: 0; border-top: 30px solid rgba(13, 24, 33, 0.8); border-left: 18px solid transparent;"></div>
+                <div style="grid-area: 1/-2; width: 0; height: 0; border-bottom: 30px solid var(--teamABackground); filter: opacity(0.9); border-right: 18px solid transparent;"></div>
+                <div style="grid-area: 2/-2; width: 0; height: 0; border-top: 30px solid var(--teamABackground); filter: opacity(0.9); border-right: 18px solid transparent;"></div>
+                <div style="grid-area: 1/2/3/6; background-color: rgba(13, 24, 33, 0.8);"></div>
+                <div style="grid-area: 1/6/3/7; background-color: var(--teamATrim);"></div>
+                <div style="grid-area: 1/7/3/8; background-color: var(--teamABackground); filter: opacity(0.9);"></div>
+            
+                <!-- Heading Contents -->
+                <img id="overlay-heading-team-a-logo" src="assets/200x200_No_Logo.png" class="apply-team-a-logo">
+                <div class="flex-column" style="grid-area: 1/5/3/6; transform: translateY(3px);">
+                    <span id="overlay-heading-team-a-tri" class="overlay-heading-tri apply-team-a-tri"></span>
+                    <span id="overlay-heading-team-a-region-seed" class="overlay-heading-region-seed apply-team-a-region-seed">JP</span>
+                </div>
+                <span id="overlay-heading-team-a-score">4</span>
+            </div>
+
+            <div id="overlay-heading-team-b">
+                <!-- Background Elements -->
+                <div style="grid-area: 1/-2; width: 0; height: 0; border-bottom: 30px solid rgba(13, 24, 33, 0.8); border-right: 18px solid transparent;"></div>
+                <div style="grid-area: 2/-2; width: 0; height: 0; border-top: 30px solid rgba(13, 24, 33, 0.8); border-right: 18px solid transparent;"></div>
+                <div style="grid-area: 1/1; width: 0; height: 0; border-bottom: 30px solid var(--teamBBackground); filter: opacity(0.9); border-left: 18px solid transparent;"></div>
+                <div style="grid-area: 2/1; width: 0; height: 0; border-top: 30px solid var(--teamBBackground); filter: opacity(0.9); border-left: 18px solid transparent;"></div>
+                <div style="grid-area: 1/4/3/8; background-color: rgba(13, 24, 33, 0.8);"></div>
+                <div style="grid-area: 1/3/3/4; background-color: var(--teamBTrim);"></div>
+                <div style="grid-area: 1/2/3/3; background-color: var(--teamBBackground); filter: opacity(0.9);"></div>
+            
+                <!-- Heading Contents -->
+                <img id="overlay-heading-team-b-logo" src="assets/200x200_No_Logo.png" class="apply-team-b-logo">
+                <div class="flex-column" style="grid-area: 1/4/3/5; transform: translateY(3px);">
+                    <span id="overlay-heading-team-b-tri" class="overlay-heading-tri apply-team-b-tri"></span>
+                    <span id="overlay-heading-team-b-region-seed" class="overlay-heading-region-seed apply-team-b-region-seed">SEA</span>
+                </div>
+                <span id="overlay-heading-team-b-score">4</span>
+            </div>
+
+            <div id="overlay-heading-center">
+                <!-- Background Elements -->
+                <div style="grid-area: 1/2/4/3; width: 0px; height: 0px; border-top: 72px solid #0D1821; border-left: 38px solid transparent;"></div>
+                <div style="grid-area: 1/11/4/12; width: 0px; height: 0px; border-top: 72px solid #0D1821; border-right: 38px solid transparent;"></div>
+                <div style="grid-area: -3/4; width: 0px; height: 0px; border-top: 9px solid #0D1821; border-left: 9px solid transparent;"></div>
+                <div style="grid-area: -3/-5; width: 0px; height: 0px; border-top: 9px solid #0D1821; border-right: 9px solid transparent;"></div>
+                <div style="grid-area: -2/6; width: 0px; height: 0px; border-top: 7px solid #0D1821; border-left: 7px solid transparent;"></div>
+                <div style="grid-area: -2/-7; width: 0px; height: 0px; border-top: 7px solid #0D1821; border-right: 7px solid transparent;"></div>
+
+                <div style="grid-area: -3/5/-2/-5; background-color: #0D1821;"></div>
+                <div style="grid-area: 1/2; background-color: #0D1821;"></div>
+                <div style="grid-area: 1/-3; background-color: #0D1821;"></div>
+                <div style="grid-area: 1/3/4/4; background-color: #0D1821; width: 10px;"></div>
+                <div style="grid-area: 1/-4/4/-3; background-color: #0D1821; width: 10px; justify-self: end;"></div>
+                <div style="grid-area: 1/3/3/-3; background-color: #0D1821; height: 25px;"></div>
+                <div style="grid-area: 1/1; background: linear-gradient(to left, #0D1821, transparent); width: 60px; justify-self: end;"></div>
+                <div style="grid-area: 1/-2; background: linear-gradient(to right, #0D1821, transparent); width: 60px;"></div>
+                <div class="scoreboard-line-trim" style="grid-area: 2/1; width: 149px; height: 1px;"></div>
+                <div class="scoreboard-line-trim" style="grid-area: 2/-2; width: 149px; height: 1px; justify-self: end;"></div>
+                <!-- Heading Contents -->
+                <span id="overlay-heading-round-number">ROUND 9</span>
+                <div id="overlay-heading-timer-cover" style="height: 140px;"></div>
+                <img id="overlay-heading-spike-icon" style="transform: translateY(63px) scale(0.83);" src="assets/Spike_Icon_SVG.svg">
+                <img id="overlay-heading-spike-icon-2" style="opacity: 1; transform: translateY(63px) scale(0.83);" src="assets/Spike_Icon_SVG.svg">
+
+            </div>
+
+
+            <!-- ################################ -->
+            <!-- ########## Scoreboard ########## -->
+            <!-- ################################ -->
+            <div id="scoreboard">
+                <div id="scoreboard-team-a-heading">
+                    <div id="scoreboard-team-a-heading-logo-container">
+                        <img id="scoreboard-team-a-heading-logo" src="assets/200x200_No_Logo.png" class="apply-team-a-logo">
+                    </div>
+                    <div class="scoreboard-background-generic" style="grid-area: 1/2/3/3;"></div>
+                    <span id="scoreboard-team-a-heading-name" class="scoreboard-team-name apply-team-a-name" style="grid-area: 1/2; transform: scaleX(0.85) translate(-70px, 5px);"></span>
+                </div>
+
+                <div id="scoreboard-team-b-heading">
+                    <div class="scoreboard-background-generic" style="grid-area: 1/1/3/2;"></div>
+                    <span id="scoreboard-team-b-heading-name" class="scoreboard-team-name apply-team-b-name" style="grid-area: 1/1; text-align: right; transform: scaleX(0.85) translate(70px, 5px);"></span>
+                    <div id="scoreboard-team-b-heading-logo-container">
+                        <img id="scoreboard-team-b-heading-logo" src="assets/200x200_No_Logo.png" class="apply-team-b-logo">
+                    </div>
+                </div>
+
+                <!-- ############################################### -->
+                <!-- ########## Scoreboard Team A Players ########## -->
+                <!-- ############################################### -->
+                <div id="scoreboard-team-a-players">
+                    <!-- Scoreboard Background -->
+                    <div class="scoreboard-line-trim" style="grid-area: 1/1/2/-1;"></div>
+                    <div class="scoreboard-line-trim" style="grid-area: -2/1/-1/-1;"></div>
+                    <div class="scoreboard-background-generic" style="grid-area: 2/1/3/-1;"></div>
+                    <div class="scoreboard-background-generic" style="grid-area: 4/2/5/6;"></div>
+                    <div class="scoreboard-background-generic" style="grid-area: 6/2/7/6;"></div>
+                    <div class="scoreboard-background-generic" style="grid-area: 8/1/9/-1;"></div>
+                    <div class="scoreboard-background-generic" style="grid-area: 4/7/5/-1;"></div>
+                    <div class="scoreboard-background-generic" style="grid-area: 6/7/7/-1;"></div>
+                    <div class="scoreboard-team-a-background" style="grid-area: 3/2/4/4;"></div>
+                    <div class="scoreboard-team-a-background" style="grid-area: 3/4;"></div>
+                    <div class="scoreboard-team-a-background" style="grid-area: 3/5;"></div>
+                    <div class="scoreboard-team-a-background" style="grid-area: 3/7;"></div>
+                    <div class="scoreboard-team-a-background" style="grid-area: 3/8;"></div>
+                    <div class="scoreboard-team-a-background" style="grid-area: 3/9; border-right: 0;"></div>
+                    <div class="scoreboard-team-a-background" style="grid-area: 5/2/6/4;"></div>
+                    <div class="scoreboard-team-a-background" style="grid-area: 5/4;"></div>
+                    <div class="scoreboard-team-a-background" style="grid-area: 5/5;"></div>
+                    <div class="scoreboard-team-a-background" style="grid-area: 5/7;"></div>
+                    <div class="scoreboard-team-a-background" style="grid-area: 5/8;"></div>
+                    <div class="scoreboard-team-a-background" style="grid-area: 5/9; border-right: 0;"></div>
+                    <div class="scoreboard-team-a-background" style="grid-area: 7/2/8/4;"></div>
+                    <div class="scoreboard-team-a-background" style="grid-area: 7/4;"></div>
+                    <div class="scoreboard-team-a-background" style="grid-area: 7/5;"></div>
+                    <div class="scoreboard-team-a-background" style="grid-area: 7/7;"></div>
+                    <div class="scoreboard-team-a-background" style="grid-area: 7/8;"></div>
+                    <div class="scoreboard-team-a-background" style="grid-area: 7/9; border-right: 0;"></div>
+                    <div class="scoreboard-team-a-color-background-1" style="grid-area: 3/1;"></div>
+                    <div class="scoreboard-team-a-color-background-2" style="grid-area: 4/1;"></div>
+                    <div class="scoreboard-team-a-color-background-1" style="grid-area: 5/1;"></div>
+                    <div class="scoreboard-team-a-color-background-2" style="grid-area: 6/1;"></div>
+                    <div class="scoreboard-team-a-color-background-1" style="grid-area: 7/1;"></div>
+                    <!-- Scoreboard Headings -->
+                    <span class="scoreboard-heading" style="grid-area: 2/1/3/4; margin-right: 3px;">PLAYER</span>
+                    <div class="scoreboard-kda" style="grid-area: 2/4/3/5; margin-right: 3px;">
+                        <span class="scoreboard-heading">K</span>
+                        <span class="scoreboard-heading">D</span>
+                        <span class="scoreboard-heading">A</span>
+                    </div>
+                    <span class="scoreboard-heading" style="grid-area: 2/5/3/7; margin-right: 3px;">ABILITIES</span>
+                    <span class="scoreboard-heading" style="grid-area: 2/7/3/8; transform: translateX(-2px);">SHIELD</span>
+                    <span class="scoreboard-heading" style="grid-area: 2/8/3/9; margin-right: 3px;">LOADOUT</span>
+                    <span class="scoreboard-heading" style="grid-area: 2/9/3/10;">CREDS</span>
+                    <!-- Agent Icons -->
+                    <div class="scoreboard-agent-icon" style="grid-area: 3/1/4/3;">
+                        <img id="scoreboard-team-a-player-1-agent-icon" src="assets/Agents/Clay_Icon.png">
+                    </div>
+                    <div class="scoreboard-agent-icon" style="grid-area: 4/1/5/3;">
+                        <img id="scoreboard-team-a-player-2-agent-icon" src="assets/Agents/Wraith_Icon.png">
+                    </div>
+                    <div class="scoreboard-agent-icon" style="grid-area: 5/1/6/3;">
+                        <img id="scoreboard-team-a-player-3-agent-icon" src="assets/Agents/Hunter_Icon.png">
+                    </div>
+                    <div class="scoreboard-agent-icon" style="grid-area: 6/1/7/3;">
+                        <img id="scoreboard-team-a-player-4-agent-icon" src="assets/Agents/Breach_Icon.png">
+                    </div>
+                    <div class="scoreboard-agent-icon" style="grid-area: 7/1/8/3;">
+                        <img id="scoreboard-team-a-player-5-agent-icon" src="assets/Agents/Gumshoe_Icon.png">
+                    </div>
+                    <!-- Player Names -->
+                    <span id="scoreboard-team-a-player-1-name" class="scoreboard-player-name" style="grid-area: 3/3; text-align: left;">Player 1</span>
+                    <span id="scoreboard-team-a-player-2-name" class="scoreboard-player-name" style="grid-area: 4/3; text-align: left;">Player 2</span>
+                    <span id="scoreboard-team-a-player-3-name" class="scoreboard-player-name" style="grid-area: 5/3; text-align: left;">Player 3</span>
+                    <span id="scoreboard-team-a-player-4-name" class="scoreboard-player-name" style="grid-area: 6/3; text-align: left;">Player 4</span>
+                    <span id="scoreboard-team-a-player-5-name" class="scoreboard-player-name" style="grid-area: 7/3; text-align: left;">Player 5</span>
+                    <!-- Player KDA's  -->
+                    <div class="scoreboard-kda" style="grid-area: 3/4/4/5; margin-right: 3px;">
+                        <span id="scoreboard-team-a-player-1-kills" class="scoreboard-player-kda">7</span>
+                        <span id="scoreboard-team-a-player-1-deaths" class="scoreboard-player-kda">6</span>
+                        <span id="scoreboard-team-a-player-1-assists" class="scoreboard-player-kda">2</span>
+                    </div>
+                    <div class="scoreboard-kda" style="grid-area: 4/4/5/5; margin-right: 3px;">
+                        <span id="scoreboard-team-a-player-2-kills" class="scoreboard-player-kda">6</span>
+                        <span id="scoreboard-team-a-player-2-deaths" class="scoreboard-player-kda">5</span>
+                        <span id="scoreboard-team-a-player-2-assists" class="scoreboard-player-kda">3</span>
+                    </div>
+                    <div class="scoreboard-kda" style="grid-area: 5/4/6/5; margin-right: 3px;">
+                        <span id="scoreboard-team-a-player-3-kills" class="scoreboard-player-kda">6</span>
+                        <span id="scoreboard-team-a-player-3-deaths" class="scoreboard-player-kda">7</span>
+                        <span id="scoreboard-team-a-player-3-assists" class="scoreboard-player-kda">2</span>
+                    </div>
+                    <div class="scoreboard-kda" style="grid-area: 6/4/7/5; margin-right: 3px;">
+                        <span id="scoreboard-team-a-player-4-kills" class="scoreboard-player-kda">5</span>
+                        <span id="scoreboard-team-a-player-4-deaths" class="scoreboard-player-kda">6</span>
+                        <span id="scoreboard-team-a-player-4-assists" class="scoreboard-player-kda">3</span>
+                    </div>
+                    <div class="scoreboard-kda" style="grid-area: 7/4/8/5; margin-right: 3px;">
+                        <span id="scoreboard-team-a-player-5-kills" class="scoreboard-player-kda">4</span>
+                        <span id="scoreboard-team-a-player-5-deaths" class="scoreboard-player-kda">6</span>
+                        <span id="scoreboard-team-a-player-5-assists" class="scoreboard-player-kda">0</span>
+                    </div>
+                    <!-- Abilities -->
+                    <div class="flex-column" style="grid-area: 3/5; margin-right: 3px;">
+                        <div class="scoreboard-player-abilities">
+                            <img id="scoreboard-team-a-player-1-ability-1" src="assets/Agents/Clay_Ability_1.png">
+                            <img id="scoreboard-team-a-player-1-ability-2" src="assets/Agents/Clay_Ability_2.png">
+                            <img id="scoreboard-team-a-player-1-ability-3" src="assets/Agents/Clay_Ability_3.png">
+                        </div>
+                        <div id="scoreboard-team-a-player-1-astra" class="scoreboard-astra-stars" style="display: none;">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                        </div>
+                    </div>
+                    <div class="flex-column" style="grid-area: 4/5; margin-right: 3px;">
+                        <div class="scoreboard-player-abilities">
+                            <img id="scoreboard-team-a-player-2-ability-1" src="assets/Agents/Wraith_Ability_1.png">
+                            <img id="scoreboard-team-a-player-2-ability-2" src="assets/Agents/Wraith_Ability_2.png">
+                            <img id="scoreboard-team-a-player-2-ability-3" src="assets/Agents/Wraith_Ability_3.png">
+                        </div>
+                        <div id="scoreboard-team-a-player-2-astra" class="scoreboard-astra-stars" style="display: none;">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                        </div>
+                    </div>
+                    <div class="flex-column" style="grid-area: 5/5; margin-right: 3px;">
+                        <div class="scoreboard-player-abilities">
+                            <img id="scoreboard-team-a-player-3-ability-1" src="assets/Agents/Hunter_Ability_1.png">
+                            <img id="scoreboard-team-a-player-3-ability-2" src="assets/Agents/Hunter_Ability_2.png">
+                            <img id="scoreboard-team-a-player-3-ability-3" src="assets/Agents/Hunter_Ability_3.png">
+                        </div>
+                        <div id="scoreboard-team-a-player-3-astra" class="scoreboard-astra-stars" style="display: none;">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                        </div>
+                    </div>
+                    <div class="flex-column" style="grid-area: 6/5; margin-right: 3px;">
+                        <div class="scoreboard-player-abilities">
+                            <img id="scoreboard-team-a-player-4-ability-1" src="assets/Agents/Breach_Ability_1.png">
+                            <img id="scoreboard-team-a-player-4-ability-2" src="assets/Agents/Breach_Ability_2.png">
+                            <img id="scoreboard-team-a-player-4-ability-3" src="assets/Agents/Breach_Ability_3.png">
+                        </div>
+                        <div id="scoreboard-team-a-player-4-astra" class="scoreboard-astra-stars" style="display: none;">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                        </div>
+                    </div>
+                    <div class="flex-column" style="grid-area: 7/5; margin-right: 3px;">
+                        <div class="scoreboard-player-abilities">
+                            <img id="scoreboard-team-a-player-5-ability-1" src="assets/Agents/Gumshoe_Ability_1.png">
+                            <img id="scoreboard-team-a-player-5-ability-2" src="assets/Agents/Gumshoe_Ability_2.png">
+                            <img id="scoreboard-team-a-player-5-ability-3" src="assets/Agents/Gumshoe_Ability_3.png">
+                        </div>
+                        <div id="scoreboard-team-a-player-5-astra" class="scoreboard-astra-stars" style="display: none;">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                        </div>
+                    </div>
+                    <!-- Ultimates -->
+                    <div id="scoreboard-team-a-player-1-ult-active-background" class="scoreboard-team-a-color-background-1" style="grid-area: 3/6; display: flex;"></div>
+                    <div id="scoreboard-team-a-player-1-ult-active" class="scoreboard-ult-active" style="grid-area: 3/6; margin-right: 3px; display: grid;">
+                        <div style="grid-area: 1/1/3/3; height: 0; width: 0; border-bottom: 21px solid var(--teamATrim); border-left: 21px solid transparent;"></div>
+                        <div style="grid-area: 1/3/3/5; height: 0; width: 0; border-bottom: 21px solid var(--teamATrim); border-right: 21px solid transparent;"></div>
+                        <div style="grid-area: 3/1/5/3; height: 0; width: 0; border-top: 21px solid var(--teamATrim); border-left: 21px solid transparent;"></div>
+                        <div style="grid-area: 3/3/5/5; height: 0; width: 0; border-top: 21px solid var(--teamATrim); border-right: 21px solid transparent;"></div>
+                        <div style="grid-area: 2/2; height: 0; width: 0; border-bottom: 19px solid #0D1821; border-left: 19px solid transparent;"></div>
+                        <div style="grid-area: 2/3; height: 0; width: 0; border-bottom: 19px solid #0D1821; border-right: 19px solid transparent;"></div>
+                        <div style="grid-area: 3/2; height: 0; width: 0; border-top: 19px solid #0D1821; border-left: 19px solid transparent;"></div>
+                        <div style="grid-area: 3/3; height: 0; width: 0; border-top: 19px solid #0D1821; border-right: 19px solid transparent;"></div>
+                        <img class="scoreboard-team-a-player-1-ult-icon" src="assets/Agents/Clay_Ability_Ult.png">        
+                    </div>
+                    <div id="scoreboard-team-a-player-1-ult-inactive" class="scoreboard-team-a-background" style="grid-area: 3/6; display: none;">
+                        <div class="scoreboard-ult-inactive">
+                            <img class="scoreboard-team-a-player-1-ult-icon" src="assets/Agents/Clay_Ability_Ult.png">
+                            <img id="scoreboard-team-a-player-1-ult-dots" style="height: 10px; width: 76px; object-fit: contain; margin-top: 10px;" src="assets/ult_dots/Ult_Dots_9_9.png">
+                        </div>
+                    </div>
+                    <div id="scoreboard-team-a-player-2-ult-active-background" class="scoreboard-team-a-color-background-2" style="grid-area: 4/6; display: flex;"></div>
+                    <div id="scoreboard-team-a-player-2-ult-active" class="scoreboard-ult-active" style="grid-area: 4/6; margin-right: 3px; display: grid;">
+                        <div style="grid-area: 1/1/3/3; height: 0; width: 0; border-bottom: 21px solid var(--teamATrim); border-left: 21px solid transparent;"></div>
+                        <div style="grid-area: 1/3/3/5; height: 0; width: 0; border-bottom: 21px solid var(--teamATrim); border-right: 21px solid transparent;"></div>
+                        <div style="grid-area: 3/1/5/3; height: 0; width: 0; border-top: 21px solid var(--teamATrim); border-left: 21px solid transparent;"></div>
+                        <div style="grid-area: 3/3/5/5; height: 0; width: 0; border-top: 21px solid var(--teamATrim); border-right: 21px solid transparent;"></div>
+                        <div style="grid-area: 2/2; height: 0; width: 0; border-bottom: 19px solid #0D1821; border-left: 19px solid transparent;"></div>
+                        <div style="grid-area: 2/3; height: 0; width: 0; border-bottom: 19px solid #0D1821; border-right: 19px solid transparent;"></div>
+                        <div style="grid-area: 3/2; height: 0; width: 0; border-top: 19px solid #0D1821; border-left: 19px solid transparent;"></div>
+                        <div style="grid-area: 3/3; height: 0; width: 0; border-top: 19px solid #0D1821; border-right: 19px solid transparent;"></div>
+                        <img class="scoreboard-team-a-player-2-ult-icon" src="assets/Agents/Wraith_Ability_Ult.png">
+                    </div>
+                    <div id="scoreboard-team-a-player-2-ult-inactive" class="scoreboard-background-generic" style="grid-area: 4/6; display: none;">
+                        <div class="scoreboard-ult-inactive">
+                            <img class="scoreboard-team-a-player-2-ult-icon" style="margin-right: 3px;" src="assets/Agents/Wraith_Ability_Ult.png">
+                            <img id="scoreboard-team-a-player-2-ult-dots" style="height: 10px; width: 76px; object-fit: contain; margin-top: 10px;" src="assets/ult_dots/Ult_Dots_7_7.png">
+                        </div>
+                    </div>
+                    <div id="scoreboard-team-a-player-3-ult-active-background" class="scoreboard-team-a-color-background-1" style="grid-area: 5/6; display: none;"></div>
+                    <div id="scoreboard-team-a-player-3-ult-active" class="scoreboard-ult-active" style="grid-area: 5/6; margin-right: 3px; display: none;">
+                        <div style="grid-area: 1/1/3/3; height: 0; width: 0; border-bottom: 21px solid var(--teamATrim); border-left: 21px solid transparent;"></div>
+                        <div style="grid-area: 1/3/3/5; height: 0; width: 0; border-bottom: 21px solid var(--teamATrim); border-right: 21px solid transparent;"></div>
+                        <div style="grid-area: 3/1/5/3; height: 0; width: 0; border-top: 21px solid var(--teamATrim); border-left: 21px solid transparent;"></div>
+                        <div style="grid-area: 3/3/5/5; height: 0; width: 0; border-top: 21px solid var(--teamATrim); border-right: 21px solid transparent;"></div>
+                        <div style="grid-area: 2/2; height: 0; width: 0; border-bottom: 19px solid #0D1821; border-left: 19px solid transparent;"></div>
+                        <div style="grid-area: 2/3; height: 0; width: 0; border-bottom: 19px solid #0D1821; border-right: 19px solid transparent;"></div>
+                        <div style="grid-area: 3/2; height: 0; width: 0; border-top: 19px solid #0D1821; border-left: 19px solid transparent;"></div>
+                        <div style="grid-area: 3/3; height: 0; width: 0; border-top: 19px solid #0D1821; border-right: 19px solid transparent;"></div>
+                        <img class="scoreboard-team-a-player-3-ult-icon" src="assets/Agents/Hunter_Ability_Ult.png">        
+                    </div>
+                    <div id="scoreboard-team-a-player-3-ult-inactive" class="scoreboard-team-a-background" style="grid-area: 5/6; display: flex;">
+                        <div class="scoreboard-ult-inactive">
+                            <img class="scoreboard-team-a-player-3-ult-icon" src="assets/Agents/Hunter_Ability_Ult.png">
+                            <img id="scoreboard-team-a-player-3-ult-dots" style="height: 10px; width: 76px; object-fit: contain; margin-top: 10px;" src="assets/ult_dots/Ult_Dots_4_8.png">
+                        </div>
+                    </div>
+                    <div id="scoreboard-team-a-player-4-ult-active-background" class="scoreboard-team-a-color-background-2" style="grid-area: 6/6; display: none;"></div>
+                    <div id="scoreboard-team-a-player-4-ult-active" class="scoreboard-ult-active" style="grid-area: 6/6; margin-right: 3px; display: none;">
+                        <div style="grid-area: 1/1/3/3; height: 0; width: 0; border-bottom: 21px solid var(--teamATrim); border-left: 21px solid transparent;"></div>
+                        <div style="grid-area: 1/3/3/5; height: 0; width: 0; border-bottom: 21px solid var(--teamATrim); border-right: 21px solid transparent;"></div>
+                        <div style="grid-area: 3/1/5/3; height: 0; width: 0; border-top: 21px solid var(--teamATrim); border-left: 21px solid transparent;"></div>
+                        <div style="grid-area: 3/3/5/5; height: 0; width: 0; border-top: 21px solid var(--teamATrim); border-right: 21px solid transparent;"></div>
+                        <div style="grid-area: 2/2; height: 0; width: 0; border-bottom: 19px solid #0D1821; border-left: 19px solid transparent;"></div>
+                        <div style="grid-area: 2/3; height: 0; width: 0; border-bottom: 19px solid #0D1821; border-right: 19px solid transparent;"></div>
+                        <div style="grid-area: 3/2; height: 0; width: 0; border-top: 19px solid #0D1821; border-left: 19px solid transparent;"></div>
+                        <div style="grid-area: 3/3; height: 0; width: 0; border-top: 19px solid #0D1821; border-right: 19px solid transparent;"></div>
+                        <img class="scoreboard-team-a-player-4-ult-icon" src="assets/Agents/Breach_Ability_Ult.png">
+                    </div>
+                    <div id="scoreboard-team-a-player-4-ult-inactive" class="scoreboard-background-generic" style="grid-area: 6/6; display: flex;">
+                        <div class="scoreboard-ult-inactive">
+                            <img class="scoreboard-team-a-player-4-ult-icon" style="margin-right: 3px;" src="assets/Agents/Breach_Ability_Ult.png">
+                            <img id="scoreboard-team-a-player-4-ult-dots" style="height: 10px; width: 76px;  object-fit: contain; margin-top: 10px;" src="assets/ult_dots/Ult_Dots_3_9.png">
+                        </div>
+                    </div>
+                    <div id="scoreboard-team-a-player-5-ult-active-background" class="scoreboard-team-a-color-background-1" style="grid-area: 7/6; display: none;"></div>
+                    <div id="scoreboard-team-a-player-5-ult-active" class="scoreboard-ult-active" style="grid-area: 7/6; margin-right: 3px; display: none;">
+                        <div style="grid-area: 1/1/3/3; height: 0; width: 0; border-bottom: 21px solid var(--teamATrim); border-left: 21px solid transparent;"></div>
+                        <div style="grid-area: 1/3/3/5; height: 0; width: 0; border-bottom: 21px solid var(--teamATrim); border-right: 21px solid transparent;"></div>
+                        <div style="grid-area: 3/1/5/3; height: 0; width: 0; border-top: 21px solid var(--teamATrim); border-left: 21px solid transparent;"></div>
+                        <div style="grid-area: 3/3/5/5; height: 0; width: 0; border-top: 21px solid var(--teamATrim); border-right: 21px solid transparent;"></div>
+                        <div style="grid-area: 2/2; height: 0; width: 0; border-bottom: 19px solid #0D1821; border-left: 19px solid transparent;"></div>
+                        <div style="grid-area: 2/3; height: 0; width: 0; border-bottom: 19px solid #0D1821; border-right: 19px solid transparent;"></div>
+                        <div style="grid-area: 3/2; height: 0; width: 0; border-top: 19px solid #0D1821; border-left: 19px solid transparent;"></div>
+                        <div style="grid-area: 3/3; height: 0; width: 0; border-top: 19px solid #0D1821; border-right: 19px solid transparent;"></div>
+                        <img class="scoreboard-team-a-player-5-ult-icon" src="assets/Agents/Gumshoe_Ability_Ult.png">        
+                    </div>
+                    <div id="scoreboard-team-a-player-5-ult-inactive" class="scoreboard-team-a-background" style="grid-area: 7/6; display: flex;">
+                        <div class="scoreboard-ult-inactive">
+                            <img class="scoreboard-team-a-player-5-ult-icon" src="assets/Agents/Gumshoe_Ability_Ult.png">
+                            <img id="scoreboard-team-a-player-5-ult-dots" style="height: 10px; width: 76px; object-fit: contain; margin-top: 10px;" src="assets/ult_dots/Ult_Dots_3_6.png">
+                        </div>
+                    </div>
+                    <!-- Shields -->
+                    <img id="scoreboard-team-a-player-1-shields" class="scoreboard-shields" style="grid-area: 3/7; display: block;" src="assets/Shop/Shields_2.png">
+                    <img id="scoreboard-team-a-player-2-shields" class="scoreboard-shields" style="grid-area: 4/7; display: block;" src="assets/Shop/Shields_2.png">
+                    <img id="scoreboard-team-a-player-3-shields" class="scoreboard-shields" style="grid-area: 5/7; display: block;" src="assets/Shop/Shields_2.png">
+                    <img id="scoreboard-team-a-player-4-shields" class="scoreboard-shields" style="grid-area: 6/7; display: block;" src="assets/Shop/Shields_1.png">
+                    <img id="scoreboard-team-a-player-5-shields" class="scoreboard-shields" style="grid-area: 7/7; display: block;" src="assets/Shop/Shields_2.png">
+                    <!-- Guns -->
+                    <img id="scoreboard-team-a-player-1-weapon" class="scoreboard-weapons" style="grid-area: 3/8; transform: scaleX(-1);" src="assets/Shop/TX_Hud_Pistol_AutoPistol.png">
+                    <img id="scoreboard-team-a-player-2-weapon" class="scoreboard-weapons" style="grid-area: 4/8; transform: scaleX(-1);" src="assets/Shop/TX_Hud_Pistol_Classic.png">
+                    <img id="scoreboard-team-a-player-3-weapon" class="scoreboard-weapons" style="grid-area: 5/8; transform: scaleX(-1);" src="assets/Shop/TX_Hud_Pistol_Luger.png">
+                    <img id="scoreboard-team-a-player-4-weapon" class="scoreboard-weapons" style="grid-area: 6/8; transform: scaleX(-1);" src="assets/Shop/TX_Hud_Pistol_Sheriff.png">
+                    <img id="scoreboard-team-a-player-5-weapon" class="scoreboard-weapons" style="grid-area: 7/8; transform: scaleX(-1);" src="assets/Shop/TX_Hud_Pistol_Slim.png">
+                    <!-- Credits -->
+                    <div class="flex-column" style="grid-area: 3/9; padding-right: 13px;">
+                        <div class="scoreboard-spent-credits" style="display: flex; justify-content: flex-end;">
+                            <span style="margin-top: 1px;">-</span>
+                            <img style="width: 12px; height: 12px;" src="assets/Shop/Credits_Spent_Icon.png">
+                            <span id="scoreboard-team-a-player-1-spent-credits" style="margin-top: 3px;">4,100</span>
+                        </div>
+                        <div class="scoreboard-credits" style="justify-content: flex-end;">
+                            <img style="width: 12px; height: 12px;" src="assets/Shop/Credits_Icon.png">
+                            <span id="scoreboard-team-a-player-1-credits" style="margin-top: 3px;">150</span>
+                        </div>
+                    </div>
+                    <div class="flex-column" style="grid-area: 4/9; padding-right: 13px;">
+                        <div class="scoreboard-spent-credits" style="display: flex; justify-content: flex-end;">
+                            <span style="margin-top: 1px;">-</span>
+                            <img style="width: 12px; height: 12px;" src="assets/Shop/Credits_Spent_Icon.png">
+                            <span id="scoreboard-team-a-player-2-spent-credits" style="margin-top: 3px;">4,050</span>
+                        </div>
+                        <div class="scoreboard-credits" style="justify-content: flex-end;">
+                            <img style="width: 12px; height: 12px;" src="assets/Shop/Credits_Icon.png">
+                            <span id="scoreboard-team-a-player-2-credits" style="margin-top: 3px;">0</span>
+                        </div>
+                    </div>
+                    <div class="flex-column" style="grid-area: 5/9; padding-right: 13px;">
+                        <div class="scoreboard-spent-credits" style="display: flex; justify-content: flex-end;">
+                            <span style="margin-top: 1px;">-</span>
+                            <img style="width: 12px; height: 12px;" src="assets/Shop/Credits_Spent_Icon.png">
+                            <span id="scoreboard-team-a-player-3-spent-credits" style="margin-top: 3px;">3,900</span>
+                        </div>
+                        <div class="scoreboard-credits" style="justify-content: flex-end;">
+                            <img style="width: 12px; height: 12px;" src="assets/Shop/Credits_Icon.png">
+                            <span id="scoreboard-team-a-player-3-credits" style="margin-top: 3px;">600</span>
+                        </div>
+                    </div>
+                    <div class="flex-column" style="grid-area: 6/9; padding-right: 13px;">
+                        <div class="scoreboard-spent-credits" style="display: flex; justify-content: flex-end;">
+                            <span style="margin-top: 1px;">-</span>
+                            <img style="width: 12px; height: 12px;" src="assets/Shop/Credits_Spent_Icon.png">
+                            <span id="scoreboard-team-a-player-4-spent-credits" style="margin-top: 3px;">3,800</span>
+                        </div>
+                        <div class="scoreboard-credits" style="justify-content: flex-end;">
+                            <img style="width: 12px; height: 12px;" src="assets/Shop/Credits_Icon.png">
+                            <span id="scoreboard-team-a-player-4-credits" style="margin-top: 3px;">550</span>
+                        </div>
+                    </div>
+                    <div class="flex-column" style="grid-area: 7/9; padding-right: 13px;">
+                        <div class="scoreboard-spent-credits" style="display: flex; justify-content: flex-end;">
+                            <span style="margin-top: 1px;">-</span>
+                            <img style="width: 12px; height: 12px;" src="assets/Shop/Credits_Spent_Icon.png">
+                            <span id="scoreboard-team-a-player-5-spent-credits" style="margin-top: 3px;">4,500</span>
+                        </div>
+                        <div class="scoreboard-credits" style="justify-content: flex-end;">
+                            <img style="width: 12px; height: 12px;" src="assets/Shop/Credits_Icon.png">
+                            <span id="scoreboard-team-a-player-5-credits" style="margin-top: 3px;">50</span>
+                        </div>
+                    </div>
+                </div> <!-- scoreboard-team-a-players -->
+
+                <!-- ############################################### -->
+                <!-- ########## Scoreboard Team B Players ########## -->
+                <!-- ############################################### -->
+                <div id="scoreboard-team-b-players">
+                    <!-- Scoreboard Background -->
+                    <div class="scoreboard-line-trim" style="grid-area: 1/1/2/-1;"></div>
+                    <div class="scoreboard-line-trim" style="grid-area: -2/1/-1/-1;"></div>
+                    <div class="scoreboard-background-generic" style="grid-area: 2/1/3/-1;"></div>
+                    <div class="scoreboard-background-generic" style="grid-area: 4/1/5/4;"></div>
+                    <div class="scoreboard-background-generic" style="grid-area: 6/1/7/4;"></div>
+                    <div class="scoreboard-background-generic" style="grid-area: 8/1/9/-1;"></div>
+                    <div class="scoreboard-background-generic" style="grid-area: 4/5/5/-2;"></div>
+                    <div class="scoreboard-background-generic" style="grid-area: 6/5/7/-2;"></div>
+                    <div class="scoreboard-team-b-background" style="grid-area: 3/1; border-left: 0;"></div>
+                    <div class="scoreboard-team-b-background" style="grid-area: 3/2;"></div>
+                    <div class="scoreboard-team-b-background" style="grid-area: 3/3;"></div>
+                    <div class="scoreboard-team-b-background" style="grid-area: 3/5;"></div>
+                    <div class="scoreboard-team-b-background" style="grid-area: 3/6;"></div>
+                    <div class="scoreboard-team-b-background" style="grid-area: 3/7/4/9;"></div>
+                    <div class="scoreboard-team-b-background" style="grid-area: 5/1; border-left: 0;"></div>
+                    <div class="scoreboard-team-b-background" style="grid-area: 5/2;"></div>
+                    <div class="scoreboard-team-b-background" style="grid-area: 5/3;"></div>
+                    <div class="scoreboard-team-b-background" style="grid-area: 5/5;"></div>
+                    <div class="scoreboard-team-b-background" style="grid-area: 5/6;"></div>
+                    <div class="scoreboard-team-b-background" style="grid-area: 5/7/6/9;"></div>
+                    <div class="scoreboard-team-b-background" style="grid-area: 7/1; border-left: 0;"></div>
+                    <div class="scoreboard-team-b-background" style="grid-area: 7/2;"></div>
+                    <div class="scoreboard-team-b-background" style="grid-area: 7/3;"></div>
+                    <div class="scoreboard-team-b-background" style="grid-area: 7/5;"></div>
+                    <div class="scoreboard-team-b-background" style="grid-area: 7/6;"></div>
+                    <div class="scoreboard-team-b-background" style="grid-area: 7/7/8/9;"></div>
+                    <div class="scoreboard-team-b-color-background-1" style="grid-area: 3/-2;"></div>
+                    <div class="scoreboard-team-b-color-background-2" style="grid-area: 4/-2;"></div>
+                    <div class="scoreboard-team-b-color-background-1" style="grid-area: 5/-2;"></div>
+                    <div class="scoreboard-team-b-color-background-2" style="grid-area: 6/-2;"></div>
+                    <div class="scoreboard-team-b-color-background-1" style="grid-area: 7/-2;"></div>
+                    <!-- Scoreboard Headings -->                    
+                    <span class="scoreboard-heading" style="grid-area: 2/1/3/2;">CREDS</span>
+                    <span class="scoreboard-heading" style="grid-area: 2/2/3/3; margin-left: 3px;">LOADOUT</span>
+                    <span class="scoreboard-heading" style="grid-area: 2/3/3/4;">SHIELD</span>
+                    <span class="scoreboard-heading" style="grid-area: 2/4/3/6; margin-left: 3px;">ABILITIES</span>
+                    <div class="scoreboard-kda" style="grid-area: 2/6/3/7; margin-left: 3px;">
+                        <span class="scoreboard-heading">K</span>
+                        <span class="scoreboard-heading">D</span>
+                        <span class="scoreboard-heading">A</span>
+                    </div>
+                    <span class="scoreboard-heading" style="grid-area: 2/7/3/10; margin-left: 3px;">PLAYER</span>
+                    <!-- Agent Icons -->
+                    <div class="scoreboard-agent-icon" style="grid-area: 3/-3/4/-1; transform: scaleX(-1);">
+                        <img id="scoreboard-team-b-player-1-agent-icon" src="assets/Agents/Sprinter_Icon.png">
+                    </div>
+                    <div class="scoreboard-agent-icon" style="grid-area: 4/-3/5/-1; transform: scaleX(-1);">
+                        <img id="scoreboard-team-b-player-2-agent-icon" src="assets/Agents/Wraith_Icon.png">
+                    </div>
+                    <div class="scoreboard-agent-icon" style="grid-area: 5/-3/6/-1; transform: scaleX(-1);">
+                        <img id="scoreboard-team-b-player-3-agent-icon" src="assets/Agents/Hunter_Icon.png">
+                    </div>
+                    <div class="scoreboard-agent-icon" style="grid-area: 6/-3/7/-1; transform: scaleX(-1);">
+                        <img id="scoreboard-team-b-player-4-agent-icon" src="assets/Agents/Grenadier_Icon.png">
+                    </div>
+                    <div class="scoreboard-agent-icon" style="grid-area: 7/-3/8/-1; transform: scaleX(-1);">
+                        <img id="scoreboard-team-b-player-5-agent-icon" src="assets/Agents/Gumshoe_Icon.png">
+                    </div>
+                    <!-- Player Names -->
+                    <span id="scoreboard-team-b-player-1-name" class="scoreboard-player-name" style="grid-area: 3/7; text-align: right;">enerii</span>
+                    <span id="scoreboard-team-b-player-2-name" class="scoreboard-player-name" style="grid-area: 4/7; text-align: right;">Tara</span>
+                    <span id="scoreboard-team-b-player-3-name" class="scoreboard-player-name" style="grid-area: 5/7; text-align: right;">Alexy</span>
+                    <span id="scoreboard-team-b-player-4-name" class="scoreboard-player-name" style="grid-area: 6/7; text-align: right;">Kamiyu</span>
+                    <span id="scoreboard-team-b-player-5-name" class="scoreboard-player-name" style="grid-area: 7/7; text-align: right;">shirazi</span>
+                    <!-- Player KDA's  -->
+                    <div class="scoreboard-kda" style="grid-area: 3/6/4/7; margin-right: 3px;">
+                        <span id="scoreboard-team-b-player-1-kills" class="scoreboard-player-kda">7</span>
+                        <span id="scoreboard-team-b-player-1-deaths" class="scoreboard-player-kda">7</span>
+                        <span id="scoreboard-team-b-player-1-assists" class="scoreboard-player-kda">4</span>
+                    </div>
+                    <div class="scoreboard-kda" style="grid-area: 4/6/5/7; margin-right: 3px;">
+                        <span id="scoreboard-team-b-player-2-kills" class="scoreboard-player-kda">7</span>
+                        <span id="scoreboard-team-b-player-2-deaths" class="scoreboard-player-kda">6</span>
+                        <span id="scoreboard-team-b-player-2-assists" class="scoreboard-player-kda">3</span>
+                    </div>
+                    <div class="scoreboard-kda" style="grid-area: 5/6/6/7; margin-right: 3px;">
+                        <span id="scoreboard-team-b-player-3-kills" class="scoreboard-player-kda">6</span>
+                        <span id="scoreboard-team-b-player-3-deaths" class="scoreboard-player-kda">5</span>
+                        <span id="scoreboard-team-b-player-3-assists" class="scoreboard-player-kda">4</span>
+                    </div>
+                    <div class="scoreboard-kda" style="grid-area: 6/6/7/7; margin-right: 3px;">
+                        <span id="scoreboard-team-b-player-4-kills" class="scoreboard-player-kda">6</span>
+                        <span id="scoreboard-team-b-player-4-deaths" class="scoreboard-player-kda">6</span>
+                        <span id="scoreboard-team-b-player-4-assists" class="scoreboard-player-kda">4</span>
+                    </div>
+                    <div class="scoreboard-kda" style="grid-area: 7/6/8/7; margin-right: 3px;">
+                        <span id="scoreboard-team-b-player-5-kills" class="scoreboard-player-kda">4</span>
+                        <span id="scoreboard-team-b-player-5-deaths" class="scoreboard-player-kda">4</span>
+                        <span id="scoreboard-team-b-player-5-assists" class="scoreboard-player-kda">1</span>
+                    </div>
+                    <!-- Abilities -->
+                    <div class="flex-column" style="grid-area: 3/5; margin-left: 3px;">
+                        <div class="scoreboard-player-abilities">
+                            <img id="scoreboard-team-b-player-1-ability-1" src="assets/Agents/Sprinter_Ability_1.png">
+                            <img id="scoreboard-team-b-player-1-ability-2" src="assets/Agents/Sprinter_Ability_2.png">
+                            <img id="scoreboard-team-b-player-1-ability-3" src="assets/Agents/Sprinter_Ability_3.png">
+                        </div>
+                        <div id="scoreboard-team-b-player-1-astra" class="scoreboard-astra-stars" style="display: none;">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                        </div>
+                    </div>
+                    <div class="flex-column" style="grid-area: 4/5; margin-left: 3px;">
+                        <div class="scoreboard-player-abilities">
+                            <img id="scoreboard-team-b-player-2-ability-1" src="assets/Agents/Wraith_Ability_1.png">
+                            <img id="scoreboard-team-b-player-2-ability-2" src="assets/Agents/Wraith_Ability_2.png">
+                            <img id="scoreboard-team-b-player-2-ability-3" src="assets/Agents/Wraith_Ability_3.png">
+                        </div>
+                        <div id="scoreboard-team-b-player-2-astra" class="scoreboard-astra-stars" style="display: none;">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                        </div>
+                    </div>
+                    <div class="flex-column" style="grid-area: 5/5; margin-left: 3px;">
+                        <div class="scoreboard-player-abilities">
+                            <img id="scoreboard-team-b-player-3-ability-1" src="assets/Agents/Hunter_Ability_1.png">
+                            <img id="scoreboard-team-b-player-3-ability-2" src="assets/Agents/Hunter_Ability_2.png">
+                            <img id="scoreboard-team-b-player-3-ability-3" src="assets/Agents/Hunter_Ability_3.png">
+                        </div>
+                        <div id="scoreboard-team-b-player-3-astra" class="scoreboard-astra-stars" style="display: none;">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                        </div>
+                    </div>
+                    <div class="flex-column" style="grid-area: 6/5; margin-left: 3px;">
+                        <div class="scoreboard-player-abilities">
+                            <img id="scoreboard-team-b-player-4-ability-1" src="assets/Agents/Grenadier_Ability_1.png">
+                            <img id="scoreboard-team-b-player-4-ability-2" src="assets/Agents/Grenadier_Ability_2.png">
+                            <img id="scoreboard-team-b-player-4-ability-3" src="assets/Agents/Grenadier_Ability_3.png">
+                        </div>
+                        <div id="scoreboard-team-b-player-4-astra" class="scoreboard-astra-stars" style="display: none;">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                        </div>
+                    </div>
+                    <div class="flex-column" style="grid-area: 7/5; margin-left: 3px;">
+                        <div class="scoreboard-player-abilities">
+                            <img id="scoreboard-team-b-player-5-ability-1" src="assets/Agents/Gumshoe_Ability_1.png">
+                            <img id="scoreboard-team-b-player-5-ability-2" src="assets/Agents/Gumshoe_Ability_2.png">
+                            <img id="scoreboard-team-b-player-5-ability-3" src="assets/Agents/Gumshoe_Ability_3.png">
+                        </div>
+                        <div id="scoreboard-team-b-player-5-astra" class="scoreboard-astra-stars" style="display: none;">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                            <img src="assets/Agents/Rift_Ability_4.png">
+                        </div>
+                    </div>
+                    <!-- Ultimates -->
+                    <div id="scoreboard-team-b-player-1-ult-active-background" class="scoreboard-team-b-color-background-1" style="grid-area: 3/4; display: none;"></div>
+                    <div id="scoreboard-team-b-player-1-ult-active" class="scoreboard-ult-active" style="grid-area: 3/4; margin-left: 3px; display: none;">
+                        <div style="grid-area: 1/1/3/3; height: 0; width: 0; border-bottom: 21px solid var(--teamBTrim); border-left: 21px solid transparent;"></div>
+                        <div style="grid-area: 1/3/3/5; height: 0; width: 0; border-bottom: 21px solid var(--teamBTrim); border-right: 21px solid transparent;"></div>
+                        <div style="grid-area: 3/1/5/3; height: 0; width: 0; border-top: 21px solid var(--teamBTrim); border-left: 21px solid transparent;"></div>
+                        <div style="grid-area: 3/3/5/5; height: 0; width: 0; border-top: 21px solid var(--teamBTrim); border-right: 21px solid transparent;"></div>
+                        <div style="grid-area: 2/2; height: 0; width: 0; border-bottom: 19px solid #0D1821; border-left: 19px solid transparent;"></div>
+                        <div style="grid-area: 2/3; height: 0; width: 0; border-bottom: 19px solid #0D1821; border-right: 19px solid transparent;"></div>
+                        <div style="grid-area: 3/2; height: 0; width: 0; border-top: 19px solid #0D1821; border-left: 19px solid transparent;"></div>
+                        <div style="grid-area: 3/3; height: 0; width: 0; border-top: 19px solid #0D1821; border-right: 19px solid transparent;"></div>
+                        <img class="scoreboard-team-b-player-1-ult-icon" src="assets/Agents/Sprinter_Ability_Ult.png">        
+                    </div>
+                    <div id="scoreboard-team-b-player-1-ult-inactive" class="scoreboard-team-b-background" style="grid-area: 3/4; display: flex;">
+                        <div class="scoreboard-ult-inactive">
+                            <img class="scoreboard-team-b-player-1-ult-icon" src="assets/Agents/Sprinter_Ability_Ult.png">
+                            <img id="scoreboard-team-b-player-1-ult-dots" style="height: 10px; width: 76px; object-fit: contain; margin-top: 10px;" src="assets/ult_dots/Ult_Dots_3_7.png">
+                        </div>
+                    </div>
+                    <div id="scoreboard-team-b-player-2-ult-active-background" class="scoreboard-team-b-color-background-2" style="grid-area: 4/4; display: flex;"></div>
+                    <div id="scoreboard-team-b-player-2-ult-active" class="scoreboard-ult-active" style="grid-area: 4/4; margin-left: 3px; display: grid;">
+                        <div style="grid-area: 1/1/3/3; height: 0; width: 0; border-bottom: 21px solid var(--teamBTrim); border-left: 21px solid transparent;"></div>
+                        <div style="grid-area: 1/3/3/5; height: 0; width: 0; border-bottom: 21px solid var(--teamBTrim); border-right: 21px solid transparent;"></div>
+                        <div style="grid-area: 3/1/5/3; height: 0; width: 0; border-top: 21px solid var(--teamBTrim); border-left: 21px solid transparent;"></div>
+                        <div style="grid-area: 3/3/5/5; height: 0; width: 0; border-top: 21px solid var(--teamBTrim); border-right: 21px solid transparent;"></div>
+                        <div style="grid-area: 2/2; height: 0; width: 0; border-bottom: 19px solid #0D1821; border-left: 19px solid transparent;"></div>
+                        <div style="grid-area: 2/3; height: 0; width: 0; border-bottom: 19px solid #0D1821; border-right: 19px solid transparent;"></div>
+                        <div style="grid-area: 3/2; height: 0; width: 0; border-top: 19px solid #0D1821; border-left: 19px solid transparent;"></div>
+                        <div style="grid-area: 3/3; height: 0; width: 0; border-top: 19px solid #0D1821; border-right: 19px solid transparent;"></div>
+                        <img class="scoreboard-team-b-player-2-ult-icon" src="assets/Agents/Wraith_Ability_Ult.png">
+                    </div>
+                    <div id="scoreboard-team-b-player-2-ult-inactive" class="scoreboard-background-generic" style="grid-area: 4/4; display: none;">
+                        <div class="scoreboard-ult-inactive">
+                            <img class="scoreboard-team-b-player-2-ult-icon" style="margin-left: 3px;" src="assets/Agents/Wraith_Ability_Ult.png">
+                            <img id="scoreboard-team-b-player-2-ult-dots" style="height: 10px; width: 76px; object-fit: contain; margin-top: 10px;" src="assets/ult_dots/Ult_Dots_7_7.png">
+                        </div>
+                    </div>
+                    <div id="scoreboard-team-b-player-3-ult-active-background" class="scoreboard-team-b-color-background-1" style="grid-area: 5/4; display: flex;"></div>
+                    <div id="scoreboard-team-b-player-3-ult-active" class="scoreboard-ult-active" style="grid-area: 5/4; margin-left: 3px; display: grid;">
+                        <div style="grid-area: 1/1/3/3; height: 0; width: 0; border-bottom: 21px solid var(--teamBTrim); border-left: 21px solid transparent;"></div>
+                        <div style="grid-area: 1/3/3/5; height: 0; width: 0; border-bottom: 21px solid var(--teamBTrim); border-right: 21px solid transparent;"></div>
+                        <div style="grid-area: 3/1/5/3; height: 0; width: 0; border-top: 21px solid var(--teamBTrim); border-left: 21px solid transparent;"></div>
+                        <div style="grid-area: 3/3/5/5; height: 0; width: 0; border-top: 21px solid var(--teamBTrim); border-right: 21px solid transparent;"></div>
+                        <div style="grid-area: 2/2; height: 0; width: 0; border-bottom: 19px solid #0D1821; border-left: 19px solid transparent;"></div>
+                        <div style="grid-area: 2/3; height: 0; width: 0; border-bottom: 19px solid #0D1821; border-right: 19px solid transparent;"></div>
+                        <div style="grid-area: 3/2; height: 0; width: 0; border-top: 19px solid #0D1821; border-left: 19px solid transparent;"></div>
+                        <div style="grid-area: 3/3; height: 0; width: 0; border-top: 19px solid #0D1821; border-right: 19px solid transparent;"></div>
+                        <img class="scoreboard-team-b-player-3-ult-icon" src="assets/Agents/Hunter_Ability_Ult.png">        
+                    </div>
+                    <div id="scoreboard-team-b-player-3-ult-inactive" class="scoreboard-team-b-background" style="grid-area: 5/4; display: none;">
+                        <div class="scoreboard-ult-inactive">
+                            <img class="scoreboard-team-b-player-3-ult-icon" src="assets/Agents/Hunter_Ability_Ult.png">
+                            <img id="scoreboard-team-b-player-3-ult-dots" style="height: 10px; width: 76px; object-fit: contain; margin-top: 10px;" src="assets/ult_dots/Ult_Dots_8_8.png">
+                        </div>
+                    </div>
+                    <div id="scoreboard-team-b-player-4-ult-active-background" class="scoreboard-team-b-color-background-2" style="grid-area: 6/4; display: none;"></div>
+                    <div id="scoreboard-team-b-player-4-ult-active" class="scoreboard-ult-active" style="grid-area: 6/4; margin-left: 3px; display: none;">
+                        <div style="grid-area: 1/1/3/3; height: 0; width: 0; border-bottom: 21px solid var(--teamBTrim); border-left: 21px solid transparent;"></div>
+                        <div style="grid-area: 1/3/3/5; height: 0; width: 0; border-bottom: 21px solid var(--teamBTrim); border-right: 21px solid transparent;"></div>
+                        <div style="grid-area: 3/1/5/3; height: 0; width: 0; border-top: 21px solid var(--teamBTrim); border-left: 21px solid transparent;"></div>
+                        <div style="grid-area: 3/3/5/5; height: 0; width: 0; border-top: 21px solid var(--teamBTrim); border-right: 21px solid transparent;"></div>
+                        <div style="grid-area: 2/2; height: 0; width: 0; border-bottom: 19px solid #0D1821; border-left: 19px solid transparent;"></div>
+                        <div style="grid-area: 2/3; height: 0; width: 0; border-bottom: 19px solid #0D1821; border-right: 19px solid transparent;"></div>
+                        <div style="grid-area: 3/2; height: 0; width: 0; border-top: 19px solid #0D1821; border-left: 19px solid transparent;"></div>
+                        <div style="grid-area: 3/3; height: 0; width: 0; border-top: 19px solid #0D1821; border-right: 19px solid transparent;"></div>
+                        <img class="scoreboard-team-b-player-4-ult-icon" src="assets/Agents/Grenadier_Ability_Ult.png">
+                    </div>
+                    <div id="scoreboard-team-b-player-4-ult-inactive" class="scoreboard-background-generic" style="grid-area: 6/4; display: flex;">
+                        <div class="scoreboard-ult-inactive">
+                            <img class="scoreboard-team-b-player-4-ult-icon" style="margin-left: 3px;" src="assets/Agents/Grenadier_Ability_Ult.png">
+                            <img id="scoreboard-team-b-player-4-ult-dots" style="height: 10px; width: 76px;  object-fit: contain; margin-top: 10px;" src="assets/ult_dots/Ult_Dots_5_7.png">
+                        </div>
+                    </div>
+                    <div id="scoreboard-team-b-player-5-ult-active-background" class="scoreboard-team-b-color-background-1" style="grid-area: 7/4; display: flex;"></div>
+                    <div id="scoreboard-team-b-player-5-ult-active" class="scoreboard-ult-active" style="grid-area: 7/4; margin-left: 3px; display: grid;">
+                        <div style="grid-area: 1/1/3/3; height: 0; width: 0; border-bottom: 21px solid var(--teamBTrim); border-left: 21px solid transparent;"></div>
+                        <div style="grid-area: 1/3/3/5; height: 0; width: 0; border-bottom: 21px solid var(--teamBTrim); border-right: 21px solid transparent;"></div>
+                        <div style="grid-area: 3/1/5/3; height: 0; width: 0; border-top: 21px solid var(--teamBTrim); border-left: 21px solid transparent;"></div>
+                        <div style="grid-area: 3/3/5/5; height: 0; width: 0; border-top: 21px solid var(--teamBTrim); border-right: 21px solid transparent;"></div>
+                        <div style="grid-area: 2/2; height: 0; width: 0; border-bottom: 19px solid #0D1821; border-left: 19px solid transparent;"></div>
+                        <div style="grid-area: 2/3; height: 0; width: 0; border-bottom: 19px solid #0D1821; border-right: 19px solid transparent;"></div>
+                        <div style="grid-area: 3/2; height: 0; width: 0; border-top: 19px solid #0D1821; border-left: 19px solid transparent;"></div>
+                        <div style="grid-area: 3/3; height: 0; width: 0; border-top: 19px solid #0D1821; border-right: 19px solid transparent;"></div>
+                        <img class="scoreboard-team-b-player-5-ult-icon" src="assets/Agents/Gumshoe_Ability_Ult.png">        
+                    </div>
+                    <div id="scoreboard-team-b-player-5-ult-inactive" class="scoreboard-team-b-background" style="grid-area: 7/4; display: none;">
+                        <div class="scoreboard-ult-inactive">
+                            <img class="scoreboard-team-b-player-5-ult-icon" src="assets/Agents/Gumshoe_Ability_Ult.png">
+                            <img id="scoreboard-team-b-player-5-ult-dots" style="height: 10px; width: 76px; object-fit: contain; margin-top: 10px;" src="assets/ult_dots/Ult_Dots_6_6.png">
+                        </div>
+                    </div>
+                    <!-- Shields -->
+                    <img id="scoreboard-team-b-player-1-shields" class="scoreboard-shields" style="grid-area: 3/3; display: block;" src="assets/Shop/Shields_2.png">
+                    <img id="scoreboard-team-b-player-2-shields" class="scoreboard-shields" style="grid-area: 4/3; display: block;" src="assets/Shop/Shields_2.png">
+                    <img id="scoreboard-team-b-player-3-shields" class="scoreboard-shields" style="grid-area: 5/3; display: block;" src="assets/Shop/Shields_2.png">
+                    <img id="scoreboard-team-b-player-4-shields" class="scoreboard-shields" style="grid-area: 6/3; display: block;" src="assets/Shop/Shields_2.png">
+                    <img id="scoreboard-team-b-player-5-shields" class="scoreboard-shields" style="grid-area: 7/3; display: block;" src="assets/Shop/Shields_2.png">
+                    <!-- Guns -->
+                    <img id="scoreboard-team-b-player-1-weapon" class="scoreboard-weapons" style="grid-area: 3/2;" src="assets/Shop/TX_Hud_Rifles_Ghost.png">
+                    <img id="scoreboard-team-b-player-2-weapon" class="scoreboard-weapons" style="grid-area: 4/2;" src="assets/Shop/TX_Hud_Rifles_Volcano.png">
+                    <img id="scoreboard-team-b-player-3-weapon" class="scoreboard-weapons" style="grid-area: 5/2;" src="assets/Shop/TX_Hud_Sniper_Operater.png">
+                    <img id="scoreboard-team-b-player-4-weapon" class="scoreboard-weapons" style="grid-area: 6/2;" src="assets/Shop/TX_Hud_SMGs_Ninja.png">
+                    <img id="scoreboard-team-b-player-5-weapon" class="scoreboard-weapons" style="grid-area: 7/2;" src="assets/Shop/TX_Hud_SMGs_Vector.png">
+                    <!-- Credits -->
+                    <div class="flex-column" style="grid-area: 3/1; padding-left: 13px;">
+                        <div class="scoreboard-spent-credits" style="display: flex; justify-content: flex-start;">
+                            <span style="margin-top: 1px;">-</span>
+                            <img style="width: 12px; height: 12px;" src="assets/Shop/Credits_Spent_Icon.png">
+                            <span id="scoreboard-team-b-player-1-spent-credits" style="margin-top: 3px;">4,100</span>
+                        </div>
+                        <div class="scoreboard-credits" style="justify-content: flex-start;">
+                            <span id="scoreboard-team-b-player-1-credits-spacer" style="opacity: 0; display: block;">-</span>
+                            <img style="width: 12px; height: 12px;" src="assets/Shop/Credits_Icon.png">
+                            <span id="scoreboard-team-b-player-1-credits" style="margin-top: 3px;">150</span>
+                        </div>
+                    </div>
+                    <div class="flex-column" style="grid-area: 4/1; padding-left: 13px;">
+                        <div class="scoreboard-spent-credits" style="display: flex; justify-content: flex-start;">
+                            <span style="margin-top: 1px;">-</span>
+                            <img style="width: 12px; height: 12px;" src="assets/Shop/Credits_Spent_Icon.png">
+                            <span id="scoreboard-team-b-player-2-spent-credits" style="margin-top: 3px;">4,050</span>
+                        </div>
+                        <div class="scoreboard-credits" style="justify-content: flex-start;">
+                            <span id="scoreboard-team-b-player-2-credits-spacer" style="opacity: 0; display: block;">-</span>
+                            <img style="width: 12px; height: 12px;" src="assets/Shop/Credits_Icon.png">
+                            <span id="scoreboard-team-b-player-2-credits" style="margin-top: 3px;">0</span>
+                        </div>
+                    </div>
+                    <div class="flex-column" style="grid-area: 5/1; padding-left: 13px;">
+                        <div class="scoreboard-spent-credits" style="display: flex; justify-content: flex-start;">
+                            <span style="margin-top: 1px;">-</span>
+                            <img style="width: 12px; height: 12px;" src="assets/Shop/Credits_Spent_Icon.png">
+                            <span id="scoreboard-team-b-player-3-spent-credits" style="margin-top: 3px;">3,900</span>
+                        </div>
+                        <div class="scoreboard-credits" style="justify-content: flex-start;">
+                            <span id="scoreboard-team-b-player-3-credits-spacer" style="opacity: 0; display: block;">-</span>
+                            <img style="width: 12px; height: 12px;" src="assets/Shop/Credits_Icon.png">
+                            <span id="scoreboard-team-b-player-3-credits" style="margin-top: 3px;">600</span>
+                        </div>
+                    </div>
+                    <div class="flex-column" style="grid-area: 6/1; padding-left: 13px;">
+                        <div class="scoreboard-spent-credits" style="display: flex; justify-content: flex-start;">
+                            <span style="margin-top: 1px;">-</span>
+                            <img style="width: 12px; height: 12px;" src="assets/Shop/Credits_Spent_Icon.png">
+                            <span id="scoreboard-team-b-player-4-spent-credits" style="margin-top: 3px;">3,800</span>
+                        </div>
+                        <div class="scoreboard-credits" style="justify-content: flex-start;">
+                            <span id="scoreboard-team-b-player-4-credits-spacer" style="opacity: 0; display: block;">-</span>
+                            <img style="width: 12px; height: 12px;" src="assets/Shop/Credits_Icon.png">
+                            <span id="scoreboard-team-b-player-4-credits" style="margin-top: 3px;">550</span>
+                        </div>
+                    </div>
+                    <div class="flex-column" style="grid-area: 7/1; padding-left: 13px;">
+                        <div class="scoreboard-spent-credits" style="display: flex; justify-content: flex-start;">
+                            <span style="margin-top: 1px;">-</span>
+                            <img style="width: 12px; height: 12px;" src="assets/Shop/Credits_Spent_Icon.png">
+                            <span id="scoreboard-team-b-player-5-spent-credits" style="margin-top: 3px;">4,500</span>
+                        </div>
+                        <div class="scoreboard-credits" style="justify-content: flex-start;">
+                            <span id="scoreboard-team-b-player-5-credits-spacer" style="opacity: 0; display: block;">-</span>
+                            <img style="width: 12px; height: 12px;" src="assets/Shop/Credits_Icon.png">
+                            <span id="scoreboard-team-b-player-5-credits" style="margin-top: 3px;">50</span>
+                        </div>
+                    </div>
+                </div> <!-- scoreboard-team-a-players -->
+            </div> <!-- scoreboard -->
+
+
+            <!-- ########################## -->
+            <!-- ##### Combat Overlay ##### -->
+            <!-- ########################## -->
+            <style>
+                #combat-overlay-team-a{
+                    grid-area: 1/1;
+                    display: grid;
+                    margin: 550px 0px 0px 16px;
+                    grid-template: repeat(4, 55px 35px 16px) 55px 35px/312px 32px;
+                    overflow: hidden;
+                    transition: 0.5s;
+                }
+
+                .combat-overlay-agent-icon {
+                    display: flex;
+                    overflow: hidden;
+                    width: fit-content;
+                    height: 55px;
+                    z-index: 1;
+                }
+
+                .combat-overlay-agent-icon img {
+                    width: 75px;
+                    object-fit: cover;
+                }
+
+                .combat-overlay-name {
+                    color: white;
+                    margin: 9px 8px 0px 8px;
+                    font-family: "DINNext";
+                    font-size: 14.5pt;
+                    z-index: 1;
+                }
+
+                .combat-overlay-team-a-top {
+                    display: grid;
+                    grid-template: 35px 20px/80px 1fr 1fr 1fr 107px;
+                    transition: 0.2s;
+                }
+
+                .combat-overlay-utility {
+                    z-index: 1;
+                    width: 20px;
+                    justify-self: center;
+                    align-self: center;
+                }
+
+                .combat-overlay-weapon {
+                    max-width: 80px;
+                    max-height: 25px;
+                    object-fit: contain;
+                    align-self: center;
+                    z-index: 1;
+                }
+
+                .combat-overlay-team-a-top .combat-overlay-weapon {
+                    transform: scaleX(-1);
+                }
+
+                .combat-overlay-team-a-credits {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: end;
+                    margin-right: 8px;
+                }
+
+                .combat-overlay-team-a-credits img, .combat-overlay-team-b-credits img {
+                    z-index: 1;
+                    margin: 1px;
+                    width: 10px;
+                    height: 10px;
+                }
+                
+                .combat-overlay-team-a-credits span, .combat-overlay-team-b-credits span {
+                    z-index: 1;
+                    color: white;
+                    font-family: "DINNext";
+                    font-size: 12pt;
+                    transform: translateY(-2px);
+                }
+
+                .combat-overlay-bottom {
+                    display: grid;
+                    grid-template: 5px 30px/312px;
+                }
+
+                .combat-overlay-team-a-trim {
+                    background-color: var(--teamATrim);
+                    width: 100%;
+                }
+
+                .combat-overlay-team-a-bottom-alive {
+                    display: grid;
+                    grid-template: 30px/235px 35px 35px 7px;
+                    align-items: center;
+                }
+
+                .combat-overlay-hp {
+                    color: white;
+                    text-align: center;
+                    font-family: "DINNext";
+                    font-size: 14pt;
+                    font-weight: bold;
+                    z-index: 1;
+                    margin-top: 2px;
+                }
+
+                .combat-overlay-team-a-shield {
+                    justify-self: end;
+                    width: 20px;
+                    margin-right: 3px;
+                    object-fit: contain;
+                    z-index: 1;
+                }
+
+                .combat-overlay-team-a-ult-dots {
+                    justify-self: end;
+                    max-height: 10px;
+                    object-fit: contain;
+                    z-index: 1;
+                }
+
+                .combat-overlay-ult-active {
+                    display: grid;
+                    grid-template: 13px 13px/10px 35px 10px;
+                    z-index: 1;
+                    justify-self: end;
+                }
+
+                .combat-overlay-ult-active img {
+                    filter: invert(1);
+                    width: 20px;
+                    grid-area: 1/1/-1/-1;
+                    justify-self: center;
+                    align-self: center;
+                }
+
+                .combat-overlay-team-a-bottom-dead {
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: end;
+                    background: linear-gradient(to right, #0D1821, rgba(13, 24, 33, 0.2));
+                    width: 100%;
+                    transition: 0.3s;
+                }
+
+                /* Team B */
+                #combat-overlay-team-b{
+                    grid-area: 1/1;
+                    display: grid;
+                    justify-self: end;
+                    margin: 550px 16px 0px 0px;
+                    grid-template: repeat(4, 55px 35px 16px) 55px 35px/32px 312px;
+                    overflow: hidden;
+                    transition: 0.5s;
+                }
+
+                #combat-overlay-team-b .combat-overlay-agent-icon {
+                    justify-self: end;
+                    transform: scaleX(-1);
+                }
+
+
+                #combat-overlay-team-b .combat-overlay-name {
+                    justify-self: end;
+                }
+
+                .combat-overlay-team-b-top {
+                    display: grid;
+                    grid-template: 35px 20px/107px 1fr 1fr 1fr 80px;
+                    transition: 0.2s;
+                }
+
+                .combat-overlay-team-b-top .combat-overlay-weapon {
+                    justify-self: end;
+                }
+
+                .combat-overlay-team-b-credits {
+                    display: flex;
+                    flex-direction: row;
+                    margin-left: 8px;
+                }
+
+                .combat-overlay-team-b-trim {
+                    background-color: var(--teamBTrim);
+                    width: 100%;
+                    justify-self: end;
+                }
+
+                .combat-overlay-team-b-bottom-alive {
+                    display: grid;
+                    grid-template: 30px/7px 35px 35px 235px;
+                    align-items: center;
+                }
+
+                .combat-overlay-team-b-shield {
+                    width: 20px;
+                    margin-left: 3px;
+                    object-fit: contain;
+                    z-index: 1;
+                }
+
+                .combat-overlay-team-b-ult-dots {
+                    max-height: 10px;
+                    object-fit: contain;
+                    z-index: 1;
+                }
+
+                .combat-overlay-team-b-bottom-alive .combat-overlay-ult-active {
+                    justify-self: start;
+                    display: grid;
+                    grid-template: 13px 13px/10px 35px 10px;
+                    z-index: 1;
+                }
+
+                .combat-overlay-team-b-bottom-dead {
+                    display: flex;
+                    justify-self: end;
+                    align-items: end;
+                    background: linear-gradient(to left, #0D1821, rgba(13, 24, 33, 0.2));
+                    width: 100%;
+                    transition: 0.3s;
+                }
+            </style>
+
+            <div id="combat-overlay-team-a">
+                <!-- Team A Player 1 -->
+                <div id="combat-overlay-team-a-player-1-top" class="combat-overlay-team-a-top" style="grid-area: 1/1;">
+                    <div id="combat-overlay-team-a-player-1-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
+                    <img id="combat-overlay-team-a-player-1-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Gumshoe_Ability_1.png">
+                    <img id="combat-overlay-team-a-player-1-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Gumshoe_Ability_2.png">
+                    <img id="combat-overlay-team-a-player-1-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Gumshoe_Ability_3.png">
+                    <img id="combat-overlay-team-a-player-1-weapon" class="combat-overlay-weapon" style="grid-area: 1/5;" src="assets/Shop/TX_Hud_Pistol_Classic.png">
+                    <div class="combat-overlay-team-a-credits" style="grid-area: 2/5;">
+                        <img src="assets/Shop/Credits_Icon.png">
+                        <span class="combat-overlay-team-a-player-1-credits">2,050</span>
+                    </div>
+                </div>
+                <div class="combat-overlay-bottom" style="grid-area: 2/1;">
+                    <div id="combat-overlay-team-a-player-1-trim" class="combat-overlay-team-a-trim" style="grid-area: 1/1;"></div>
+
+                    <div id="combat-overlay-team-a-player-1-bottom-alive" class="combat-overlay-team-a-bottom-alive" style="grid-area: 2/1; display: grid;">
+                        <div style="background-color: var(--teamABackground); opacity: 0.8; grid-area: 1/1/2/-1; height: 100%;"></div>
+                        <span id="combat-overlay-team-a-player-1-hp" class="combat-overlay-hp" style="grid-area: 1/3 ;">100</span>
+                        <img id="combat-overlay-team-a-player-1-shield" class="combat-overlay-team-a-shield" style="grid-area: 1/2;" src="assets/Shop/Shields_2.png">
+                        <img id="combat-overlay-team-a-player-1-ult-dots" class="combat-overlay-team-a-ult-dots" style="grid-area: 1/1; display: grid;" src="assets/ult_dots/Ult_Dots_1_6.png">
+                        <div id="combat-overlay-team-a-player-1-ult-active" class="combat-overlay-ult-active" style="grid-area: 1/1; display: none;">
+                            <div style="grid-area: 1/1; width: 0; height: 0; border-bottom: 13px solid white; border-left: 10px solid transparent;"></div>
+                            <div style="grid-area: 2/1; width: 0; height: 0; border-top: 13px solid white; border-left: 10px solid transparent;"></div>
+                            <div style="grid-area: 1/-2; width: 0; height: 0; border-bottom: 13px solid white; border-right: 10px solid transparent;"></div>
+                            <div style="grid-area: 2/-2; width: 0; height: 0; border-top: 13px solid white; border-right: 10px solid transparent;"></div>
+                            <div style="grid-area: 1/2/3/3; background-color: white;"></div>
+                            <img id="combat-overlay-team-a-player-1-ult-icon" src="assets/Agents/Gumshoe_Ability_Ult.png">
+                        </div>
+                    </div>
+
+                    <div id="combat-overlay-team-a-player-1-bottom-dead" class="combat-overlay-team-a-bottom-dead" style="grid-area: 1/1/3/2; display: none;">
+                        <div class="combat-overlay-team-a-credits">
+                            <img src="assets/Shop/Credits_Icon.png">
+                            <span class="combat-overlay-team-a-player-1-credits">2,050</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="combat-overlay-agent-icon" style="grid-area: 1/1;">
+                    <img id="combat-overlay-team-a-player-1-agent-icon" src="assets/Agents/Gumshoe_Icon.png">
+                </div>
+                <span id="combat-overlay-team-a-player-1-name" class="combat-overlay-name" style="grid-area: 2/1;">Player 1</span>
+                
+                <!-- Team A Player 2 -->
+                <div id="combat-overlay-team-a-player-2-top" class="combat-overlay-team-a-top" style="grid-area: 4/1;">
+                    <div id="combat-overlay-team-a-player-2-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
+                    <img id="combat-overlay-team-a-player-2-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Wraith_Ability_1.png">
+                    <img id="combat-overlay-team-a-player-2-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Wraith_Ability_2.png">
+                    <img id="combat-overlay-team-a-player-2-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Wraith_Ability_3.png">
+                    <img id="combat-overlay-team-a-player-2-weapon" class="combat-overlay-weapon" style="grid-area: 1/5;" src="assets/Shop/TX_Hud_Pistol_Slim.png">
+                    <div class="combat-overlay-team-a-credits" style="grid-area: 2/5;">
+                        <img src="assets/Shop/Credits_Icon.png">
+                        <span class="combat-overlay-team-a-player-2-credits">300</span>
+                    </div>
+                </div>
+                <div class="combat-overlay-bottom" style="grid-area: 5/1;">
+                    <div id="combat-overlay-team-a-player-2-trim" class="combat-overlay-team-a-trim" style="grid-area: 1/1;"></div>
+
+                    <div id="combat-overlay-team-a-player-2-bottom-alive" class="combat-overlay-team-a-bottom-alive" style="grid-area: 2/1; display: grid;">
+                        <div style="background-color: var(--teamABackground); opacity: 0.8; grid-area: 1/1/2/-1; height: 100%;"></div>
+                        <span id="combat-overlay-team-a-player-2-hp" class="combat-overlay-hp" style="grid-area: 1/3 ;">100</span>
+                        <img id="combat-overlay-team-a-player-2-shield" class="combat-overlay-team-a-shield" style="grid-area: 1/2;" src="assets/Shop/Shields_2.png">
+                        <img id="combat-overlay-team-a-player-2-ult-dots" class="combat-overlay-team-a-ult-dots" style="grid-area: 1/1; display: grid;" src="assets/ult_dots/Ult_Dots_1_7.png">
+                        <div id="combat-overlay-team-a-player-2-ult-active" class="combat-overlay-ult-active" style="grid-area: 1/1; display: none;">
+                            <div style="grid-area: 1/1; width: 0; height: 0; border-bottom: 13px solid white; border-left: 10px solid transparent;"></div>
+                            <div style="grid-area: 2/1; width: 0; height: 0; border-top: 13px solid white; border-left: 10px solid transparent;"></div>
+                            <div style="grid-area: 1/-2; width: 0; height: 0; border-bottom: 13px solid white; border-right: 10px solid transparent;"></div>
+                            <div style="grid-area: 2/-2; width: 0; height: 0; border-top: 13px solid white; border-right: 10px solid transparent;"></div>
+                            <div style="grid-area: 1/2/3/3; background-color: white;"></div>
+                            <img id="combat-overlay-team-a-player-2-ult-icon" src="assets/Agents/Wraith_Ability_Ult.png">
+                        </div>
+                    </div>
+
+                    <div id="combat-overlay-team-a-player-2-bottom-dead" class="combat-overlay-team-a-bottom-dead" style="grid-area: 1/1/3/2; display: none;">
+                        <div class="combat-overlay-team-a-credits">
+                            <img src="assets/Shop/Credits_Icon.png">
+                            <span class="combat-overlay-team-a-player-2-credits">300</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="combat-overlay-agent-icon" style="grid-area: 4/1;">
+                    <img id="combat-overlay-team-a-player-2-agent-icon" src="assets/Agents/Wraith_Icon.png">
+                </div>
+                <span id="combat-overlay-team-a-player-2-name" class="combat-overlay-name" style="grid-area: 5/1;">Player 2</span>
+                
+                <!-- Team A Player 3 -->
+                <div id="combat-overlay-team-a-player-3-top" class="combat-overlay-team-a-top" style="grid-area: 7/1;">
+                    <div id="combat-overlay-team-a-player-3-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
+                    <img id="combat-overlay-team-a-player-3-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Breach_Ability_1.png">
+                    <img id="combat-overlay-team-a-player-3-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Breach_Ability_2.png">
+                    <img id="combat-overlay-team-a-player-3-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Breach_Ability_3.png">
+                    <img id="combat-overlay-team-a-player-3-weapon" class="combat-overlay-weapon" style="grid-area: 1/5;" src="assets/Shop/TX_Hud_Pistol_AutoPistol.png">
+                    <div class="combat-overlay-team-a-credits" style="grid-area: 2/5;">
+                        <img src="assets/Shop/Credits_Icon.png">
+                        <span class="combat-overlay-team-a-player-3-credits">2,050</span>
+                    </div>
+                </div>
+                <div class="combat-overlay-bottom" style="grid-area: 8/1;">
+                    <div id="combat-overlay-team-a-player-3-trim" class="combat-overlay-team-a-trim" style="grid-area: 1/1;"></div>
+
+                    <div id="combat-overlay-team-a-player-3-bottom-alive" class="combat-overlay-team-a-bottom-alive" style="grid-area: 2/1; display: grid;">
+                        <div style="background-color: var(--teamABackground); opacity: 0.8; grid-area: 1/1/2/-1; height: 100%;"></div>
+                        <span id="combat-overlay-team-a-player-3-hp" class="combat-overlay-hp" style="grid-area: 1/3 ;">100</span>
+                        <img id="combat-overlay-team-a-player-3-shield" class="combat-overlay-team-a-shield" style="grid-area: 1/2;" src="assets/Shop/Shields_2.png">
+                        <img id="combat-overlay-team-a-player-3-ult-dots" class="combat-overlay-team-a-ult-dots" style="grid-area: 1/1; display: grid;" src="assets/ult_dots/Ult_Dots_1_9.png">
+                        <div id="combat-overlay-team-a-player-3-ult-active" class="combat-overlay-ult-active" style="grid-area: 1/1; display: none;">
+                            <div style="grid-area: 1/1; width: 0; height: 0; border-bottom: 13px solid white; border-left: 10px solid transparent;"></div>
+                            <div style="grid-area: 2/1; width: 0; height: 0; border-top: 13px solid white; border-left: 10px solid transparent;"></div>
+                            <div style="grid-area: 1/-2; width: 0; height: 0; border-bottom: 13px solid white; border-right: 10px solid transparent;"></div>
+                            <div style="grid-area: 2/-2; width: 0; height: 0; border-top: 13px solid white; border-right: 10px solid transparent;"></div>
+                            <div style="grid-area: 1/2/3/3; background-color: white;"></div>
+                            <img id="combat-overlay-team-a-player-3-ult-icon" src="assets/Agents/Breach_Ability_Ult.png">
+                        </div>
+                    </div>
+
+                    <div id="combat-overlay-team-a-player-3-bottom-dead" class="combat-overlay-team-a-bottom-dead" style="grid-area: 1/1/3/2; display: none;">
+                        <div class="combat-overlay-team-a-credits">
+                            <img src="assets/Shop/Credits_Icon.png">
+                            <span class="combat-overlay-team-a-player-3-credits">2,050</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="combat-overlay-agent-icon" style="grid-area: 7/1;">
+                    <img id="combat-overlay-team-a-player-3-agent-icon" src="assets/Agents/Breach_Icon.png">
+                </div>
+                <span id="combat-overlay-team-a-player-3-name" class="combat-overlay-name" style="grid-area: 8/1;">Player 3</span>
+
+                <!-- Team A Player 4 -->
+                <div id="combat-overlay-team-a-player-4-top" class="combat-overlay-team-a-top" style="grid-area: 10/1;">
+                    <div id="combat-overlay-team-a-player-4-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
+                    <img id="combat-overlay-team-a-player-4-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Hunter_Ability_1.png">
+                    <img id="combat-overlay-team-a-player-4-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Hunter_Ability_2.png">
+                    <img id="combat-overlay-team-a-player-4-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Hunter_Ability_3.png">
+                    <img id="combat-overlay-team-a-player-4-weapon" class="combat-overlay-weapon" style="grid-area: 1/5;" src="assets/Shop/TX_Hud_Pistol_Luger.png">
+                    <div class="combat-overlay-team-a-credits" style="grid-area: 2/5;">
+                        <img src="assets/Shop/Credits_Icon.png">
+                        <span class="combat-overlay-team-a-player-4-credits">2,300</span>
+                    </div>
+                </div>
+                <div class="combat-overlay-bottom" style="grid-area: 11/1;">
+                    <div id="combat-overlay-team-a-player-4-trim" class="combat-overlay-team-a-trim" style="grid-area: 1/1;"></div>
+
+                    <div id="combat-overlay-team-a-player-4-bottom-alive" class="combat-overlay-team-a-bottom-alive" style="grid-area: 2/1; display: grid;">
+                        <div style="background-color: var(--teamABackground); opacity: 0.8; grid-area: 1/1/2/-1; height: 100%;"></div>
+                        <span id="combat-overlay-team-a-player-4-hp" class="combat-overlay-hp" style="grid-area: 1/3 ;">100</span>
+                        <img id="combat-overlay-team-a-player-4-shield" class="combat-overlay-team-a-shield" style="grid-area: 1/2;" src="assets/Shop/Shields_2.png">
+                        <img id="combat-overlay-team-a-player-4-ult-dots" class="combat-overlay-team-a-ult-dots" style="grid-area: 1/1; display: grid;" src="assets/ult_dots/Ult_Dots_1_8.png">
+                        <div id="combat-overlay-team-a-player-4-ult-active" class="combat-overlay-ult-active" style="grid-area: 1/1; display: none;">
+                            <div style="grid-area: 1/1; width: 0; height: 0; border-bottom: 13px solid white; border-left: 10px solid transparent;"></div>
+                            <div style="grid-area: 2/1; width: 0; height: 0; border-top: 13px solid white; border-left: 10px solid transparent;"></div>
+                            <div style="grid-area: 1/-2; width: 0; height: 0; border-bottom: 13px solid white; border-right: 10px solid transparent;"></div>
+                            <div style="grid-area: 2/-2; width: 0; height: 0; border-top: 13px solid white; border-right: 10px solid transparent;"></div>
+                            <div style="grid-area: 1/2/3/3; background-color: white;"></div>
+                            <img id="combat-overlay-team-a-player-4-ult-icon" src="assets/Agents/Hunter_Ability_Ult.png">
+                        </div>
+                    </div>
+
+                    <div id="combat-overlay-team-a-player-4-bottom-dead" class="combat-overlay-team-a-bottom-dead" style="grid-area: 1/1/3/2; display: none;">
+                        <div class="combat-overlay-team-a-credits">
+                            <img src="assets/Shop/Credits_Icon.png">
+                            <span class="combat-overlay-team-a-player-4-credits">2,300</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="combat-overlay-agent-icon" style="grid-area: 10/1;">
+                    <img id="combat-overlay-team-a-player-4-agent-icon" src="assets/Agents/Hunter_Icon.png">
+                </div>
+                <span id="combat-overlay-team-a-player-4-name" class="combat-overlay-name" style="grid-area: 11/1;">Player 4</span>
+                
+                <!-- Team A Player 5 -->
+                <div id="combat-overlay-team-a-player-5-top" class="combat-overlay-team-a-top" style="grid-area: 13/1;">
+                    <div id="combat-overlay-team-a-player-5-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
+                    <img id="combat-overlay-team-a-player-5-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Clay_Ability_1.png">
+                    <img id="combat-overlay-team-a-player-5-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Clay_Ability_2.png">
+                    <img id="combat-overlay-team-a-player-5-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Clay_Ability_3.png">
+                    <img id="combat-overlay-team-a-player-5-weapon" class="combat-overlay-weapon" style="grid-area: 1/5;" src="assets/Shop/TX_Hud_Pistol_Sheriff.png">
+                    <div class="combat-overlay-team-a-credits" style="grid-area: 2/5;">
+                        <img src="assets/Shop/Credits_Icon.png">
+                        <span class="combat-overlay-team-a-player-5-credits">1,550</span>
+                    </div>
+                </div>
+                <div class="combat-overlay-bottom" style="grid-area: 14/1;">
+                    <div id="combat-overlay-team-a-player-5-trim" class="combat-overlay-team-a-trim" style="grid-area: 1/1;"></div>
+
+                    <div id="combat-overlay-team-a-player-5-bottom-alive" class="combat-overlay-team-a-bottom-alive" style="grid-area: 2/1; display: grid;">
+                        <div style="background-color: var(--teamABackground); opacity: 0.8; grid-area: 1/1/2/-1; height: 100%;"></div>
+                        <span id="combat-overlay-team-a-player-5-hp" class="combat-overlay-hp" style="grid-area: 1/3 ;">100</span>
+                        <img id="combat-overlay-team-a-player-5-shield" class="combat-overlay-team-a-shield" style="grid-area: 1/2;" src="assets/Shop/Shields_2.png">
+                        <img id="combat-overlay-team-a-player-5-ult-dots" class="combat-overlay-team-a-ult-dots" style="grid-area: 1/1; display: grid;" src="assets/ult_dots/Ult_Dots_1_8.png">
+                        <div id="combat-overlay-team-a-player-5-ult-active" class="combat-overlay-ult-active" style="grid-area: 1/1; display: none;">
+                            <div style="grid-area: 1/1; width: 0; height: 0; border-bottom: 13px solid white; border-left: 10px solid transparent;"></div>
+                            <div style="grid-area: 2/1; width: 0; height: 0; border-top: 13px solid white; border-left: 10px solid transparent;"></div>
+                            <div style="grid-area: 1/-2; width: 0; height: 0; border-bottom: 13px solid white; border-right: 10px solid transparent;"></div>
+                            <div style="grid-area: 2/-2; width: 0; height: 0; border-top: 13px solid white; border-right: 10px solid transparent;"></div>
+                            <div style="grid-area: 1/2/3/3; background-color: white;"></div>
+                            <img id="combat-overlay-team-a-player-5-ult-icon" src="assets/Agents/Clay_Ability_Ult.png">
+                        </div>
+                    </div>
+
+                    <div id="combat-overlay-team-a-player-5-bottom-dead" class="combat-overlay-team-a-bottom-dead" style="grid-area: 1/1/3/2; display: none;">
+                        <div class="combat-overlay-team-a-credits">
+                            <img src="assets/Shop/Credits_Icon.png">
+                            <span class="combat-overlay-team-a-player-5-credits">1,550</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="combat-overlay-agent-icon" style="grid-area: 13/1;">
+                    <img id="combat-overlay-team-a-player-5-agent-icon" src="assets/Agents/Clay_Icon.png">
+                </div>
+                <span id="combat-overlay-team-a-player-5-name" class="combat-overlay-name" style="grid-area: 14/1;">Player 5</span>
+
+            </div> <!-- combat-overlay-team-a -->
+
+
+            
+            <div id="combat-overlay-team-b">
+                <!-- Team B Player 1 -->
+                <div id="combat-overlay-team-b-player-1-top" class="combat-overlay-team-b-top" style="grid-area: 1/2;">
+                    <div id="combat-overlay-team-b-player-1-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
+                    <img id="combat-overlay-team-b-player-1-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Gumshoe_Ability_1.png">
+                    <img id="combat-overlay-team-b-player-1-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Gumshoe_Ability_2.png">
+                    <img id="combat-overlay-team-b-player-1-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Gumshoe_Ability_3.png">
+                    <img id="combat-overlay-team-b-player-1-weapon" class="combat-overlay-weapon" style="grid-area: 1/1;" src="assets/Shop/TX_Hud_Pistol_Classic.png">
+                    <div class="combat-overlay-team-b-credits" style="grid-area: 2/1;">
+                        <img src="assets/Shop/Credits_Icon.png">
+                        <span class="combat-overlay-team-b-player-1-credits">2,050</span>
+                    </div>
+                </div>
+                <div class="combat-overlay-bottom" style="grid-area: 2/2;">
+                    <div id="combat-overlay-team-b-player-1-trim" class="combat-overlay-team-b-trim" style="grid-area: 1/1;"></div>
+
+                    <div id="combat-overlay-team-b-player-1-bottom-alive" class="combat-overlay-team-b-bottom-alive" style="grid-area: 2/1; display: grid;">
+                        <div style="background-color: var(--teamBBackground); opacity: 0.8; grid-area: 1/1/2/-1; height: 100%;"></div>
+                        <span id="combat-overlay-team-b-player-1-hp" class="combat-overlay-hp" style="grid-area: 1/2 ;">100</span>
+                        <img id="combat-overlay-team-b-player-1-shield" class="combat-overlay-team-b-shield" style="grid-area: 1/3;" src="assets/Shop/Shields_2.png">
+                        <img id="combat-overlay-team-b-player-1-ult-dots" class="combat-overlay-team-b-ult-dots" style="grid-area: 1/4; display: grid;" src="assets/ult_dots/Ult_Dots_1_6.png">
+                        <div id="combat-overlay-team-b-player-1-ult-active" class="combat-overlay-ult-active" style="grid-area: 1/4; display: none;">
+                            <div style="grid-area: 1/1; width: 0; height: 0; border-bottom: 13px solid white; border-left: 10px solid transparent;"></div>
+                            <div style="grid-area: 2/1; width: 0; height: 0; border-top: 13px solid white; border-left: 10px solid transparent;"></div>
+                            <div style="grid-area: 1/-2; width: 0; height: 0; border-bottom: 13px solid white; border-right: 10px solid transparent;"></div>
+                            <div style="grid-area: 2/-2; width: 0; height: 0; border-top: 13px solid white; border-right: 10px solid transparent;"></div>
+                            <div style="grid-area: 1/2/3/3; background-color: white;"></div>
+                            <img id="combat-overlay-team-b-player-1-ult-icon" src="assets/Agents/Gumshoe_Ability_Ult.png">
+                        </div>
+                    </div>
+
+                    <div id="combat-overlay-team-b-player-1-bottom-dead" class="combat-overlay-team-b-bottom-dead" style="grid-area: 1/1/3/2; display: none;">
+                        <div class="combat-overlay-team-b-credits">
+                            <img src="assets/Shop/Credits_Icon.png">
+                            <span class="combat-overlay-team-b-player-1-credits">2,050</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="combat-overlay-agent-icon" style="grid-area: 1/2;">
+                    <img id="combat-overlay-team-b-player-1-agent-icon" src="assets/Agents/Gumshoe_Icon.png">
+                </div>
+                <span id="combat-overlay-team-b-player-1-name" class="combat-overlay-name" style="grid-area: 2/2;">Player 1</span>
+                
+                <!-- Team B Player 2 -->
+                <div id="combat-overlay-team-b-player-2-top" class="combat-overlay-team-b-top" style="grid-area: 4/2;">
+                    <div id="combat-overlay-team-b-player-2-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
+                    <img id="combat-overlay-team-b-player-2-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Wraith_Ability_1.png">
+                    <img id="combat-overlay-team-b-player-2-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Wraith_Ability_2.png">
+                    <img id="combat-overlay-team-b-player-2-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Wraith_Ability_3.png">
+                    <img id="combat-overlay-team-b-player-2-weapon" class="combat-overlay-weapon" style="grid-area: 1/1;" src="assets/Shop/TX_Hud_Pistol_Slim.png">
+                    <div class="combat-overlay-team-b-credits" style="grid-area: 2/1;">
+                        <img src="assets/Shop/Credits_Icon.png">
+                        <span class="combat-overlay-team-b-player-2-credits">300</span>
+                    </div>
+                </div>
+                <div class="combat-overlay-bottom" style="grid-area: 5/2;">
+                    <div id="combat-overlay-team-b-player-2-trim" class="combat-overlay-team-b-trim" style="grid-area: 1/1;"></div>
+
+                    <div id="combat-overlay-team-b-player-2-bottom-alive" class="combat-overlay-team-b-bottom-alive" style="grid-area: 2/1; display: grid;">
+                        <div style="background-color: var(--teamBBackground); opacity: 0.8; grid-area: 1/1/2/-1; height: 100%;"></div>
+                        <span id="combat-overlay-team-b-player-2-hp" class="combat-overlay-hp" style="grid-area: 1/2 ;">100</span>
+                        <img id="combat-overlay-team-b-player-2-shield" class="combat-overlay-team-b-shield" style="grid-area: 1/3;" src="assets/Shop/Shields_2.png">
+                        <img id="combat-overlay-team-b-player-2-ult-dots" class="combat-overlay-team-b-ult-dots" style="grid-area: 1/4; display: grid;" src="assets/ult_dots/Ult_Dots_1_7.png">
+                        <div id="combat-overlay-team-b-player-2-ult-active" class="combat-overlay-ult-active" style="grid-area: 1/4; display: none;">
+                            <div style="grid-area: 1/1; width: 0; height: 0; border-bottom: 13px solid white; border-left: 10px solid transparent;"></div>
+                            <div style="grid-area: 2/1; width: 0; height: 0; border-top: 13px solid white; border-left: 10px solid transparent;"></div>
+                            <div style="grid-area: 1/-2; width: 0; height: 0; border-bottom: 13px solid white; border-right: 10px solid transparent;"></div>
+                            <div style="grid-area: 2/-2; width: 0; height: 0; border-top: 13px solid white; border-right: 10px solid transparent;"></div>
+                            <div style="grid-area: 1/2/3/3; background-color: white;"></div>
+                            <img id="combat-overlay-team-b-player-2-ult-icon" src="assets/Agents/Wraith_Ability_Ult.png">
+                        </div>
+                    </div>
+
+                    <div id="combat-overlay-team-b-player-2-bottom-dead" class="combat-overlay-team-b-bottom-dead" style="grid-area: 1/1/3/2; display: none;">
+                        <div class="combat-overlay-team-b-credits">
+                            <img src="assets/Shop/Credits_Icon.png">
+                            <span class="combat-overlay-team-b-player-2-credits">300</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="combat-overlay-agent-icon" style="grid-area: 4/2;">
+                    <img id="combat-overlay-team-b-player-2-agent-icon" src="assets/Agents/Wraith_Icon.png">
+                </div>
+                <span id="combat-overlay-team-b-player-2-name" class="combat-overlay-name" style="grid-area: 5/2;">Player 2</span>
+                
+                <!-- Team B Player 3 -->
+                <div id="combat-overlay-team-b-player-3-top" class="combat-overlay-team-b-top" style="grid-area: 7/2;">
+                    <div id="combat-overlay-team-b-player-3-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
+                    <img id="combat-overlay-team-b-player-3-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Breach_Ability_1.png">
+                    <img id="combat-overlay-team-b-player-3-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Breach_Ability_2.png">
+                    <img id="combat-overlay-team-b-player-3-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Breach_Ability_3.png">
+                    <img id="combat-overlay-team-b-player-3-weapon" class="combat-overlay-weapon" style="grid-area: 1/1;" src="assets/Shop/TX_Hud_Pistol_AutoPistol.png">
+                    <div class="combat-overlay-team-b-credits" style="grid-area: 2/1;">
+                        <img src="assets/Shop/Credits_Icon.png">
+                        <span class="combat-overlay-team-b-player-3-credits">2,050</span>
+                    </div>
+                </div>
+                <div class="combat-overlay-bottom" style="grid-area: 8/2;">
+                    <div id="combat-overlay-team-b-player-3-trim" class="combat-overlay-team-b-trim" style="grid-area: 1/1;"></div>
+
+                    <div id="combat-overlay-team-b-player-3-bottom-alive" class="combat-overlay-team-b-bottom-alive" style="grid-area: 2/1; display: grid;">
+                        <div style="background-color: var(--teamBBackground); opacity: 0.8; grid-area: 1/1/2/-1; height: 100%;"></div>
+                        <span id="combat-overlay-team-b-player-3-hp" class="combat-overlay-hp" style="grid-area: 1/2 ;">100</span>
+                        <img id="combat-overlay-team-b-player-3-shield" class="combat-overlay-team-b-shield" style="grid-area: 1/3;" src="assets/Shop/Shields_2.png">
+                        <img id="combat-overlay-team-b-player-3-ult-dots" class="combat-overlay-team-b-ult-dots" style="grid-area: 1/4; display: grid;" src="assets/ult_dots/Ult_Dots_1_9.png">
+                        <div id="combat-overlay-team-b-player-3-ult-active" class="combat-overlay-ult-active" style="grid-area: 1/4; display: none;">
+                            <div style="grid-area: 1/1; width: 0; height: 0; border-bottom: 13px solid white; border-left: 10px solid transparent;"></div>
+                            <div style="grid-area: 2/1; width: 0; height: 0; border-top: 13px solid white; border-left: 10px solid transparent;"></div>
+                            <div style="grid-area: 1/-2; width: 0; height: 0; border-bottom: 13px solid white; border-right: 10px solid transparent;"></div>
+                            <div style="grid-area: 2/-2; width: 0; height: 0; border-top: 13px solid white; border-right: 10px solid transparent;"></div>
+                            <div style="grid-area: 1/2/3/3; background-color: white;"></div>
+                            <img id="combat-overlay-team-b-player-3-ult-icon" src="assets/Agents/Breach_Ability_Ult.png">
+                        </div>
+                    </div>
+
+                    <div id="combat-overlay-team-b-player-3-bottom-dead" class="combat-overlay-team-b-bottom-dead" style="grid-area: 1/1/3/2; display: none;">
+                        <div class="combat-overlay-team-b-credits">
+                            <img src="assets/Shop/Credits_Icon.png">
+                            <span class="combat-overlay-team-b-player-3-credits">2,050</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="combat-overlay-agent-icon" style="grid-area: 7/2;">
+                    <img id="combat-overlay-team-b-player-3-agent-icon" src="assets/Agents/Breach_Icon.png">
+                </div>
+                <span id="combat-overlay-team-b-player-3-name" class="combat-overlay-name" style="grid-area: 8/2;">Player 3</span>
+
+                <!-- Team B Player 4 -->
+                <div id="combat-overlay-team-b-player-4-top" class="combat-overlay-team-b-top" style="grid-area: 10/2;">
+                    <div id="combat-overlay-team-b-player-4-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
+                    <img id="combat-overlay-team-b-player-4-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Hunter_Ability_1.png">
+                    <img id="combat-overlay-team-b-player-4-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Hunter_Ability_2.png">
+                    <img id="combat-overlay-team-b-player-4-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Hunter_Ability_3.png">
+                    <img id="combat-overlay-team-b-player-4-weapon" class="combat-overlay-weapon" style="grid-area: 1/1;" src="assets/Shop/TX_Hud_Pistol_Luger.png">
+                    <div class="combat-overlay-team-b-credits" style="grid-area: 2/1;">
+                        <img src="assets/Shop/Credits_Icon.png">
+                        <span class="combat-overlay-team-b-player-4-credits">2,300</span>
+                    </div>
+                </div>
+                <div class="combat-overlay-bottom" style="grid-area: 11/2;">
+                    <div id="combat-overlay-team-b-player-4-trim" class="combat-overlay-team-b-trim" style="grid-area: 1/1;"></div>
+
+                    <div id="combat-overlay-team-b-player-4-bottom-alive" class="combat-overlay-team-b-bottom-alive" style="grid-area: 2/1; display: grid;">
+                        <div style="background-color: var(--teamBBackground); opacity: 0.8; grid-area: 1/1/2/-1; height: 100%;"></div>
+                        <span id="combat-overlay-team-b-player-4-hp" class="combat-overlay-hp" style="grid-area: 1/2 ;">100</span>
+                        <img id="combat-overlay-team-b-player-4-shield" class="combat-overlay-team-b-shield" style="grid-area: 1/3;" src="assets/Shop/Shields_2.png">
+                        <img id="combat-overlay-team-b-player-4-ult-dots" class="combat-overlay-team-b-ult-dots" style="grid-area: 1/4; display: grid;" src="assets/ult_dots/Ult_Dots_1_8.png">
+                        <div id="combat-overlay-team-b-player-4-ult-active" class="combat-overlay-ult-active" style="grid-area: 1/4; display: none;">
+                            <div style="grid-area: 1/1; width: 0; height: 0; border-bottom: 13px solid white; border-left: 10px solid transparent;"></div>
+                            <div style="grid-area: 2/1; width: 0; height: 0; border-top: 13px solid white; border-left: 10px solid transparent;"></div>
+                            <div style="grid-area: 1/-2; width: 0; height: 0; border-bottom: 13px solid white; border-right: 10px solid transparent;"></div>
+                            <div style="grid-area: 2/-2; width: 0; height: 0; border-top: 13px solid white; border-right: 10px solid transparent;"></div>
+                            <div style="grid-area: 1/2/3/3; background-color: white;"></div>
+                            <img id="combat-overlay-team-b-player-4-ult-icon" src="assets/Agents/Hunter_Ability_Ult.png">
+                        </div>
+                    </div>
+
+                    <div id="combat-overlay-team-b-player-4-bottom-dead" class="combat-overlay-team-b-bottom-dead" style="grid-area: 1/1/3/2; display: none;">
+                        <div class="combat-overlay-team-b-credits">
+                            <img src="assets/Shop/Credits_Icon.png">
+                            <span class="combat-overlay-team-b-player-4-credits">2,300</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="combat-overlay-agent-icon" style="grid-area: 10/2;">
+                    <img id="combat-overlay-team-b-player-4-agent-icon" src="assets/Agents/Hunter_Icon.png">
+                </div>
+                <span id="combat-overlay-team-b-player-4-name" class="combat-overlay-name" style="grid-area: 11/2;">Player 4</span>
+                
+                <!-- Team B Player 5 -->
+                <div id="combat-overlay-team-b-player-5-top" class="combat-overlay-team-b-top" style="grid-area: 13/2;">
+                    <div id="combat-overlay-team-b-player-5-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
+                    <img id="combat-overlay-team-b-player-5-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Clay_Ability_1.png">
+                    <img id="combat-overlay-team-b-player-5-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Clay_Ability_2.png">
+                    <img id="combat-overlay-team-b-player-5-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Clay_Ability_3.png">
+                    <img id="combat-overlay-team-b-player-5-weapon" class="combat-overlay-weapon" style="grid-area: 1/1;" src="assets/Shop/TX_Hud_Pistol_Sheriff.png">
+                    <div class="combat-overlay-team-b-credits" style="grid-area: 2/1;">
+                        <img src="assets/Shop/Credits_Icon.png">
+                        <span class="combat-overlay-team-b-player-5-credits">1,550</span>
+                    </div>
+                </div>
+                <div class="combat-overlay-bottom" style="grid-area: 14/2;">
+                    <div id="combat-overlay-team-b-player-5-trim" class="combat-overlay-team-b-trim" style="grid-area: 1/1;"></div>
+
+                    <div id="combat-overlay-team-b-player-5-bottom-alive" class="combat-overlay-team-b-bottom-alive" style="grid-area: 2/1; display: grid;">
+                        <div style="background-color: var(--teamBBackground); opacity: 0.8; grid-area: 1/1/2/-1; height: 100%;"></div>
+                        <span id="combat-overlay-team-b-player-5-hp" class="combat-overlay-hp" style="grid-area: 1/2 ;">100</span>
+                        <img id="combat-overlay-team-b-player-5-shield" class="combat-overlay-team-b-shield" style="grid-area: 1/3;" src="assets/Shop/Shields_2.png">
+                        <img id="combat-overlay-team-b-player-5-ult-dots" class="combat-overlay-team-b-ult-dots" style="grid-area: 1/4; display: grid;" src="assets/ult_dots/Ult_Dots_1_8.png">
+                        <div id="combat-overlay-team-b-player-5-ult-active" class="combat-overlay-ult-active" style="grid-area: 1/4; display: none;">
+                            <div style="grid-area: 1/1; width: 0; height: 0; border-bottom: 13px solid white; border-left: 10px solid transparent;"></div>
+                            <div style="grid-area: 2/1; width: 0; height: 0; border-top: 13px solid white; border-left: 10px solid transparent;"></div>
+                            <div style="grid-area: 1/-2; width: 0; height: 0; border-bottom: 13px solid white; border-right: 10px solid transparent;"></div>
+                            <div style="grid-area: 2/-2; width: 0; height: 0; border-top: 13px solid white; border-right: 10px solid transparent;"></div>
+                            <div style="grid-area: 1/2/3/3; background-color: white;"></div>
+                            <img id="combat-overlay-team-b-player-5-ult-icon" src="assets/Agents/Clay_Ability_Ult.png">
+                        </div>
+                    </div>
+
+                    <div id="combat-overlay-team-b-player-5-bottom-dead" class="combat-overlay-team-b-bottom-dead" style="grid-area: 1/1/3/2; display: none;">
+                        <div class="combat-overlay-team-b-credits">
+                            <img src="assets/Shop/Credits_Icon.png">
+                            <span class="combat-overlay-team-b-player-5-credits">1,550</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="combat-overlay-agent-icon" style="grid-area: 13/2;">
+                    <img id="combat-overlay-team-b-player-5-agent-icon" src="assets/Agents/Clay_Icon.png">
+                </div>
+                <span id="combat-overlay-team-b-player-5-name" class="combat-overlay-name" style="grid-area: 14/2;">Player 5</span>
+
+            </div> <!-- combat-overlay-team-b -->
+
+        </div> <!-- in-game-overlay-advanced -->
+
+    </div> <!-- page-container -->
+
+</body>
+</html>
