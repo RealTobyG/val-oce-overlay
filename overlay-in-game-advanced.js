@@ -287,7 +287,7 @@ function setOverlay() {
     // ##### Set Scoreboard #####
     // ##########################
     if (teamAPlayers.length !==0) {
-        let teamAPlayersScoreboard = teamAPlayers
+        let teamAPlayersScoreboard = Array.from(teamAPlayers)
         teamAPlayersScoreboard.sort((a,b) => {
             if (b.kills-a.kills < 0) {return -1}
             if (b.kills-a.kills > 0) {return 1}
@@ -351,7 +351,7 @@ function setOverlay() {
     }
 
     if (teamBPlayers.length !==0) {
-        let teamBPlayersScoreboard = teamBPlayers
+        let teamBPlayersScoreboard = Array.from(teamBPlayers)
         teamBPlayersScoreboard.sort((a,b) => {
             if (b.kills-a.kills < 0) {return -1}
             if (b.kills-a.kills > 0) {return 1}
