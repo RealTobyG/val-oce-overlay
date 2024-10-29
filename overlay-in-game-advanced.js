@@ -8,7 +8,7 @@ let currentGame = {
     teamAScore: 0,
     teamBScore: 0,
     roundNumber: 0,
-    gameHalf: 1,
+    gameHalf: 0,
     currentGamePlayers: [],
 }
 function onPageLoad() {
