@@ -97,7 +97,7 @@ function processGameEvent(gameEvent) {
             playerData.buyPhaseToggle = 0
         }
         
-        console.log(`Processed ${playerData.team} player-${Number(gameEvent.eventIndex)} ${playerData.agent}`, playerData)
+        // console.log(`Processed ${playerData.team} player-${Number(gameEvent.eventIndex)} ${playerData.agent}`, playerData)
     }
 
     // Process Round Phase
@@ -159,6 +159,10 @@ function processGameEvent(gameEvent) {
     }
     if (gameEvent.event === "spike_defused") {
         currentGame.spikeState = "SpikeDefused"
+    }
+
+    if (gameEvent.event === "observing") {
+        currentGame.observing = gameEvent.data
     }
 }
 
@@ -442,7 +446,7 @@ function setOverlay() {
             // Sets Alive/Dead
             if (player.alive === false) {
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-top-background`).style.background = '#0D1821'
-                document.getElementById(`combat-overlay-team-a-player-${i+1}-top`).style.opacity = '0'
+                document.getElementById(`combat-overlay-team-a-player-${i+1}-top-background`).style.opacity = '0.3'
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-top`).style.transform = 'translateX(-315px)'
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-trim`).style.display = 'none'
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-bottom-alive`).style.display = 'none'
@@ -460,6 +464,11 @@ function setOverlay() {
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-bottom-dead`).style.width = '' 
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-agent-icon`).style.filter = ''
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-agent-icon`).style.opacity = ''
+            }
+
+            if (player.name === currentGame.observing) {
+                document.getElementById(`combat-overlay-team-a-player-${i+1}-top-background`).style.background = 'linear-gradient(to right, rgba(255, 233, 157, 0.7), rgba(13, 24, 33, 0.3))'
+                document.getElementById(`combat-overlay-team-a-player-${i+1}-top-background`).style.opacity = '1'
             }
         });
     }
@@ -508,6 +517,7 @@ function setOverlay() {
             // Sets Alive/Dead
             if (player.alive === false) {
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-top-background`).style.background = '#0D1821'
+                document.getElementById(`combat-overlay-team-a-player-${i+1}-top-background`).style.opacity = '0.3'
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-top`).style.opacity = '0'
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-top`).style.transform = 'translateX(315px)'
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-trim`).style.display = 'none'
@@ -526,6 +536,11 @@ function setOverlay() {
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-bottom-dead`).style.width = '' 
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-agent-icon`).style.filter = ''
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-agent-icon`).style.opacity = ''
+            }
+
+            if (player.name === currentGame.observing) {
+                document.getElementById(`combat-overlay-team-b-player-${i+1}-top-background`).style.background = 'linear-gradient(to right, rgba(255, 233, 157, 0.7), rgba(13, 24, 33, 0.3))'
+                document.getElementById(`combat-overlay-team-a-player-${i+1}-top-background`).style.opacity = '1'
             }
         });
     }
@@ -586,3 +601,49 @@ function setOverlay() {
     document.documentElement.style.setProperty('--bga2', `${overlaySetup.bga2}`)
     document.documentElement.style.setProperty('--frames', `${overlaySetup.frames}`)
 }
+
+let checkGameEventLog = null
+let fileHandle = null
+let gameEventLogLastModified = null
+let gameEventLogLastLength = 0
+let gameEventLogNewEvents = null
+
+
+async function getGameEventLog() {
+    [fileHandle] = await window.showOpenFilePicker({
+        types: [{
+            description: '.txt files',
+            accept: {"game-event-log/*": ['.txt']},
+        }],
+        excludeAcceptAllOption: true,
+        multiple: false,
+    })
+    clearGameEventLog(fileHandle, "")
+    checkGameEventLog = setInterval(readGameEventLog, 200)
+}   
+
+async function readGameEventLog() {
+    const fileData = await fileHandle.getFile();
+    if (gameEventLogLastModified !== fileData.lastModified) {
+        gameEventLogLastModified = fileData.lastModified
+        const fileText = await fileData.text()
+        const fileTextString = fileText
+        gameEventLogNewEvents = fileTextString.slice(gameEventLogLastLength, fileTextString.length)
+        gameEventLogLastLength = fileTextString.length
+        
+        console.log(gameEventLogNewEvents)
+    } else {
+        console.log('File Unchanged')
+    }
+}
+
+async function clearGameEventLog(fileHandle, contents) {
+    const writable = await fileHandle.createWritable();
+  
+    await writable.write(contents);
+  
+    await writable.close();
+}
+
+document.getElementById('load-game-event-log').addEventListener('click', getGameEventLog)
+document.getElementById('read-game-event-log').addEventListener('click', readGameEventLog)
