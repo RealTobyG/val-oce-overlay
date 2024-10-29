@@ -2677,6 +2677,7 @@ async function getOverlaySetup() {
     document.getElementById('intermission-overlay-link').href = `https://val-community-caster-overlay.pages.dev/overlay-intermission?token=${setupData.token}`
     document.getElementById('cams-overlay-link').href = `https://val-community-caster-overlay.pages.dev/overlay-cams?token=${setupData.token}`
     document.getElementById('cams-screen-overlay-link').href = `https://val-community-caster-overlay.pages.dev/overlay-cams-screen?token=${setupData.token}`
+    document.getElementById('in-game-overlay-advanced-link').href = `https://val-community-caster-overlay.pages.dev/overlay-in-game-advanced?token=${setupData.token}`                            
     console.log(setupData.token)
 }
 
