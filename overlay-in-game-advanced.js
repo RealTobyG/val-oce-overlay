@@ -8,7 +8,7 @@ let currentGame = {
     teamAScore: 0,
     teamBScore: 0,
     roundNumber: 0,
-    gameHalf: 0,
+    gameHalf: 1,
     currentGamePlayers: [],
 }
 function onPageLoad() {
@@ -30,11 +30,11 @@ function openSocket() {
             overlaySetup = serverMessage.overlay
             console.log(overlaySetup)   
         }
-        if (serverMessage.gameEvent) {
-            let gameEvent = serverMessage.gameEvent
-            console.log(gameEvent.event, gameEvent)
-            processGameEvent(gameEvent)
-        }
+        // if (serverMessage.gameEvent) {
+        //     let gameEvent = serverMessage.gameEvent
+        //     console.log(gameEvent.event, gameEvent)
+        //     processGameEvent(gameEvent)
+        // }
         setOverlay()
     };
 
@@ -97,13 +97,13 @@ function processGameEvent(gameEvent) {
             playerData.buyPhaseToggle = 0
         }
         
-        // console.log(`Processed ${playerData.team} player-${Number(gameEvent.eventIndex)} ${playerData.agent}`, playerData)
+        console.log(`Processed ${playerData.team} player-${Number(gameEvent.eventIndex)} ${playerData.agent} | Events left to process: ${gameEventQueue.length-1}`, playerData)
     }
 
     // Process Round Phase
     if (gameEvent.event === "round_phase") {
         currentGame.roundPhase = gameEvent.data
-        if (gameEvent.data === "shopping") {
+        if (gameEvent.data === "game_start") {
             for (const player of currentGame.currentGamePlayers) {
                 if (player) {
                     player.buyPhaseToggle = 1
@@ -111,6 +111,7 @@ function processGameEvent(gameEvent) {
             }
             currentGame.spikeState = "SpikeNotPlanted"
         }
+        console.log(`Processed ${gameEvent.event} - ${gameEvent.data} | Events left to process: ${gameEventQueue.length-1}`, gameEvent)
     }
 
     // Process Game State
@@ -120,16 +121,20 @@ function processGameEvent(gameEvent) {
             currentGame.currentGamePlayers = []
             currentGame.gameHalf = 0
         }
+        console.log(`Processed Game Phase - ${gameEvent.data} | Events left to process: ${gameEventQueue.length-1}`, gameEvent)
     }
     if (gameEvent.event === "state") {
         if (gameEvent.data === "WaitingToStart") {
             currentGame.gameState = "WaitingToStart"
+            console.log(`Processed Game Phase - ${gameEvent.data} | Events left to process: ${gameEventQueue.length-1}`, gameEvent)
         }
         if (gameEvent.data === "InProgress") {
             currentGame.gameState = "InProgress"
+            console.log(`Processed Game Phase - ${gameEvent.data} | Events left to process: ${gameEventQueue.length-1}`, gameEvent)
         }
         if (gameEvent.data === "WaitingPostMatch") {
             currentGame.gameState = "WaitingPostMatch"
+            console.log(`Processed Game Phase - ${gameEvent.data} | Events left to process: ${gameEventQueue.length-1}`, gameEvent)
         }
     }
 
@@ -138,32 +143,43 @@ function processGameEvent(gameEvent) {
         gameEvent.data = JSON.parse(gameEvent.data)
         currentGame.teamAScore = gameEvent.data.team_1
         currentGame.teamBScore = gameEvent.data.team_0
+        console.log(`Processed Game Score - ${gameEvent.data.team_1}-${gameEvent.data.team_0} | Events left to process: ${gameEventQueue.length-1}`, gameEvent)
     }
 
     // Process Round Number
     if (gameEvent.event === "round_number") {
         currentGame.roundNumber = Number(gameEvent.data)
+        console.log(`Processed Round Number - ${gameEvent.data} | Events left to process: ${gameEventQueue.length-1}`, gameEvent)
     }
 
     // Process Game Half
     if (gameEvent.event === "team") {
         currentGame.gameHalf++
+        console.log(`Processed Team - Side Change | Events left to process: ${gameEventQueue.length-1}`, gameEvent)
+
     }
 
     // Process Spike Events
     if (gameEvent.event === "spike_planted") {
         currentGame.spikeState = "SpikePlanted"
+        console.log(`Processed ${gameEvent.event} | Events left to process: ${gameEventQueue.length-1}`, gameEvent)
     }
     if (gameEvent.event === "spike_detonated") {
         currentGame.spikeState = "SpikeDetonated"
+        console.log(`Processed ${gameEvent.event} | Events left to process: ${gameEventQueue.length-1}`, gameEvent)
     }
     if (gameEvent.event === "spike_defused") {
         currentGame.spikeState = "SpikeDefused"
+        console.log(`Processed ${gameEvent.event} | Events left to process: ${gameEventQueue.length-1}`, gameEvent)
     }
 
     if (gameEvent.event === "observing") {
         currentGame.observing = gameEvent.data
+        console.log(`Processed ${gameEvent.event} - ${gameEvent.data} | Events left to process: ${gameEventQueue.length-1}`, gameEvent)
     }
+
+    gameEventQueue.splice(0, 1)
+    setOverlay()
 }
 
 function setOverlay() {
@@ -606,34 +622,25 @@ let checkGameEventLog = null
 let fileHandle = null
 let gameEventLogLastModified = null
 let gameEventLogLastLength = 0
-let gameEventLogNewEvents = null
+let gameEventQueue = []
+let gameEventQueueTimeout = null
 
 
 async function getGameEventLog() {
-    [fileHandle] = await window.showOpenFilePicker({
-        types: [{
-            description: '.txt files',
-            accept: {"game-event-log/*": ['.txt']},
-        }],
-        excludeAcceptAllOption: true,
-        multiple: false,
-    })
-    clearGameEventLog(fileHandle, "")
-    checkGameEventLog = setInterval(readGameEventLog, 200)
-}   
-
-async function readGameEventLog() {
-    const fileData = await fileHandle.getFile();
-    if (gameEventLogLastModified !== fileData.lastModified) {
-        gameEventLogLastModified = fileData.lastModified
-        const fileText = await fileData.text()
-        const fileTextString = fileText
-        gameEventLogNewEvents = fileTextString.slice(gameEventLogLastLength, fileTextString.length)
-        gameEventLogLastLength = fileTextString.length
-        
-        console.log(gameEventLogNewEvents)
-    } else {
-        console.log('File Unchanged')
+    try {
+        [fileHandle] = await window.showOpenFilePicker({
+            types: [{
+                description: '.txt files',
+                accept: {"game-event-log/*": ['.txt']},
+            }],
+            excludeAcceptAllOption: true,
+            multiple: false,
+        })
+        clearGameEventLog(fileHandle, "")
+        checkGameEventLog = setInterval(readGameEventLog, 200)
+        console.log('Game event log loaded successfully')
+    } catch (error) {
+        console.log(error)       
     }
 }
 
@@ -645,5 +652,51 @@ async function clearGameEventLog(fileHandle, contents) {
     await writable.close();
 }
 
+async function readGameEventLog() {
+    try {
+        const fileData = await fileHandle.getFile();
+        if (gameEventLogLastModified !== fileData.lastModified) {
+            gameEventLogLastModified = fileData.lastModified
+            const fileText = await fileData.text()
+            const fileTextString = fileText
+            const newEvents = fileTextString.slice(gameEventLogLastLength, fileTextString.length)
+            gameEventLogLastLength = fileTextString.length
+            if (newEvents.includes('\n')) {
+                Array.from(newEvents.split("\n")).forEach((event) => {
+                    if (event !== "") {
+                        gameEventQueue.push(event)
+                    }
+                })
+            } else if (newEvents!=="") {
+                gameEventQueue.push(newEvents)
+            }
+            if (gameEventQueueTimeout === null) {
+                processGameEventQueue()
+            }
+        } 
+    } catch (error) {
+        console.error('Read Fail', error)
+    }
+    
+}
+
+function processGameEventQueue() {
+    if (gameEventQueue.length !== 0) {
+        console.log(gameEventQueue[0])
+        try {
+            gameEventQueue[0] = JSON.parse(gameEventQueue[0].split("] ")[1])
+        } catch (error) {
+            console.log(error)
+            gameEventQueueTimeout = null
+            checkGameEventLog = null
+        }
+        
+        processGameEvent(gameEventQueue[0])
+        gameEventQueueTimeout = setInterval(processGameEventQueue, 100)
+    } else {
+        gameEventQueueTimeout = null
+    }
+}
+
+
 document.getElementById('load-game-event-log').addEventListener('click', getGameEventLog)
-document.getElementById('read-game-event-log').addEventListener('click', readGameEventLog)
