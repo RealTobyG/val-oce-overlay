@@ -71,10 +71,34 @@
             overflow: hidden;
         }
 
+        #game-event-log-message {
+            grid-area: 1/1;
+            justify-self: center;
+            align-self: center;
+            display: flex;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            width: 300px;
+            height: 200px;
+            font-size: 30pt;
+            font-family: "DINNext";
+            color: white;
+            margin-bottom: 400px;
+            border: solid white 10px;
+            border-radius: 10px;
+            transition: 0.5s;
+        }
 
         /* ########################### */
         /* ##### Overlay Heading ##### */
         /* ########################### */
+        #overlay-heading {
+            grid-area: 1/1;
+            display: grid;
+            grid-template: 1080px/1920px;
+        }
+        
         #overlay-heading-team-a {
             grid-area: 1/1;
             display: grid;
@@ -112,7 +136,6 @@
             color: white;
             font-size: 36pt;
             font-family: "DINNext";
-            font-weight: bold;
             text-align: center;
             transform: scaleX(0.85) translate(5px, 5px);
             z-index: 1;
@@ -139,7 +162,6 @@
             color: white;
             font-size: 36pt;
             font-family: "DINNext";
-            font-weight: bold;
             text-align: center;
             transform: scaleX(0.85) translate(-5px, 5px);
             z-index: 1;
@@ -184,6 +206,72 @@
             width: 60px;
             margin-top: 18px;
             transition: 0.5s;
+        }
+
+        /* Overlay Heading Maps */
+        #overlay-heading-maps {
+            grid-area: 1/1;
+            display: flex;
+            flex-direction: row;
+            height: 24px;
+            width: fit-content;
+        }
+
+        .overlay-heading-map-container {
+            display: grid;
+            grid-template: 12px 12px/12px auto;
+        }
+
+        .overlay-heading-map-container img {
+            max-width: 14px;
+            max-height: 14px;
+            object-fit: contain;
+            margin-bottom: 3px;
+        }
+
+        .overlay-heading-map-name {
+            grid-area: 1/2/3/3;
+            padding: 2px 30px 0px 5px;
+            display: flex;
+            width: fit-content;
+            background: linear-gradient(to right, rgb(13, 24, 33), rgba(13, 24, 33, 0.6));
+            align-items: center;
+            color: white;
+            font-family: "DINNext";
+            font-size: 12pt;
+            column-gap: 8px;
+            text-transform: uppercase;
+        }
+
+        /* Overlay Heading Event/Sponsor */
+        #overlay-heading-event-sponsor {
+            grid-area: 1/1;
+            justify-self: end;
+            display: grid;
+            grid-template: 90px/400px 240px;
+        }
+
+        #overlay-heading-event-game {
+            padding: 2px 5px 0px 5px;
+            display: flex;
+            width: fit-content;
+            background: linear-gradient(90deg, rgba(13,24,33,0.6) 0%, rgba(13,24,33,1) 50%, rgba(13,24,33,0.6) 100%);                        align-items: center;
+            color: white;
+            font-family: "DINNext";
+            font-size: 12pt;
+            text-transform: uppercase;
+        }
+
+        #overlay-heading-sponsor-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(13, 24, 33, 0.8);
+        }
+
+        #overlay-heading-sponsor-area img {
+            max-width: 200px;
+            max-height: 70px;
         }
 
 
@@ -472,78 +560,129 @@
 <body style="margin: 0;" onload="onPageLoad()">
     <div id="page-container">
 
-        <img src="assets/Valorant_Preview.png" style="display: none; z-index: -5;" class="grid-1-1">
+        <img src="assets/Valorant_Preview.png" style="/*display: none;*/ z-index: -5;" class="grid-1-1">
         <img src="assets/Valorant_Preview_2.png" style="display: none; z-index: -5" class="grid-1-1">
         <img src="assets/Valorant_Preview_3.png" style="display: none; z-index: -5" class="grid-1-1">
-        <iframe src="https://vdo.ninja/?view=XbT2Jpq" width="1920" height="1080" class="grid-1-1" style="display: none; z-index: 5;"></iframe>
+        <!-- <iframe src="https://vdo.ninja/?view=XbT2Jpq" width="1920" height="1080" class="grid-1-1" style="display: none; z-index: 5;"></iframe> -->
+        
+        <span id="game-event-log-message" style="opacity: 0; background-color: darkred;">Event Log Loaded Successfully</span>
+        
         <div id="in-game-overlay-advanced" style="display: grid;"> 
             <!-- ##################################### -->
             <!-- ########## Overlay Heading ########## -->
             <!-- ##################################### -->
-            <div id="overlay-heading-team-a">
-                <!-- Background Elements -->
-                <div style="grid-area: 1/1; width: 0; height: 0; border-bottom: 30px solid rgba(13, 24, 33, 0.8); border-left: 18px solid transparent;"></div>
-                <div style="grid-area: 2/1; width: 0; height: 0; border-top: 30px solid rgba(13, 24, 33, 0.8); border-left: 18px solid transparent;"></div>
-                <div style="grid-area: 1/-2; width: 0; height: 0; border-bottom: 30px solid var(--teamABackground); filter: opacity(0.9); border-right: 18px solid transparent;"></div>
-                <div style="grid-area: 2/-2; width: 0; height: 0; border-top: 30px solid var(--teamABackground); filter: opacity(0.9); border-right: 18px solid transparent;"></div>
-                <div style="grid-area: 1/2/3/6; background-color: rgba(13, 24, 33, 0.8);"></div>
-                <div style="grid-area: 1/6/3/7; background-color: var(--teamATrim);"></div>
-                <div style="grid-area: 1/7/3/8; background-color: var(--teamABackground); filter: opacity(0.9);"></div>
-            
-                <!-- Heading Contents -->
-                <img id="overlay-heading-team-a-logo" src="assets/200x200_No_Logo.png" class="apply-team-a-logo">
-                <div class="flex-column" style="grid-area: 1/5/3/6; transform: translateY(3px);">
-                    <span id="overlay-heading-team-a-tri" class="overlay-heading-tri apply-team-a-tri"></span>
-                    <span id="overlay-heading-team-a-region-seed" class="overlay-heading-region-seed apply-team-a-region-seed">JP</span>
+            <div id="overlay-heading">
+                <div id="overlay-heading-team-a">
+                    <!-- Background Elements -->
+                    <div style="grid-area: 1/1; width: 0; height: 0; border-bottom: 30px solid rgba(13, 24, 33, 0.8); border-left: 18px solid transparent;"></div>
+                    <div style="grid-area: 2/1; width: 0; height: 0; border-top: 30px solid rgba(13, 24, 33, 0.8); border-left: 18px solid transparent;"></div>
+                    <div style="grid-area: 1/-2; width: 0; height: 0; border-bottom: 30px solid var(--teamABackground); filter: opacity(0.9); border-right: 18px solid transparent;"></div>
+                    <div style="grid-area: 2/-2; width: 0; height: 0; border-top: 30px solid var(--teamABackground); filter: opacity(0.9); border-right: 18px solid transparent;"></div>
+                    <div style="grid-area: 1/2/3/6; background-color: rgba(13, 24, 33, 0.8);"></div>
+                    <div style="grid-area: 1/6/3/7; background-color: var(--teamATrim);"></div>
+                    <div style="grid-area: 1/7/3/8; background-color: var(--teamABackground); filter: opacity(0.9);"></div>
+                
+                    <!-- Heading Contents -->
+                    <img id="overlay-heading-team-a-logo" src="assets/200x200_No_Logo.png" class="apply-team-a-logo">
+                    <div class="flex-column" style="grid-area: 1/5/3/6; transform: translateY(3px);">
+                        <span id="overlay-heading-team-a-tri" class="overlay-heading-tri apply-team-a-tri"></span>
+                        <span id="overlay-heading-team-a-region-seed" class="overlay-heading-region-seed apply-team-a-region-seed">JP</span>
+                    </div>
+                    <span id="overlay-heading-team-a-score">4</span>
                 </div>
-                <span id="overlay-heading-team-a-score">4</span>
-            </div>
-
-            <div id="overlay-heading-team-b">
-                <!-- Background Elements -->
-                <div style="grid-area: 1/-2; width: 0; height: 0; border-bottom: 30px solid rgba(13, 24, 33, 0.8); border-right: 18px solid transparent;"></div>
-                <div style="grid-area: 2/-2; width: 0; height: 0; border-top: 30px solid rgba(13, 24, 33, 0.8); border-right: 18px solid transparent;"></div>
-                <div style="grid-area: 1/1; width: 0; height: 0; border-bottom: 30px solid var(--teamBBackground); filter: opacity(0.9); border-left: 18px solid transparent;"></div>
-                <div style="grid-area: 2/1; width: 0; height: 0; border-top: 30px solid var(--teamBBackground); filter: opacity(0.9); border-left: 18px solid transparent;"></div>
-                <div style="grid-area: 1/4/3/8; background-color: rgba(13, 24, 33, 0.8);"></div>
-                <div style="grid-area: 1/3/3/4; background-color: var(--teamBTrim);"></div>
-                <div style="grid-area: 1/2/3/3; background-color: var(--teamBBackground); filter: opacity(0.9);"></div>
-            
-                <!-- Heading Contents -->
-                <img id="overlay-heading-team-b-logo" src="assets/200x200_No_Logo.png" class="apply-team-b-logo">
-                <div class="flex-column" style="grid-area: 1/4/3/5; transform: translateY(3px);">
-                    <span id="overlay-heading-team-b-tri" class="overlay-heading-tri apply-team-b-tri"></span>
-                    <span id="overlay-heading-team-b-region-seed" class="overlay-heading-region-seed apply-team-b-region-seed">SEA</span>
+    
+                <div id="overlay-heading-team-b">
+                    <!-- Background Elements -->
+                    <div style="grid-area: 1/-2; width: 0; height: 0; border-bottom: 30px solid rgba(13, 24, 33, 0.8); border-right: 18px solid transparent;"></div>
+                    <div style="grid-area: 2/-2; width: 0; height: 0; border-top: 30px solid rgba(13, 24, 33, 0.8); border-right: 18px solid transparent;"></div>
+                    <div style="grid-area: 1/1; width: 0; height: 0; border-bottom: 30px solid var(--teamBBackground); filter: opacity(0.9); border-left: 18px solid transparent;"></div>
+                    <div style="grid-area: 2/1; width: 0; height: 0; border-top: 30px solid var(--teamBBackground); filter: opacity(0.9); border-left: 18px solid transparent;"></div>
+                    <div style="grid-area: 1/4/3/8; background-color: rgba(13, 24, 33, 0.8);"></div>
+                    <div style="grid-area: 1/3/3/4; background-color: var(--teamBTrim);"></div>
+                    <div style="grid-area: 1/2/3/3; background-color: var(--teamBBackground); filter: opacity(0.9);"></div>
+                
+                    <!-- Heading Contents -->
+                    <img id="overlay-heading-team-b-logo" src="assets/200x200_No_Logo.png" class="apply-team-b-logo">
+                    <div class="flex-column" style="grid-area: 1/4/3/5; transform: translateY(3px);">
+                        <span id="overlay-heading-team-b-tri" class="overlay-heading-tri apply-team-b-tri"></span>
+                        <span id="overlay-heading-team-b-region-seed" class="overlay-heading-region-seed apply-team-b-region-seed">SEA</span>
+                    </div>
+                    <span id="overlay-heading-team-b-score">4</span>
                 </div>
-                <span id="overlay-heading-team-b-score">4</span>
-            </div>
+    
+                <div id="overlay-heading-center">
+                    <!-- Background Elements -->
+                    <div style="grid-area: 1/2/4/3; width: 0px; height: 0px; border-top: 72px solid #0D1821; border-left: 38px solid transparent;"></div>
+                    <div style="grid-area: 1/11/4/12; width: 0px; height: 0px; border-top: 72px solid #0D1821; border-right: 38px solid transparent;"></div>
+                    <div style="grid-area: -3/4; width: 0px; height: 0px; border-top: 9px solid #0D1821; border-left: 9px solid transparent;"></div>
+                    <div style="grid-area: -3/-5; width: 0px; height: 0px; border-top: 9px solid #0D1821; border-right: 9px solid transparent;"></div>
+                    <div style="grid-area: -2/6; width: 0px; height: 0px; border-top: 7px solid #0D1821; border-left: 7px solid transparent;"></div>
+                    <div style="grid-area: -2/-7; width: 0px; height: 0px; border-top: 7px solid #0D1821; border-right: 7px solid transparent;"></div>
+    
+                    <div style="grid-area: -3/5/-2/-5; background-color: #0D1821;"></div>
+                    <div style="grid-area: 1/2; background-color: #0D1821;"></div>
+                    <div style="grid-area: 1/-3; background-color: #0D1821;"></div>
+                    <div style="grid-area: 1/3/4/4; background-color: #0D1821; width: 10px;"></div>
+                    <div style="grid-area: 1/-4/4/-3; background-color: #0D1821; width: 10px; justify-self: end;"></div>
+                    <div style="grid-area: 1/3/3/-3; background-color: #0D1821; height: 25px;"></div>
+                    <div style="grid-area: 1/1; background: linear-gradient(to left, #0D1821, transparent); width: 60px; justify-self: end;"></div>
+                    <div style="grid-area: 1/-2; background: linear-gradient(to right, #0D1821, transparent); width: 60px;"></div>
+                    <div class="scoreboard-line-trim" style="grid-area: 2/1; width: 149px; height: 1px;"></div>
+                    <div class="scoreboard-line-trim" style="grid-area: 2/-2; width: 149px; height: 1px; justify-self: end;"></div>
+                    <!-- Heading Contents -->
+                    <span id="overlay-heading-round-number">ROUND 9</span>
+                    <div id="overlay-heading-timer-cover" style="height: 140px;"></div>
+                    <img id="overlay-heading-spike-icon" style="transform: translateY(63px) scale(0.83);" src="assets/Spike_Icon_SVG.svg">
+                    <img id="overlay-heading-spike-icon-2" style="opacity: 1; transform: translateY(63px) scale(0.83);" src="assets/Spike_Icon_SVG.svg">
+                </div>
 
-            <div id="overlay-heading-center">
-                <!-- Background Elements -->
-                <div style="grid-area: 1/2/4/3; width: 0px; height: 0px; border-top: 72px solid #0D1821; border-left: 38px solid transparent;"></div>
-                <div style="grid-area: 1/11/4/12; width: 0px; height: 0px; border-top: 72px solid #0D1821; border-right: 38px solid transparent;"></div>
-                <div style="grid-area: -3/4; width: 0px; height: 0px; border-top: 9px solid #0D1821; border-left: 9px solid transparent;"></div>
-                <div style="grid-area: -3/-5; width: 0px; height: 0px; border-top: 9px solid #0D1821; border-right: 9px solid transparent;"></div>
-                <div style="grid-area: -2/6; width: 0px; height: 0px; border-top: 7px solid #0D1821; border-left: 7px solid transparent;"></div>
-                <div style="grid-area: -2/-7; width: 0px; height: 0px; border-top: 7px solid #0D1821; border-right: 7px solid transparent;"></div>
+                <style>
 
-                <div style="grid-area: -3/5/-2/-5; background-color: #0D1821;"></div>
-                <div style="grid-area: 1/2; background-color: #0D1821;"></div>
-                <div style="grid-area: 1/-3; background-color: #0D1821;"></div>
-                <div style="grid-area: 1/3/4/4; background-color: #0D1821; width: 10px;"></div>
-                <div style="grid-area: 1/-4/4/-3; background-color: #0D1821; width: 10px; justify-self: end;"></div>
-                <div style="grid-area: 1/3/3/-3; background-color: #0D1821; height: 25px;"></div>
-                <div style="grid-area: 1/1; background: linear-gradient(to left, #0D1821, transparent); width: 60px; justify-self: end;"></div>
-                <div style="grid-area: 1/-2; background: linear-gradient(to right, #0D1821, transparent); width: 60px;"></div>
-                <div class="scoreboard-line-trim" style="grid-area: 2/1; width: 149px; height: 1px;"></div>
-                <div class="scoreboard-line-trim" style="grid-area: 2/-2; width: 149px; height: 1px; justify-self: end;"></div>
-                <!-- Heading Contents -->
-                <span id="overlay-heading-round-number">ROUND 9</span>
-                <div id="overlay-heading-timer-cover" style="height: 140px;"></div>
-                <img id="overlay-heading-spike-icon" style="transform: translateY(63px) scale(0.83);" src="assets/Spike_Icon_SVG.svg">
-                <img id="overlay-heading-spike-icon-2" style="opacity: 1; transform: translateY(63px) scale(0.83);" src="assets/Spike_Icon_SVG.svg">
+                </style>
 
-            </div>
+                <div id="overlay-heading-maps">
+                    <div class="overlay-heading-map-container">
+                        <div style="grid-area: 1/1/3/2; background-color: #0D1821;"></div>
+                        <div class="overlay-heading-map-name">
+                            <span id="overlay-heading-map-1">Sunset</span>
+                            <img id="overlay-heading-map-1-team-pick" class="apply-team-a-logo" src="assets/200x200_No_Logo.png">
+                            <span id="overlay-heading-map-1-score"></span>
+                            <img id="overlay-heading-map-1-team-2" class="apply-team-b-logo" src="assets/200x200_No_Logo.png">
+                        </div>
+                    </div>
+                    <div class="overlay-heading-map-container" style="transform: translateX(-12px);">
+                        <div style="grid-area: 1/1; height: 0; width: 0; border-top: 12px solid #0D1821; border-left: 12px solid transparent;"></div>
+                        <div style="grid-area: 2/1; height: 0; width: 0; border-bottom: 12px solid #0D1821; border-left: 12px solid transparent;"></div>
+                        <div class="overlay-heading-map-name">
+                            <span id="overlay-heading-map-2">Current: Icebox</span>
+                            <img id="overlay-heading-map-2-team-pick" class="apply-team-b-logo" src="assets/200x200_No_Logo.png">
+                            <span id="overlay-heading-map-2-score"></span>
+                            <img id="overlay-heading-map-2-team-2" class="apply-team-a-logo" src="assets/200x200_No_Logo.png">
+                        </div>
+                    </div>
+                    <div class="overlay-heading-map-container" style="transform: translateX(-24px);">
+                        <div style="grid-area: 1/1; height: 0; width: 0; border-top: 12px solid #0D1821; border-left: 12px solid transparent;"></div>
+                        <div style="grid-area: 2/1; height: 0; width: 0; border-bottom: 12px solid #0D1821; border-left: 12px solid transparent;"></div>
+                        <div class="overlay-heading-map-name" style="padding: 2px 10px 0px 5px;">
+                            <span id="overlay-heading-map-3">Current: Haven</span>
+                            <img id="overlay-heading-map-3-team-pick" class="apply-team-a-logo" src="assets/200x200_No_Logo.png" >
+                        </div>
+                    </div>
+                    <div style="width: 30px; background: linear-gradient(to right, rgba(13, 24, 33, 0.6), transparent); transform: translateX(-24px)"></div>
+                </div>
+
+                <div id="overlay-heading-event-sponsor">
+                    <div style="display: flex; height: 24px; justify-self: center;">
+                        <div style="width: 20px; background: linear-gradient(to right, transparent, rgba(13, 24, 33, 0.6));"></div>
+                        <span id="overlay-heading-event-game" class="apply-event-name"></span>
+                        <div style="width: 20px; background: linear-gradient(to right, rgba(13, 24, 33, 0.6), transparent);"></div>
+                    </div>
+
+                    <div id="overlay-heading-sponsor-area">
+                        <img class="apply-event-logo" src="">
+                    </div>
+                </div>
+            </div> <!-- overlay-heading -->
 
 
             <!-- ################################ -->
@@ -1236,7 +1375,7 @@
                     display: grid;
                     margin: 550px 0px 0px 16px;
                     grid-template: repeat(4, 55px 35px 16px) 55px 35px/312px 32px;
-                    overflow: hidden;
+                    /* overflow: hidden; */
                     transition: 0.5s;
                 }
 
@@ -1265,6 +1404,7 @@
                     display: grid;
                     grid-template: 35px 20px/80px 1fr 1fr 1fr 107px;
                     transition: 0.2s;
+                    width: 312px;
                 }
 
                 .combat-overlay-utility {
@@ -1380,7 +1520,7 @@
                     justify-self: end;
                     margin: 550px 16px 0px 0px;
                     grid-template: repeat(4, 55px 35px 16px) 55px 35px/32px 312px;
-                    overflow: hidden;
+                    /* overflow: hidden; */
                     transition: 0.5s;
                 }
 
@@ -1398,6 +1538,7 @@
                     display: grid;
                     grid-template: 35px 20px/107px 1fr 1fr 1fr 80px;
                     transition: 0.2s;
+                    width: 312px;
                 }
 
                 .combat-overlay-team-b-top .combat-overlay-weapon {
@@ -1450,28 +1591,69 @@
                     width: 100%;
                     transition: 0.3s;
                 }
+
+                .combat-overlay-player-spike-icon {
+                    align-self: center;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 30px;
+                    height: 30px;
+                    background-color: white;
+                    border-radius: 50%;
+                    z-index: 1;
+                    transition: 0.2s;
+                }
+
+                .combat-overlay-player-spike-icon img {
+                    width: 20px;
+                    height: 20px;
+                    margin-top: 3px;
+                    object-fit: contain;
+                }
+
+                .combat-overlay-observing {
+                    display: flex; 
+                    overflow: hidden;
+                }
+
+                .combat-overlay-observing div {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: rgba(13, 24, 33, 0.8);
+                    transition: 0.2s;
+                    width: 100%;
+                }
+
+                .combat-overlay-observing img {
+                    width: 20px;
+                }
             </style>
 
             <div id="combat-overlay-team-a">
                 <!-- Team A Player 1 -->
-                <div id="combat-overlay-team-a-player-1-top" class="combat-overlay-team-a-top" style="grid-area: 1/1;">
-                    <div id="combat-overlay-team-a-player-1-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
-                    <img id="combat-overlay-team-a-player-1-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Gumshoe_Ability_1.png">
-                    <img id="combat-overlay-team-a-player-1-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Gumshoe_Ability_2.png">
-                    <img id="combat-overlay-team-a-player-1-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Gumshoe_Ability_3.png">
-                    <img id="combat-overlay-team-a-player-1-weapon" class="combat-overlay-weapon" style="grid-area: 1/5;" src="assets/Shop/TX_Hud_Pistol_Classic.png">
-                    <div class="combat-overlay-team-a-credits" style="grid-area: 2/5;">
-                        <img src="assets/Shop/Credits_Icon.png">
-                        <span class="combat-overlay-team-a-player-1-credits">2,050</span>
+                <div style="grid-area: 1/1; display: flex; overflow: hidden; width: 312px;">
+                    <div id="combat-overlay-team-a-player-1-top" class="combat-overlay-team-a-top">
+                        <div id="combat-overlay-team-a-player-1-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
+                        <img id="combat-overlay-team-a-player-1-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Gumshoe_Ability_1.png">
+                        <img id="combat-overlay-team-a-player-1-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Gumshoe_Ability_2.png">
+                        <img id="combat-overlay-team-a-player-1-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Gumshoe_Ability_3.png">
+                        <img id="combat-overlay-team-a-player-1-weapon" class="combat-overlay-weapon" style="grid-area: 1/5;" src="assets/Shop/TX_Hud_Pistol_Classic.png">
+                        <div class="combat-overlay-team-a-credits" style="grid-area: 2/5;">
+                            <img src="assets/Shop/Credits_Icon.png">
+                            <span class="combat-overlay-team-a-player-1-credits">2,050</span>
+                        </div>
                     </div>
                 </div>
+                
                 <div class="combat-overlay-bottom" style="grid-area: 2/1;">
                     <div id="combat-overlay-team-a-player-1-trim" class="combat-overlay-team-a-trim" style="grid-area: 1/1;"></div>
 
                     <div id="combat-overlay-team-a-player-1-bottom-alive" class="combat-overlay-team-a-bottom-alive" style="grid-area: 2/1; display: grid;">
                         <div style="background-color: var(--teamABackground); opacity: 0.8; grid-area: 1/1/2/-1; height: 100%;"></div>
-                        <span id="combat-overlay-team-a-player-1-hp" class="combat-overlay-hp" style="grid-area: 1/3 ;">100</span>
-                        <img id="combat-overlay-team-a-player-1-shield" class="combat-overlay-team-a-shield" style="grid-area: 1/2;" src="assets/Shop/Shields_2.png">
+                        <span id="combat-overlay-team-a-player-1-hp" class="combat-overlay-hp" style="display: none; grid-area: 1/3 ;">100</span>
+                        <img id="combat-overlay-team-a-player-1-shield" class="combat-overlay-team-a-shield" style="display: none; grid-area: 1/2;" src="assets/Shop/Shields_2.png">
                         <img id="combat-overlay-team-a-player-1-ult-dots" class="combat-overlay-team-a-ult-dots" style="grid-area: 1/1; display: grid;" src="assets/ult_dots/Ult_Dots_1_6.png">
                         <div id="combat-overlay-team-a-player-1-ult-active" class="combat-overlay-ult-active" style="grid-area: 1/1; display: none;">
                             <div style="grid-area: 1/1; width: 0; height: 0; border-bottom: 13px solid white; border-left: 10px solid transparent;"></div>
@@ -1494,26 +1676,37 @@
                     <img id="combat-overlay-team-a-player-1-agent-icon" src="assets/Agents/Gumshoe_Icon.png">
                 </div>
                 <span id="combat-overlay-team-a-player-1-name" class="combat-overlay-name" style="grid-area: 2/1;">Player 1</span>
-                
-                <!-- Team A Player 2 -->
-                <div id="combat-overlay-team-a-player-2-top" class="combat-overlay-team-a-top" style="grid-area: 4/1;">
-                    <div id="combat-overlay-team-a-player-2-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
-                    <img id="combat-overlay-team-a-player-2-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Wraith_Ability_1.png">
-                    <img id="combat-overlay-team-a-player-2-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Wraith_Ability_2.png">
-                    <img id="combat-overlay-team-a-player-2-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Wraith_Ability_3.png">
-                    <img id="combat-overlay-team-a-player-2-weapon" class="combat-overlay-weapon" style="grid-area: 1/5;" src="assets/Shop/TX_Hud_Pistol_Slim.png">
-                    <div class="combat-overlay-team-a-credits" style="grid-area: 2/5;">
-                        <img src="assets/Shop/Credits_Icon.png">
-                        <span class="combat-overlay-team-a-player-2-credits">300</span>
+                <div id="combat-overlay-team-a-player-1-spike" class="combat-overlay-player-spike-icon" style="grid-area: 1/1; opacity: 0; transform: translateX(-15px);">
+                    <img src="assets/Spike_Icon_SVG.svg">
+                </div>
+                <div class="combat-overlay-observing" style="grid-area: 1/2/3/3;">
+                    <div id="combat-overlay-team-a-player-1-observing" style="transform: translateX(-32px);">
+                        <img src="assets/Observing_Icon.png">
                     </div>
                 </div>
+
+                <!-- Team A Player 2 -->
+                <div style="grid-area: 4/1; display: flex; overflow: hidden; width: 312px;">
+                    <div id="combat-overlay-team-a-player-2-top" class="combat-overlay-team-a-top">
+                        <div id="combat-overlay-team-a-player-2-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
+                        <img id="combat-overlay-team-a-player-2-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Wraith_Ability_1.png">
+                        <img id="combat-overlay-team-a-player-2-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Wraith_Ability_2.png">
+                        <img id="combat-overlay-team-a-player-2-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Wraith_Ability_3.png">
+                        <img id="combat-overlay-team-a-player-2-weapon" class="combat-overlay-weapon" style="grid-area: 1/5;" src="assets/Shop/TX_Hud_Pistol_Slim.png">
+                        <div class="combat-overlay-team-a-credits" style="grid-area: 2/5;">
+                            <img src="assets/Shop/Credits_Icon.png">
+                            <span class="combat-overlay-team-a-player-2-credits">300</span>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="combat-overlay-bottom" style="grid-area: 5/1;">
                     <div id="combat-overlay-team-a-player-2-trim" class="combat-overlay-team-a-trim" style="grid-area: 1/1;"></div>
 
                     <div id="combat-overlay-team-a-player-2-bottom-alive" class="combat-overlay-team-a-bottom-alive" style="grid-area: 2/1; display: grid;">
                         <div style="background-color: var(--teamABackground); opacity: 0.8; grid-area: 1/1/2/-1; height: 100%;"></div>
-                        <span id="combat-overlay-team-a-player-2-hp" class="combat-overlay-hp" style="grid-area: 1/3 ;">100</span>
-                        <img id="combat-overlay-team-a-player-2-shield" class="combat-overlay-team-a-shield" style="grid-area: 1/2;" src="assets/Shop/Shields_2.png">
+                        <span id="combat-overlay-team-a-player-2-hp" class="combat-overlay-hp" style="display: none; grid-area: 1/3 ;">100</span>
+                        <img id="combat-overlay-team-a-player-2-shield" class="combat-overlay-team-a-shield" style="display: none; grid-area: 1/2;" src="assets/Shop/Shields_2.png">
                         <img id="combat-overlay-team-a-player-2-ult-dots" class="combat-overlay-team-a-ult-dots" style="grid-area: 1/1; display: grid;" src="assets/ult_dots/Ult_Dots_1_7.png">
                         <div id="combat-overlay-team-a-player-2-ult-active" class="combat-overlay-ult-active" style="grid-area: 1/1; display: none;">
                             <div style="grid-area: 1/1; width: 0; height: 0; border-bottom: 13px solid white; border-left: 10px solid transparent;"></div>
@@ -1536,26 +1729,37 @@
                     <img id="combat-overlay-team-a-player-2-agent-icon" src="assets/Agents/Wraith_Icon.png">
                 </div>
                 <span id="combat-overlay-team-a-player-2-name" class="combat-overlay-name" style="grid-area: 5/1;">Player 2</span>
-                
-                <!-- Team A Player 3 -->
-                <div id="combat-overlay-team-a-player-3-top" class="combat-overlay-team-a-top" style="grid-area: 7/1;">
-                    <div id="combat-overlay-team-a-player-3-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
-                    <img id="combat-overlay-team-a-player-3-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Breach_Ability_1.png">
-                    <img id="combat-overlay-team-a-player-3-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Breach_Ability_2.png">
-                    <img id="combat-overlay-team-a-player-3-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Breach_Ability_3.png">
-                    <img id="combat-overlay-team-a-player-3-weapon" class="combat-overlay-weapon" style="grid-area: 1/5;" src="assets/Shop/TX_Hud_Pistol_AutoPistol.png">
-                    <div class="combat-overlay-team-a-credits" style="grid-area: 2/5;">
-                        <img src="assets/Shop/Credits_Icon.png">
-                        <span class="combat-overlay-team-a-player-3-credits">2,050</span>
+                <div id="combat-overlay-team-a-player-2-spike" class="combat-overlay-player-spike-icon" style="grid-area: 4/1; opacity: 0; transform: translateX(-15px);">
+                    <img src="assets/Spike_Icon_SVG.svg">
+                </div>
+                <div class="combat-overlay-observing" style="grid-area: 4/2/6/3;">
+                    <div id="combat-overlay-team-a-player-2-observing" style="transform: translateX(-32px);">
+                        <img src="assets/Observing_Icon.png">
                     </div>
                 </div>
+
+                <!-- Team A Player 3 -->
+                <div style="grid-area: 7/1; display: flex; overflow: hidden; width: 312px;">
+                    <div id="combat-overlay-team-a-player-3-top" class="combat-overlay-team-a-top">
+                        <div id="combat-overlay-team-a-player-3-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
+                        <img id="combat-overlay-team-a-player-3-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Breach_Ability_1.png">
+                        <img id="combat-overlay-team-a-player-3-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Breach_Ability_2.png">
+                        <img id="combat-overlay-team-a-player-3-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Breach_Ability_3.png">
+                        <img id="combat-overlay-team-a-player-3-weapon" class="combat-overlay-weapon" style="grid-area: 1/5;" src="assets/Shop/TX_Hud_Pistol_AutoPistol.png">
+                        <div class="combat-overlay-team-a-credits" style="grid-area: 2/5;">
+                            <img src="assets/Shop/Credits_Icon.png">
+                            <span class="combat-overlay-team-a-player-3-credits">2,050</span>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="combat-overlay-bottom" style="grid-area: 8/1;">
                     <div id="combat-overlay-team-a-player-3-trim" class="combat-overlay-team-a-trim" style="grid-area: 1/1;"></div>
 
                     <div id="combat-overlay-team-a-player-3-bottom-alive" class="combat-overlay-team-a-bottom-alive" style="grid-area: 2/1; display: grid;">
                         <div style="background-color: var(--teamABackground); opacity: 0.8; grid-area: 1/1/2/-1; height: 100%;"></div>
-                        <span id="combat-overlay-team-a-player-3-hp" class="combat-overlay-hp" style="grid-area: 1/3 ;">100</span>
-                        <img id="combat-overlay-team-a-player-3-shield" class="combat-overlay-team-a-shield" style="grid-area: 1/2;" src="assets/Shop/Shields_2.png">
+                        <span id="combat-overlay-team-a-player-3-hp" class="combat-overlay-hp" style="display: none; grid-area: 1/3 ;">100</span>
+                        <img id="combat-overlay-team-a-player-3-shield" class="combat-overlay-team-a-shield" style="display: none; grid-area: 1/2;" src="assets/Shop/Shields_2.png">
                         <img id="combat-overlay-team-a-player-3-ult-dots" class="combat-overlay-team-a-ult-dots" style="grid-area: 1/1; display: grid;" src="assets/ult_dots/Ult_Dots_1_9.png">
                         <div id="combat-overlay-team-a-player-3-ult-active" class="combat-overlay-ult-active" style="grid-area: 1/1; display: none;">
                             <div style="grid-area: 1/1; width: 0; height: 0; border-bottom: 13px solid white; border-left: 10px solid transparent;"></div>
@@ -1578,26 +1782,37 @@
                     <img id="combat-overlay-team-a-player-3-agent-icon" src="assets/Agents/Breach_Icon.png">
                 </div>
                 <span id="combat-overlay-team-a-player-3-name" class="combat-overlay-name" style="grid-area: 8/1;">Player 3</span>
-
-                <!-- Team A Player 4 -->
-                <div id="combat-overlay-team-a-player-4-top" class="combat-overlay-team-a-top" style="grid-area: 10/1;">
-                    <div id="combat-overlay-team-a-player-4-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
-                    <img id="combat-overlay-team-a-player-4-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Hunter_Ability_1.png">
-                    <img id="combat-overlay-team-a-player-4-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Hunter_Ability_2.png">
-                    <img id="combat-overlay-team-a-player-4-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Hunter_Ability_3.png">
-                    <img id="combat-overlay-team-a-player-4-weapon" class="combat-overlay-weapon" style="grid-area: 1/5;" src="assets/Shop/TX_Hud_Pistol_Luger.png">
-                    <div class="combat-overlay-team-a-credits" style="grid-area: 2/5;">
-                        <img src="assets/Shop/Credits_Icon.png">
-                        <span class="combat-overlay-team-a-player-4-credits">2,300</span>
+                <div id="combat-overlay-team-a-player-3-spike" class="combat-overlay-player-spike-icon" style="grid-area: 7/1; opacity: 0; transform: translateX(-15px);">
+                    <img src="assets/Spike_Icon_SVG.svg">
+                </div>
+                <div class="combat-overlay-observing" style="grid-area: 7/2/10/3;">
+                    <div id="combat-overlay-team-a-player-3-observing" style="transform: translateX(-32px);">
+                        <img src="assets/Observing_Icon.png">
                     </div>
                 </div>
+
+                <!-- Team A Player 4 -->
+                <div style="grid-area: 10/1; display: flex; overflow: hidden; width: 312px;">
+                    <div id="combat-overlay-team-a-player-4-top" class="combat-overlay-team-a-top">
+                        <div id="combat-overlay-team-a-player-4-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
+                        <img id="combat-overlay-team-a-player-4-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Hunter_Ability_1.png">
+                        <img id="combat-overlay-team-a-player-4-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Hunter_Ability_2.png">
+                        <img id="combat-overlay-team-a-player-4-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Hunter_Ability_3.png">
+                        <img id="combat-overlay-team-a-player-4-weapon" class="combat-overlay-weapon" style="grid-area: 1/5;" src="assets/Shop/TX_Hud_Pistol_Luger.png">
+                        <div class="combat-overlay-team-a-credits" style="grid-area: 2/5;">
+                            <img src="assets/Shop/Credits_Icon.png">
+                            <span class="combat-overlay-team-a-player-4-credits">2,300</span>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="combat-overlay-bottom" style="grid-area: 11/1;">
                     <div id="combat-overlay-team-a-player-4-trim" class="combat-overlay-team-a-trim" style="grid-area: 1/1;"></div>
 
                     <div id="combat-overlay-team-a-player-4-bottom-alive" class="combat-overlay-team-a-bottom-alive" style="grid-area: 2/1; display: grid;">
                         <div style="background-color: var(--teamABackground); opacity: 0.8; grid-area: 1/1/2/-1; height: 100%;"></div>
-                        <span id="combat-overlay-team-a-player-4-hp" class="combat-overlay-hp" style="grid-area: 1/3 ;">100</span>
-                        <img id="combat-overlay-team-a-player-4-shield" class="combat-overlay-team-a-shield" style="grid-area: 1/2;" src="assets/Shop/Shields_2.png">
+                        <span id="combat-overlay-team-a-player-4-hp" class="combat-overlay-hp" style="display: none; grid-area: 1/3 ;">100</span>
+                        <img id="combat-overlay-team-a-player-4-shield" class="combat-overlay-team-a-shield" style="display: none; grid-area: 1/2;" src="assets/Shop/Shields_2.png">
                         <img id="combat-overlay-team-a-player-4-ult-dots" class="combat-overlay-team-a-ult-dots" style="grid-area: 1/1; display: grid;" src="assets/ult_dots/Ult_Dots_1_8.png">
                         <div id="combat-overlay-team-a-player-4-ult-active" class="combat-overlay-ult-active" style="grid-area: 1/1; display: none;">
                             <div style="grid-area: 1/1; width: 0; height: 0; border-bottom: 13px solid white; border-left: 10px solid transparent;"></div>
@@ -1620,26 +1835,37 @@
                     <img id="combat-overlay-team-a-player-4-agent-icon" src="assets/Agents/Hunter_Icon.png">
                 </div>
                 <span id="combat-overlay-team-a-player-4-name" class="combat-overlay-name" style="grid-area: 11/1;">Player 4</span>
-                
-                <!-- Team A Player 5 -->
-                <div id="combat-overlay-team-a-player-5-top" class="combat-overlay-team-a-top" style="grid-area: 13/1;">
-                    <div id="combat-overlay-team-a-player-5-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
-                    <img id="combat-overlay-team-a-player-5-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Clay_Ability_1.png">
-                    <img id="combat-overlay-team-a-player-5-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Clay_Ability_2.png">
-                    <img id="combat-overlay-team-a-player-5-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Clay_Ability_3.png">
-                    <img id="combat-overlay-team-a-player-5-weapon" class="combat-overlay-weapon" style="grid-area: 1/5;" src="assets/Shop/TX_Hud_Pistol_Sheriff.png">
-                    <div class="combat-overlay-team-a-credits" style="grid-area: 2/5;">
-                        <img src="assets/Shop/Credits_Icon.png">
-                        <span class="combat-overlay-team-a-player-5-credits">1,550</span>
+                <div id="combat-overlay-team-a-player-4-spike" class="combat-overlay-player-spike-icon" style="grid-area: 10/1; opacity: 0; transform: translateX(-15px);">
+                    <img src="assets/Spike_Icon_SVG.svg">
+                </div>
+                <div class="combat-overlay-observing" style="grid-area: 10/2/13/3;">
+                    <div id="combat-overlay-team-a-player-4-observing" style="transform: translateX(-32px);">
+                        <img src="assets/Observing_Icon.png">
                     </div>
                 </div>
+                
+                <!-- Team A Player 5 -->
+                <div style="grid-area: 13/1; display: flex; overflow: hidden; width: 312px;">
+                    <div id="combat-overlay-team-a-player-5-top" class="combat-overlay-team-a-top">
+                        <div id="combat-overlay-team-a-player-5-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
+                        <img id="combat-overlay-team-a-player-5-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Clay_Ability_1.png">
+                        <img id="combat-overlay-team-a-player-5-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Clay_Ability_2.png">
+                        <img id="combat-overlay-team-a-player-5-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Clay_Ability_3.png">
+                        <img id="combat-overlay-team-a-player-5-weapon" class="combat-overlay-weapon" style="grid-area: 1/5;" src="assets/Shop/TX_Hud_Pistol_Sheriff.png">
+                        <div class="combat-overlay-team-a-credits" style="grid-area: 2/5;">
+                            <img src="assets/Shop/Credits_Icon.png">
+                            <span class="combat-overlay-team-a-player-5-credits">1,550</span>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="combat-overlay-bottom" style="grid-area: 14/1;">
                     <div id="combat-overlay-team-a-player-5-trim" class="combat-overlay-team-a-trim" style="grid-area: 1/1;"></div>
 
                     <div id="combat-overlay-team-a-player-5-bottom-alive" class="combat-overlay-team-a-bottom-alive" style="grid-area: 2/1; display: grid;">
                         <div style="background-color: var(--teamABackground); opacity: 0.8; grid-area: 1/1/2/-1; height: 100%;"></div>
-                        <span id="combat-overlay-team-a-player-5-hp" class="combat-overlay-hp" style="grid-area: 1/3 ;">100</span>
-                        <img id="combat-overlay-team-a-player-5-shield" class="combat-overlay-team-a-shield" style="grid-area: 1/2;" src="assets/Shop/Shields_2.png">
+                        <span id="combat-overlay-team-a-player-5-hp" class="combat-overlay-hp" style="display: none; grid-area: 1/3 ;">100</span>
+                        <img id="combat-overlay-team-a-player-5-shield" class="combat-overlay-team-a-shield" style="display: none; grid-area: 1/2;" src="assets/Shop/Shields_2.png">
                         <img id="combat-overlay-team-a-player-5-ult-dots" class="combat-overlay-team-a-ult-dots" style="grid-area: 1/1; display: grid;" src="assets/ult_dots/Ult_Dots_1_8.png">
                         <div id="combat-overlay-team-a-player-5-ult-active" class="combat-overlay-ult-active" style="grid-area: 1/1; display: none;">
                             <div style="grid-area: 1/1; width: 0; height: 0; border-bottom: 13px solid white; border-left: 10px solid transparent;"></div>
@@ -1662,31 +1888,42 @@
                     <img id="combat-overlay-team-a-player-5-agent-icon" src="assets/Agents/Clay_Icon.png">
                 </div>
                 <span id="combat-overlay-team-a-player-5-name" class="combat-overlay-name" style="grid-area: 14/1;">Player 5</span>
-
+                <div id="combat-overlay-team-a-player-5-spike" class="combat-overlay-player-spike-icon" style="grid-area: 13/1; opacity: 0; transform: translateX(-15px);">
+                    <img src="assets/Spike_Icon_SVG.svg">
+                </div>
+                <div class="combat-overlay-observing" style="grid-area: 13/2/16/3;">
+                    <div id="combat-overlay-team-a-player-5-observing" style="transform: translateX(-32px);">
+                        <img src="assets/Observing_Icon.png">
+                    </div>
+                </div>
+                
             </div> <!-- combat-overlay-team-a -->
 
 
             
             <div id="combat-overlay-team-b">
                 <!-- Team B Player 1 -->
-                <div id="combat-overlay-team-b-player-1-top" class="combat-overlay-team-b-top" style="grid-area: 1/2;">
-                    <div id="combat-overlay-team-b-player-1-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
-                    <img id="combat-overlay-team-b-player-1-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Gumshoe_Ability_1.png">
-                    <img id="combat-overlay-team-b-player-1-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Gumshoe_Ability_2.png">
-                    <img id="combat-overlay-team-b-player-1-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Gumshoe_Ability_3.png">
-                    <img id="combat-overlay-team-b-player-1-weapon" class="combat-overlay-weapon" style="grid-area: 1/1;" src="assets/Shop/TX_Hud_Pistol_Classic.png">
-                    <div class="combat-overlay-team-b-credits" style="grid-area: 2/1;">
-                        <img src="assets/Shop/Credits_Icon.png">
-                        <span class="combat-overlay-team-b-player-1-credits">2,050</span>
+                <div style="grid-area: 1/2; display: flex; overflow: hidden; width: 312px;">
+                    <div id="combat-overlay-team-b-player-1-top" class="combat-overlay-team-b-top">
+                        <div id="combat-overlay-team-b-player-1-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
+                        <img id="combat-overlay-team-b-player-1-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Gumshoe_Ability_1.png">
+                        <img id="combat-overlay-team-b-player-1-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Gumshoe_Ability_2.png">
+                        <img id="combat-overlay-team-b-player-1-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Gumshoe_Ability_3.png">
+                        <img id="combat-overlay-team-b-player-1-weapon" class="combat-overlay-weapon" style="grid-area: 1/1;" src="assets/Shop/TX_Hud_Pistol_Classic.png">
+                        <div class="combat-overlay-team-b-credits" style="grid-area: 2/1;">
+                            <img src="assets/Shop/Credits_Icon.png">
+                            <span class="combat-overlay-team-b-player-1-credits">2,050</span>
+                        </div>
                     </div>
                 </div>
+                
                 <div class="combat-overlay-bottom" style="grid-area: 2/2;">
                     <div id="combat-overlay-team-b-player-1-trim" class="combat-overlay-team-b-trim" style="grid-area: 1/1;"></div>
 
                     <div id="combat-overlay-team-b-player-1-bottom-alive" class="combat-overlay-team-b-bottom-alive" style="grid-area: 2/1; display: grid;">
                         <div style="background-color: var(--teamBBackground); opacity: 0.8; grid-area: 1/1/2/-1; height: 100%;"></div>
-                        <span id="combat-overlay-team-b-player-1-hp" class="combat-overlay-hp" style="grid-area: 1/2 ;">100</span>
-                        <img id="combat-overlay-team-b-player-1-shield" class="combat-overlay-team-b-shield" style="grid-area: 1/3;" src="assets/Shop/Shields_2.png">
+                        <span id="combat-overlay-team-b-player-1-hp" class="combat-overlay-hp" style="display: none; grid-area: 1/2 ;">100</span>
+                        <img id="combat-overlay-team-b-player-1-shield" class="combat-overlay-team-b-shield" style="display: none; grid-area: 1/3;" src="assets/Shop/Shields_2.png">
                         <img id="combat-overlay-team-b-player-1-ult-dots" class="combat-overlay-team-b-ult-dots" style="grid-area: 1/4; display: grid;" src="assets/ult_dots/Ult_Dots_1_6.png">
                         <div id="combat-overlay-team-b-player-1-ult-active" class="combat-overlay-ult-active" style="grid-area: 1/4; display: none;">
                             <div style="grid-area: 1/1; width: 0; height: 0; border-bottom: 13px solid white; border-left: 10px solid transparent;"></div>
@@ -1709,26 +1946,37 @@
                     <img id="combat-overlay-team-b-player-1-agent-icon" src="assets/Agents/Gumshoe_Icon.png">
                 </div>
                 <span id="combat-overlay-team-b-player-1-name" class="combat-overlay-name" style="grid-area: 2/2;">Player 1</span>
-                
-                <!-- Team B Player 2 -->
-                <div id="combat-overlay-team-b-player-2-top" class="combat-overlay-team-b-top" style="grid-area: 4/2;">
-                    <div id="combat-overlay-team-b-player-2-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
-                    <img id="combat-overlay-team-b-player-2-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Wraith_Ability_1.png">
-                    <img id="combat-overlay-team-b-player-2-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Wraith_Ability_2.png">
-                    <img id="combat-overlay-team-b-player-2-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Wraith_Ability_3.png">
-                    <img id="combat-overlay-team-b-player-2-weapon" class="combat-overlay-weapon" style="grid-area: 1/1;" src="assets/Shop/TX_Hud_Pistol_Slim.png">
-                    <div class="combat-overlay-team-b-credits" style="grid-area: 2/1;">
-                        <img src="assets/Shop/Credits_Icon.png">
-                        <span class="combat-overlay-team-b-player-2-credits">300</span>
+                <div id="combat-overlay-team-b-player-1-spike" class="combat-overlay-player-spike-icon" style="grid-area: 1/2; opacity: 0; justify-self: end; transform: translateX(15px);">
+                    <img src="assets/Spike_Icon_SVG.svg">
+                </div>
+                <div class="combat-overlay-observing" style="grid-area: 1/1/3/2;">
+                    <div id="combat-overlay-team-b-player-1-observing" style="transform: translateX(32px);">
+                        <img src="assets/Observing_Icon.png">
                     </div>
                 </div>
+                
+                <!-- Team B Player 2 -->
+                <div style="grid-area: 4/2; display: flex; overflow: hidden; width: 312px;">
+                    <div id="combat-overlay-team-b-player-2-top" class="combat-overlay-team-b-top"">
+                        <div id="combat-overlay-team-b-player-2-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
+                        <img id="combat-overlay-team-b-player-2-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Wraith_Ability_1.png">
+                        <img id="combat-overlay-team-b-player-2-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Wraith_Ability_2.png">
+                        <img id="combat-overlay-team-b-player-2-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Wraith_Ability_3.png">
+                        <img id="combat-overlay-team-b-player-2-weapon" class="combat-overlay-weapon" style="grid-area: 1/1;" src="assets/Shop/TX_Hud_Pistol_Slim.png">
+                        <div class="combat-overlay-team-b-credits" style="grid-area: 2/1;">
+                            <img src="assets/Shop/Credits_Icon.png">
+                            <span class="combat-overlay-team-b-player-2-credits">300</span>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="combat-overlay-bottom" style="grid-area: 5/2;">
                     <div id="combat-overlay-team-b-player-2-trim" class="combat-overlay-team-b-trim" style="grid-area: 1/1;"></div>
 
                     <div id="combat-overlay-team-b-player-2-bottom-alive" class="combat-overlay-team-b-bottom-alive" style="grid-area: 2/1; display: grid;">
                         <div style="background-color: var(--teamBBackground); opacity: 0.8; grid-area: 1/1/2/-1; height: 100%;"></div>
-                        <span id="combat-overlay-team-b-player-2-hp" class="combat-overlay-hp" style="grid-area: 1/2 ;">100</span>
-                        <img id="combat-overlay-team-b-player-2-shield" class="combat-overlay-team-b-shield" style="grid-area: 1/3;" src="assets/Shop/Shields_2.png">
+                        <span id="combat-overlay-team-b-player-2-hp" class="combat-overlay-hp" style="display: none; grid-area: 1/2 ;">100</span>
+                        <img id="combat-overlay-team-b-player-2-shield" class="combat-overlay-team-b-shield" style="display: none; grid-area: 1/3;" src="assets/Shop/Shields_2.png">
                         <img id="combat-overlay-team-b-player-2-ult-dots" class="combat-overlay-team-b-ult-dots" style="grid-area: 1/4; display: grid;" src="assets/ult_dots/Ult_Dots_1_7.png">
                         <div id="combat-overlay-team-b-player-2-ult-active" class="combat-overlay-ult-active" style="grid-area: 1/4; display: none;">
                             <div style="grid-area: 1/1; width: 0; height: 0; border-bottom: 13px solid white; border-left: 10px solid transparent;"></div>
@@ -1751,26 +1999,37 @@
                     <img id="combat-overlay-team-b-player-2-agent-icon" src="assets/Agents/Wraith_Icon.png">
                 </div>
                 <span id="combat-overlay-team-b-player-2-name" class="combat-overlay-name" style="grid-area: 5/2;">Player 2</span>
-                
-                <!-- Team B Player 3 -->
-                <div id="combat-overlay-team-b-player-3-top" class="combat-overlay-team-b-top" style="grid-area: 7/2;">
-                    <div id="combat-overlay-team-b-player-3-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
-                    <img id="combat-overlay-team-b-player-3-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Breach_Ability_1.png">
-                    <img id="combat-overlay-team-b-player-3-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Breach_Ability_2.png">
-                    <img id="combat-overlay-team-b-player-3-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Breach_Ability_3.png">
-                    <img id="combat-overlay-team-b-player-3-weapon" class="combat-overlay-weapon" style="grid-area: 1/1;" src="assets/Shop/TX_Hud_Pistol_AutoPistol.png">
-                    <div class="combat-overlay-team-b-credits" style="grid-area: 2/1;">
-                        <img src="assets/Shop/Credits_Icon.png">
-                        <span class="combat-overlay-team-b-player-3-credits">2,050</span>
+                <div id="combat-overlay-team-b-player-2-spike" class="combat-overlay-player-spike-icon" style="grid-area: 4/2; opacity: 0; justify-self: end; transform: translateX(15px);">
+                    <img src="assets/Spike_Icon_SVG.svg">
+                </div>
+                <div class="combat-overlay-observing" style="grid-area: 4/1/7/2;">
+                    <div id="combat-overlay-team-b-player-2-observing" style="transform: translateX(32px);">
+                        <img src="assets/Observing_Icon.png">
                     </div>
                 </div>
+                
+                <!-- Team B Player 3 -->
+                <div style="grid-area: 7/2; display: flex; overflow: hidden; width: 312px;">
+                    <div id="combat-overlay-team-b-player-3-top" class="combat-overlay-team-b-top">
+                        <div id="combat-overlay-team-b-player-3-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
+                        <img id="combat-overlay-team-b-player-3-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Breach_Ability_1.png">
+                        <img id="combat-overlay-team-b-player-3-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Breach_Ability_2.png">
+                        <img id="combat-overlay-team-b-player-3-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Breach_Ability_3.png">
+                        <img id="combat-overlay-team-b-player-3-weapon" class="combat-overlay-weapon" style="grid-area: 1/1;" src="assets/Shop/TX_Hud_Pistol_AutoPistol.png">
+                        <div class="combat-overlay-team-b-credits" style="grid-area: 2/1;">
+                            <img src="assets/Shop/Credits_Icon.png">
+                            <span class="combat-overlay-team-b-player-3-credits">2,050</span>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="combat-overlay-bottom" style="grid-area: 8/2;">
                     <div id="combat-overlay-team-b-player-3-trim" class="combat-overlay-team-b-trim" style="grid-area: 1/1;"></div>
 
                     <div id="combat-overlay-team-b-player-3-bottom-alive" class="combat-overlay-team-b-bottom-alive" style="grid-area: 2/1; display: grid;">
                         <div style="background-color: var(--teamBBackground); opacity: 0.8; grid-area: 1/1/2/-1; height: 100%;"></div>
-                        <span id="combat-overlay-team-b-player-3-hp" class="combat-overlay-hp" style="grid-area: 1/2 ;">100</span>
-                        <img id="combat-overlay-team-b-player-3-shield" class="combat-overlay-team-b-shield" style="grid-area: 1/3;" src="assets/Shop/Shields_2.png">
+                        <span id="combat-overlay-team-b-player-3-hp" class="combat-overlay-hp" style="display: none; grid-area: 1/2 ;">100</span>
+                        <img id="combat-overlay-team-b-player-3-shield" class="combat-overlay-team-b-shield" style="display: none; grid-area: 1/3;" src="assets/Shop/Shields_2.png">
                         <img id="combat-overlay-team-b-player-3-ult-dots" class="combat-overlay-team-b-ult-dots" style="grid-area: 1/4; display: grid;" src="assets/ult_dots/Ult_Dots_1_9.png">
                         <div id="combat-overlay-team-b-player-3-ult-active" class="combat-overlay-ult-active" style="grid-area: 1/4; display: none;">
                             <div style="grid-area: 1/1; width: 0; height: 0; border-bottom: 13px solid white; border-left: 10px solid transparent;"></div>
@@ -1793,26 +2052,37 @@
                     <img id="combat-overlay-team-b-player-3-agent-icon" src="assets/Agents/Breach_Icon.png">
                 </div>
                 <span id="combat-overlay-team-b-player-3-name" class="combat-overlay-name" style="grid-area: 8/2;">Player 3</span>
-
-                <!-- Team B Player 4 -->
-                <div id="combat-overlay-team-b-player-4-top" class="combat-overlay-team-b-top" style="grid-area: 10/2;">
-                    <div id="combat-overlay-team-b-player-4-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
-                    <img id="combat-overlay-team-b-player-4-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Hunter_Ability_1.png">
-                    <img id="combat-overlay-team-b-player-4-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Hunter_Ability_2.png">
-                    <img id="combat-overlay-team-b-player-4-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Hunter_Ability_3.png">
-                    <img id="combat-overlay-team-b-player-4-weapon" class="combat-overlay-weapon" style="grid-area: 1/1;" src="assets/Shop/TX_Hud_Pistol_Luger.png">
-                    <div class="combat-overlay-team-b-credits" style="grid-area: 2/1;">
-                        <img src="assets/Shop/Credits_Icon.png">
-                        <span class="combat-overlay-team-b-player-4-credits">2,300</span>
+                <div id="combat-overlay-team-b-player-3-spike" class="combat-overlay-player-spike-icon" style="grid-area: 7/2; opacity: 0; justify-self: end; transform: translateX(15px);">
+                    <img src="assets/Spike_Icon_SVG.svg">
+                </div>
+                <div class="combat-overlay-observing" style="grid-area: 7/1/10/2;">
+                    <div id="combat-overlay-team-b-player-3-observing" style="transform: translateX(32px);">
+                        <img src="assets/Observing_Icon.png">
                     </div>
                 </div>
+                
+                <!-- Team B Player 4 -->
+                <div style="grid-area: 10/2; display: flex; overflow: hidden; width: 312px;">
+                    <div id="combat-overlay-team-b-player-4-top" class="combat-overlay-team-b-top">
+                        <div id="combat-overlay-team-b-player-4-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
+                        <img id="combat-overlay-team-b-player-4-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Hunter_Ability_1.png">
+                        <img id="combat-overlay-team-b-player-4-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Hunter_Ability_2.png">
+                        <img id="combat-overlay-team-b-player-4-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Hunter_Ability_3.png">
+                        <img id="combat-overlay-team-b-player-4-weapon" class="combat-overlay-weapon" style="grid-area: 1/1;" src="assets/Shop/TX_Hud_Pistol_Luger.png">
+                        <div class="combat-overlay-team-b-credits" style="grid-area: 2/1;">
+                            <img src="assets/Shop/Credits_Icon.png">
+                            <span class="combat-overlay-team-b-player-4-credits">2,300</span>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="combat-overlay-bottom" style="grid-area: 11/2;">
                     <div id="combat-overlay-team-b-player-4-trim" class="combat-overlay-team-b-trim" style="grid-area: 1/1;"></div>
 
                     <div id="combat-overlay-team-b-player-4-bottom-alive" class="combat-overlay-team-b-bottom-alive" style="grid-area: 2/1; display: grid;">
                         <div style="background-color: var(--teamBBackground); opacity: 0.8; grid-area: 1/1/2/-1; height: 100%;"></div>
-                        <span id="combat-overlay-team-b-player-4-hp" class="combat-overlay-hp" style="grid-area: 1/2 ;">100</span>
-                        <img id="combat-overlay-team-b-player-4-shield" class="combat-overlay-team-b-shield" style="grid-area: 1/3;" src="assets/Shop/Shields_2.png">
+                        <span id="combat-overlay-team-b-player-4-hp" class="combat-overlay-hp" style="display: none; grid-area: 1/2 ;">100</span>
+                        <img id="combat-overlay-team-b-player-4-shield" class="combat-overlay-team-b-shield" style="display: none; grid-area: 1/3;" src="assets/Shop/Shields_2.png">
                         <img id="combat-overlay-team-b-player-4-ult-dots" class="combat-overlay-team-b-ult-dots" style="grid-area: 1/4; display: grid;" src="assets/ult_dots/Ult_Dots_1_8.png">
                         <div id="combat-overlay-team-b-player-4-ult-active" class="combat-overlay-ult-active" style="grid-area: 1/4; display: none;">
                             <div style="grid-area: 1/1; width: 0; height: 0; border-bottom: 13px solid white; border-left: 10px solid transparent;"></div>
@@ -1835,26 +2105,37 @@
                     <img id="combat-overlay-team-b-player-4-agent-icon" src="assets/Agents/Hunter_Icon.png">
                 </div>
                 <span id="combat-overlay-team-b-player-4-name" class="combat-overlay-name" style="grid-area: 11/2;">Player 4</span>
-                
-                <!-- Team B Player 5 -->
-                <div id="combat-overlay-team-b-player-5-top" class="combat-overlay-team-b-top" style="grid-area: 13/2;">
-                    <div id="combat-overlay-team-b-player-5-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
-                    <img id="combat-overlay-team-b-player-5-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Clay_Ability_1.png">
-                    <img id="combat-overlay-team-b-player-5-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Clay_Ability_2.png">
-                    <img id="combat-overlay-team-b-player-5-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Clay_Ability_3.png">
-                    <img id="combat-overlay-team-b-player-5-weapon" class="combat-overlay-weapon" style="grid-area: 1/1;" src="assets/Shop/TX_Hud_Pistol_Sheriff.png">
-                    <div class="combat-overlay-team-b-credits" style="grid-area: 2/1;">
-                        <img src="assets/Shop/Credits_Icon.png">
-                        <span class="combat-overlay-team-b-player-5-credits">1,550</span>
+                <div id="combat-overlay-team-b-player-4-spike" class="combat-overlay-player-spike-icon" style="grid-area: 10/2; opacity: 0; justify-self: end; transform: translateX(15px);">
+                    <img src="assets/Spike_Icon_SVG.svg">
+                </div>                
+                <div class="combat-overlay-observing" style="grid-area: 10/1/13/2;">
+                    <div id="combat-overlay-team-b-player-4-observing" style="transform: translateX(32px);">
+                        <img src="assets/Observing_Icon.png">
                     </div>
                 </div>
+                
+                <!-- Team B Player 5 -->
+                <div style="grid-area: 13/2; display: flex; overflow: hidden; width: 312px;">
+                    <div id="combat-overlay-team-b-player-5-top" class="combat-overlay-team-b-top">
+                        <div id="combat-overlay-team-b-player-5-top-background" style="grid-area: 1/1/3/-1; background: #0D1821; opacity: 0.3; transition: 0.2s;"></div>
+                        <img id="combat-overlay-team-b-player-5-ability-1" class="combat-overlay-utility" style="grid-area: 1/2;" src="assets/Agents/Clay_Ability_1.png">
+                        <img id="combat-overlay-team-b-player-5-ability-2" class="combat-overlay-utility" style="grid-area: 1/3;" src="assets/Agents/Clay_Ability_2.png">
+                        <img id="combat-overlay-team-b-player-5-ability-3" class="combat-overlay-utility" style="grid-area: 1/4;" src="assets/Agents/Clay_Ability_3.png">
+                        <img id="combat-overlay-team-b-player-5-weapon" class="combat-overlay-weapon" style="grid-area: 1/1;" src="assets/Shop/TX_Hud_Pistol_Sheriff.png">
+                        <div class="combat-overlay-team-b-credits" style="grid-area: 2/1;">
+                            <img src="assets/Shop/Credits_Icon.png">
+                            <span class="combat-overlay-team-b-player-5-credits">1,550</span>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="combat-overlay-bottom" style="grid-area: 14/2;">
                     <div id="combat-overlay-team-b-player-5-trim" class="combat-overlay-team-b-trim" style="grid-area: 1/1;"></div>
 
                     <div id="combat-overlay-team-b-player-5-bottom-alive" class="combat-overlay-team-b-bottom-alive" style="grid-area: 2/1; display: grid;">
                         <div style="background-color: var(--teamBBackground); opacity: 0.8; grid-area: 1/1/2/-1; height: 100%;"></div>
-                        <span id="combat-overlay-team-b-player-5-hp" class="combat-overlay-hp" style="grid-area: 1/2 ;">100</span>
-                        <img id="combat-overlay-team-b-player-5-shield" class="combat-overlay-team-b-shield" style="grid-area: 1/3;" src="assets/Shop/Shields_2.png">
+                        <span id="combat-overlay-team-b-player-5-hp" class="combat-overlay-hp" style="display: none; grid-area: 1/2 ;">100</span>
+                        <img id="combat-overlay-team-b-player-5-shield" class="combat-overlay-team-b-shield" style="display: none; grid-area: 1/3;" src="assets/Shop/Shields_2.png">
                         <img id="combat-overlay-team-b-player-5-ult-dots" class="combat-overlay-team-b-ult-dots" style="grid-area: 1/4; display: grid;" src="assets/ult_dots/Ult_Dots_1_8.png">
                         <div id="combat-overlay-team-b-player-5-ult-active" class="combat-overlay-ult-active" style="grid-area: 1/4; display: none;">
                             <div style="grid-area: 1/1; width: 0; height: 0; border-bottom: 13px solid white; border-left: 10px solid transparent;"></div>
@@ -1877,7 +2158,15 @@
                     <img id="combat-overlay-team-b-player-5-agent-icon" src="assets/Agents/Clay_Icon.png">
                 </div>
                 <span id="combat-overlay-team-b-player-5-name" class="combat-overlay-name" style="grid-area: 14/2;">Player 5</span>
-
+                <div id="combat-overlay-team-b-player-5-spike" class="combat-overlay-player-spike-icon" style="grid-area: 13/2; opacity: 0; justify-self: end; transform: translateX(15px);">
+                    <img src="assets/Spike_Icon_SVG.svg">
+                </div>
+                <div class="combat-overlay-observing" style="grid-area: 13/1/16/2;">
+                    <div id="combat-overlay-team-b-player-5-observing" style="transform: translateX(32px);">
+                        <img src="assets/Observing_Icon.png">
+                    </div>
+                </div>
+                
             </div> <!-- combat-overlay-team-b -->
 
         </div> <!-- in-game-overlay-advanced -->

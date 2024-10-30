@@ -3,7 +3,7 @@ let overlaySetup = {}
 let currentGame = {
     gameState: "InProgress",
     roundPhase: "combat",
-    spikeState: "SpikePlanted",
+    spikeState: "SpikeNotPlanted",
     observing: "",
     teamAScore: 0,
     teamBScore: 0,
@@ -241,12 +241,12 @@ function setOverlay() {
     // #############################
     // ##### Sets sides on IGO #####
     // #############################
-    if (currentGame.gameHalf === 1) {
+    if (currentGame.gameHalf % 2 === 1) {
         document.documentElement.style.setProperty('--teamATrim', "#3CFECA")
         document.documentElement.style.setProperty('--teamBTrim', "#F64B5C")
         document.documentElement.style.setProperty('--teamABackground', "#157462")
         document.documentElement.style.setProperty('--teamBBackground', "#6E2B36")    
-    } else if (currentGame.gameHalf === 2) {
+    } else if (currentGame.gameHalf % 2 === 0) {
         document.documentElement.style.setProperty('--teamATrim', "#F64B5C")
         document.documentElement.style.setProperty('--teamBTrim', "#3CFECA")
         document.documentElement.style.setProperty('--teamABackground', "#6E2B36")
@@ -460,10 +460,16 @@ function setOverlay() {
             } else {
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-weapon`).src = `assets/Shop/${player.weapon}.png`
             }
+            if (player.spike) {
+                document.getElementById(`combat-overlay-team-a-player-${i+1}-spike`).style.opacity = '1'
+            } else {
+                document.getElementById(`combat-overlay-team-a-player-${i+1}-spike`).style.opacity = '0'
+            }
 
             // Sets Alive/Dead
             if (player.alive === false) {
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-top-background`).style.background = '#0D1821'
+                document.getElementById(`combat-overlay-team-a-player-${i+1}-observing`).style.transform = 'translateX(-32px)'
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-top-background`).style.opacity = '0.3'
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-top`).style.transform = 'translateX(-315px)'
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-trim`).style.display = 'none'
@@ -474,6 +480,7 @@ function setOverlay() {
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-agent-icon`).style.opacity = '0.9'
             } else if (player.alive) {
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-top-background`).style.background = '#0D1821'
+                document.getElementById(`combat-overlay-team-a-player-${i+1}-observing`).style.transform = 'translateX(-32px)'
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-top`).style.opacity = '1'
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-top`).style.transform = ''
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-trim`).style.display = 'block'
@@ -487,6 +494,7 @@ function setOverlay() {
             if (player.name === currentGame.observing) {
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-top-background`).style.background = 'linear-gradient(to right, rgba(255, 233, 157, 0.7), rgba(13, 24, 33, 0.3))'
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-top-background`).style.opacity = '1'
+                document.getElementById(`combat-overlay-team-a-player-${i+1}-observing`).style.transform = ''
             }
         });
     }
@@ -531,11 +539,16 @@ function setOverlay() {
             } else {
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-weapon`).src = `assets/Shop/${player.weapon}.png`
             }
-
+            if (player.spike) {
+                document.getElementById(`combat-overlay-team-b-player-${i+1}-spike`).style.opacity = '1'
+            } else {
+                document.getElementById(`combat-overlay-team-b-player-${i+1}-spike`).style.opacity = '0'
+            }
             // Sets Alive/Dead
             if (player.alive === false) {
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-top-background`).style.background = '#0D1821'
-                document.getElementById(`combat-overlay-team-a-player-${i+1}-top-background`).style.opacity = '0.3'
+                document.getElementById(`combat-overlay-team-b-player-${i+1}-observing`).style.transform = 'translateX(32px)'
+                document.getElementById(`combat-overlay-team-b-player-${i+1}-top-background`).style.opacity = '0.3'
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-top`).style.opacity = '0'
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-top`).style.transform = 'translateX(315px)'
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-trim`).style.display = 'none'
@@ -546,6 +559,7 @@ function setOverlay() {
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-agent-icon`).style.opacity = '0.9'
             } else if (player.alive) {
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-top-background`).style.background = '#0D1821'
+                document.getElementById(`combat-overlay-team-b-player-${i+1}-observing`).style.transform = 'translateX(32px)'
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-top`).style.opacity = '1'
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-top`).style.transform = ''
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-trim`).style.display = 'block'
@@ -558,11 +572,61 @@ function setOverlay() {
 
             if (player.name === currentGame.observing) {
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-top-background`).style.background = 'linear-gradient(to right, rgba(255, 233, 157, 0.7), rgba(13, 24, 33, 0.3))'
-                document.getElementById(`combat-overlay-team-a-player-${i+1}-top-background`).style.opacity = '1'
+                document.getElementById(`combat-overlay-team-b-player-${i+1}-top-background`).style.opacity = '1'
+                document.getElementById(`combat-overlay-team-b-player-${i+1}-observing`).style.transform = ''
             }
         });
     }
 
+
+    // Set Maps
+    if (overlaySetup.seriesLengthSelection === 0) {
+        document.getElementById('overlay-heading-maps').children[1].style.display = 'none'
+        document.getElementById('overlay-heading-maps').children[2].style.display = 'none'
+        document.getElementById('overlay-heading-maps').children[3].style.transform = ''
+        document.getElementById('overlay-heading-map-1-team-pick').style.display = 'none'
+        document.getElementById('overlay-heading-map-1-score').style.display = 'none'
+        document.getElementById('overlay-heading-map-1-team-2').style.display = 'none'
+        document.getElementById('overlay-heading-map-1').textContent = `Best of 1: ${overlaySetup.mapPicks[0]}`
+        document.getElementById('overlay-heading-maps').children[0].children[1].style.padding = '2px 5px 0px 5px'
+    } else if (overlaySetup.seriesLengthSelection === 1) {
+        document.getElementById('overlay-heading-maps').children[1].style.display = 'grid'
+        document.getElementById('overlay-heading-maps').children[2].style.display = 'grid'
+        document.getElementById('overlay-heading-maps').children[3].style.transform = 'translateX(-24px)'
+        document.getElementById('overlay-heading-map-1-team-pick').style.display = 'block'
+        document.getElementById('overlay-heading-maps').children[0].children[1].style.padding = ''
+        document.getElementById('overlay-heading-map-3-team-pick').style.display = 'none'
+        document.getElementById('overlay-heading-map-3').textContent = `Decider: ${overlaySetup.mapPicks[2]}`
+
+        overlaySetup.mapPicks.forEach((map, i) => {
+            if (overlaySetup.mapPicksTeams[i] === 'team-a' && i !== 2) {
+                document.getElementById(`overlay-heading-map-${i+1}-team-pick`).className = 'apply-team-a-logo'
+                document.getElementById(`overlay-heading-map-${i+1}-score`).textContent = `${overlaySetup.mapScores[i*2]} - ${overlaySetup.mapScores[(i*2)+1]}`
+                document.getElementById(`overlay-heading-map-${i+1}-team-2`).className = 'apply-team-b-logo'
+            } else if (i !== 2) {
+                document.getElementById(`overlay-heading-map-${i+1}-team-pick`).className = 'apply-team-b-logo'
+                document.getElementById(`overlay-heading-map-${i+1}-score`).textContent = `${overlaySetup.mapScores[(i*2)+1]} - ${overlaySetup.mapScores[i*2]}`
+                document.getElementById(`overlay-heading-map-${i+1}-team-2`).className = 'apply-team-a-logo'
+            }
+            if (i === 2 && overlaySetup.mapNumber === 2 && overlaySetup.teamAScore !== 2 && overlaySetup.teamBScore !== 2) {
+                document.getElementById('overlay-heading-map-3').textContent = `Current: ${overlaySetup.mapPicks[2]}`
+            } else if (i === 2) {
+
+            } else if (i === overlaySetup.mapNumber) {
+                document.getElementById(`overlay-heading-map-${i+1}`).textContent = `Current: ${map}`
+                document.getElementById(`overlay-heading-map-${i+1}-score`).style.display = 'none'
+                document.getElementById(`overlay-heading-map-${i+1}-team-2`).style.display = 'none'
+            } else if (i < overlaySetup.mapNumber) {
+                document.getElementById(`overlay-heading-map-${i+1}`).textContent = `${map}`
+                document.getElementById(`overlay-heading-map-${i+1}-score`).style.display = 'block'
+                document.getElementById(`overlay-heading-map-${i+1}-team-2`).style.display = 'block'
+            } else if (i > overlaySetup.mapNumber) {
+                document.getElementById(`overlay-heading-map-${i+1}`).textContent = `Next: ${map}`
+                document.getElementById(`overlay-heading-map-${i+1}-score`).style.display = 'none'
+                document.getElementById(`overlay-heading-map-${i+1}-team-2`).style.display = 'none'
+            }
+        })
+    }
 
     // Set Names
     const teamANameAll = document.getElementsByClassName('apply-team-a-name')
@@ -638,11 +702,38 @@ async function getGameEventLog() {
             excludeAcceptAllOption: true,
             multiple: false,
         })
-        clearGameEventLog(fileHandle, "")
-        checkGameEventLog = setInterval(readGameEventLog, 200)
-        console.log('Game event log loaded successfully')
+        const fileData = await fileHandle.getFile();
+        const fileText = await fileData.text()
+        if (fileText.length !== 0) {
+            document.getElementById('game-event-log-message').style.opacity = "1"
+            document.getElementById('game-event-log-message').style.backgroundColor = "darkred"
+            document.getElementById('game-event-log-message').textContent = "Please empty game event log and try again"
+            setTimeout(() => {
+                document.getElementById('game-event-log-message').style.opacity = "0"
+            }, 3000);
+        } else if (fileText.length === 0) {
+            document.getElementById('game-event-log-message').style.opacity = "1"
+            document.getElementById('game-event-log-message').style.backgroundColor = "darkgreen"
+            document.getElementById('game-event-log-message').textContent = "Game event log loaded successfully"
+            checkGameEventLog = setInterval(readGameEventLog, 200)
+            setTimeout(() => {
+                document.getElementById('game-event-log-message').style.opacity = "0"
+            }, 3000);
+        }
+        // clearGameEventLog(fileHandle, "")
     } catch (error) {
-        console.log(error)       
+        let errorMessage = `${error}`
+        console.log(error)
+        if (errorMessage.includes('The user aborted a request')) {
+            document.getElementById('game-event-log-message').textContent = "User cancelled upload"
+        } else {
+            document.getElementById('game-event-log-message').textContent = "Error, please try loading game event log again"
+        }
+        document.getElementById('game-event-log-message').style.opacity = "1"
+        document.getElementById('game-event-log-message').style.backgroundColor = "darkred"
+        setTimeout(() => {
+            document.getElementById('game-event-log-message').style.opacity = "0"
+        }, 3000);
     }
 }
 
@@ -677,7 +768,7 @@ async function readGameEventLog() {
             }
         } 
     } catch (error) {
-        console.error('Read Fail', error)
+        console.log('Read Error', error)
     }
     
 }
@@ -688,9 +779,8 @@ function processGameEventQueue() {
         try {
             gameEventQueue[0] = JSON.parse(gameEventQueue[0].split("] ")[1])
         } catch (error) {
-            console.log(error)
+            console.error(error)
             gameEventQueueTimeout = null
-            checkGameEventLog = null
         }
         
         processGameEvent(gameEventQueue[0])
