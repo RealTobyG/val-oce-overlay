@@ -147,7 +147,7 @@ function processGameEvent(gameEvent, gameEventTime) {
         if (gameEvent.data === "CharacterSelectPersistentLevel") {
             currentGame.gameState = "CharacterSelectPersistentLevel"
             currentGame.currentGamePlayers = []
-            currentGame.gameHalf = 0
+            currentGame.gameHalf = 1
             currentGame.teamAScore = 0
             currentGame.teamBScore = 0
         }
@@ -179,6 +179,9 @@ function processGameEvent(gameEvent, gameEventTime) {
     // Process Round Number
     if (gameEvent.event === "round_number") {
         currentGame.roundNumber = Number(gameEvent.data)
+        if (Number(gameEvent.data === 13) || Number(gameEvent.data > 24)) {
+            currentGame.gameHalf++
+        }
         console.log(`Processed Round Number - ${gameEvent.data} | Events left to process: ${gameEventQueue.length-1}`, gameEvent)
     }
 
@@ -380,12 +383,13 @@ function setOverlay() {
                 document.getElementById(`scoreboard-team-a-player-${i+1}-weapon`).src = `assets/Shop/${player.weapon}.png`
             }
             document.getElementById(`scoreboard-team-a-player-${i+1}-credits`).textContent = player.credits
-            if (player.creditsBuyPhase-player.credits === 0) {
-                document.getElementById(`scoreboard-team-a-player-${i+1}-spent-credits`).parentElement.style.display = 'none'
-            } else {
-                document.getElementById(`scoreboard-team-a-player-${i+1}-spent-credits`).parentElement.style.display = 'flex'
-                document.getElementById(`scoreboard-team-a-player-${i+1}-spent-credits`).textContent = player.creditsBuyPhase-player.credits
-            }
+            // if (player.creditsBuyPhase-player.credits === 0) {
+            //     document.getElementById(`scoreboard-team-a-player-${i+1}-spent-credits`).parentElement.style.display = 'none'
+            // } else {
+            //     document.getElementById(`scoreboard-team-a-player-${i+1}-spent-credits`).parentElement.style.display = 'flex'
+            //     document.getElementById(`scoreboard-team-a-player-${i+1}-spent-credits`).textContent = player.creditsBuyPhase-player.credits
+            // }
+            document.getElementById(`scoreboard-team-a-player-${i+1}-spent-credits`).parentElement.style.display = 'none'
         });
     }
 
@@ -448,14 +452,16 @@ function setOverlay() {
                 document.getElementById(`scoreboard-team-b-player-${i+1}-weapon`).src = `assets/Shop/${player.weapon}.png`
             }
             document.getElementById(`scoreboard-team-b-player-${i+1}-credits`).textContent = player.credits
-            if (player.creditsBuyPhase-player.credits === 0) {
-                document.getElementById(`scoreboard-team-b-player-${i+1}-spent-credits`).parentElement.style.display = 'none'
-                document.getElementById(`scoreboard-team-b-player-${i+1}-credits-spacer`).style.display = 'none'
-            } else {
-                document.getElementById(`scoreboard-team-b-player-${i+1}-spent-credits`).parentElement.style.display = 'flex'
-                document.getElementById(`scoreboard-team-b-player-${i+1}-spent-credits`).textContent = player.creditsBuyPhase-player.credits
-                document.getElementById(`scoreboard-team-b-player-${i+1}-credits-spacer`).style.display = 'block'
-            }
+            // if (player.creditsBuyPhase-player.credits === 0) {
+            //     document.getElementById(`scoreboard-team-b-player-${i+1}-spent-credits`).parentElement.style.display = 'none'
+            //     document.getElementById(`scoreboard-team-b-player-${i+1}-credits-spacer`).style.display = 'none'
+            // } else {
+            //     document.getElementById(`scoreboard-team-b-player-${i+1}-spent-credits`).parentElement.style.display = 'flex'
+            //     document.getElementById(`scoreboard-team-b-player-${i+1}-spent-credits`).textContent = player.creditsBuyPhase-player.credits
+            //     document.getElementById(`scoreboard-team-b-player-${i+1}-credits-spacer`).style.display = 'block'
+            // }
+            document.getElementById(`scoreboard-team-b-player-${i+1}-spent-credits`).parentElement.style.display = 'none'
+            document.getElementById(`scoreboard-team-b-player-${i+1}-credits-spacer`).style.display = 'none'
         });
     }
 

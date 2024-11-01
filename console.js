@@ -1116,10 +1116,10 @@ const mapData = [
     {mapName: "Breeze", mapPool: false},
     {mapName: "Fracture", mapPool: false},
     {mapName: "Haven", mapPool: true},
-    {mapName: "Icebox", mapPool: true},
-    {mapName: "Lotus", mapPool: true},
-    {mapName: "Pearl", mapPool: false},
-    {mapName: "Split", mapPool: false},
+    {mapName: "Icebox", mapPool: false},
+    {mapName: "Lotus", mapPool: false},
+    {mapName: "Pearl", mapPool: true},
+    {mapName: "Split", mapPool: true},
     {mapName: "Sunset", mapPool: true},
 ]
 let mapPoolSelection = 0
