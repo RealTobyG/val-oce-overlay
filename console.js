@@ -3,12 +3,78 @@ const defaultSettings = {
     // Teams Config
     teamAName: "Team A",
     teamATri: "TMA",
+    teamARegionSeed: "OCE #1",
     teamALogo: "assets/200x200_No_Logo.png",
     teamANoLogo: 1,
+    teamAPlayers: [
+        {
+            riotID: "Player1A",
+            riotIDTag: "#001A",
+            preferredName: "",
+            OBSNumber: "",
+        },
+        {
+            riotID: "Player2A",
+            riotIDTag: "#002A",
+            preferredName: "",
+            OBSNumber: "",
+        },
+        {
+            riotID: "Player3A",
+            riotIDTag: "#003A",
+            preferredName: "",
+            OBSNumber: "",
+        },
+        {
+            riotID: "Player4A",
+            riotIDTag: "#004A",
+            preferredName: "",
+            OBSNumber: "",
+        },
+        {
+            riotID: "Player5A",
+            riotIDTag: "#005A",
+            preferredName: "",
+            OBSNumber: "",
+        },
+    ],
     teamBName: "Team B",
-    teamBTri:  "TMB",
+    teamBTri: "TMB",
+    teamBRegionSeed: "NA #5",
     teamBLogo: "assets/200x200_No_Logo.png",
-    teamBNoLogo: 1, 
+    teamBNoLogo: 1,
+    teamBPlayers: [
+        {
+            riotID: "Player1B",
+            riotIDTag: "#001B",
+            preferredName: "",
+            OBSNumber: "",
+        },
+        {
+            riotID: "Player2B",
+            riotIDTag: "#002B",
+            preferredName: "",
+            OBSNumber: "",
+        },
+        {
+            riotID: "Player3B",
+            riotIDTag: "#003B",
+            preferredName: "",
+            OBSNumber: "",
+        },
+        {
+            riotID: "Player4B",
+            riotIDTag: "#004B",
+            preferredName: "",
+            OBSNumber: "",
+        },
+        {
+            riotID: "Player5B",
+            riotIDTag: "#005B",
+            preferredName: "",
+            OBSNumber: "",
+        },
+    ],
     // Map Veto Config
     seriesLengthSelection: 1,
     mapPoolSelection: 0,
@@ -169,12 +235,78 @@ const exampleSettings = {
     // Teams Config
     teamAName: "Team Heretics",
     teamATri: "TH",
+    teamARegionSeed: "Seed #1",
     teamALogo: "https://files.catbox.moe/gx2wtj.png",
     teamANoLogo: 0,
+    teamAPlayers: [
+        {
+            riotID: "Boo",
+            riotIDTag: "#TH01",
+            preferredName: "",
+            OBSNumber: "",
+        },
+        {
+            riotID: "RieNs",
+            riotIDTag: "#TH02",
+            preferredName: "",
+            OBSNumber: "",
+        },
+        {
+            riotID: "benjyfishy",
+            riotIDTag: "#TH03",
+            preferredName: "",
+            OBSNumber: "",
+        },
+        {
+            riotID: "MiniBoo",
+            riotIDTag: "#TH04",
+            preferredName: "",
+            OBSNumber: "",
+        },
+        {
+            riotID: "Wo0t",
+            riotIDTag: "#TH05",
+            preferredName: "",
+            OBSNumber: "",
+        },
+    ],
     teamBName: "Team Vitality",
-    teamBTri:  "VIT",
+    teamBTri: "VIT",
+    teamBRegionSeed: "Seed #4",
     teamBLogo: "https://files.catbox.moe/r2r9ri.png",
     teamBNoLogo: 0, 
+    teamBPlayers: [
+        {
+            riotID: "trexx",
+            riotIDTag: "#VIT01",
+            preferredName: "",
+            OBSNumber: "",
+        },
+        {
+            riotID: "Sayf",
+            riotIDTag: "#VIT02",
+            preferredName: "",
+            OBSNumber: "",
+        },
+        {
+            riotID: "Kicks",
+            riotIDTag: "#VIT03",
+            preferredName: "",
+            OBSNumber: "",
+        },
+        {
+            riotID: "runneR",
+            riotIDTag: "#VIT04",
+            preferredName: "",
+            OBSNumber: "",
+        },
+        {
+            riotID: "ceNder",
+            riotIDTag: "#VIT05",
+            preferredName: "",
+            OBSNumber: "",
+        },
+    ],
     // Map Veto Config
     seriesLengthSelection: 1,
     mapPoolSelection: 0,
@@ -347,20 +479,34 @@ function restoreFromSettings(settings) {
 function restoreTeams(settings) {
     document.getElementById('team-a-name').value = settings.teamAName
     document.getElementById('team-a-tri').value = settings.teamATri
+    document.getElementById('team-a-region-seed').value = settings.teamARegionSeed
     teamALogo = settings.teamALogo
     if (settings.teamANoLogo === 0) {
         document.getElementById('team-a-no-logo').checked = false
     } else {
         document.getElementById('team-a-no-logo').checked = true
     }
+    settings.teamAPlayers.forEach((player, i) => {
+        document.getElementById(`team-a-player-${i+1}-riot-id`).value = player.riotID
+        document.getElementById(`team-a-player-${i+1}-riot-id-tag`).value = player.riotIDTag
+        document.getElementById(`team-a-player-${i+1}-preferred-name`).value = player.preferredName
+        document.getElementById(`team-a-player-${i+1}-obs-position`).value = player.OBSNumber
+    })
     document.getElementById('team-b-name').value = settings.teamBName
     document.getElementById('team-b-tri').value = settings.teamBTri
+    document.getElementById('team-b-region-seed').value = settings.teamBRegionSeed
     teamBLogo = settings.teamBLogo
     if (settings.teamBNoLogo === 0) {
         document.getElementById('team-b-no-logo').checked = false
     } else {
         document.getElementById('team-b-no-logo').checked = true
     }
+    settings.teamBPlayers.forEach((player, i) => {
+        document.getElementById(`team-b-player-${i+1}-riot-id`).value = player.riotID
+        document.getElementById(`team-b-player-${i+1}-riot-id-tag`).value = player.riotIDTag
+        document.getElementById(`team-b-player-${i+1}-preferred-name`).value = player.preferredName
+        document.getElementById(`team-b-player-${i+1}-obs-position`).value = player.OBSNumber
+    })
     setAllLogos()
     setAllNames()
 }
@@ -1849,12 +1995,8 @@ for (const element of document.getElementsByName('casters-selection')) {
 // ##############################################################################
 
 function setOverlay() {
-    const overlayElements = document.getElementsByClassName('overlay-element')
     for (option of document.getElementsByName('overlay-selection')) {
         if (Number(option.value) === 0 && option.checked) {
-            for (const element of overlayElements) {
-                element.src = element.src.replace(/(GC|LPL)/g, "VCL")
-            }
             document.getElementById('bg1').value = '#007477'
             document.getElementById('bg2').value = '#00262a'
             document.getElementById('bg3').value = '#0297b5'
@@ -1866,9 +2008,6 @@ function setOverlay() {
         }
         
         if (Number(option.value) === 1 && option.checked) {
-            for (const element of overlayElements) {
-                element.src = element.src.replace(/(VCL|LPL)/g, "GC")
-            }
             document.getElementById('bg1').value = '#fcb401'
             document.getElementById('bg2').value = '#b36200'
             document.getElementById('bg3').value = '#b58200'
@@ -1878,14 +2017,7 @@ function setOverlay() {
             document.getElementById('frames').value = '#e09600'
             setGradient()
         }
-
-        if (Number(option.value) === 2 && option.checked) {
-            for (const element of overlayElements) {
-                element.src = element.src.replace(/(VCL|LPL)/g, "VCL")
-            }
-        }
-    }
-    
+    }   
 }
 
 document.getElementsByName('overlay-selection').forEach((menu) => {
@@ -2337,12 +2469,78 @@ const currentSettings = {
     // Teams Config
     teamAName: "Team A",
     teamATri: "TMA",
+    teamARegionSeed: "OCE #1",
     teamALogo: "assets/200x200_No_Logo.png",
-    teamANoLogo: 0,
+    teamANoLogo: 1,
+    teamAPlayers: [
+        {
+            riotID: "Player1A",
+            riotIDTag: "#001A",
+            preferredName: "",
+            OBSNumber: "",
+        },
+        {
+            riotID: "Player2A",
+            riotIDTag: "#002A",
+            preferredName: "",
+            OBSNumber: "",
+        },
+        {
+            riotID: "Player3A",
+            riotIDTag: "#003A",
+            preferredName: "",
+            OBSNumber: "",
+        },
+        {
+            riotID: "Player4A",
+            riotIDTag: "#004A",
+            preferredName: "",
+            OBSNumber: "",
+        },
+        {
+            riotID: "Player5A",
+            riotIDTag: "#005A",
+            preferredName: "",
+            OBSNumber: "",
+        },
+    ],
     teamBName: "Team B",
-    teamBTri:  "TMB",
+    teamBTri: "TMB",
+    teamBRegionSeed: "NA #5",
     teamBLogo: "assets/200x200_No_Logo.png",
-    teamBNoLogo: 0, 
+    teamBNoLogo: 1,
+    teamBPlayers: [
+        {
+            riotID: "Player1B",
+            riotIDTag: "#001B",
+            preferredName: "",
+            OBSNumber: "",
+        },
+        {
+            riotID: "Player2B",
+            riotIDTag: "#002B",
+            preferredName: "",
+            OBSNumber: "",
+        },
+        {
+            riotID: "Player3B",
+            riotIDTag: "#003B",
+            preferredName: "",
+            OBSNumber: "",
+        },
+        {
+            riotID: "Player4B",
+            riotIDTag: "#004B",
+            preferredName: "",
+            OBSNumber: "",
+        },
+        {
+            riotID: "Player5B",
+            riotIDTag: "#005B",
+            preferredName: "",
+            OBSNumber: "",
+        },
+    ],
     // Map Veto Config
     seriesLengthSelection: 1,
     mapPoolSelection: 0,
@@ -2527,12 +2725,24 @@ for (element of document.querySelectorAll('#intermission-default, #intermission-
 function teamsConfigSend() {
     currentSettings.teamAName = teamAName.value
     currentSettings.teamATri = teamATri.value
+    currentSettings.teamARegionSeed = document.getElementById('team-a-region-seed').value
     currentSettings.teamALogo = teamALogo
     if (document.getElementById('team-a-no-logo').checked) {
         currentSettings.teamANoLogo = 1
     } else {
         currentSettings.teamANoLogo = 0
     }
+    function setTeamAPlayer(playerNumber) {
+        currentSettings.teamAPlayers[playerNumber-1].riotID = document.getElementById(`team-a-player-${playerNumber}-riot-id`).value
+        currentSettings.teamAPlayers[playerNumber-1].riotIDTag = document.getElementById(`team-a-player-${playerNumber}-riot-id-tag`).value
+        currentSettings.teamAPlayers[playerNumber-1].preferredName = document.getElementById(`team-a-player-${playerNumber}-preferred-name`).value
+        currentSettings.teamAPlayers[playerNumber-1].OBSNumber = document.getElementById(`team-a-player-${playerNumber}-obs-position`).value
+    }
+    setTeamAPlayer(1)
+    setTeamAPlayer(2)
+    setTeamAPlayer(3)
+    setTeamAPlayer(4)
+    setTeamAPlayer(5)
     currentSettings.teamBName = teamBName.value
     currentSettings.teamBTri = teamBTri.value
     currentSettings.teamBLogo = teamBLogo
@@ -2541,6 +2751,18 @@ function teamsConfigSend() {
     } else {
         currentSettings.teamBNoLogo = 0
     }
+    currentSettings.teamBRegionSeed = document.getElementById('team-b-region-seed').value
+    function setTeamBPlayer(playerNumber) {
+        currentSettings.teamBPlayers[playerNumber-1].riotID = document.getElementById(`team-b-player-${playerNumber}-riot-id`).value
+        currentSettings.teamBPlayers[playerNumber-1].riotIDTag = document.getElementById(`team-b-player-${playerNumber}-riot-id-tag`).value
+        currentSettings.teamBPlayers[playerNumber-1].preferredName = document.getElementById(`team-b-player-${playerNumber}-preferred-name`).value
+        currentSettings.teamBPlayers[playerNumber-1].OBSNumber = document.getElementById(`team-b-player-${playerNumber}-obs-position`).value
+    }
+    setTeamBPlayer(1)
+    setTeamBPlayer(2)
+    setTeamBPlayer(3)
+    setTeamBPlayer(4)
+    setTeamBPlayer(5)
 }
 
 function mapVetoSend() {

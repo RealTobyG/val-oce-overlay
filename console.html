@@ -443,7 +443,7 @@
         #team-config {
             grid-area: 1/1;
             display: grid;
-            grid-template: repeat(7, 100px)/100px 100px 50px 500px 75px 230px 50px 230px;
+            grid-template: repeat(9, 100px)/100px 100px 50px 500px 75px 230px 50px 230px;
             padding: 30px 0px 0px 40px;
         }
 
@@ -554,29 +554,95 @@
             left: 1430px;
         }
 
-        #igo-preview {
-            grid-area: 1/1;
-            display: flex;
-            width: 1920px;
-            height: 1080px;
-            margin: 170px 0px 0px 850px;
-            border: 30px solid rgb(78, 75, 68);
-            border-radius: 20px;
-            transform: scale(0.5) translate(-960px, -560px);
+        #team-config [type=number] {
+            height: 50px;
+            width: 70px;
+            background-color: rgb(52, 52, 52);
+            cursor: text;
+            color: white;
+            font-size: 50pt;
+            text-align: center;
+
+        }
+        
+        #team-config [type=number]:hover {
+            background-color: rgb(78, 75, 68);
         }
 
-        .in-game-overlay {
+        #team-config [type=number]:focus {
+            background-color: rgb(78, 75, 68);
+        }
+
+        #team-config [type=number]:hover + div[class=help] {
+            display: flex;
+            background-color: rgb(52, 52, 52);
+            color: white;
+            position: absolute;
+            top: 30px;
+            left: 1430px;
+        }
+
+        .team-players-container {
             display: grid;
-            grid-template: 80px/80px 47px 247px 1172px 247px 47px 80px;
+            grid-template: 25px repeat(5, 50px)/130px 15px 100px 10px 130px 10px 80px;
+            font-family: "Arial";
+            font-size: 15pt;
+            color: white;
+        }
+
+        #igo-preview {
+            grid-area: 1 / 1;
+            display: flex;
+            flex-flow: row wrap;
+            width: 1920px;
+            height: 1600px;
+            margin: 170px 0px 0px 850px;
+            background-color: rgb(78, 75, 68);
+            border: 30px solid rgb(78, 75, 68);
+            border-radius: 20px;
+            transform: scale(0.485) translate(-1020px, -930px);
+            align-content: start;
+        }
+
+        #in-game-overlay-simple {
             grid-area: 1/1;
+            display: grid;
+            grid-template: 1080px/1920px;
+        }
+
+        #in-game-overlay-layer-1 {
+            grid-area: 1/1;
+            display: grid;
+            grid-template: 30px 20px 40px/85px 40px 270px 20px 1090px 20px 270px 40px 85px;
+        }
+
+        #in-game-overlay-layer-2 {
+            grid-area: 1/1;
+            display: grid;
+            grid-template: 26px 20px 40px/84px 40px 270px 20px 1092px 20px 270px 40px 84px;
+        }
+
+        #in-game-overlay-layer-3 {
+            grid-area: 1/1;
+            display: flex;
+            flex-direction: row;
+            justify-self: center;
+            height: 26px;
+            color: white;
+            font-size: 14pt;
+        }
+
+        #in-game-overlay-content {
+            grid-area: 1/1;
+            display: grid;
+            grid-template: 80px/84px 40px 270px 1fr 270px 40px 84px;
         }
 
         .team-logo-left-igo {
             max-width: 70px;
             max-height: 70px;
             object-fit: contain;
-            grid-column: 1;
-            grid-row: 1;
+            grid-area: 1/1;
             margin: 8px 0px 0px 15px;
             
         }
@@ -585,38 +651,44 @@
             max-width: 70px;
             max-height: 70px;
             object-fit: contain;
-            grid-column: 7;
-            grid-row: 1;
+            grid-area: 1/7;
             margin: 8px 15px 0px 0px;
-            justify-self: end;
         }
 
         .team-name-left-igo {
-            font-size: 15pt;
+            font-size: 18pt;
             color: white;
-            grid-column: 3;
-            grid-row: 1;
-            margin-top: 8px;
+            grid-area: 1/3;
+            margin-top: 11px;
             text-align: center;
         }
 
         .team-name-right-igo {
-            font-size: 15pt;
+            font-size: 18pt;
             color: white;
-            grid-column: 5;
-            grid-row: 1;
-            margin-top: 8px;
+            grid-area: 1/5;
+            margin-top: 11px;
             text-align: center;
         }
 
-        .chat-cover-igo {
+        #chat-cover {
             grid-area: 1/1;
-            margin: 947px 0px 0px 32px;
+            display: flex;
+            margin: 937px 0px 0px 22px;
             width: 463px;
             height: 133px;
-            display: flex;
             justify-content: center;
             align-items: center;
+            background-color: #1a1a1a;
+            border-left: solid 10px var(--frames);
+            border-right: solid 10px var(--frames);
+            border-top: solid 10px var(--frames);
+        }
+
+        #event-logo-igo {
+            max-height: 110px;
+            max-width: 425px;
+            object-fit: contain;
         }
 
 
@@ -1880,7 +1952,7 @@
                         <div class="menu-contents">
                             <div id="team-config">
                                 <!-- #################### Team A #################### -->
-                                <div class="team-config-background" style="grid-area: 1/1/4/5;"></div>
+                                <div class="team-config-background" style="grid-area: 1/1/5/5;"></div>
                                 
                                 <img src="assets/200x200_No_Logo.png" class="apply-team-a-logo" style="max-width: 180px; max-height: 180px; object-fit: contain; grid-area: 1/1; margin: 10px 0px 0px 10px; z-index: 1;">
                                 
@@ -1912,24 +1984,156 @@
                                     </div>
                                 </label>
 
-                                <input type="text" id="team-a-name" value="Team A" class="menu" style="grid-area: 1/4; z-index: 1;">
-                                <div class="help">
-                                    <span>Set the name for team A </span>                                      
-                                    <span>Note that 'team A' does not have any <br> effect on seeding, it is just a placeholder</span>
+                                <div class="flex-column" style="grid-area: 1/4; justify-content: center; z-index: 1;">
+                                    <span>Team A Name</span>
+                                    <input type="text" id="team-a-name" value="Team A" class="menu" style="width: 492px;">
+                                    <div class="help">
+                                        <span>Set the name for team A </span>                                      
+                                        <span>Note that 'team A' does not have any <br> effect on seeding, it is just a placeholder</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex-column" style="grid-area: 2/4; justify-content: center; z-index: 1;">
+                                    <span>Team A Tricode</span>
+                                    <input type="text" id="team-a-tri" maxlength="4" value="TMA" class="menu" style="align-self: flex-start; width: 150px;">
+                                    <div class="help">
+                                        <span>Set the tricode for team A </span>                                      
+                                        <span>Tricodes are a 2-4 character representation of a <br> team's name such as PRX or SEN </span>
+                                    </div>
                                 </div>
 
-                                <input type="text" id="team-a-tri" maxlength="4" value="TMA" class="menu" style="grid-area: 2/4; width: 150px; z-index: 1;">
-                                <div class="help">
-                                    <span>Set the tricode for team A </span>                                      
-                                    <span>Tricodes are a 2-4 character representation of a <br> team's name such as PRX or SEN </span>
+                                <div class="flex-column" style="grid-area: 2/4; justify-self: end; justify-content: center; z-index: 1;">
+                                    <span>Team A Region/Seed</span>
+                                    <input type="text" id="team-a-region-seed" value="OCE #1" class="menu" style="align-self: flex-end; width: 200px;">
+                                    <div class="help">
+                                        <span>Sets the region/seed for team A </span>                                      
+                                        <span>This will display underneath/next to team's <br> tricodes on certain overlays </span>
+                                    </div>
                                 </div>
 
+                                <div style="display: flex; grid-area: 3/4/5/5; z-index: 1; overflow-y: scroll;">
+                                    <div class="team-players-container">
+                                        <span style="grid-area: 1/1/2/4; justify-self: center;">Player Riot ID</span>
+                                        <span style="grid-area: 1/5; justify-self: center;">Player Name</span>
+                                        <span style="grid-area: 1/7; justify-self: center;">OBS #</span>
+                                        <!-- Team A Player 1 -->
+                                        <input type="text" id="team-a-player-1-riot-id" value="Player 1A" class="menu" style="grid-area: 2/1; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team A Player 1 Riot ID</span>                                      
+                                            <span># (tag) in next text box</span>
+                                        </div>
+                                        <span style="grid-area: 2/2; align-self: center;">#</span>
+                                        <input type="text" id="team-a-player-1-riot-id-tag" value="001A"  maxlength="5" class="menu" style="grid-area: 2/3; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team A Player 1 Riot ID</span>                                      
+                                            <span># (tag) only, 3-5 characters</span>
+                                        </div>
+                                        <input type="text" id="team-a-player-1-preferred-name" class="menu" style="grid-area: 2/5; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team A Player 1 Preferred name</span>                                      
+                                            <span>Leave empty if player goes by their Riot ID</span>
+                                        </div>
+                                        <input type="number" id="team-a-player-1-obs-position" min="0" max="9" class="menu" style="grid-area: 2/7; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team A Player 1 observer position</span>                                      
+                                            <span>Changes the order of players in the advanced in game overlay, refer to observer position guide for accurate observing order</span>
+                                        </div>
+                                        <!-- Team A Player 2 -->
+                                        <input type="text" id="team-a-player-2-riot-id" value="Player 2A" class="menu" style="grid-area: 3/1; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team A Player 2 Riot ID</span>                                      
+                                            <span># (tag) in next text box</span>
+                                        </div>
+                                        <span style="grid-area: 3/2; align-self: center;">#</span>
+                                        <input type="text" id="team-a-player-2-riot-id-tag" value="002A" maxlength="5" class="menu" style="grid-area: 3/3; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team A Player 2 Riot ID</span>                                      
+                                            <span># (tag) only, 3-5 characters</span>
+                                        </div>
+                                        <input type="text" id="team-a-player-2-preferred-name" class="menu" style="grid-area: 3/5; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team A Player 2 Preferred name</span>                                      
+                                            <span>Leave empty if player goes by their Riot ID</span>
+                                        </div>
+                                        <input type="number" id="team-a-player-2-obs-position" min="0" max="9" class="menu" style="grid-area: 3/7; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team A Player 2 observer position</span>                                      
+                                            <span>Changes the order of players in the advanced in game overlay, refer to observer position guide for accurate observing order</span>
+                                        </div>
+                                        <!-- Team A Player 3 -->
+                                        <input type="text" id="team-a-player-3-riot-id" value="Player 3A" class="menu" style="grid-area: 4/1; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team A Player 3 Riot ID</span>                                      
+                                            <span># (tag) in next text box</span>
+                                        </div>
+                                        <span style="grid-area: 4/2; align-self: center;">#</span>
+                                        <input type="text" id="team-a-player-3-riot-id-tag" value="003A" maxlength="5" class="menu" style="grid-area: 4/3; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team A Player 3 Riot ID</span>                                      
+                                            <span># (tag) only, 3-5 characters</span>
+                                        </div>
+                                        <input type="text" id="team-a-player-3-preferred-name" class="menu" style="grid-area: 4/5; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team A Player 3 Preferred name</span>                                      
+                                            <span>Leave empty if player goes by their Riot ID</span>
+                                        </div>
+                                        <input type="number" id="team-a-player-3-obs-position" min="0" max="9" class="menu" style="grid-area: 4/7; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team A Player 3 observer position</span>                            
+                                            <span>Changes the order of players in the advanced in game overlay, refer to observer position guide for accurate observing order</span>
+                                        </div>
+                                        <!-- Team A Player 4 -->
+                                        <input type="text" id="team-a-player-4-riot-id" value="Player 4A" class="menu" style="grid-area: 5/1; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team A Player 4 Riot ID</span>                                      
+                                            <span># (tag) in next text box</span>
+                                        </div>
+                                        <span style="grid-area: 5/2; align-self: center;">#</span>
+                                        <input type="text" id="team-a-player-4-riot-id-tag" value="004A" maxlength="5" class="menu" style="grid-area: 5/3; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team A Player 4 Riot ID</span>                                      
+                                            <span># (tag) only, 3-5 characters</span>
+                                        </div>
+                                        <input type="text" id="team-a-player-4-preferred-name" class="menu" style="grid-area: 5/5; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team A Player 4 Preferred name</span>                                      
+                                            <span>Leave empty if player goes by their Riot ID</span>
+                                        </div>
+                                        <input type="number" id="team-a-player-4-obs-position" min="0" max="9" class="menu" style="grid-area: 5/7; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team A Player 4 observer position</span>                            
+                                            <span>Changes the order of players in the advanced in game overlay, refer to observer position guide for accurate observing order</span>
+                                        </div>
+                                        <!-- Team A Player 5 -->
+                                        <input type="text" id="team-a-player-5-riot-id" value="Player 5A" class="menu" style="grid-area: 6/1; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team A Player 5 Riot ID</span>                                      
+                                            <span># (tag) in next text box</span>
+                                        </div>
+                                        <span style="grid-area: 6/2; align-self: center;">#</span>
+                                        <input type="text" id="team-a-player-5-riot-id-tag" value="005A" maxlength="5" class="menu" style="grid-area: 6/3; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team A Player 5 Riot ID</span>                                      
+                                            <span># (tag) only, 3-5 characters</span>
+                                        </div>
+                                        <input type="text" id="team-a-player-5-preferred-name" class="menu" style="grid-area: 6/5; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team A Player 5 Preferred name</span>                                      
+                                            <span>Leave empty if player goes by their Riot ID</span>
+                                        </div>
+                                        <input type="number" id="team-a-player-5-obs-position" min="0" max="9" class="menu" style="grid-area: 6/7; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team A Player 5 observer position</span>                            
+                                            <span>Changes the order of players in the advanced in game overlay, refer to observer position guide for accurate observing order</span>
+                                        </div>
+                                    </div>
+                                </div>
                                 <!-- #################### Team B #################### -->
-                                <div class="team-config-background" style="grid-area: 5/1/8/5;"></div>
+                                <div class="team-config-background" style="grid-area: 6/1/10/5;"></div>
                                 
-                                <img src="assets/200x200_No_Logo.png" class="apply-team-b-logo" style="max-width: 180px; max-height: 180px; object-fit: contain; grid-area: 5/1; margin: 10px 0px 0px 10px; z-index: 1;">
+                                <img src="assets/200x200_No_Logo.png" class="apply-team-b-logo" style="max-width: 180px; max-height: 180px; object-fit: contain; grid-area: 6/1; margin: 10px 0px 0px 10px; z-index: 1;">
                                 
-                                <label for="team-b-logo-upload" style="grid-area: 7/1; z-index: 1;">
+                                <label for="team-b-logo-upload" style="grid-area: 8/1; z-index: 1;">
                                     <input type="button" id="team-b-logo-upload" class="menu">
                                     <div class="input-contents">
                                         <img src="assets/Upload_Icon.png">
@@ -1943,7 +2147,7 @@
                                     </div>
                                 </label>
                                 
-                                <label for="team-b-no-logo" style="grid-area: 7/2; z-index: 1;">
+                                <label for="team-b-no-logo" style="grid-area: 8/2; z-index: 1;">
                                     <input type="checkbox" id="team-b-no-logo" checked class="menu">
                                     <div class="input-contents">
                                         <span>No Logo</span>
@@ -1957,18 +2161,150 @@
                                     </div>
                                 </label>
 
-                                <input type="text" id="team-b-name" value="Team B" class="menu" style="grid-area: 5/4; z-index: 1;">
-                                <div class="help">
-                                    <span>Set the name for team B </span>                                      
-                                    <span>Note that 'team B' does not have any <br> effect on seeding, it is just a placeholder</span>
+                                <div class="flex-column" style="grid-area: 6/4; justify-content: center; z-index: 1;">
+                                    <span>Team B Name</span>
+                                    <input type="text" id="team-b-name" value="Team B" class="menu" style="width: 492px;">
+                                    <div class="help">
+                                        <span>Set the name for team B </span>                                      
+                                        <span>Note that 'team B' does not have any <br> effect on seeding, it is just a placeholder</span>
+                                    </div>
                                 </div>
 
-                                <input type="text" id="team-b-tri" maxlength="4" value="TMB" class="menu" style="grid-area: 6/4; width: 150px; z-index: 1;">
-                                <div class="help">
-                                    <span>Set the tricode for team A </span>                                      
-                                    <span>Tricodes are a 2-4 character representation of a <br> team's name such as PRX or SEN </span>
+                                <div class="flex-column" style="grid-area: 7/4; justify-content: center; z-index: 1;">
+                                    <span>Team B Tricode</span>
+                                    <input type="text" id="team-b-tri" maxlength="4" value="TMB" class="menu" style="align-self: flex-start; width: 150px;">
+                                    <div class="help">
+                                        <span>Set the tricode for team A </span>                                      
+                                        <span>Tricodes are a 2-4 character representation of a <br> team's name such as PRX or SEN </span>
+                                    </div>
                                 </div>
 
+                                <div class="flex-column" style="grid-area: 7/4; justify-self: end; justify-content: center; z-index: 1;">
+                                    <span>Team B Region/Seed</span>
+                                    <input type="text" id="team-b-region-seed" value="NA #5" class="menu" style="align-self: flex-end; width: 200px;">
+                                    <div class="help">
+                                        <span>Sets the region/seed for team B </span>                                      
+                                        <span>This will display underneath/next to team's <br> tricodes on certain overlays </span>
+                                    </div>
+                                </div>
+
+                                <div style="display: flex; grid-area: 8/4/10/5; z-index: 1; overflow-y: scroll;">
+                                    <div class="team-players-container">
+                                        <span style="grid-area: 1/1/2/4; justify-self: center;">Player Riot ID</span>
+                                        <span style="grid-area: 1/5; justify-self: center;">Player Name</span>
+                                        <span style="grid-area: 1/7; justify-self: center;">OBS #</span>
+                                        <!-- Team B Player 1 -->
+                                        <input type="text" id="team-b-player-1-riot-id" value="Player 1B" class="menu" style="grid-area: 2/1; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team B Player 1 Riot ID</span>                                      
+                                            <span># (tag) in next text box</span>
+                                        </div>
+                                        <span style="grid-area: 2/2; align-self: center;">#</span>
+                                        <input type="text" id="team-b-player-1-riot-id-tag" value="001B"  maxlength="5" class="menu" style="grid-area: 2/3; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team B Player 1 Riot ID</span>                                      
+                                            <span># (tag) only, 3-5 characters</span>
+                                        </div>
+                                        <input type="text" id="team-b-player-1-preferred-name" class="menu" style="grid-area: 2/5; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team B Player 1 Preferred name</span>                                      
+                                            <span>Leave empty if player goes by their Riot ID</span>
+                                        </div>
+                                        <input type="number" id="team-b-player-1-obs-position" min="0" max="9" class="menu" style="grid-area: 2/7; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team B Player 1 observer position</span>                                      
+                                            <span>Changes the order of players in the advanced in game overlay, refer to observer position guide for accurate observing order</span>
+                                        </div>
+                                        <!-- Team B Player 2 -->
+                                        <input type="text" id="team-b-player-2-riot-id" value="Player 2B" class="menu" style="grid-area: 3/1; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team B Player 2 Riot ID</span>                                      
+                                            <span># (tag) in next text box</span>
+                                        </div>
+                                        <span style="grid-area: 3/2; align-self: center;">#</span>
+                                        <input type="text" id="team-b-player-2-riot-id-tag" value="002B" maxlength="5" class="menu" style="grid-area: 3/3; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team B Player 2 Riot ID</span>                                      
+                                            <span># (tag) only, 3-5 characters</span>
+                                        </div>
+                                        <input type="text" id="team-b-player-2-preferred-name" class="menu" style="grid-area: 3/5; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team B Player 2 Preferred name</span>                                      
+                                            <span>Leave empty if player goes by their Riot ID</span>
+                                        </div>
+                                        <input type="number" id="team-b-player-2-obs-position" min="0" max="9" class="menu" style="grid-area: 3/7; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team B Player 2 observer position</span>                                      
+                                            <span>Changes the order of players in the advanced in game overlay, refer to observer position guide for accurate observing order</span>
+                                        </div>
+                                        <!-- Team B Player 3 -->
+                                        <input type="text" id="team-b-player-3-riot-id" value="Player 3B" class="menu" style="grid-area: 4/1; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team B Player 3 Riot ID</span>                                      
+                                            <span># (tag) in next text box</span>
+                                        </div>
+                                        <span style="grid-area: 4/2; align-self: center;">#</span>
+                                        <input type="text" id="team-b-player-3-riot-id-tag" value="003B" maxlength="5" class="menu" style="grid-area: 4/3; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team B Player 3 Riot ID</span>                                      
+                                            <span># (tag) only, 3-5 characters</span>
+                                        </div>
+                                        <input type="text" id="team-b-player-3-preferred-name" class="menu" style="grid-area: 4/5; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team B Player 3 Preferred name</span>                                      
+                                            <span>Leave empty if player goes by their Riot ID</span>
+                                        </div>
+                                        <input type="number" id="team-b-player-3-obs-position" min="0" max="9" class="menu" style="grid-area: 4/7; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team B Player 3 observer position</span>                            
+                                            <span>Changes the order of players in the advanced in game overlay, refer to observer position guide for accurate observing order</span>
+                                        </div>
+                                        <!-- Team B Player 4 -->
+                                        <input type="text" id="team-b-player-4-riot-id" value="Player 4B" class="menu" style="grid-area: 5/1; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team B Player 4 Riot ID</span>                                      
+                                            <span># (tag) in next text box</span>
+                                        </div>
+                                        <span style="grid-area: 5/2; align-self: center;">#</span>
+                                        <input type="text" id="team-b-player-4-riot-id-tag" value="004B" maxlength="5" class="menu" style="grid-area: 5/3; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team B Player 4 Riot ID</span>                                      
+                                            <span># (tag) only, 3-5 characters</span>
+                                        </div>
+                                        <input type="text" id="team-b-player-4-preferred-name" class="menu" style="grid-area: 5/5; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team B Player 4 Preferred name</span>                                      
+                                            <span>Leave empty if player goes by their Riot ID</span>
+                                        </div>
+                                        <input type="number" id="team-b-player-4-obs-position" min="0" max="9" class="menu" style="grid-area: 5/7; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team B Player 4 observer position</span>                            
+                                            <span>Changes the order of players in the advanced in game overlay, refer to observer position guide for accurate observing order</span>
+                                        </div>
+                                        <!-- Team B Player 5 -->
+                                        <input type="text" id="team-b-player-5-riot-id" value="Player 5B" class="menu" style="grid-area: 6/1; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team B Player 5 Riot ID</span>                                      
+                                            <span># (tag) in next text box</span>
+                                        </div>
+                                        <span style="grid-area: 6/2; align-self: center;">#</span>
+                                        <input type="text" id="team-b-player-5-riot-id-tag" value="005B" maxlength="5" class="menu" style="grid-area: 6/3; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team B Player 5 Riot ID</span>                                      
+                                            <span># (tag) only, 3-5 characters</span>
+                                        </div>
+                                        <input type="text" id="team-b-player-5-preferred-name" class="menu" style="grid-area: 6/5; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team B Player 5 Preferred name</span>                                      
+                                            <span>Leave empty if player goes by their Riot ID</span>
+                                        </div>
+                                        <input type="number" id="team-b-player-5-obs-position" min="0" max="9" class="menu" style="grid-area: 6/7; height: 42px; font-size: 15pt;">
+                                        <div class="help">
+                                            <span>Team B Player 5 observer position</span>                            
+                                            <span>Changes the order of players in the advanced in game overlay, refer to observer position guide for accurate observing order</span>
+                                        </div>
+                                    </div>
+                                </div>
                                 <!-- #################### Save/Reset Buttons #################### -->
                                 <label for="save-team-config" style="grid-area: 1/6;">
                                     <input type="button" id="save-team-config" class="menu">
@@ -1995,17 +2331,56 @@
                             </div> <!-- Team Config -->
 
                             <div id="igo-preview" class="grid-1-1">
-                                <div class="in-game-overlay">
-                                    <img src="assets/Valorant_Preview.png" class="grid-1-1">
-                                    <img src="assets/VCL_IGO.png" class="overlay-element grid-1-1">
-                                    <img src="assets/200x200_No_Logo.png" id="team-a-logo-igo" class="team-logo-left-igo apply-team-a-logo">
-                                    <span id="team-a-name-igo" class="team-name-left-igo apply-team-a-name"></span>
-                                    <img src="assets/map_scores/VCL_BO3_0-1.png" id="map-score" class="grid-1-1 overlay-element">
-                                    <span id="team-b-name-igo" class="team-name-right-igo apply-team-b-name"></span>
-                                    <img src="assets/200x200_No_Logo.png" id="team-b-logo-igo" class="team-logo-right-igo apply-team-b-logo">
-                                    <div class="chat-cover-igo">
-                                        <img src="" id="event-logo-igo" class="apply-event-logo" style="max-width: 430px; max-height: 110px; object-fit: contain;">
+                                <div id="in-game-overlay-simple">
+                                    <img class="grid-1-1" src="assets/Valorant_Preview.png">
+                                    <div id="in-game-overlay-layer-1">
+                                        <div style="grid-area: 1/1/2/-1; background-color: var(--frames);"></div>
+                                        <div style="grid-area: 2/1/3/4; background-color: var(--frames);"></div>
+                                        <div style="grid-area: 2/-4/3/-1; background-color: var(--frames);"></div>
+                                        <div style="grid-area: 3/1; background-color: var(--frames);"></div>
+                                        <div style="grid-area: 3/-2; background-color: var(--frames);"></div>
+                        
+                                        <div style="grid-area: 3/2; width: 0; height: 0; border-top: solid 40px var(--frames); border-right: solid 40px transparent;"></div>
+                                        <div style="grid-area: 3/-3; width: 0; height: 0; border-top: solid 40px var(--frames); border-left: solid 40px transparent;"></div>
+                                        <div style="grid-area: 2/4; width: 0; height: 0; border-top: solid 20px var(--frames); border-right: solid 20px transparent;"></div>
+                                        <div style="grid-area: 2/-5; width: 0; height: 0; border-top: solid 20px var(--frames); border-left: solid 20px transparent;"></div>
                                     </div>
+                        
+                                    <div id="in-game-overlay-layer-2">
+                                        <div style="grid-area: 1/1/2/-1; background-color: #1a1a1a;"></div>
+                                        <div style="grid-area: 2/1/3/4; background-color: #1a1a1a;"></div>
+                                        <div style="grid-area: 2/-4/3/-1; background-color: #1a1a1a;"></div>
+                                        <div style="grid-area: 3/1; background-color: #1a1a1a;"></div>
+                                        <div style="grid-area: 3/-2; background-color: #1a1a1a;"></div>
+                        
+                                        <div style="grid-area: 3/2; width: 0; height: 0; border-top: solid 40px #1a1a1a; border-right: solid 40px transparent;"></div>
+                                        <div style="grid-area: 3/-3; width: 0; height: 0; border-top: solid 40px #1a1a1a; border-left: solid 40px transparent;"></div>
+                                        <div style="grid-area: 2/4; width: 0; height: 0; border-top: solid 20px #1a1a1a; border-right: solid 20px transparent;"></div>
+                                        <div style="grid-area: 2/-5; width: 0; height: 0; border-top: solid 20px #1a1a1a; border-left: solid 20px transparent;"></div>
+                                    </div>
+                        
+                                    <div id="in-game-overlay-layer-3">
+                                        <div style="width: 0; height: 0; border-top: solid 26px var(--frames); border-left: solid 26px transparent;"></div>
+                                        <span class="apply-event-name" style="background-color: var(--frames); align-content: center; padding-left: 10px; padding-right: 10px;"></span>
+                                        <div style="width: 0; height: 0; border-top: solid 26px var(--frames); border-right: solid 26px transparent;"></div>
+                                    </div>
+                        
+                                    <div id="in-game-overlay-content">
+                                        <img src="assets/200x200_No_Logo.png" id="team-a-logo-igo" class="team-logo-left-igo apply-team-a-logo">
+                                        <span id="team-a-name-igo" class="team-name-left-igo apply-team-a-name"></span>
+                                        <img src="assets/map_scores/GEN_BO3_0-0.png" id="map-score" class="grid-1-1">
+                                        <span id="team-b-name-igo" class="team-name-right-igo apply-team-b-name"></span>
+                                        <img src="assets/200x200_No_Logo.png" id="team-b-logo-igo" class="team-logo-right-igo apply-team-b-logo">
+                                    </div>
+                        
+                                    <div id="chat-cover">
+                                        <img src="" id="event-logo-igo" class="apply-event-logo">
+                                    </div>
+                                </div> <!-- in-game-overlay-simple -->
+
+                                <div class="flex-row" style="height: 520px;">
+                                    <img src="assets/Valorant_Observer_Guide.png" style="margin-right: 20px;">
+                                    <span style="font-size: 30pt;">Observer Guide <br> If using the Advanced In Game Overlay ensure the 'OBS #' column is filled out accurately for each player according to this guide. This will re-order players on the side columns to be in order of observer hot keys (1 through 0). Make sure to update if teams swap sides BEFORE starting the lobby</span>
                                 </div>
                             </div> <!-- IGO Preview -->
 
@@ -2730,9 +3105,9 @@
                                     </label>
 
                                     <label for="dynamic-schedule" style="z-index: 1; height: 80px; width: 165px;">
-                                        <input type="radio" id="dynamic-schedule" value="2" name="schedule-selection" class="menu">
+                                        <input type="radio" id="dynamic-schedule" value="2" disabled name="schedule-selection" class="menu">
                                         <div class="input-contents" style="border-bottom-right-radius: 10px; border-top-right-radius: 10px; border-width: 5px 5px 5px 0px; border-style: solid; border-color: rgb(149, 149, 149);">
-                                            <span>Dynamic Schedule</span>
+                                            <span>Dynamic Schedule <br> (Coming Soon)</span>
                                             <div class="help">
                                                 <span>Sets the intermission schedule to alternate between the series and broadcast schedules. Best used when playing more than 1 series in a broadcast.</span>
                                             </div>

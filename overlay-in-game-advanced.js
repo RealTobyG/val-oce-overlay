@@ -65,7 +65,7 @@ function closeSocket() {
     socket.close()
 }
 
-function processGameEvent(gameEvent) {
+function processGameEvent(gameEvent, gameEventTime) {
     // Process Scoreboard
     if (gameEvent.event === "scoreboard" && currentGame.gameState !== "WaitingPostMatch") {
         gameEvent.data = JSON.parse(gameEvent.data)
@@ -79,6 +79,34 @@ function processGameEvent(gameEvent) {
                 buyPhaseToggle: 1,
                 creditsBuyPhase: 800,
             }
+            overlaySetup.teamAPlayers.forEach((player) => {
+                if (player.riotID.concat(' #', player.riotIDTag) === gameEvent.data.name) {
+                    if (player.preferredName !== "") {
+                        playerData.preferredName = player.preferredName
+                    }
+                    if (player.OBSNumber !== "") {
+                        if (Number(player.OBSNumber) === 0) {
+                            playerData.OBSNumber = 10
+                        } else {
+                            playerData.OBSNumber = Number(player.OBSNumber)
+                        }
+                    }
+                }
+            })
+            overlaySetup.teamBPlayers.forEach((player) => {
+                if (player.riotID.concat(' #', player.riotIDTag) === gameEvent.data.name) {
+                    if (player.preferredName !== "") {
+                        playerData.preferredName = player.preferredName
+                    }
+                    if (player.OBSNumber !== "") {
+                        if (Number(player.OBSNumber) === 0) {
+                            playerData.OBSNumber = 10
+                        } else {
+                            playerData.OBSNumber = Number(player.OBSNumber)
+                        }
+                    }
+                }
+            })
             currentGame.currentGamePlayers[Number(gameEvent.eventIndex)] = playerData
         }
         playerData.alive = gameEvent.data.alive
@@ -120,6 +148,8 @@ function processGameEvent(gameEvent) {
             currentGame.gameState = "CharacterSelectPersistentLevel"
             currentGame.currentGamePlayers = []
             currentGame.gameHalf = 0
+            currentGame.teamAScore = 0
+            currentGame.teamBScore = 0
         }
         console.log(`Processed Game Phase - ${gameEvent.data} | Events left to process: ${gameEventQueue.length-1}`, gameEvent)
     }
@@ -179,6 +209,7 @@ function processGameEvent(gameEvent) {
     }
 
     gameEventQueue.splice(0, 1)
+    lastProcessedGameEvent = gameEventTime
     setOverlay()
 }
 
@@ -263,6 +294,8 @@ function setOverlay() {
             document.querySelector("#overlay-heading-team-b-tri").setAttribute("class", "overlay-heading-tri apply-team-b-tri")
             document.querySelector("#overlay-heading-team-a-logo").setAttribute("class", "apply-team-a-logo")
             document.querySelector("#overlay-heading-team-b-logo").setAttribute("class", "apply-team-b-logo")
+            document.querySelector("#overlay-heading-team-a-region-seed").setAttribute("class", "overlay-heading-region-seed apply-team-a-region-seed")
+            document.querySelector("#overlay-heading-team-b-region-seed").setAttribute("class", "overlay-heading-region-seed apply-team-b-region-seed")
         } else if (overlaySetup.mapPicksSides[overlaySetup.mapNumber] === 'team-b') {
             document.querySelector("#scoreboard-team-a-heading-name").setAttribute("class", "scoreboard-team-name apply-team-b-name")
             document.querySelector("#scoreboard-team-b-heading-name").setAttribute("class", "scoreboard-team-name apply-team-a-name")
@@ -272,6 +305,8 @@ function setOverlay() {
             document.querySelector("#overlay-heading-team-b-tri").setAttribute("class", "overlay-heading-tri apply-team-a-tri")
             document.querySelector("#overlay-heading-team-a-logo").setAttribute("class", "apply-team-b-logo")
             document.querySelector("#overlay-heading-team-b-logo").setAttribute("class", "apply-team-a-logo")
+            document.querySelector("#overlay-heading-team-a-region-seed").setAttribute("class", "overlay-heading-region-seed apply-team-b-region-seed")
+            document.querySelector("#overlay-heading-team-b-region-seed").setAttribute("class", "overlay-heading-region-seed apply-team-a-region-seed")
         }
     }
     if ((overlaySetup.seriesLengthSelection === 0)) {
@@ -299,7 +334,11 @@ function setOverlay() {
         })
 
         teamAPlayersScoreboard.forEach((player, i) => {
-            document.getElementById(`scoreboard-team-a-player-${i+1}-name`).textContent = player.name
+            if (player.preferredName) {
+                document.getElementById(`scoreboard-team-a-player-${i+1}-name`).textContent = player.preferredName
+            } else {
+                document.getElementById(`scoreboard-team-a-player-${i+1}-name`).textContent = player.name.split(' #')[0]
+            }
             document.getElementById(`scoreboard-team-a-player-${i+1}-agent-icon`).src = `assets/Agents/${player.agent}_Icon.png`
             document.getElementById(`scoreboard-team-a-player-${i+1}-kills`).textContent = player.kills
             document.getElementById(`scoreboard-team-a-player-${i+1}-deaths`).textContent = player.deaths
@@ -363,7 +402,11 @@ function setOverlay() {
         })
 
         teamBPlayersScoreboard.forEach((player, i) => {
-            document.getElementById(`scoreboard-team-b-player-${i+1}-name`).textContent = player.name
+            if (player.preferredName) {
+                document.getElementById(`scoreboard-team-b-player-${i+1}-name`).textContent = player.preferredName
+            } else {
+                document.getElementById(`scoreboard-team-b-player-${i+1}-name`).textContent = player.name.split(' #')[0]
+            }
             document.getElementById(`scoreboard-team-b-player-${i+1}-agent-icon`).src = `assets/Agents/${player.agent}_Icon.png`
             document.getElementById(`scoreboard-team-b-player-${i+1}-kills`).textContent = player.kills
             document.getElementById(`scoreboard-team-b-player-${i+1}-deaths`).textContent = player.deaths
@@ -421,9 +464,22 @@ function setOverlay() {
     // ##### Set Combat Overlay #####
     // ##############################
     if (teamAPlayers.length !==0) {
-        teamAPlayers.forEach((player, i) => {
+        let teamAPlayersCombatOverlay = Array.from(teamAPlayers)
+        teamAPlayersCombatOverlay.sort((a,b) => {
+            if (a.OBSNumber && b.OBSNumber) {
+                console.log('OBS Numbers Present')
+                if (a.OBSNumber-b.OBSNumber < 0) {return -1}
+                if (a.OBSNumber-b.OBSNumber > 0) {return 1}
+            }
+            return 0
+        })
+        teamAPlayersCombatOverlay.forEach((player, i) => {
             // Sets Player Content
-            document.getElementById(`combat-overlay-team-a-player-${i+1}-name`).textContent = player.agent
+            if (player.preferredName) {
+                document.getElementById(`combat-overlay-team-a-player-${i+1}-name`).textContent = player.preferredName 
+            } else {
+                document.getElementById(`combat-overlay-team-a-player-${i+1}-name`).textContent = player.name.split(' #')[0]
+            }
             document.getElementById(`combat-overlay-team-a-player-${i+1}-agent-icon`).src = `assets/Agents/${player.agent}_Icon.png`
             // document.getElementById(`combat-overlay-team-a-player-${i+1}-kills`).textContent = player.kills
             // document.getElementById(`combat-overlay-team-a-player-${i+1}-deaths`).textContent = player.deaths
@@ -452,13 +508,17 @@ function setOverlay() {
             if (player.shield === 0 || player.shield > 2) {
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-shield`).style.display = 'none'
             } else {
-                document.getElementById(`combat-overlay-team-a-player-${i+1}-shield`).style.display = 'block'
+                // document.getElementById(`combat-overlay-team-a-player-${i+1}-shield`).style.display = 'block'
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-shield`).src = `assets/Shop/Shields_${player.shield}.png`
             }
             if (player.weapon === "") {
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-weapon`).src = `assets/Shop/knife.png`
+            } else if (player.weapon === "TX_Hud_Pistol_Luger" || player.weapon === "TX_Hud_Pistol_Slim") {
+                document.getElementById(`combat-overlay-team-a-player-${i+1}-weapon`).src = `assets/Shop/${player.weapon}.png`
+                document.getElementById(`combat-overlay-team-a-player-${i+1}-weapon`).style.marginLeft = ''
             } else {
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-weapon`).src = `assets/Shop/${player.weapon}.png`
+                document.getElementById(`combat-overlay-team-a-player-${i+1}-weapon`).style.marginLeft = '15px'
             }
             if (player.spike) {
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-spike`).style.opacity = '1'
@@ -481,7 +541,7 @@ function setOverlay() {
             } else if (player.alive) {
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-top-background`).style.background = '#0D1821'
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-observing`).style.transform = 'translateX(-32px)'
-                document.getElementById(`combat-overlay-team-a-player-${i+1}-top`).style.opacity = '1'
+                document.getElementById(`combat-overlay-team-a-player-${i+1}-top-background`).style.opacity = '0.3'
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-top`).style.transform = ''
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-trim`).style.display = 'block'
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-bottom-alive`).style.display = 'grid'
@@ -491,7 +551,7 @@ function setOverlay() {
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-agent-icon`).style.opacity = ''
             }
 
-            if (player.name === currentGame.observing) {
+            if (player.name === currentGame.observing && player.alive) {
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-top-background`).style.background = 'linear-gradient(to right, rgba(255, 233, 157, 0.7), rgba(13, 24, 33, 0.3))'
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-top-background`).style.opacity = '1'
                 document.getElementById(`combat-overlay-team-a-player-${i+1}-observing`).style.transform = ''
@@ -500,9 +560,22 @@ function setOverlay() {
     }
 
     if (teamBPlayers.length !==0) {
-        teamBPlayers.forEach((player, i) => {
+        let teamBPlayersCombatOverlay = Array.from(teamBPlayers)
+        teamBPlayersCombatOverlay.sort((a,b) => {
+            if (a.OBSNumber && b.OBSNumber) {
+                console.log('OBS Numbers Present')
+                if (a.OBSNumber-b.OBSNumber < 0) {return -1}
+                if (a.OBSNumber-b.OBSNumber > 0) {return 1}
+            }
+            return 0
+        })
+        teamBPlayersCombatOverlay.forEach((player, i) => {
             // Sets Player Content
-            document.getElementById(`combat-overlay-team-b-player-${i+1}-name`).textContent = player.agent
+            if (player.preferredName) {
+                document.getElementById(`combat-overlay-team-b-player-${i+1}-name`).textContent = player.preferredName    
+            } else {
+                document.getElementById(`combat-overlay-team-b-player-${i+1}-name`).textContent = player.name.split(' #')[0]
+            }
             document.getElementById(`combat-overlay-team-b-player-${i+1}-agent-icon`).src = `assets/Agents/${player.agent}_Icon.png`
             // document.getElementById(`combat-overlay-team-b-player-${i+1}-kills`).textContent = player.kills
             // document.getElementById(`combat-overlay-team-b-player-${i+1}-deaths`).textContent = player.deaths
@@ -531,14 +604,19 @@ function setOverlay() {
             if (player.shield === 0 || player.shield > 2) {
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-shield`).style.display = 'none'
             } else {
-                document.getElementById(`combat-overlay-team-b-player-${i+1}-shield`).style.display = 'block'
+                // document.getElementById(`combat-overlay-team-b-player-${i+1}-shield`).style.display = 'block'
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-shield`).src = `assets/Shop/Shields_${player.shield}.png`
             }
             if (player.weapon === "") {
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-weapon`).src = `assets/Shop/knife.png`
+            } else if (player.weapon === "TX_Hud_Pistol_Luger" || player.weapon === "TX_Hud_Pistol_Slim") {
+                document.getElementById(`combat-overlay-team-b-player-${i+1}-weapon`).src = `assets/Shop/${player.weapon}.png`
+                document.getElementById(`combat-overlay-team-b-player-${i+1}-weapon`).style.marginRight = ''
             } else {
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-weapon`).src = `assets/Shop/${player.weapon}.png`
+                document.getElementById(`combat-overlay-team-b-player-${i+1}-weapon`).style.marginRight = '15px'
             }
+
             if (player.spike) {
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-spike`).style.opacity = '1'
             } else {
@@ -549,7 +627,6 @@ function setOverlay() {
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-top-background`).style.background = '#0D1821'
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-observing`).style.transform = 'translateX(32px)'
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-top-background`).style.opacity = '0.3'
-                document.getElementById(`combat-overlay-team-b-player-${i+1}-top`).style.opacity = '0'
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-top`).style.transform = 'translateX(315px)'
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-trim`).style.display = 'none'
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-bottom-alive`).style.display = 'none'
@@ -560,7 +637,7 @@ function setOverlay() {
             } else if (player.alive) {
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-top-background`).style.background = '#0D1821'
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-observing`).style.transform = 'translateX(32px)'
-                document.getElementById(`combat-overlay-team-b-player-${i+1}-top`).style.opacity = '1'
+                document.getElementById(`combat-overlay-team-b-player-${i+1}-top-background`).style.opacity = '0.3'
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-top`).style.transform = ''
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-trim`).style.display = 'block'
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-bottom-alive`).style.display = 'grid'
@@ -570,8 +647,8 @@ function setOverlay() {
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-agent-icon`).style.opacity = ''
             }
 
-            if (player.name === currentGame.observing) {
-                document.getElementById(`combat-overlay-team-b-player-${i+1}-top-background`).style.background = 'linear-gradient(to right, rgba(255, 233, 157, 0.7), rgba(13, 24, 33, 0.3))'
+            if (player.name === currentGame.observing && player.alive) {
+                document.getElementById(`combat-overlay-team-b-player-${i+1}-top-background`).style.background = 'linear-gradient(to left, rgba(255, 233, 157, 0.7), rgba(13, 24, 33, 0.3))'
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-top-background`).style.opacity = '1'
                 document.getElementById(`combat-overlay-team-b-player-${i+1}-observing`).style.transform = ''
             }
@@ -628,6 +705,32 @@ function setOverlay() {
         })
     }
 
+    // Map Dots
+    if (overlaySetup.seriesLengthSelection === 0) {
+        document.getElementById('overlay-heading-team-a-map-dots').style.display = 'none'
+        document.getElementById('overlay-heading-team-b-map-dots').style.display = 'none'
+    } else if (overlaySetup.seriesLengthSelection === 1) {
+        document.getElementById('overlay-heading-team-a-map-dots').style.display = 'block'
+        document.getElementById('overlay-heading-team-b-map-dots').style.display = 'block'
+        if (document.getElementById('overlay-heading-team-a-tri').className.includes('team-a')) {
+            document.getElementById('overlay-heading-team-a-map-dots').src = `assets/map_scores/BO3_${overlaySetup.teamASeriesScore}_2.png`
+            document.getElementById('overlay-heading-team-b-map-dots').src = `assets/map_scores/BO3_${overlaySetup.teamBSeriesScore}_2.png`    
+        } else {
+            document.getElementById('overlay-heading-team-a-map-dots').src = `assets/map_scores/BO3_${overlaySetup.teamBSeriesScore}_2.png`
+            document.getElementById('overlay-heading-team-b-map-dots').src = `assets/map_scores/BO3_${overlaySetup.teamASeriesScore}_2.png`     
+        }
+    } else if (overlaySetup.seriesLengthSelection === 2) {
+        document.getElementById('overlay-heading-team-a-map-dots').style.display = 'block'
+        document.getElementById('overlay-heading-team-b-map-dots').style.display = 'block'
+        if (document.getElementById('overlay-heading-team-a-tri').className.includes('team-a')) {
+            document.getElementById('overlay-heading-team-a-map-dots').src = `assets/map_scores/BO5_${overlaySetup.teamASeriesScore}_3.png`
+            document.getElementById('overlay-heading-team-b-map-dots').src = `assets/map_scores/BO5_${overlaySetup.teamBSeriesScore}_3.png`    
+        } else {
+            document.getElementById('overlay-heading-team-a-map-dots').src = `assets/map_scores/BO5_${overlaySetup.teamBSeriesScore}_3.png`
+            document.getElementById('overlay-heading-team-b-map-dots').src = `assets/map_scores/BO5_${overlaySetup.teamASeriesScore}_3.png`     
+        }
+    }
+
     // Set Names
     const teamANameAll = document.getElementsByClassName('apply-team-a-name')
     const teamBNameAll = document.getElementsByClassName('apply-team-b-name')
@@ -658,6 +761,23 @@ function setOverlay() {
     for (const instance of caster2NameAll) {
         instance.textContent = `@${overlaySetup.caster2Name}`
     }
+    if (overlaySetup.teamARegionSeed !== "" && overlaySetup.teamBRegionSeed !== "") {
+        for (const instance of document.getElementsByClassName('apply-team-a-region-seed')) {
+            instance.textContent = overlaySetup.teamARegionSeed
+        }
+        for (const instance of document.getElementsByClassName('apply-team-b-region-seed')) {
+            instance.textContent = overlaySetup.teamBRegionSeed
+        }
+        document.getElementById('overlay-heading-team-a-region-seed').style.display = 'block'
+        document.getElementById('overlay-heading-team-b-region-seed').style.display = 'block'
+        document.getElementById('overlay-heading-team-a-tri').parentElement.style.transform = 'translateY(3px)'
+        document.getElementById('overlay-heading-team-b-tri').parentElement.style.transform = 'translateY(3px)'
+    } else {
+        document.getElementById('overlay-heading-team-a-region-seed').style.display = 'none'
+        document.getElementById('overlay-heading-team-b-region-seed').style.display = 'none'
+        document.getElementById('overlay-heading-team-a-tri').parentElement.style.transform = ''
+        document.getElementById('overlay-heading-team-b-tri').parentElement.style.transform = ''
+    }
 
     // Set Logos
     const teamALogoAll = document.getElementsByClassName('apply-team-a-logo')
@@ -686,10 +806,9 @@ function setOverlay() {
 
 let checkGameEventLog = null
 let fileHandle = null
-let gameEventLogLastModified = null
-let gameEventLogLastLength = 0
 let gameEventQueue = []
 let gameEventQueueTimeout = null
+let lastProcessedGameEvent = 0
 
 
 async function getGameEventLog() {
@@ -704,23 +823,13 @@ async function getGameEventLog() {
         })
         const fileData = await fileHandle.getFile();
         const fileText = await fileData.text()
-        if (fileText.length !== 0) {
-            document.getElementById('game-event-log-message').style.opacity = "1"
-            document.getElementById('game-event-log-message').style.backgroundColor = "darkred"
-            document.getElementById('game-event-log-message').textContent = "Please empty game event log and try again"
-            setTimeout(() => {
-                document.getElementById('game-event-log-message').style.opacity = "0"
-            }, 3000);
-        } else if (fileText.length === 0) {
-            document.getElementById('game-event-log-message').style.opacity = "1"
-            document.getElementById('game-event-log-message').style.backgroundColor = "darkgreen"
-            document.getElementById('game-event-log-message').textContent = "Game event log loaded successfully"
-            checkGameEventLog = setInterval(readGameEventLog, 200)
-            setTimeout(() => {
-                document.getElementById('game-event-log-message').style.opacity = "0"
-            }, 3000);
-        }
-        // clearGameEventLog(fileHandle, "")
+        document.getElementById('game-event-log-message').style.opacity = "1"
+        document.getElementById('game-event-log-message').style.backgroundColor = "darkgreen"
+        document.getElementById('game-event-log-message').textContent = "Game event log loaded successfully"
+        checkGameEventLog = setInterval(readGameEventLog, 200)
+        setTimeout(() => {
+            document.getElementById('game-event-log-message').style.opacity = "0"
+        }, 3000);
     } catch (error) {
         let errorMessage = `${error}`
         console.log(error)
@@ -737,36 +846,36 @@ async function getGameEventLog() {
     }
 }
 
-async function clearGameEventLog(fileHandle, contents) {
-    const writable = await fileHandle.createWritable();
-  
-    await writable.write(contents);
-  
-    await writable.close();
-}
-
 async function readGameEventLog() {
     try {
         const fileData = await fileHandle.getFile();
-        if (gameEventLogLastModified !== fileData.lastModified) {
-            gameEventLogLastModified = fileData.lastModified
-            const fileText = await fileData.text()
-            const fileTextString = fileText
-            const newEvents = fileTextString.slice(gameEventLogLastLength, fileTextString.length)
-            gameEventLogLastLength = fileTextString.length
-            if (newEvents.includes('\n')) {
-                Array.from(newEvents.split("\n")).forEach((event) => {
-                    if (event !== "") {
-                        gameEventQueue.push(event)
-                    }
-                })
-            } else if (newEvents!=="") {
-                gameEventQueue.push(newEvents)
+        const fileText = await fileData.text()
+        const fileTextString = fileText
+        if (fileTextString.includes('\n')) {
+            let allGameEvents = Array.from(fileTextString.split("\n"))
+            allGameEvents.forEach((event, i) => {
+                let splitEvent = Array.from(event.split("] "))
+                allGameEvents[i] = {
+                    eventContent: JSON.parse(splitEvent[1]),
+                    eventTime: Date.parse(splitEvent[0].slice(1))
+                }
+                if (Date.parse(splitEvent[0].slice(1)) > lastProcessedGameEvent && gameEventQueue.length < 20) {
+                    gameEventQueue.push(allGameEvents[i])
+                }
+            })
+        } else if (fileTextString !== "") {
+            let splitEvent = Array.from(fileTextString.split("] "))
+            let gameEvent = {
+                eventContent: JSON.parse(splitEvent[1]),
+                eventTime: Date.parse(splitEvent[0].slice(1))
             }
-            if (gameEventQueueTimeout === null) {
-                processGameEventQueue()
+            if (Date.parse(splitEvent[0].slice(1)) > lastProcessedGameEvent && gameEventQueue.length < 20) {
+                gameEventQueue.push(gameEvent)
             }
-        } 
+        }
+        if (gameEventQueueTimeout === null) {
+            processGameEventQueue()
+        }
     } catch (error) {
         console.log('Read Error', error)
     }
@@ -775,15 +884,7 @@ async function readGameEventLog() {
 
 function processGameEventQueue() {
     if (gameEventQueue.length !== 0) {
-        console.log(gameEventQueue[0])
-        try {
-            gameEventQueue[0] = JSON.parse(gameEventQueue[0].split("] ")[1])
-        } catch (error) {
-            console.error(error)
-            gameEventQueueTimeout = null
-        }
-        
-        processGameEvent(gameEventQueue[0])
+        processGameEvent(gameEventQueue[0].eventContent, gameEventQueue[0].eventTime)
         gameEventQueueTimeout = setInterval(processGameEventQueue, 100)
     } else {
         gameEventQueueTimeout = null
