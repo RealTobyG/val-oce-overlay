@@ -1,8 +1,12 @@
 let socket
 let overlaySetup = {}
 let currentGame = {
+    gameMode: "",
+    localPlayer: false,
     gameState: "InProgress",
     roundPhase: "combat",
+    buyPhaseToggle: 0,
+    buyPhaseMoney: [],
     spikeState: "SpikeNotPlanted",
     observing: "",
     teamAScore: 0,
@@ -76,7 +80,6 @@ function processGameEvent(gameEvent, gameEventTime) {
                 playerID: gameEvent.data.player_id,
                 agent: gameEvent.data.character,
                 team: gameEvent.data.team === 1?"team-a":"team-b",
-                buyPhaseToggle: 1,
                 creditsBuyPhase: 800,
             }
             overlaySetup.teamAPlayers.forEach((player) => {
@@ -108,6 +111,12 @@ function processGameEvent(gameEvent, gameEventTime) {
                 }
             })
             currentGame.currentGamePlayers[Number(gameEvent.eventIndex)] = playerData
+            if (gameEvent.data.is_local) {
+                currentGame.gameHalf--
+                currentGame.localPlayer = true
+            } else {
+                currentGame.localPlayer = false
+            }
         }
         playerData.alive = gameEvent.data.alive
         playerData.kills = gameEvent.data.kills
@@ -120,9 +129,14 @@ function processGameEvent(gameEvent, gameEventTime) {
         playerData.weapon = gameEvent.data.weapon
         playerData.spike = gameEvent.data.spike
 
-        if (playerData.buyPhaseToggle === 1) {
-            playerData.creditsBuyPhase = gameEvent.data.money
-            playerData.buyPhaseToggle = 0
+        if (currentGame.roundPhase === "shopping" && currentGame.buyPhaseToggle === 1) {
+            let playerBuyPhaseMoney = {
+                index: Number(gameEvent.eventIndex),
+                money: gameEvent.data.money,
+                name: gameEvent.data.name,
+            }
+            currentGame.buyPhaseMoney.push(playerBuyPhaseMoney)
+            processBuyPhaseMoney()
         }
         
         console.log(`Processed ${playerData.team} player-${Number(gameEvent.eventIndex)} ${playerData.agent} | Events left to process: ${gameEventQueue.length-1}`, playerData)
@@ -131,13 +145,9 @@ function processGameEvent(gameEvent, gameEventTime) {
     // Process Round Phase
     if (gameEvent.event === "round_phase") {
         currentGame.roundPhase = gameEvent.data
-        if (gameEvent.data === "game_start") {
-            for (const player of currentGame.currentGamePlayers) {
-                if (player) {
-                    player.buyPhaseToggle = 1
-                }
-            }
+        if (gameEvent.data === "shopping") {
             currentGame.spikeState = "SpikeNotPlanted"
+            currentGame.buyPhaseToggle = 1
         }
         console.log(`Processed ${gameEvent.event} - ${gameEvent.data} | Events left to process: ${gameEventQueue.length-1}`, gameEvent)
     }
@@ -176,10 +186,20 @@ function processGameEvent(gameEvent, gameEventTime) {
         console.log(`Processed Game Score - ${gameEvent.data.team_1}-${gameEvent.data.team_0} | Events left to process: ${gameEventQueue.length-1}`, gameEvent)
     }
 
+    // Game Mode
+    if (gameEvent.event === "game_mode") {
+        gameEvent.data = JSON.parse(gameEvent.data)
+        currentGame.gameMode = gameEvent.data.mode
+        console.log(`Processed Game Mode - ${gameEvent.data.mode} | Events left to process: ${gameEventQueue.length-1}`, gameEvent)
+    }
+
     // Process Round Number
     if (gameEvent.event === "round_number") {
         currentGame.roundNumber = Number(gameEvent.data)
-        if (Number(gameEvent.data === 13) || Number(gameEvent.data > 24)) {
+        if ((currentGame.localPlayer === false) && (currentGame.gameMode === 'spike') && (Number(gameEvent.data === 13) || Number(gameEvent.data > 24))) {
+            currentGame.gameHalf++
+        }
+        if ((currentGame.localPlayer === false) && (currentGame.gameMode === 'swift') && (Number(gameEvent.data === 5))) {
             currentGame.gameHalf++
         }
         console.log(`Processed Round Number - ${gameEvent.data} | Events left to process: ${gameEventQueue.length-1}`, gameEvent)
@@ -214,6 +234,40 @@ function processGameEvent(gameEvent, gameEventTime) {
     gameEventQueue.splice(0, 1)
     lastProcessedGameEvent = gameEventTime
     setOverlay()
+}
+
+function processBuyPhaseMoney() {
+    let indexCounter = 0
+    let buyPhaseMoneyRejected = false
+    currentGame.buyPhaseMoney.forEach((player) => {
+        if (player.index === indexCounter) {
+            indexCounter++
+        } else {
+            buyPhaseMoneyRejected = true
+        }
+    })
+    if (indexCounter === 10) {
+        currentGame.currentGamePlayers.forEach((player) => {
+            for (playerMoney of currentGame.buyPhaseMoney) {
+                if (player.name === playerMoney.name) {
+                    player.creditsBuyPhase = playerMoney.money
+                    console.log(`${player.name} buy phase money set to ${player.creditsBuyPhase}`)
+                }
+            }
+            // currentGame.buyPhaseMoney.forEach((playerMoney) => {
+            //     if (player.name === playerMoney.name) {
+            //         player.creditsBuyPhase === playerMoney.money
+                    
+            //     }
+            // })
+        })
+        currentGame.buyPhaseToggle = 0
+        console.log('Buy Phase Money Array Accepted', currentGame.buyPhaseMoney)
+        currentGame.buyPhaseMoney = []
+    } else if (buyPhaseMoneyRejected === true) {
+        console.log('Buy Phase Money Array Rejected', currentGame.buyPhaseMoney)
+        currentGame.buyPhaseMoney = []
+    }
 }
 
 function setOverlay() {
@@ -383,13 +437,12 @@ function setOverlay() {
                 document.getElementById(`scoreboard-team-a-player-${i+1}-weapon`).src = `assets/Shop/${player.weapon}.png`
             }
             document.getElementById(`scoreboard-team-a-player-${i+1}-credits`).textContent = player.credits
-            // if (player.creditsBuyPhase-player.credits === 0) {
-            //     document.getElementById(`scoreboard-team-a-player-${i+1}-spent-credits`).parentElement.style.display = 'none'
-            // } else {
-            //     document.getElementById(`scoreboard-team-a-player-${i+1}-spent-credits`).parentElement.style.display = 'flex'
-            //     document.getElementById(`scoreboard-team-a-player-${i+1}-spent-credits`).textContent = player.creditsBuyPhase-player.credits
-            // }
-            document.getElementById(`scoreboard-team-a-player-${i+1}-spent-credits`).parentElement.style.display = 'none'
+            if (player.creditsBuyPhase-player.credits === 0 || currentGame.buyPhaseToggle === 1) {
+                document.getElementById(`scoreboard-team-a-player-${i+1}-spent-credits`).parentElement.style.display = 'none'
+            } else if (currentGame.buyPhaseToggle === 0) {
+                document.getElementById(`scoreboard-team-a-player-${i+1}-spent-credits`).parentElement.style.display = 'flex'
+                document.getElementById(`scoreboard-team-a-player-${i+1}-spent-credits`).textContent = player.creditsBuyPhase-player.credits
+            }
         });
     }
 
@@ -452,16 +505,14 @@ function setOverlay() {
                 document.getElementById(`scoreboard-team-b-player-${i+1}-weapon`).src = `assets/Shop/${player.weapon}.png`
             }
             document.getElementById(`scoreboard-team-b-player-${i+1}-credits`).textContent = player.credits
-            // if (player.creditsBuyPhase-player.credits === 0) {
-            //     document.getElementById(`scoreboard-team-b-player-${i+1}-spent-credits`).parentElement.style.display = 'none'
-            //     document.getElementById(`scoreboard-team-b-player-${i+1}-credits-spacer`).style.display = 'none'
-            // } else {
-            //     document.getElementById(`scoreboard-team-b-player-${i+1}-spent-credits`).parentElement.style.display = 'flex'
-            //     document.getElementById(`scoreboard-team-b-player-${i+1}-spent-credits`).textContent = player.creditsBuyPhase-player.credits
-            //     document.getElementById(`scoreboard-team-b-player-${i+1}-credits-spacer`).style.display = 'block'
-            // }
-            document.getElementById(`scoreboard-team-b-player-${i+1}-spent-credits`).parentElement.style.display = 'none'
-            document.getElementById(`scoreboard-team-b-player-${i+1}-credits-spacer`).style.display = 'none'
+            if (player.creditsBuyPhase-player.credits === 0 || currentGame.buyPhaseToggle === 1) {
+                document.getElementById(`scoreboard-team-b-player-${i+1}-spent-credits`).parentElement.style.display = 'none'
+                document.getElementById(`scoreboard-team-b-player-${i+1}-credits-spacer`).style.display = 'none'
+            } else if (currentGame.buyPhaseToggle === 0) {
+                document.getElementById(`scoreboard-team-b-player-${i+1}-spent-credits`).parentElement.style.display = 'flex'
+                document.getElementById(`scoreboard-team-b-player-${i+1}-spent-credits`).textContent = player.creditsBuyPhase-player.credits
+                document.getElementById(`scoreboard-team-b-player-${i+1}-credits-spacer`).style.display = 'block'
+            }
         });
     }
 
