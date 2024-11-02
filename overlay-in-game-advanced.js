@@ -112,11 +112,8 @@ function processGameEvent(gameEvent, gameEventTime) {
             })
             currentGame.currentGamePlayers[Number(gameEvent.eventIndex)] = playerData
             if (gameEvent.data.is_local) {
-                currentGame.gameHalf--
                 currentGame.localPlayer = true
-            } else {
-                currentGame.localPlayer = false
-            }
+            } 
         }
         playerData.alive = gameEvent.data.alive
         playerData.kills = gameEvent.data.kills
@@ -157,9 +154,10 @@ function processGameEvent(gameEvent, gameEventTime) {
         if (gameEvent.data === "CharacterSelectPersistentLevel") {
             currentGame.gameState = "CharacterSelectPersistentLevel"
             currentGame.currentGamePlayers = []
-            currentGame.gameHalf = 1
+            currentGame.gameHalf = 0
             currentGame.teamAScore = 0
             currentGame.teamBScore = 0
+            currentGame.localPlayer = false
         }
         console.log(`Processed Game Phase - ${gameEvent.data} | Events left to process: ${gameEventQueue.length-1}`, gameEvent)
     }
