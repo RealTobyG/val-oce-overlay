@@ -946,5 +946,9 @@ function processGameEventQueue() {
     }
 }
 
+function swapSides() {
+    currentGame.gameHalf++
+}
 
 document.getElementById('load-game-event-log').addEventListener('click', getGameEventLog)
+document.getElementById('emergency-side-swap').addEventListener('click', swapSides)
