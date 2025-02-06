@@ -423,7 +423,7 @@ function setOverlay() {
                 document.getElementById(`scoreboard-team-a-player-${i+1}-ult-inactive`).style.display = 'flex'
                 document.getElementById(`scoreboard-team-a-player-${i+1}-ult-dots`).style.display = 'block'
             }
-            if (player.shield === 0 || player.shield > 2) {
+            if (player.shield === 0 || player.shield === 3) {
                 document.getElementById(`scoreboard-team-a-player-${i+1}-shields`).style.display = 'none'
             } else {
                 document.getElementById(`scoreboard-team-a-player-${i+1}-shields`).style.display = 'block'
@@ -491,7 +491,7 @@ function setOverlay() {
                 document.getElementById(`scoreboard-team-b-player-${i+1}-ult-inactive`).style.display = 'flex'
                 document.getElementById(`scoreboard-team-b-player-${i+1}-ult-dots`).style.display = 'block'
             }
-            if (player.shield === 0 || player.shield > 2) {
+            if (player.shield === 0 || player.shield === 3) {
                 document.getElementById(`scoreboard-team-b-player-${i+1}-shields`).style.display = 'none'
             } else {
                 document.getElementById(`scoreboard-team-b-player-${i+1}-shields`).style.display = 'block'

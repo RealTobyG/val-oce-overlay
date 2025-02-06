@@ -79,8 +79,8 @@ const defaultSettings = {
     seriesLengthSelection: 1,
     mapPoolSelection: 0,
     teamIdentifierSelection: 0,
-    mapBans: ['Abyss', 'Ascent', 'Icebox', 'Lotus'],
-    mapPicks: ['Bind', 'Haven', 'Sunset'],
+    mapBans: ['Abyss', 'Abyss', 'Abyss', 'Abyss'],
+    mapPicks: ['Abyss', 'Abyss', 'Abyss'],
     mapBansTeams: ['team-a', 'team-b', 'team-a', 'team-b'],
     mapPicksTeams: ['team-a', 'team-b'],
     mapPicksSides: ['team-a', 'team-a', 'team-a'],
@@ -309,7 +309,7 @@ const exampleSettings = {
     ],
     // Map Veto Config
     seriesLengthSelection: 1,
-    mapPoolSelection: 0,
+    mapPoolSelection: 1,
     teamIdentifierSelection: 0,
     mapBans: ['Abyss', 'Ascent', 'Haven', 'Lotus'],
     mapPicks: ['Icebox', 'Sunset', 'Bind'],
@@ -1111,16 +1111,16 @@ document.getElementsByName('team-identifier-selection').forEach((option) => {
 // ############################################################
 const mapData = [
     {mapName: "Abyss", mapPool: true},
-    {mapName: "Ascent", mapPool: true},
+    {mapName: "Ascent", mapPool: false},
     {mapName: "Bind", mapPool: true},
     {mapName: "Breeze", mapPool: false},
-    {mapName: "Fracture", mapPool: false},
+    {mapName: "Fracture", mapPool: true},
     {mapName: "Haven", mapPool: true},
     {mapName: "Icebox", mapPool: false},
-    {mapName: "Lotus", mapPool: false},
+    {mapName: "Lotus", mapPool: true},
     {mapName: "Pearl", mapPool: true},
     {mapName: "Split", mapPool: true},
-    {mapName: "Sunset", mapPool: true},
+    {mapName: "Sunset", mapPool: false},
 ]
 let mapPoolSelection = 0
 
@@ -2465,6 +2465,7 @@ document.getElementById('bottom-bar-text-size-selection').addEventListener('chan
 // #################### Saving Settings ####################
 // #########################################################
 const currentSettings = {
+    accountUser: null,
     menuSelection: 1,
     // Teams Config
     teamAName: "Team A",
@@ -2878,6 +2879,7 @@ function onPageLoad() {
         const access_token = tokens.access_token;
         const accessTokenContent = auth.parseJWTPayload(access_token);
         var userName = accessTokenContent.username;
+        currentSettings.accountUser = userName
         api.setAccessToken(access_token);
 
         document.getElementById('sign-in-button-contents').children[0].innerHTML = `Log out` + '<br>' + `Currently signed in to ${userName}`
