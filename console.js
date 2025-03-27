@@ -1110,13 +1110,13 @@ document.getElementsByName('team-identifier-selection').forEach((option) => {
 // #################### Map Pool Selection ####################
 // ############################################################
 const mapData = [
-    {mapName: "Abyss", mapPool: true},
-    {mapName: "Ascent", mapPool: false},
-    {mapName: "Bind", mapPool: true},
+    {mapName: "Abyss", mapPool: false},
+    {mapName: "Ascent", mapPool: true},
+    {mapName: "Bind", mapPool: false},
     {mapName: "Breeze", mapPool: false},
     {mapName: "Fracture", mapPool: true},
     {mapName: "Haven", mapPool: true},
-    {mapName: "Icebox", mapPool: false},
+    {mapName: "Icebox", mapPool: true},
     {mapName: "Lotus", mapPool: true},
     {mapName: "Pearl", mapPool: true},
     {mapName: "Split", mapPool: true},
@@ -2896,6 +2896,7 @@ async function getOverlaySetup() {
         setupData = await api.readOverlaySetup()
     }
     restoreFromSettings(setupData.overlaySetup)
+    document.getElementById('gradient-background-link').href = `https://val-community-caster-overlay.pages.dev/overlay-background?token=${setupData.token}`                            
     document.getElementById('in-game-overlay-link').href = `https://val-community-caster-overlay.pages.dev/overlay-in-game?token=${setupData.token}`                            
     document.getElementById('map-veto-overlay-link').href =`https://val-community-caster-overlay.pages.dev/overlay-map-veto?token=${setupData.token}`
     document.getElementById('intermission-overlay-link').href = `https://val-community-caster-overlay.pages.dev/overlay-intermission?token=${setupData.token}`
@@ -2912,3 +2913,10 @@ document.getElementById('reset-overlay-config').addEventListener('click', () => 
 document.getElementById('reset-intermission-config').addEventListener('click', () => {restoreIntermission(defaultSettings)})
 document.getElementById('reset-console').addEventListener('click', () => {restoreFromSettings(defaultSettings)})
 restoreFromSettings(defaultSettings)
+
+
+// Exsto Athena Series Temp
+
+const exstoSetup = '{"accountUser":"testaccount","menuSelection":1,"teamAName":"Exsto Gaming GC","teamATri":"EXG","teamARegionSeed":"","teamALogo":"https://files.catbox.moe/tcjrzh.png","teamANoLogo":0,"teamAPlayers":[{"riotID":"","riotIDTag":"","preferredName":"","OBSNumber":""},{"riotID":"","riotIDTag":"","preferredName":"","OBSNumber":""},{"riotID":"","riotIDTag":"","preferredName":"","OBSNumber":""},{"riotID":"","riotIDTag":"","preferredName":"","OBSNumber":""},{"riotID":"","riotIDTag":"","preferredName":"","OBSNumber":""}],"teamBName":"Noob Esports","teamBTri":"NOOB","teamBRegionSeed":"","teamBLogo":"https://files.catbox.moe/l48wnl.png","teamBNoLogo":0,"teamBPlayers":[{"riotID":"","riotIDTag":"","preferredName":"","OBSNumber":""},{"riotID":"","riotIDTag":"","preferredName":"","OBSNumber":""},{"riotID":"","riotIDTag":"","preferredName":"","OBSNumber":""},{"riotID":"","riotIDTag":"","preferredName":"","OBSNumber":""},{"riotID":"","riotIDTag":"","preferredName":"","OBSNumber":""}],"seriesLengthSelection":1,"mapPoolSelection":0,"teamIdentifierSelection":0,"mapBans":["Haven","Pearl","Split","Icebox"],"mapPicks":["Ascent","Lotus","Fracture"],"mapBansTeams":["team-a","team-b","team-a","team-b"],"mapPicksTeams":["team-a","team-b"],"mapPicksSides":["team-a","team-a","team-a"],"mapScores":[13,11,11,13,0,0],"mapWinners":["team-a","team-b"],"teamASeriesScore":1,"teamBSeriesScore":1,"mapNumber":2,"currentMap":"Fracture","intermissionState":0,"deadline":null,"eventName":"Exsto Athena Series","eventLogo":"https://files.catbox.moe/5ci3jg.png","eventNoLogo":0,"castersSelection":1,"caster1Name":"Atlas","caster2Name":"CthulhuANZ","overlaySelection":2,"bg1":"#170202","bg2":"#4b1111","bg3":"#231515","bg4":"#462b35","bga1":"#a80000","bga2":"#cc0029","frames":"#e2032c","bottomBarSelection":1,"chatCommandsSelection":1,"bottomBarTextSizeSelection":1,"scheduleSelection":0,"numberOfMatches":4,"sbg1":"#1a1a1a","sbg2":"#3a3a3a","matchEnd":"Ending Soon","matchSchedule":[{"teamASelection":1,"teamALogo":"assets/200x200_No_Logo.png","teamANoLogo":1,"teamATri":"TMA","teamBSelection":1,"teamBLogo":"assets/200x200_No_Logo.png","teamBNoLogo":1,"teamBTri":"TMB","seriesLengthSelection":0,"teamAScore":0,"teamBScore":0,"matchHeading":""},{"teamASelection":0,"teamALogo":"assets/200x200_No_Logo.png","teamANoLogo":1,"teamATri":"TMA","teamBSelection":0,"teamBLogo":"assets/200x200_No_Logo.png","teamBNoLogo":1,"teamBTri":"TMB","seriesLengthSelection":0,"teamAScore":0,"teamBScore":0,"matchHeading":""},{"teamASelection":0,"teamALogo":"assets/200x200_No_Logo.png","teamANoLogo":1,"teamATri":"TMA","teamBSelection":0,"teamBLogo":"assets/200x200_No_Logo.png","teamBNoLogo":1,"teamBTri":"TMB","seriesLengthSelection":0,"teamAScore":0,"teamBScore":0,"matchHeading":""},{"teamASelection":0,"teamALogo":"assets/200x200_No_Logo.png","teamANoLogo":1,"teamATri":"TMA","teamBSelection":0,"teamBLogo":"assets/200x200_No_Logo.png","teamBNoLogo":1,"teamBTri":"TMB","seriesLengthSelection":0,"teamAScore":0,"teamBScore":0,"matchHeading":""},{"teamASelection":0,"teamALogo":"assets/200x200_No_Logo.png","teamANoLogo":1,"teamATri":"TMA","teamBSelection":0,"teamBLogo":"assets/200x200_No_Logo.png","teamBNoLogo":1,"teamBTri":"TMB","seriesLengthSelection":0,"teamAScore":0,"teamBScore":0,"matchHeading":""},{"teamASelection":0,"teamALogo":"assets/200x200_No_Logo.png","teamANoLogo":1,"teamATri":"TMA","teamBSelection":0,"teamBLogo":"assets/200x200_No_Logo.png","teamBNoLogo":1,"teamBTri":"TMB","seriesLengthSelection":0,"teamAScore":0,"teamBScore":0,"matchHeading":""}]}'
+
+document.getElementById('apply-athena-series-theme').addEventListener('click', () => {restoreFromSettings(JSON.parse(exstoSetup))})

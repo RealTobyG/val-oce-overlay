@@ -14,7 +14,14 @@ let currentGame = {
     roundNumber: 0,
     gameHalf: 0,
     currentGamePlayers: [],
+    playersMoney: []
 }
+
+let gameEventQueueWebhook = []
+let gameEventQueueWebhookTimeout = null
+let processedGameEvents = []
+
+
 function onPageLoad() {
     openSocket()
 }
@@ -33,13 +40,21 @@ function openSocket() {
         if (serverMessage.overlay) {
             overlaySetup = serverMessage.overlay
             console.log(overlaySetup)   
+            setOverlay()
         }
-        // if (serverMessage.gameEvent) {
-        //     let gameEvent = serverMessage.gameEvent
-        //     console.log(gameEvent.event, gameEvent)
-        //     processGameEvent(gameEvent)
-        // }
-        setOverlay()
+        if (serverMessage.gameEvent) {
+            let gameEvent = serverMessage.gameEvent
+            // console.log(gameEvent.event, gameEvent)
+            processedGameEvents.push({time: gameEvent.time, event: gameEvent.event})
+            // processGameEvent(gameEvent)
+
+            gameEventQueueWebhook.push({event: gameEvent, time: gameEvent.time})
+
+            if (gameEventQueueWebhookTimeout === null) {
+                processGameEventQueueWebHook()
+            }
+        }
+        // setOverlay()
     };
 
     socket.onclose = function (event) {
@@ -54,6 +69,19 @@ function openSocket() {
     socket.onerror = function (error) {
         console.log(`[error]`);
     };
+}
+
+function processGameEventQueueWebHook() {
+    if (gameEventQueueWebhook.length !== 0) {
+        gameEventQueueWebhook.sort((a, b) => {
+          return a.time-b.time
+        })
+        processGameEvent(gameEventQueueWebhook[0].event)
+        // processedGameEvents.push(gameEventQueueWebhook[0].time)
+        gameEventQueueWebhookTimeout = setInterval(processGameEventQueueWebHook, 100)
+    } else {
+        gameEventQueueWebhookTimeout = null
+    }
 }
 
 async function getOverlay() {
@@ -135,6 +163,16 @@ function processGameEvent(gameEvent, gameEventTime) {
             currentGame.buyPhaseMoney.push(playerBuyPhaseMoney)
             processBuyPhaseMoney()
         }
+
+        if (currentGame.roundPhase === "shopping") {
+          currentGame.playersMoney[Number(gameEvent.eventIndex)] = gameEvent.data.money
+        }
+
+        if (currentGame.roundPhase === "combat" && gameEvent.data.money !== currentGame.playersMoney[Number(gameEvent.eventIndex)]) {
+          console.log(currentGame.playersMoney, gameEvent.data.money)
+          currentGame.spikeState = "SpikePlanted"
+          processedGameEvents.push(`Spike Planted Round ${currentGame.roundNumber}`)
+        }
         
         console.log(`Processed ${playerData.team} player-${Number(gameEvent.eventIndex)} ${playerData.agent} | Events left to process: ${gameEventQueue.length-1}`, playerData)
     }
@@ -213,14 +251,17 @@ function processGameEvent(gameEvent, gameEventTime) {
     // Process Spike Events
     if (gameEvent.event === "spike_planted") {
         currentGame.spikeState = "SpikePlanted"
+        processedGameEvents.push(gameEvent)
         console.log(`Processed ${gameEvent.event} | Events left to process: ${gameEventQueue.length-1}`, gameEvent)
     }
     if (gameEvent.event === "spike_detonated") {
         currentGame.spikeState = "SpikeDetonated"
+        processedGameEvents.push(gameEvent)
         console.log(`Processed ${gameEvent.event} | Events left to process: ${gameEventQueue.length-1}`, gameEvent)
     }
     if (gameEvent.event === "spike_defused") {
         currentGame.spikeState = "SpikeDefused"
+        processedGameEvents.push(gameEvent)
         console.log(`Processed ${gameEvent.event} | Events left to process: ${gameEventQueue.length-1}`, gameEvent)
     }
 
@@ -230,6 +271,7 @@ function processGameEvent(gameEvent, gameEventTime) {
     }
 
     gameEventQueue.splice(0, 1)
+    gameEventQueueWebhook.splice(0, 1)
     lastProcessedGameEvent = gameEventTime
     setOverlay()
 }
@@ -948,6 +990,7 @@ function processGameEventQueue() {
 
 function swapSides() {
     currentGame.gameHalf++
+    setOverlay()
 }
 
 document.getElementById('load-game-event-log').addEventListener('click', getGameEventLog)
