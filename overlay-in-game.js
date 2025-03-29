@@ -146,12 +146,24 @@ function setOverlay() {
             teamALogoIGO.setAttribute("class", "team-logo-right-igo apply-team-a-logo")
             teamBLogoIGO.setAttribute("class", "team-logo-left-igo apply-team-b-logo")
         }
+    } else if (overlaySetup.seriesLengthSelection === 0) {
+      if (overlaySetup.mapPicksSides[0] === 'team-a') {
+          teamBNameIGO.setAttribute("class", "team-name-right-igo apply-team-b-name")
+          teamANameIGO.setAttribute("class", "team-name-left-igo apply-team-a-name")
+          teamBLogoIGO.setAttribute("class", "team-logo-right-igo apply-team-b-logo")
+          teamALogoIGO.setAttribute("class", "team-logo-left-igo apply-team-a-logo")
+      } else if (overlaySetup.mapPicksSides[0] === 'team-b') {
+          teamANameIGO.setAttribute("class", "team-name-right-igo apply-team-a-name")
+          teamBNameIGO.setAttribute("class", "team-name-left-igo apply-team-b-name")
+          teamALogoIGO.setAttribute("class", "team-logo-right-igo apply-team-a-logo")
+          teamBLogoIGO.setAttribute("class", "team-logo-left-igo apply-team-b-logo")
+      }
     }
 
     // Setting score dots on IGO
     const mapScoreIGO = document.getElementById('map-score')
     if (overlaySetup.seriesLengthSelection === 0) {
-        mapScoreIGO.style.display = none
+        mapScoreIGO.style.display = "none"
     } else if ((overlaySetup.seriesLengthSelection === 1) && (overlaySetup.teamASeriesScore<2 && overlaySetup.teamBSeriesScore<2)) {
         mapScoreIGO.src = `assets/map_scores/GEN_BO3_${seriesScore}.png`
     } else if ((overlaySetup.seriesLengthSelection === 2) && (overlaySetup.teamASeriesScore<3 && overlaySetup.teamBSeriesScore<3)) {
