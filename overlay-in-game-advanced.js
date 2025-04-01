@@ -45,13 +45,13 @@ function openSocket() {
         if (serverMessage.gameEvent) {
             let gameEvent = serverMessage.gameEvent
             // console.log(gameEvent.event, gameEvent)
-            processedGameEvents.push({time: gameEvent.time, event: gameEvent.event})
             // processGameEvent(gameEvent)
+            processedGameEvents.push({time: gameEvent.time, event: gameEvent.event})
 
             gameEventQueueWebhook.push({event: gameEvent, time: gameEvent.time})
 
             if (gameEventQueueWebhookTimeout === null) {
-                processGameEventQueueWebHook()
+              gameEventQueueWebhookTimeout = setInterval(processGameEventQueueWebHook, 100)
             }
         }
         // setOverlay()
