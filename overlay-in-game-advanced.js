@@ -899,6 +899,18 @@ function setOverlay() {
     document.documentElement.style.setProperty('--bga1', `${overlaySetup.bga1}`)
     document.documentElement.style.setProperty('--bga2', `${overlaySetup.bga2}`)
     document.documentElement.style.setProperty('--frames', `${overlaySetup.frames}`)
+
+    // Sponsor Logo
+    if (overlaySetup.sponsorLogo) {
+      document.getElementById('sponsor-logo-igo').src = overlaySetup.sponsorLogo
+      if (sponsorLogoTimer === null) {
+        sponsorLogoTimer = setTimeout(setSponsorLogo, 10000)
+      }
+    } else {
+      sponsorLogoTimer = null
+      document.getElementById('event-logo-igo').style.opacity = 1
+      document.getElementById('sponsor-logo-igo').style.opacity = 0
+    }
 }
 
 let checkGameEventLog = null
@@ -995,3 +1007,21 @@ function swapSides() {
 
 document.getElementById('load-game-event-log').addEventListener('click', getGameEventLog)
 document.getElementById('emergency-side-swap').addEventListener('click', swapSides)
+
+let sponsorLogoTimer = null
+let sponsorLogoState = 0
+
+function setSponsorLogo() {
+  if (sponsorLogoState === 0) {
+    document.getElementById('event-logo-igo').style.opacity = 0
+    document.getElementById('sponsor-logo-igo').style.opacity = 1
+
+    sponsorLogoState = 1
+  } else {
+    document.getElementById('event-logo-igo').style.opacity = 1
+    document.getElementById('sponsor-logo-igo').style.opacity = 0
+    sponsorLogoState = 0
+  }
+
+  sponsorLogoTimer = setTimeout(setSponsorLogo, 10000)
+}

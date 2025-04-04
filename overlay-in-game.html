@@ -128,7 +128,8 @@
 
         #chat-cover {
             grid-area: 1/1;
-            display: flex;
+            display: grid;
+            grid-template: 133px/463px;
             margin: 937px 0px 0px 22px;
             width: 463px;
             height: 133px;
@@ -140,10 +141,14 @@
             border-top: solid 10px var(--frames);
         }
 
-        #event-logo-igo {
+        #event-logo-igo, #sponsor-logo-igo  {
+            grid-area: 1/1;
+            align-self: center;
+            justify-self: center;
             max-height: 110px;
             max-width: 425px;
             object-fit: contain;
+            transition: 1s;
         }
 
     </style>
@@ -195,6 +200,7 @@
 
             <div id="chat-cover">
                 <img src="" id="event-logo-igo" class="apply-event-logo">
+                <img src="" id="sponsor-logo-igo" style=" opacity: 0;">
             </div>
         </div> <!-- in-game-overlay-simple -->
 

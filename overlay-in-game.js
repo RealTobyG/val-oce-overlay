@@ -169,4 +169,34 @@ function setOverlay() {
     } else if ((overlaySetup.seriesLengthSelection === 2) && (overlaySetup.teamASeriesScore<3 && overlaySetup.teamBSeriesScore<3)) {
         mapScoreIGO.src = `assets/map_scores/GEN_BO5_${seriesScore}.png`
     }
+    
+    // Sponsor Logo
+    if (overlaySetup.sponsorLogo) {
+      document.getElementById('sponsor-logo-igo').src = overlaySetup.sponsorLogo
+      if (sponsorLogoTimer === null) {
+        sponsorLogoTimer = setTimeout(setSponsorLogo, 10000)
+      }
+    } else {
+      sponsorLogoTimer = null
+      document.getElementById('event-logo-igo').style.opacity = 1
+      document.getElementById('sponsor-logo-igo').style.opacity = 0
+    }
+}
+
+let sponsorLogoTimer = null
+let sponsorLogoState = 0
+
+function setSponsorLogo() {
+  if (sponsorLogoState === 0) {
+    document.getElementById('event-logo-igo').style.opacity = 0
+    document.getElementById('sponsor-logo-igo').style.opacity = 1
+
+    sponsorLogoState = 1
+  } else {
+    document.getElementById('event-logo-igo').style.opacity = 1
+    document.getElementById('sponsor-logo-igo').style.opacity = 0
+    sponsorLogoState = 0
+  }
+
+  sponsorLogoTimer = setTimeout(setSponsorLogo, 10000)
 }

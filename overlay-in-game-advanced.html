@@ -263,15 +263,21 @@
         }
 
         #overlay-heading-sponsor-area {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: grid;
+            grid-template: 90px/240px;
+            width: 240px;
+            height: 90px;
             background-color: rgba(13, 24, 33, 0.8);
         }
 
         #overlay-heading-sponsor-area img {
+            grid-area: 1/1;
+            justify-self: center;
+            align-self: center;
             max-width: 200px;
             max-height: 70px;
+            object-fit: contain;
+            transition: 1s;
         }
 
 
@@ -682,7 +688,8 @@
                     </div>
 
                     <div id="overlay-heading-sponsor-area">
-                        <img class="apply-event-logo" src="">
+                        <img id="event-logo-igo" class="apply-event-logo" src="">
+                        <img src="" id="sponsor-logo-igo" style="opacity: 0;">
                     </div>
                 </div>
             </div> <!-- overlay-heading -->
