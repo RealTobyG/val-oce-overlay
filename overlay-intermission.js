@@ -526,7 +526,20 @@ function setOverlay() {
         countdownTimer()
         countdown = setInterval(countdownTimer, 1000)
     }
+
+    // Hide Intermission Video
+    if (document.querySelector('#hide-bg-video').checked) {
+      for (const video of document.querySelectorAll('.video')) {
+        video.style.display = 'none'
+      }
+    } else {
+      for (const video of document.querySelectorAll('.video')) {
+        video.style.display = 'block'
+      }
+    }
 }
+
+
 
 function intermissionDefault() {
     if (timer !=null) {
