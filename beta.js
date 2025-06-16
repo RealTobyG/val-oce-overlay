@@ -20,16 +20,16 @@ const ChatCommandsSelection = document.querySelector("#chat-commands-selection")
 const BottomBarTextSizeSelection = document.querySelector("#bottom-bar-text-size-selection")
 
 const mapData = [
-    {mapname: "Abyss", mappool: true},
+    {mapname: "Abyss", mappool: false},
     {mapname: "Ascent", mappool: true},
-    {mapname: "Bind", mappool: true},
+    {mapname: "Bind", mappool: false},
     {mapname: "Breeze", mappool: false},
     {mapname: "Fracture", mappool: false},
     {mapname: "Haven", mappool: true},
     {mapname: "Icebox", mappool: true},
     {mapname: "Lotus", mappool: true},
-    {mapname: "Pearl", mappool: false},
-    {mapname: "Split", mappool: false},
+    {mapname: "Pearl", mappool: true},
+    {mapname: "Split", mappool: true},
     {mapname: "Sunset", mappool: true},
 ]
 
