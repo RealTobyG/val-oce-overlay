@@ -311,8 +311,8 @@ const exampleSettings = {
     seriesLengthSelection: 1,
     mapPoolSelection: 1,
     teamIdentifierSelection: 0,
-    mapBans: ['Abyss', 'Ascent', 'Haven', 'Lotus'],
-    mapPicks: ['Icebox', 'Sunset', 'Bind'],
+    mapBans: ['Pearl', 'Ascent', 'Haven', 'Lotus'],
+    mapPicks: ['Icebox', 'Sunset', 'Split'],
     mapBansTeams: ['team-b', 'team-a', 'team-b', 'team-a'],
     mapPicksTeams: ['team-b', 'team-a'],
     mapPicksSides: ['team-a', 'team-b', 'team-a'],
@@ -322,7 +322,7 @@ const exampleSettings = {
     teamASeriesScore: 0,
     teamBSeriesScore: 0,
     mapNumber: 0,
-    currentMap: "Bind",
+    currentMap: "Split",
     intermissionState: 0,
     deadline: null,
     // Event/Casters Config
@@ -1120,13 +1120,13 @@ const mapData = [
     {mapName: "Ascent", mapPool: true},
     {mapName: "Bind", mapPool: false},
     {mapName: "Breeze", mapPool: false},
-    {mapName: "Fracture", mapPool: true},
+    {mapName: "Fracture", mapPool: false},
     {mapName: "Haven", mapPool: true},
     {mapName: "Icebox", mapPool: true},
     {mapName: "Lotus", mapPool: true},
     {mapName: "Pearl", mapPool: true},
     {mapName: "Split", mapPool: true},
-    {mapName: "Sunset", mapPool: false},
+    {mapName: "Sunset", mapPool: true},
 ]
 let mapPoolSelection = 0
 
