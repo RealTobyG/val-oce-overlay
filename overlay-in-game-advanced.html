@@ -560,6 +560,42 @@
             height: 20px;
         }
 
+        /* round-win graphic */
+        #round-win-graphic {
+            position: fixed;
+            left: 50%;
+            top: 40%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 1s ease, top 1s ease;
+            z-index: 1000;
+        }
+
+        #round-win-graphic.visible {
+            opacity: 1;
+            top: 50%;
+        }
+        .round-win-container {
+            background: linear-gradient(135deg, #ff4655, #101823);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+        }
+        .round-win-container img {
+            width: 60px;
+            height: 60px;
+        }
+        .round-win-text {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .round-win-number {
+            font-size: 18px;
+            margin-top: 8px;
+        }
+                
+
     </style>
 </head>
 
