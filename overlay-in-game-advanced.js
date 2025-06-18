@@ -31,8 +31,7 @@ function openSocket() {
   let urlParams = new URLSearchParams(document.location.search);
   let token = "5163918191";
   socket = new WebSocket(
-    `wss://7o4cyso8n2.execute-api.ap-southeast-2.amazonaws.com/production/?token=${token}`
-  ); // Replace Token with URL Query/known token
+    `wss://7o4cyso8n2.execute-api.ap-southeast-2.amazonaws.com/production/?token=${token}`); // Replace Token with URL Query/known token
   socket.onopen = function (e) {
     console.log("Socket Open Success");
     socket.send(JSON.stringify({ action: "get" }));
